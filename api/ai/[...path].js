@@ -117,6 +117,10 @@ async function handleMessages(request, origin) {
   const anthroKey = process.env.ANTHROPIC_KEY;
   if (!anthroKey) return jsonResp({ error: 'anthropic_key_missing' }, origin, 500);
 
+  // Always stream from Anthropic. Vercel Edge enforces a 25-30s wall-clock
+  // limit on non-streaming Edge function responses, but allows long-running
+  // streaming responses (headers fire within ~1s; body trickles). Sonnet 4.6
+  // generating 1500+ tokens routinely exceeds the non-streaming limit.
   const t0 = Date.now();
   const upstream = await fetch(ANTHROPIC_URL, {
     method: 'POST',
@@ -124,37 +128,76 @@ async function handleMessages(request, origin) {
       'x-api-key': anthroKey,
       'anthropic-version': '2023-06-01',
       'Content-Type': 'application/json',
+      'Accept': 'text/event-stream',
     },
     body: JSON.stringify({
       model: body.model || 'claude-sonnet-4-6',
       max_tokens: body.max_tokens || 1500,
       messages: body.messages,
+      stream: true,
       ...(body.system ? { system: body.system } : {}),
     }),
   });
-  const elapsed = Date.now() - t0;
-  const upstreamText = await upstream.text();
   if (!upstream.ok) {
-    return new Response(upstreamText || JSON.stringify({ error: 'anthropic_upstream', status: upstream.status }), {
+    const errText = await upstream.text();
+    return new Response(errText || JSON.stringify({ error: 'anthropic_upstream', status: upstream.status }), {
       status: upstream.status === 429 ? 429 : 502,
       headers: { ...corsHeaders(origin), 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
     });
   }
-  let parsed;
-  try { parsed = JSON.parse(upstreamText); } catch (_) { parsed = null; }
-  if (parsed) {
-    supabaseInsert('usage_events', {
-      user_id: user.id,
-      event_type: 'ai_message',
-      tokens_in: parsed.usage?.input_tokens || null,
-      tokens_out: parsed.usage?.output_tokens || null,
-      model: parsed.model || body.model || 'claude-sonnet-4-6',
-      ms_elapsed: elapsed,
-    }).catch(() => {});
-  }
-  return new Response(upstreamText, {
+  // Tee the upstream stream: one half flows to the client; the other half is
+  // consumed asynchronously to extract token-usage telemetry without blocking
+  // the response. usage_events insert is fire-and-forget.
+  const [streamForClient, streamForLog] = upstream.body.tee();
+  (async () => {
+    try {
+      const reader = streamForLog.getReader();
+      const decoder = new TextDecoder();
+      let usage = null;
+      let modelName = null;
+      let buffer = '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const events = buffer.split('\n\n');
+        buffer = events.pop();
+        for (const ev of events) {
+          const dataLine = ev.split('\n').find(l => l.startsWith('data:'));
+          if (!dataLine) continue;
+          try {
+            const d = JSON.parse(dataLine.slice(5).trim());
+            if (d.type === 'message_start') {
+              if (d.message?.usage) usage = { ...d.message.usage };
+              if (d.message?.model) modelName = d.message.model;
+            }
+            if (d.type === 'message_delta' && d.usage) {
+              usage = { ...(usage || {}), ...d.usage };
+            }
+          } catch (_) {}
+        }
+      }
+      if (usage) {
+        await supabaseInsert('usage_events', {
+          user_id: user.id,
+          event_type: 'ai_message',
+          tokens_in: usage.input_tokens || null,
+          tokens_out: usage.output_tokens || null,
+          model: modelName || body.model || 'claude-sonnet-4-6',
+          ms_elapsed: Date.now() - t0,
+        });
+      }
+    } catch (_) {}
+  })();
+  return new Response(streamForClient, {
     status: 200,
-    headers: { ...corsHeaders(origin), 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+    headers: {
+      ...corsHeaders(origin),
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache, no-transform',
+      'Connection': 'keep-alive',
+      'X-Accel-Buffering': 'no',
+    },
   });
 }
 

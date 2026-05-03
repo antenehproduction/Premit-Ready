@@ -1032,7 +1032,11 @@ function drawMapOverlay(lat,lon,z){
 async function fetchOSMBuildings(lat,lon){
   try{
     const q=`[out:json][timeout:12];(way["building"](around:150,${lat},${lon}););out geom;`;
-    const r=await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);
+    // Route via /api/overpass when a proxy is reachable — overpass-api.de
+    // intermittently returns 406 + missing CORS headers from non-localhost
+    // browser origins. Falls through to direct fetch in standalone (Claude.ai
+    // iframe / file:// where no proxy is configured).
+    const r=await proxyFetch(`/overpass?data=${encodeURIComponent(q)}`,`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);
     const d=await r.json();
     S.osmBuildings=d.elements||[];
     L.info(`OSM: ${S.osmBuildings.length} existing buildings`);
@@ -1322,7 +1326,7 @@ async function runPhase_record(){
   if(S.lat&&S.lon){
     try{
       const q=`[out:json][timeout:15];(way["building"](around:80,${S.lat},${S.lon});way["landuse"](around:80,${S.lat},${S.lon});node["addr:housenumber"](around:30,${S.lat},${S.lon}););out geom tags;`;
-      const r=await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);
+      const r=await proxyFetch(`/overpass?data=${encodeURIComponent(q)}`,`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);
       const d=await r.json();S.osmBuildings=d.elements||[];
       if(S.osmBuildings.length){
         osmFound=true;

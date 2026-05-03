@@ -946,8 +946,27 @@ window.ZONING_MATRIX_DB = {
   // expressed in a district-level standards matrix.
 };
 
-// Normalize + look up
+// Normalize + look up.
+// Tolerates dash↔space variants in the district name (round 5n / issue #1
+// fix): site-intel often returns "RSA-6" while the matrix key is "RSA 6".
+// Returns the matched key when found, otherwise the canonical-form key
+// (consumer treats null match as no override).
 window.zoningMatrixKey = function(jurisdiction, state, district) {
   if (!jurisdiction || !district) return null;
-  return `${String(jurisdiction).toLowerCase()},${String(state||'').toLowerCase()}:${district}`;
+  const j = String(jurisdiction).toLowerCase().trim();
+  const s = String(state || '').toLowerCase().trim();
+  const d = String(district).trim();
+  // Generate candidate district variants: original, dashes→spaces,
+  // spaces→dashes, no-separators, normalized whitespace.
+  const variants = [];
+  const seen = new Set();
+  for (const v of [d, d.replace(/-/g, ' '), d.replace(/\s+/g, '-'), d.replace(/[\s-]+/g, ''), d.replace(/\s+/g, ' ')]) {
+    if (!seen.has(v)) { seen.add(v); variants.push(v); }
+  }
+  for (const v of variants) {
+    const key = `${j},${s}:${v}`;
+    if (window.ZONING_MATRIX_DB && window.ZONING_MATRIX_DB[key]) return key;
+  }
+  // No match — return canonical-form key (caller will see undefined override)
+  return `${j},${s}:${d}`;
 };

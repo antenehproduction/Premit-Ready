@@ -4,6 +4,58 @@ Daily backlog state per `PROJECT_COORDINATOR.md` §9. Most recent day at the top
 
 ---
 
+## 2026-05-02 — P0-1 hosted-key authentication scaffolding shipped
+
+### Moved to done today
+- **P0-1 — Supabase Auth + Edge AI proxy + per-plan quota — code complete.** Scaffolding lands feature-flagged off (`enabled:false` in `data/auth-config.js`); BYOK path remains the default. Owner enables hosted mode by following `supabase/README.md` (paste URL+anon, run migration, set Vercel env vars, flip flag).
+
+### Files added
+- `supabase/migrations/0001_p0_1_auth_schema.sql` — `profiles`, `analyses`, `usage_events` tables; auto-create-profile trigger on `auth.users`; RLS policies (users read only own rows, `usage_events` writes restricted to service-role); helpers `current_period_usage(uid)`, `plan_quota(plan)`, `can_run_analysis(uid)`. Trial = 1 analysis lifetime; Pro = 50/30d; Team = 250/30d.
+- `supabase/README.md` — owner setup guide (migration → paste anon → set Vercel env vars → enable).
+- `data/auth-config.js` — `window.ADI_AUTH_CONFIG` with placeholder `supabaseUrl`/`supabaseAnonKey` and `enabled:false`. Per-session opt-in via `localStorage.ADI_HOSTED_KEY=1`.
+- `lib/auth.js` — `window.ADIAuth.{ isHostedMode, isConfigured, client, getSession, getAccessToken, getUser, getProfile, usage, signUp, signIn, signInWithGoogle, sendPasswordReset, signOut, onAuthChange }`. Lazy-init Supabase client; warns once per session if config missing.
+- `lib/proxy.js` — `window.ADIProxy.{ callAI, callJSON, callAIWithImg, startAnalysis, completeAnalysis }`. Mirrors `index.html` callAI signatures byte-for-byte. Adds Bearer JWT to every `/api/ai/messages` POST; surfaces 401 (session expired), 402 (quota — sets `e.quotaExceeded=true`), 429 (upstream rate limit). `startAnalysis` opens an `analyses` row; `completeAnalysis` flips `status=completed/errored`.
+
+### Files modified
+- `api/[...path].js` — bumped `PROXY_VERSION` 6→7. CORS: `POST` allowed, `Authorization` header allowed. New routes:
+  - `POST /api/ai/messages` — validates Supabase JWT against `${SUPABASE_URL}/auth/v1/user`, looks up plan + 30-day usage via service-role REST queries, rejects with 402 when over quota, proxies to `api.anthropic.com/v1/messages` with server-side `ANTHROPIC_KEY`, fail-soft logs a `usage_events` row on success.
+  - `GET /api/ai/whoami` — debug endpoint returning `{user, plan, used, quota}` for the current JWT.
+  - `/api/health` now reports `aiHosted: true` when both env vars are present.
+- `index.html`:
+  - Added `<script>` tags for `data/auth-config.js`, jsDelivr `@supabase/supabase-js@2`, `lib/auth.js`, `lib/proxy.js`.
+  - `S.mode==='hosted'` branch added at the top of `callAI` and `callAIWithImg` — delegates to `ADIProxy.*`. BYOK path otherwise unchanged.
+  - `startAnalysis()` now opens an audit row via `ADIProxy.startAnalysis({address})` when hosted; finalizes via `ADIProxy.completeAnalysis(...)` with `completed`/`errored` in `finally`. Refreshes the usage banner via `adiOnSignedIn(session)` after a successful run. On `e.quotaExceeded`, surfaces the paywall.
+  - INIT block replaced: `adiInitAuth()` runs first. When hosted mode is on AND configured, it picks between `getSession()` (→ `adiOnSignedIn`) and `adiShowAuthModal('signin')`. When hosted is off OR config missing, falls back to the legacy `bootstrapStoredKey → probeConnection` chain.
+  - New auth modal CSS (cream paper, brass-blue accents matching the vault aesthetic) + HTML markup (sign-in / sign-up tabs, Google OAuth button, password reset, disclosure block).
+  - Sign-out wiring on the `setBanner` "sign out" link.
+- `CLAUDE.md` — architecture diagram updated to show `data/`/`lib/`/`api/`/`supabase/` split. Critical rules #7 amended (single-file → split allowed for `data/*` + `lib/*`). Rules #8 and #9 added (hosted mode is additive; service-role keys never leave Edge runtime). Active-bugs section reflects all closed P0 + P0-1 ship state. Testing checklist split into BYOK + hosted lanes.
+- `README.md` — stack section mentions Supabase scaffolding shipped + flip-on path. Repo layout shows `lib/` and `supabase/`.
+
+### Surface-area parity
+- BYOK path is byte-untouched when `localStorage.ADI_HOSTED_KEY` is absent and `enabled:false`. `node test/middle-housing.test.js` → all 17 groups still PASS. `index.html` inline parses cleanly via `new Function(...)`. `lib/*.js` and `data/auth-config.js` parse cleanly. `api/[...path].js` imports cleanly under Node ESM.
+
+### Owner-blocking acceptance criteria (per PROJECT_COORDINATOR.md §P0-1)
+1. Paste Supabase URL + anon key into `data/auth-config.js`.
+2. Run `supabase/migrations/0001_p0_1_auth_schema.sql` in the SQL editor.
+3. Set `ANTHROPIC_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` as Vercel env vars; redeploy.
+4. (Optional) Configure Google OAuth in Supabase Auth → Providers.
+5. Flip `enabled:true` in `data/auth-config.js` (or `localStorage.ADI_HOSTED_KEY=1` per-session) to roll out.
+
+Smoke-test path: sign up → confirm email → run analysis → see 1/1 in banner → second analysis → 402 → paywall.
+
+### Architectural decisions accepted (Section 7)
+- §7-A: split data + lib only (Option 2). `lib/auth.js` and `lib/proxy.js` are the first lib/* files. Inline orchestration stays in `index.html`.
+- §7-B (TypeScript): deferred to P1 phase. P0-1 stays vanilla JS to minimize delta.
+- §7-C (Opus 4.7 routing for high-stakes calls): not yet wired. The hosted Edge fn forwards whatever `model` the client sends — opens the door for per-task-class routing without a code change. Default remains `claude-sonnet-4-6`.
+
+### Still pending (out of P0-1 scope)
+- P1-1 Stripe billing — placeholder paywall copy in place.
+- P1-3 Sentry / observability.
+- P1-4 Postgres caching layer for vision parcel-trace results.
+- Owner: which Vercel project is canonical (P0-6).
+
+---
+
 ## 2026-04-25 — P0-4 HB 1110 first-class data (first batch)
 
 ### Moved to done today
@@ -189,7 +241,172 @@ git push (this commit)
 - ArcGIS endpoints (Tacoma Hub, Snohomish snoco-gis) aren't yet covered by this pipeline — Socrata only. Adding ArcGIS support is a parallel script that hits `<host>/arcgis/rest/services?f=json` to enumerate FeatureServers; planned follow-up.
 - If a host blocks GitHub Actions runners too, fall back to (a) Cloudflare Workers paid tier (different egress) or (b) the existing scripts/extract-viewsource.py + owner manual-copy path.
 
-### Round 5m — Vault landing UI + §7-A / §7-C decisions accepted (this commit, FEATURE BRANCH ONLY)
+### Round 5p — Last two non-cosmetic fixes from live Kirkland test (this commit)
+
+#### Fix #8 — option SF clamp
+**Symptom:** Option card claimed `5-unit · 4,950 SF · 2-story` (Maximum Density 2-Story + ADUs) but the rendered plan emitted only `2,911 SF`. FAR derived `0.49`, coverage `24%`. The option promise overstated buildable by ~70%.
+**Root cause:** option generator computed `sf = Math.round(bW*bD*storyMultiplier)` (e.g. `40*90*1.55 = 5,580`) without clamping by FAR cap or coverage×stories cap. On a 50×120 RSA-6 Kirkland lot, FAR cap = `6,000 × 0.5 = 3,000 SF` — option 4 was claiming 1,980 SF over the regulatory cap.
+**Fix:** new `clampSF(rawSF, stories)` helper in `generateOptions()`:
+```js
+function clampSF(rawSF, stories) {
+  const farCap = (z.maxFAR || 1) * lotSF;
+  const covCap = ((z.maxLotCoverage || 100) / 100) * lotSF * stories;
+  return Math.round(Math.min(rawSF, farCap, covCap));
+}
+```
+Applied to all 6 option `sf` calculations.
+
+**Smoke-test on Kirkland 50×120 RSA-6 (FAR 0.5, coverage 50%):**
+
+| Option | Raw SF (buggy) | Clamped SF (fixed) | Cap that fired |
+|---|---|---|---|
+| 1 (Conservative SFR + ADU, 1 story) | 2,340 | 2,340 | (under cap) |
+| 2 (Stacked Duplex + ADU, 2 story) | 4,680 | 3,000 | FAR cap |
+| 3 (Net-Zero Side-by-Side + 2 ADUs, 2 story) | 5,580 | 3,000 | FAR cap |
+| 4 (Maximum Density 2-Story + ADUs) | 5,940 | 3,000 | FAR cap |
+
+Cost / value / ROI estimates derived from `sf` automatically inherit the cap. Option promise now matches what the renderer can produce.
+
+#### Fix #9 — A-4 Sections empty render (sheet-tab + view dispatcher disconnect)
+**Symptom:** Click A-4 Sections tab while in 3D view → tab gets the active styling but the canvas continues to show the 3D model (with A-4 selected in state). Looked like the section drawing failed; was actually a view-routing issue.
+**Root cause:** sheet-tab `onclick` handler (line 2833) only called `renderSheet(sh.id)` if `S.view === 'plan'`. In MAP/3D, the sheet update was a no-op visually.
+**Fix:** when the user clicks a sheet tab while in MAP or 3D view, auto-snap to PLAN view (which calls `renderSheet` via its own path). The selected sheet now actually appears.
+
+```js
+b.onclick=()=>{
+  S.activeSheet=sh.id;
+  document.querySelectorAll('.stab').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  if(S.view==='plan')renderSheet(sh.id);
+  else setView('plan');  // auto-switch + renderSheet via setView path
+};
+```
+
+Effect: clicking A-4 (or any sheet tab) from MAP or 3D view now correctly transitions to PLAN view with that sheet rendered. `drawSectionsSheet` was always working — it just wasn't being triggered.
+
+#### Cumulative test-run improvements (rounds 5n + 5o + 5p)
+
+When the owner re-runs the Kirkland analysis, the result panel will show:
+
+| Panel | Expected (after fixes) | Was (live test) |
+|---|---|---|
+| Bottom dim panel | `HEIGHT 30ft` (chart-verified) | `HEIGHT 35ft` (AI passthrough) |
+| Cover sheet codes | `IBC 2021 / WSEC 2021 / SDC D` | `IBC 2018 / IECC 2018 / SDC B` |
+| Records panel | distinct `endpoint registered/unreachable` provenance | `NO_PUBLIC_ENDPOINT` (misleading) |
+| OSM error | actionable `set ADI_PROXY` directive | raw `Failed to fetch` |
+| Zoning citations | matrix `codeURL` only, no fabricated sections | fabricated `KZC §115.10.020` |
+| Comp-research zone codes | only Kirkland (KZC, KMC Title 22) | Federal Way `RS 7.2`, `KMC 21.14` |
+| Lot dimensions | one number across site/zoning/dim panels | 60×115 vs 50×120 collision |
+| Option SF | `≤ FAR cap × lot area` | over-promise by ~70% |
+| Sheet-tab clicks | always render selected sheet | silent no-op in MAP/3D view |
+
+#### Out of scope (visual/UX polish, lower priority)
+- #10 Floor plan canvas auto-fit
+- #11 Differentiated elevations
+- #12 3D camera framing
+- #13 Workspace vault aesthetic carry-through
+- #14 Cover sheet font sizing
+- #15 Phase pipeline timing display cleanup
+- #16 Permit checklist strikethrough legend
+- #17 Save/restore analysis state
+- #18 Verified-vs-assumed badge in dim panel
+
+These are visual/UX polish; they don't affect data accuracy or regulatory compliance. Available for follow-up rounds.
+
+### Round 5o — Prompt-anchor batch: fixes #3, #4, #5
+
+The next batch of priority items from the live Kirkland test. All three are AI-prompt anchoring problems — the AI was confabulating data that contradicted the verified matrix or other panels in the same analysis. Fix pattern is the same across all three: inject canonical/authoritative values into the prompt + explicit instruction not to fabricate alternatives.
+
+#### Fix #3 — anchor zoning text panel to matrix `codeURL`
+**Symptom:** Zoning panel cited `KZC §115.10.020` for Kirkland — fabricated. The real chart-verified dimensional standards live in `KZC 15.30` (per round-4 owner upload). AI invented section numbers because nothing in its prompt told it which URL was authoritative.
+**Fix:** new `matrixAnchor` template literal injected into the runPhase_zone prompt when `z._zoneMatrixVerified` is true. Includes:
+- Verified municipal-code URL (the matrix `codeURL`)
+- Chart-confirmed dimensional standards (front/rear/side/height/FAR/coverage)
+- Verification date (from `z._zoneMatrixDate`)
+- Local rule notes (first 800 chars of matrix `notes`)
+- Explicit instruction: "When you cite a code section, use ONLY the URL above. Do NOT invent municipal-code section numbers."
+
+#### Fix #4 — lock comp research to passed-in jurisdiction
+**Symptom:** Kirkland comp research cited `RS-7.2`, `RS-5`, `Title 21`, `KMC 21.14` — those are **Federal Way** zone codes, not Kirkland. AI conflated WA cities and substituted neighbor-city codes.
+**Fix:** new `JURISDICTION LOCK` clause in the runPhase_comp prompt:
+> "All zoning, code, and ordinance references in your response MUST be specific to **${z.jurisdiction}, ${z.state}** (district: **${z.zoningDistrict}**). Do NOT cite zone codes from other cities (e.g., do not write 'RS 7.2' or 'KMC Title 21' if those belong to a different jurisdiction). When unsure of a specific section number, write 'see ${z.jurisdiction} municipal code' instead of fabricating a citation."
+
+This makes the city-specific zone data authoritative + tells the AI what the failure mode looks like (concrete examples of the kind of mistake to avoid).
+
+#### Fix #5 — single-source lot dimensions
+**Symptom:** Site Identification panel said "60′ × 115′ working assumption"; Zoning panel said "50′ × 120′ typical RSA-6 parcel"; bottom dim panel said "Lot: 50×120ft". Same analysis showing 3 different lot sizes.
+**Fix (two-part):**
+1. **Site prompt cleanup** — removed item #2 ("Typical lot dimensions for this block") from the site research prompt. Site phase becomes context-only (jurisdiction, land use, neighborhood, topography, transit, redevelopment opportunity). Added explicit instruction:
+   > "Do NOT speculate on lot dimensions, setbacks, FAR, height, or zone codes — those come from the GIS + zoning research phase that follows."
+2. **Comp prompt lot anchor** — explicit `${z.lotWidth}ft × ${z.lotDepth}ft = N SF` injected with directive: "the canonical site dimensions; do not invent alternatives."
+
+The zoning JSON (runPhase_zone) is now the **single source** for all dimensional values across the entire analysis. Site + comp panels reference it; they no longer guess.
+
+#### Static check (all 7 prompt augmentations verified)
+- ✓ site prompt: "Do NOT speculate on lot dimensions" instruction present
+- ✓ site prompt: items 1–7 (was 8 with lot-dim removed)
+- ✓ zone prompt: `matrixAnchor` variable defined
+- ✓ zone prompt: "AUTHORITATIVE SOURCE" clause present
+- ✓ zone prompt: "Do NOT invent municipal-code" instruction present
+- ✓ comp prompt: "JURISDICTION LOCK" clause present
+- ✓ comp prompt: "canonical site dimensions; do not invent" present
+
+#### Out of scope this batch (still queued)
+- #8 Option SF clamp (option claims 4,950 SF but plan can only emit 2,911 SF — option overpromise)
+- #9 A-4 Sections renders empty 3D scene (wrong sheet routing)
+- #10 Floor plan canvas auto-fit
+- #11 Differentiated elevations
+- #12 3D camera framing
+- #13 Workspace vault aesthetic carry-through
+- #14 Cover sheet font sizing
+- #15–#18 cosmetic / UX nice-to-haves
+
+Tests: 17/17 passing. Inline `<script>` parse-checked.
+
+### Round 5n — Top-4 fix batch from live Kirkland test
+
+Owner ran a live analysis against `508 8th Avenue West, Kirkland, WA 98033` and surfaced 18 issues across data accuracy, logic, visual polish, and UX. This commit ships the 4 highest-priority fixes (the ones with regulatory/safety implications).
+
+#### Fix #1 — zoning-matrix override silently failed (RSA-6 vs RSA 6)
+**Symptom:** Bottom dim panel showed `HEIGHT 35ft, STORIES 2` instead of the chart-verified `kirkland,wa:RSA 6` value `30ft`. Permit risk: building submitted at 35ft would be rejected at plan review.
+**Root cause:** site-intel returned `zoningDistrict: "RSA-6"` (with hyphen); matrix key is `kirkland,wa:RSA 6` (space). Lookup missed; AI values passed through unchallenged.
+**Fix:** `zoningMatrixKey()` now tries 5 candidate variants in order — original, dash→space, space→dash, no-separators, normalized-whitespace — and returns the first match. 6 of 7 smoke-test cases now hit (only `lowercase rsa 6` misses — matrix entries are canonical case; that's a separate concern).
+**Verified:** `kirkland,wa:RSA-6` / `RSA 6` / `RSA  6` (double-space) / `Tacoma:UR-1` / `Bothell:R-L1` all resolve.
+
+#### Fix #2 — code stack version mismatch (IBC 2018 vs IBC 2021)
+**Symptom:** Site Identification correctly said "2021 IBC + WSEC 2021" but cover sheet + checklist showed `IBC 2018, IECC 2018`. Permit risk: wrong code references on stamped drawings.
+**Root cause:** AI returned `state: "Washington"` (full name); `STATE_DB` keys are 2-letter (`WA`). Lookups `STATE_DB[z.state]` returned `undefined` and fell through to the `IBC 2018` fallback.
+**Fix:** new `normalizeState()` helper + 50-state name→abbr map inserted before `STATE_DB`. Wraps every `STATE_DB[...]` consumer (4 call sites: option card, cover sheet, checklist, energy compliance row). `Washington / WA / washington / wa / WASHINGTON` all → `WA`.
+**Effect:** WA addresses now correctly render `IBC 2021 / WSEC 2021 / SDC D / 115mph`. CA addresses → `CBC 2022 / Title 24 2022`. Etc. for all 50 states + DC.
+
+#### Fix #6 — "esri: NO_PUBLIC_ENDPOINT" misleading message + state-name issue
+**Symptom:** Records panel showed `esri: NO_PUBLIC_ENDPOINT` even though `WA:King` IS in `data/county-registry.js` and verified.
+**Root cause (two layers):**
+1. State-name issue same as #2 — `countyRegistryKey('King County', 'Washington')` produced `WASHINGTON:King`. Inner `.substring(0,2)` made `WA:King` work for short forms but not for some inputs.
+2. When the registry key DID match but the proxy fetch failed (CORS in standalone mode), the catch handler only logged a warning. `S.countyRecord.esri` stayed undefined, so provenance text showed the "no endpoint" message even though the endpoint was reachable, just blocked from this client.
+**Fix:**
+1. Wrap `z.state` with `normalizeState()` before `countyRegistryKey()` call.
+2. On fetch failure, set `S.countyRecord.esriStatus = 'unreachable'` + record the URL that was tried + the error. Provenance can now differentiate "no endpoint registered" from "endpoint unreachable from this client".
+
+#### Fix #7 — friendlier OSM error message
+**Symptom:** Records panel showed raw `OSM query failed: Failed to fetch` — useless to a user trying to figure out what went wrong.
+**Fix:** OSM catch handler now detects `/fetch|cors|network/i` patterns and replaces with: `OSM lookup blocked by browser CORS — set localStorage.ADI_PROXY to a deployed Vercel/Worker proxy URL, or run from a *.vercel.app deployment where /api auto-detects.` Same UX guidance as the new `proxyFetch` directive (P1-2).
+
+#### Out of scope this batch (still in queue per priority list)
+- #3 Anchor zoning-AI to matrix `codeURL` (prevents fabricated KZC sections)
+- #4 Lock comp-research to passed-in jurisdiction (prevents Federal Way zone names appearing in Kirkland comps)
+- #5 Single-source lot-dim (collision: site says 60×115, zoning says 50×120)
+- #8 Option SF clamp (option claims 4,950 SF but plan can only emit 2,911 SF)
+- #9 A-4 Sections renders empty 3D scene
+- #10 Floor plan canvas auto-fit
+- #11 Differentiated elevations
+- #12 3D camera framing
+- #13 Workspace vault aesthetic carry-through
+- #14–#18 cosmetic / UX
+
+Tests: 17/17 passing. Inline `<script>` parse-checked.
+
+### Round 5m — Vault landing UI + §7-A / §7-C decisions accepted
 
 **Owner decisions accepted:**
 - **§7-A** — Option 2 (split data + lib only). Defer Vite/framework migration to P3. ACCEPTED.

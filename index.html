@@ -371,6 +371,28 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
   #landing.vault .brand,
   #landing.vault .scroll-paper{animation:none}
 }
+
+/* ═══ P0-1 hosted-key auth modal ═══ */
+#auth-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,12,20,.78);backdrop-filter:blur(6px);z-index:10000}
+#auth-modal .auth-card{width:380px;max-width:92vw;background:#fffdf3;color:#14213d;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5);padding:28px 30px;font-family:var(--serif,Crimson Pro,serif)}
+#auth-modal .auth-title{font-size:18px;font-weight:600;letter-spacing:.5px;margin:0 0 4px}
+#auth-modal .auth-sub{font-size:11px;color:rgba(20,33,61,.65);margin:0 0 18px}
+#auth-modal .auth-tabs{display:flex;gap:0;border-bottom:1px solid rgba(20,33,61,.18);margin-bottom:14px}
+#auth-modal .auth-tab{flex:1;padding:9px 10px;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;cursor:pointer;color:rgba(20,33,61,.55);border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--mono,monospace)}
+#auth-modal .auth-tab.active{color:#14213d;border-bottom-color:#0e3d8a}
+#auth-modal label{display:block;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:rgba(20,33,61,.65);margin:10px 0 4px;font-family:var(--mono,monospace)}
+#auth-modal input{width:100%;padding:9px 10px;background:#fff;border:1px solid rgba(20,33,61,.25);border-radius:5px;color:#14213d;font-size:13px;font-family:inherit;box-sizing:border-box}
+#auth-modal input:focus{outline:none;border-color:#0e3d8a;box-shadow:0 0 0 2px rgba(14,61,138,.15)}
+#auth-modal .auth-btn{display:block;width:100%;margin-top:14px;padding:11px;background:#0e3d8a;color:#fffdf3;border:none;border-radius:5px;font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;cursor:pointer;font-family:var(--mono,monospace)}
+#auth-modal .auth-btn:hover{background:#0a2d6a}
+#auth-modal .auth-btn.alt{background:#fff;color:#14213d;border:1px solid rgba(20,33,61,.3);margin-top:8px}
+#auth-modal .auth-btn.alt:hover{background:#f5f1e3}
+#auth-modal .auth-msg{margin:10px 0 0;font-size:11px;min-height:14px;color:#14213d}
+#auth-modal .auth-foot{margin-top:14px;font-size:10px;color:rgba(20,33,61,.55);display:flex;justify-content:space-between;align-items:center}
+#auth-modal .auth-foot a{color:#0e3d8a;cursor:pointer;text-decoration:none}
+#auth-modal .auth-foot a:hover{text-decoration:underline}
+#auth-modal .auth-divider{text-align:center;font-size:9px;letter-spacing:1px;color:rgba(20,33,61,.45);margin:10px 0;text-transform:uppercase;font-family:var(--mono,monospace)}
+#auth-modal .auth-disclosure{margin-top:14px;padding-top:12px;border-top:1px solid rgba(20,33,61,.12);font-size:9px;line-height:1.45;color:rgba(20,33,61,.6)}
 </style>
 </head>
 <body>
@@ -523,6 +545,48 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
   </div>
 </div>
 
+<!-- ═══ P0-1 auth modal (hosted-key path only) ═══ -->
+<div id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+  <div class="auth-card">
+    <h2 id="auth-title" class="auth-title">ArchDraw Intel</h2>
+    <p class="auth-sub">Sign in to run a new permit analysis. Your free trial covers 1 analysis.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="auth-tab-signin" onclick="adiSwitchAuthTab('signin')">Sign in</button>
+      <button class="auth-tab" id="auth-tab-signup" onclick="adiSwitchAuthTab('signup')">Create account</button>
+    </div>
+    <div id="auth-pane-signin">
+      <label for="auth-email-in">Email</label>
+      <input id="auth-email-in" type="email" autocomplete="email" placeholder="you@example.com">
+      <label for="auth-pw-in">Password</label>
+      <input id="auth-pw-in" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')adiSubmitSignIn()">
+      <button class="auth-btn" onclick="adiSubmitSignIn()">Sign in</button>
+      <div class="auth-divider">or</div>
+      <button class="auth-btn alt" onclick="adiSignInGoogle()">Continue with Google</button>
+      <div class="auth-foot">
+        <a onclick="adiPasswordReset()">Forgot password?</a>
+        <a onclick="adiSwitchAuthTab('signup')">Create account →</a>
+      </div>
+    </div>
+    <div id="auth-pane-signup" style="display:none">
+      <label for="auth-email-up">Email</label>
+      <input id="auth-email-up" type="email" autocomplete="email" placeholder="you@example.com">
+      <label for="auth-pw-up">Password (≥ 8 characters)</label>
+      <input id="auth-pw-up" type="password" autocomplete="new-password" onkeydown="if(event.key==='Enter')adiSubmitSignUp()">
+      <button class="auth-btn" onclick="adiSubmitSignUp()">Create account</button>
+      <div class="auth-divider">or</div>
+      <button class="auth-btn alt" onclick="adiSignInGoogle()">Continue with Google</button>
+      <div class="auth-foot">
+        <span>Already have an account?</span>
+        <a onclick="adiSwitchAuthTab('signin')">Sign in →</a>
+      </div>
+    </div>
+    <div id="auth-msg" class="auth-msg"></div>
+    <div class="auth-disclosure">
+      ArchDraw output is generated for design study and pre-application review only. Drawings and analysis must be reviewed and stamped by a registered design professional before any permit submission. By signing in you accept these terms.
+    </div>
+  </div>
+</div>
+
 <div id="log-panel"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -536,6 +600,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
 <script src="data/cost-index.js"></script>
 <script src="data/permit-registry.js"></script>
 <script src="data/overlay-registry.js"></script>
+<!-- P0-1 hosted-key auth (additive; legacy BYOK path remains the default) -->
+<script src="data/auth-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="lib/auth.js"></script>
+<script src="lib/proxy.js"></script>
 <script>
 // ═══ STATE ═══
 // ═══ ADI_PROXY configuration ═══
@@ -632,6 +701,13 @@ function repairJSON(s){return s.replace(/,(\s*[}\]])/g,'$1').replace(/\/\/[^\n]*
 function delay(ms){return new Promise(r=>setTimeout(r,ms))}
 
 // ═══ 50-STATE DB ═══
+// ═══ State-name normalization (fixes round 5n / issue #2) ═══
+// Site-intel often returns full state names ("Washington") while STATE_DB
+// and county/permit registries key on 2-letter abbreviations ("WA").
+// Centralize the conversion so every consumer reads the same code-stack.
+const STATE_NAME_TO_ABBR={alabama:'AL',alaska:'AK',arizona:'AZ',arkansas:'AR',california:'CA',colorado:'CO',connecticut:'CT',delaware:'DE','district of columbia':'DC',florida:'FL',georgia:'GA',hawaii:'HI',idaho:'ID',illinois:'IL',indiana:'IN',iowa:'IA',kansas:'KS',kentucky:'KY',louisiana:'LA',maine:'ME',maryland:'MD',massachusetts:'MA',michigan:'MI',minnesota:'MN',mississippi:'MS',missouri:'MO',montana:'MT',nebraska:'NE',nevada:'NV','new hampshire':'NH','new jersey':'NJ','new mexico':'NM','new york':'NY','north carolina':'NC','north dakota':'ND',ohio:'OH',oklahoma:'OK',oregon:'OR',pennsylvania:'PA','rhode island':'RI','south carolina':'SC','south dakota':'SD',tennessee:'TN',texas:'TX',utah:'UT',vermont:'VT',virginia:'VA',washington:'WA','west virginia':'WV',wisconsin:'WI',wyoming:'WY'};
+function normalizeState(s){if(!s)return '';const t=String(s).trim();if(t.length===2)return t.toUpperCase();return STATE_NAME_TO_ABBR[t.toLowerCase()]||t.toUpperCase().substring(0,2);}
+
 const STATE_DB={AL:{bc:'IBC 2018',ec:'IECC 2015',seismic:'C',wind:'130',note:'No statewide residential code; municipal adoption'},AK:{bc:'IBC 2018',ec:'IECC 2018',seismic:'D-F',wind:'150',note:'Extreme seismic + wind — special engineering required'},AZ:{bc:'IBC 2018',ec:'IECC 2015',seismic:'C',wind:'105',note:'Check city/county amendments'},AR:{bc:'IBC 2018',ec:'IECC 2015',seismic:'C',wind:'115',note:'Arkansas Fire Prevention Code'},CA:{bc:'CBC 2022',ec:'Title 24 2022',seismic:'D-E',wind:'110',note:'CALGreen required. Title 24 CF1R. SB9 ADU rights'},CO:{bc:'IBC 2021',ec:'IECC 2021',seismic:'B',wind:'115',note:'Denver has own code'},CT:{bc:'IBC 2018',ec:'IECC 2021',seismic:'B',wind:'120',note:'CT State Building Code (IBC amendments)'},DE:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'130',note:'DE State Fire Prevention Regulations'},FL:{bc:'FBC 2023',ec:'FBC Energy 2023',seismic:'A',wind:'175',note:'Product Approvals required. NOA for HVHZ'},GA:{bc:'IBC 2018',ec:'IECC 2015',seismic:'B',wind:'130',note:'Local amendments common'},HI:{bc:'IBC 2018',ec:'ASHRAE 90.1-2019',seismic:'D',wind:'150',note:'County codes vary. Hurricane requirements'},ID:{bc:'IBC 2018',ec:'IECC 2015',seismic:'C',wind:'115',note:'Small jurisdictions may use county regs'},IL:{bc:'IBC 2021',ec:'IECC 2021',seismic:'B',wind:'115',note:'Chicago Municipal Code — significantly different'},IN:{bc:'IBC 2020',ec:'IECC 2018',seismic:'B',wind:'105',note:'IDOI inspection required'},IA:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Local adoption required'},KS:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115+',note:'Tornado shelter recommended in tornado alley'},KY:{bc:'IBC 2019',ec:'IECC 2018',seismic:'C',wind:'115',note:'Kentucky Building Code (KBC)'},LA:{bc:'IBC 2018',ec:'IECC 2015',seismic:'B',wind:'150',note:'Post-Katrina coastal requirements strict'},ME:{bc:'IBC 2015',ec:'IECC 2015',seismic:'B',wind:'120',note:'Maine Uniform Building & Energy Code (MUBEC)'},MD:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'130',note:'Green Building Council active'},MA:{bc:'MSBC 2022',ec:'IECC 2021',seismic:'B',wind:'130',note:'Stretch Code required in 300+ municipalities'},MI:{bc:'MBC 2015',ec:'IECC 2015',seismic:'B',wind:'115',note:'BCC oversight'},MN:{bc:'IBC 2020',ec:'IECC 2020',seismic:'A',wind:'115',note:'MNGBC green building programs'},MS:{bc:'IBC 2015',ec:'IECC 2015',seismic:'B',wind:'140',note:'Gulf Coast wind zone enforcement'},MO:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'115',note:'KC/STL local amendments'},MT:{bc:'IBC 2018',ec:'IECC 2021',seismic:'C',wind:'115',note:'Small jurisdictions may use county regs'},NE:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Tornado shelter in some areas'},NV:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'105',note:'Clark County has own amendments'},NH:{bc:'IBC 2009',ec:'IECC 2018',seismic:'B',wind:'130',note:'Older base code — check local ordinances'},NJ:{bc:'IBC 2021',ec:'IECC 2021',seismic:'B',wind:'130',note:'NJ Uniform Construction Code (UCC). DCA oversight'},NM:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'115',note:'Construction Industries Division'},NY:{bc:'NYBC 2022',ec:'NYCECC 2022',seismic:'B',wind:'130',note:'NYC has separate code from NY State'},NC:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'140',note:'Hurricane straps required coastal counties'},ND:{bc:'IBC 2018',ec:'IECC 2018',seismic:'A',wind:'115',note:'State guides but not mandates'},OH:{bc:'OBC 2019',ec:'OEBC 2017',seismic:'B',wind:'115',note:'Ohio Building Code'},OK:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'130+',note:'Tornado shelter ICC 500 recommended'},OR:{bc:'OSSC 2021',ec:'OEESC 2021',seismic:'D',wind:'115',note:'Portland has own amendments + green reqs'},PA:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'PA Uniform Construction Code (UCC)'},RI:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'130',note:'CRMC coastal management'},SC:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'150',note:'Coastal resilience requirements'},SD:{bc:'IBC 2018',ec:'IECC 2018',seismic:'A',wind:'115',note:'No statewide mandate — local adoption'},TN:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'115',note:'Commerce & Insurance oversight'},TX:{bc:'IBC 2015',ec:'IECC 2015',seismic:'A',wind:'150',note:'No statewide residential code. TDLR commercial'},UT:{bc:'IBC 2021',ec:'IECC 2021',seismic:'D',wind:'115',note:'High seismic Wasatch Front'},VT:{bc:'IBC 2015',ec:'IECC 2015',seismic:'B',wind:'115',note:'Act 250 land use review for large projects'},VA:{bc:'USBC 2021',ec:'IECC 2018',seismic:'B',wind:'130',note:'USBC — DHCD oversight'},WA:{bc:'IBC 2021',ec:'WSEC 2021',seismic:'D',wind:'115',note:'SEPA review required. High seismic + liquefaction'},WV:{bc:'IBC 2018',ec:'IECC 2015',seismic:'B',wind:'115',note:'WVDOL enforcement'},WI:{bc:'IBC 2015',ec:'IECC 2015',seismic:'A',wind:'115',note:'DSPS oversight'},WY:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Local ordinances vary widely'},DC:{bc:'DCBC 2020',ec:'IECC 2018',seismic:'B',wind:'115',note:'LEED Silver required >10K SF. HPO review historic'}};
 
 // ═══ OVERLAY FUNCTIONS ═══
@@ -692,6 +768,10 @@ Always give your most experienced professional opinion. Specific, bold, code-ref
 
 
 async function callAI(msgs,sys,maxTok=2200,timeoutMs=90000){
+  // P0-1 hosted-key path: when the user is signed in via Supabase, all AI
+  // calls go through /api/ai/messages with a Bearer JWT. The browser never
+  // sees an Anthropic key. Falls through to BYOK if hosted mode is off.
+  if(S.mode==='hosted'&&window.ADIProxy){return ADIProxy.callAI(msgs,sys,maxTok,timeoutMs)}
   const headers={'Content-Type':'application/json'};
   if(S.mode==='standalone'&&S.apiKey){headers['x-api-key']=S.apiKey;headers['anthropic-version']='2023-06-01';headers['anthropic-dangerous-direct-browser-access']='true'}
   const body={model:'claude-sonnet-4-6',max_tokens:maxTok,messages:msgs};
@@ -745,6 +825,7 @@ async function callJSON(msgs,sys,maxTok=2200,timeoutMs=90000){
 }
 
 async function callAIWithImg(prompt,b64,mime,sys,maxTok=1000){
+  if(S.mode==='hosted'&&window.ADIProxy){return ADIProxy.callAIWithImg(prompt,b64,mime,sys,maxTok)}
   const headers={'Content-Type':'application/json'};
   if(S.mode==='standalone'&&S.apiKey){headers['x-api-key']=S.apiKey;headers['anthropic-version']='2023-06-01';headers['anthropic-dangerous-direct-browser-access']='true'}
   const body={model:'claude-sonnet-4-6',max_tokens:maxTok,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:mime,data:b64}},{type:'text',text:prompt}]}]};
@@ -1078,9 +1159,13 @@ async function startAnalysis(){
   if(MAP_INSTANCE){MAP_INSTANCE.eachLayer(l=>{if(l._isArchDraw||l._isOSM)MAP_INSTANCE.removeLayer(l)})}
   LOG.length=0;
   L.info(`=== v12 ANALYSIS START: ${S.addr} ===`);
+  // P0-1: open an analyses row in Supabase when running in hosted mode
+  S._adiAnalysisId=null;
+  if(S.mode==='hosted'&&window.ADIProxy){try{S._adiAnalysisId=await ADIProxy.startAnalysis({address:S.addr})}catch(e){L.warn('analyses insert failed:',e?.message)}}
   showScreen('workspace');document.getElementById('rp-addr').textContent=S.addr;
   document.getElementById('findings').innerHTML='';buildPhases();
   PHASES.forEach(p=>phSet(p.id,'pending'));setOvl('STARTING','Initializing');
+  let _failure=null;
   try{
     // Phase 1: Site Research + geocode
     await runPhase_site(); await delay(400);
@@ -1098,14 +1183,21 @@ async function startAnalysis(){
     // Phase 7: Permit Checklist
     await runPhase_chk();
     L.info('=== ANALYSIS COMPLETE ===');
-  }catch(e){L.error('Pipeline stopped:',e.message);console.error('Pipeline:',e)}
-  finally{S.analyzing=false;document.getElementById('run-btn').disabled=!S.apiReady;document.getElementById('run-btn').textContent='ANALYZE →';hideOvl()}
+  }catch(e){_failure=e;L.error('Pipeline stopped:',e.message);console.error('Pipeline:',e);
+    // P0-1: surface paywall when an AI call rejected for quota
+    if(e.quotaExceeded&&S.mode==='hosted'){try{const u=await window.ADIAuth.usage();adiShowPaywall(u)}catch(_){}}}
+  finally{
+    if(S._adiAnalysisId&&window.ADIProxy){try{await ADIProxy.completeAnalysis(S._adiAnalysisId,_failure?'errored':'completed',_failure?.message||null)}catch(_){}}
+    // Refresh usage counter in the banner after a successful run
+    if(!_failure&&S.mode==='hosted'&&window.ADIAuth){try{const sess=await window.ADIAuth.getSession();if(sess)adiOnSignedIn(sess)}catch(_){}}
+    S.analyzing=false;document.getElementById('run-btn').disabled=!S.apiReady;document.getElementById('run-btn').textContent='ANALYZE →';hideOvl();
+  }
 }
 
 async function runPhase_site(){
   L.info('--- Phase 1: Site ---');phSet('site','active');setOvl('SITE RESEARCH','Identifying parcel, jurisdiction & conditions');const t=Date.now();
   try{
-    let prompt=`Research property: "${S.addr}"\n1. Governing jurisdiction (city/county + building dept)\n2. Typical lot dimensions for this block\n3. Current land use and existing structure type\n4. Neighborhood context (urban density, adjacent uses)\n5. Topography, slope, aspect (north-facing?)\n6. Infrastructure (sewer, water, gas, fiber)\n7. Transit proximity (walk score, nearest transit)\n8. Key redevelopment opportunity in one sentence`;
+    let prompt=`Research property: "${S.addr}"\n1. Governing jurisdiction (city/county + building dept)\n2. Current land use and existing structure type\n3. Neighborhood context (urban density, adjacent uses)\n4. Topography, slope, aspect (north-facing?)\n5. Infrastructure (sewer, water, gas, fiber)\n6. Transit proximity (walk score, nearest transit)\n7. Key redevelopment opportunity in one sentence\n\nIMPORTANT: Do NOT speculate on lot dimensions, setbacks, FAR, height, or zone codes — those come from the GIS + zoning research phase that follows. Stay on context items 1–7.`;
     if(S.img64){const imgA=await callAIWithImg(`Analyze site for: ${S.addr}. Describe: existing structure condition, lot coverage, setback violations, orientation, neighboring scale, opportunities for passive solar.`,S.img64,S.imgType,SYS,600);prompt+=`\n\nSite photo analysis:\n${imgA}`;addFind('img','📷 Site Photo',fmt(imgA))}
     const res=await callAIWithRetry([{role:'user',content:prompt}],SYS,1500);
     // Geocode
@@ -1188,7 +1280,11 @@ async function runPhase_zone(){
     z._lotSource=looksDefault?'AI default (pending OSM calibration)':'AI research';
     z._lotConfidence=looksDefault?'unverified':'verify-with-plat';
     L.info(`Zone: ${z.zoningDistrict} ${z.jurisdiction} ${z.state} lot=${z.lotWidth}×${z.lotDepth} src=${z._lotSource}`);
-    const zt=await callAIWithRetry([{role:'user',content:`Expert zoning analysis for "${S.addr}" — ${z.zoningDistrict}, ${z.jurisdiction}, ${z.state}.\nCover: by-right vs conditional development options, setbacks front ${z.frontSetback}/rear ${z.rearSetback}/sides ${z.leftSetback}-${z.rightSetback}ft, FAR ${z.maxFAR}, ${z.maxLotCoverage}% coverage, ${z.maxStories} stories, ADU rights: ${z.aduAllowed}. Note any density bonus programs, SB9 rights, or form-based code options.`}],SYS,1000);
+    // Round 5o fix #3: when matrix override fired, anchor the AI prompt
+    // to the chart-verified codeURL + notes so it doesn't fabricate
+    // municipal-code section numbers (e.g. KZC §115.10.020 was made up).
+    const matrixAnchor=z._zoneMatrixVerified?`\n\nAUTHORITATIVE SOURCE — DO NOT CONTRADICT:\n  Verified municipal-code URL: ${z._zoneMatrixURL||'(see matrix entry)'}\n  Chart-confirmed dimensional standards: front ${z.frontSetback}ft / rear ${z.rearSetback}ft / sides ${z.leftSetback}-${z.rightSetback}ft / height ${z.maxHeightFt}ft / FAR ${z.maxFAR} / coverage ${z.maxLotCoverage}%\n  Verification date: ${z._zoneMatrixDate||'recent'}\n  Local rule notes: ${(z.notes||'').substring(0,800)}\n\nWhen you cite a code section, use ONLY the URL above. Do NOT invent municipal-code section numbers.`:'';
+    const zt=await callAIWithRetry([{role:'user',content:`Expert zoning analysis for "${S.addr}" — ${z.zoningDistrict}, ${z.jurisdiction}, ${z.state}.\nCover: by-right vs conditional development options, setbacks front ${z.frontSetback}/rear ${z.rearSetback}/sides ${z.leftSetback}-${z.rightSetback}ft, FAR ${z.maxFAR}, ${z.maxLotCoverage}% coverage, ${z.maxStories} stories, ADU rights: ${z.aduAllowed}. Note any density bonus programs, SB9 rights, or form-based code options.${matrixAnchor}`}],SYS,1000);
     phSet('zone','done',`${((Date.now()-t)/1000).toFixed(1)}s`);
     const lotNote=z._lotSource?`<div style="margin-top:6px;padding:5px 8px;border:1px dashed var(--brd);border-radius:3px;font-size:9px;color:var(--txt3)">\uD83D\uDCCE Lot dims source: <strong>${z._lotSource}</strong> \u00B7 confidence: <em>${z._lotConfidence}</em></div>`:'';
     const matrixNote=z._zoneMatrixVerified?`<div style="margin-top:4px;padding:5px 8px;border:1px solid rgba(34,224,138,.35);border-radius:3px;font-size:9px;color:var(--green)">\u2713 Zoning standards <strong>verified</strong> against ${z.jurisdiction} municipal code (${z._zoneMatrixDate}) \u00B7 <a href="${z._zoneMatrixURL}" target="_blank" style="color:var(--blue)">open code \u2192</a></div>`:'';
@@ -1239,7 +1335,13 @@ async function runPhase_record(){
         S.countyRecord={source:'OpenStreetMap',buildings:blds.length,data:blds};
         L.info(`OSM: ${blds.length} buildings found`);
       }else{findings.push('No existing buildings recorded in OpenStreetMap for this parcel.')}
-    }catch(e){L.warn('OSM record search failed:',e.message);findings.push('OSM query failed: '+e.message.substring(0,60))}
+    }catch(e){
+      L.warn('OSM record search failed:',e.message);
+      const corsLike=/fetch|cors|network/i.test(e.message);
+      findings.push(corsLike
+        ? '• OSM lookup blocked by browser CORS — set localStorage.ADI_PROXY to a deployed Vercel/Worker proxy URL, or run the app from a *.vercel.app deployment where /api auto-detects.'
+        : '• OSM query failed: '+e.message.substring(0,60));
+    }
 
     // Strategy 2: Try FEMA for flood zone (if not already done) — direct first, CORS proxy on failure
     if(!S.femaZone){
@@ -1263,7 +1365,7 @@ async function runPhase_record(){
     // Strategy 3: COUNTY_REGISTRY lookup (verified ArcGIS parcel endpoints)
     if(z&&window.COUNTY_REGISTRY&&window.countyRegistryKey){
       try{
-        const key=window.countyRegistryKey(z.county,z.state);
+        const key=window.countyRegistryKey(z.county,normalizeState(z.state));
         const reg=window.COUNTY_REGISTRY[key];
         if(reg){
           L.info(`County registry hit: ${key}`);
@@ -1318,7 +1420,13 @@ async function runPhase_record(){
                 }
               }
             }
-          }catch(e){L.warn(`County registry fetch failed for ${key}: ${e.message.substring(0,100)}`)}
+          }catch(e){
+            L.warn(`County registry fetch failed for ${key}: ${e.message.substring(0,100)}`);
+            // Surface distinct state for provenance — avoids the misleading
+            // 'NO_PUBLIC_ENDPOINT' message when an endpoint IS registered
+            // but couldn't be reached from the current client.
+            S.countyRecord={...(S.countyRecord||{}),esriStatus:'unreachable',esriEndpoint:reg.parcelQuery,esriError:e.message.substring(0,100)};
+          }
         }else{
           L.info(`County registry miss: ${key||'(no county)'} \u2014 generic ArcGIS fallback not attempted to avoid false positives`);
         }
@@ -1519,7 +1627,7 @@ function generateOptions(z){
   const adu=z.aduAllowed!==false;
   const isCA=z.state==='CA';const isWA=z.state==='WA';const isOR=z.state==='OR';
   const highSeismic=['CA','AK','WA','OR','NV','UT','HI'].includes(z.state||'');
-  const db=STATE_DB[z.state]||{bc:'IBC 2018',ec:'IECC 2018'};
+  const db=STATE_DB[normalizeState(z.state)]||{bc:'IBC 2018',ec:'IECC 2018'};
 
   const opts=[];
 
@@ -1538,26 +1646,37 @@ function generateOptions(z){
   const valuePerUnit=Math.round(((isCA)?720000:isWA?540000:320000)*costIndex);
   const costMultiplier=(highSeismic)?1.18:1.0;// seismic premium
 
+  // Round 5p fix #8: clamp option SF to the buildable envelope.
+  // The naive bW*bD*storyMultiplier formula consistently overstated SF
+  // by ~70% on tight lots (e.g., 50×120 RSA-6 with FAR 0.5 → cap 3000sf,
+  // option-4 was claiming 5580sf). Cap by both FAR and (coverage × stories)
+  // so the option promise matches what localFloorPlan can actually emit.
+  function clampSF(rawSF, stories){
+    const farCap = (z.maxFAR || 1) * lotSF;
+    const covCap = ((z.maxLotCoverage || 100) / 100) * lotSF * stories;
+    return Math.round(Math.min(rawSF, farCap, covCap));
+  }
+
   // Option 1: Conservative — SFR + ADU
-  {const sf=Math.round(bW*bD*.65);const units=adu?2:1;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.8);
+  {const sf=clampSF(bW*bD*.65, 1);const units=adu?2:1;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.8);
   opts.push({id:1,icon:'🏡',name:'Conservative SFR + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 1-story`,badge:'Low Risk',badgeClass:'badge-green',units,sf,stories:1,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.2/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.15/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.1-cost)/cost*80)}%`,risk:'Low',timeline:'8–12 months',green:['Solar-ready','EV parking','Energy Star'],cert:`${db.ec} + LEED for Homes possible`,permits:'By-right, ministerial'})}
 
   // Option 2: Stacked Duplex + ADU (if 2+ stories)
-  if(maxSt>=2){const sf=Math.round(bW*bD*1.3);const units=adu?3:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.85);
+  if(maxSt>=2){const sf=clampSF(bW*bD*1.3, 2);const units=adu?3:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.85);
   opts.push({id:2,icon:'🏘️',name:'Stacked Duplex + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Cash Flow',badgeClass:'badge-blue',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.18/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.15-cost)/cost*80)}%`,risk:'Low-Medium',timeline:'14–18 months',green:['Passive solar orientation','Solar PV 8kW','Zehnder ERV','EV charging × 2'],cert:`LEED Silver achievable · ${db.ec}`,permits:'By-right in most R zones'})}
 
   // Option 3: Side-by-Side + ADUs (if wide enough)
-  if(bW>=40&&maxSt>=2){const sf=Math.round(bW*bD*1.55);const units=adu?4:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
+  if(bW>=40&&maxSt>=2){const sf=clampSF(bW*bD*1.55, 2);const units=adu?4:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
   opts.push({id:3,icon:'🌿',name:'Net-Zero Side-by-Side + 2 ADUs',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Sustainability',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.25/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.2/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'16–22 months',green:['Net-zero energy','Shared 16kW solar','Warmboard radiant','Greywater reuse','Green roof on ADU','EV fleet charging'],cert:`LEED Gold · Passive House EnerPHit possible`,permits:'By-right if <50% lot coverage',recommended:true})}
 
   // Option 4: Max Density Triplex/4-plex
-  if(maxSt>=2){const sf=Math.round(bW*bD*(maxSt>=3?1.9:1.65));const units=adu?maxSt*2+1:maxSt*2;const cost=Math.round(sf*costPerSF*1.05*costMultiplier);const val=Math.round(units*valuePerUnit*.92);
+  if(maxSt>=2){const sf=clampSF(bW*bD*(maxSt>=3?1.9:1.65), maxSt);const units=adu?maxSt*2+1:maxSt*2;const cost=Math.round(sf*costPerSF*1.05*costMultiplier);const val=Math.round(units*valuePerUnit*.92);
   opts.push({id:4,icon:'🏗️',name:`Maximum Density ${maxSt}-Story + ADUs`,type:`${units}-unit · ${sf.toLocaleString()} SF · ${maxSt}-story`,badge:'Highest Density',badgeClass:'badge-amber',units,sf,stories:maxSt,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.28/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.22/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium-High',timeline:'20–28 months',green:['LEED Platinum target','22kW solar array','Living roof','WUFI thermal bridge analysis','Triple-pane windows'],cert:`LEED Platinum · ${db.bc} Type V-A`,permits:'May require design review / DRB approval'})}
 
   // Option 5: CA SB9 or WA MFTE
-  if(isCA&&z.sb9Eligible!==false){const sf=Math.round(bW*bD*1.7);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.95);
+  if(isCA&&z.sb9Eligible!==false){const sf=clampSF(bW*bD*1.7, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.95);
   opts.push({id:5,icon:'🏙️',name:'SB9 Lot Split → 4 Units',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Max ROI (CA SB9)',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'18–26 months',green:['Solar required (T24)','CALGreen Tier 2','EV-ready × 4','Water-efficient landscaping'],cert:`CALGreen Tier 2 · Title 24 2022`,permits:'Ministerial under SB9 — city cannot deny'})
-  }else if(isWA){const sf=Math.round(bW*bD*1.6);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
+  }else if(isWA){const sf=clampSF(bW*bD*1.6, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
   opts.push({id:5,icon:'🏙️',name:'MFTE Affordable 4-Unit',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Tax Exemption (WA)',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'20–26 months',green:['WSEC 2021 enhanced','Solar-ready','EV × 2','Permeable paving'],cert:`WSEC 2021 · MFTE 12-yr tax exemption`,permits:'City MFTE approval + design review'})
   }
 
@@ -1658,6 +1777,8 @@ async function runPhase_comp(){
 
 We are designing a **${opt?.name||'multi-family'} project** (${opt?.units||2} units, ~${opt?.sf||2500} SF).
 
+JURISDICTION LOCK: All zoning, code, and ordinance references in your response MUST be specific to **${z.jurisdiction}, ${z.state}** (district: **${z.zoningDistrict}**). Do NOT cite zone codes from other cities (e.g., do not write "RS 7.2" or "KMC Title 21" if those belong to a different jurisdiction). When unsure of a specific section number, write "see ${z.jurisdiction} municipal code" instead of fabricating a citation.
+
 Prioritize sources in this order:
   1. Public permit data portals (data.<city>.gov / Socrata) filed under a recognizable project name within ${z.jurisdiction}
   2. Recently listed/sold properties visible on Zillow, Redfin, Realtor.com within the 2–5 mile radius
@@ -1666,7 +1787,7 @@ Prioritize sources in this order:
 
 For each comparable provide:
 1. Project name, specific street/neighborhood, developer, year completed, permit number if known
-2. Distance from ${S.addr} (miles) and WHY it's a relevant comparable (similar lot, use, density, typology)
+2. Distance from ${S.addr} (miles) and WHY it's a relevant comparable (similar lot, use, density, typology). For lot context use ${z.lotWidth}ft × ${z.lotDepth}ft = ${(z.lotWidth*z.lotDepth).toLocaleString()} SF — the canonical site dimensions; do not invent alternatives.
 3. Unit mix, stories, total SF, density achieved
 4. Notable green/sustainable innovations actually implemented
 5. Structural system and why it was chosen
@@ -1736,7 +1857,7 @@ async function runPhase_chk(){
   const haveSheet=S.plan?.meta?`drawing-engine.A-${{cover:0,site:1,plans:2,elev:3,sect:4,sched:5}}.generated`:null;
   const havePlan=S.plan?`drawing-engine.localFloorPlan()`:null;
   const apn=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||null;
-  const st=z.state||'WA';const db=STATE_DB[st]||{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Confirm adopted code with local building dept'};
+  const st=normalizeState(z.state)||'WA';const db=STATE_DB[st]||{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Confirm adopted code with local building dept'};
   const jur=z.jurisdiction||'Local Jurisdiction';const units=S.plan?.meta?.units||2;const stories=S.plan?.meta?.stories||2;
   const totalSF=S.plan?.meta?.totalSqFt||2000;const ov=S.overlays;
   const isCA=st==='CA',isWA=st==='WA',isOR=st==='OR',isNY=st==='NY',isTX=st==='TX',isFL=st==='FL',isMA=st==='MA',isDC=st==='DC';
@@ -2805,7 +2926,17 @@ function buildSheetTabs(){
   const tabs=document.getElementById('sheet-tabs');tabs.innerHTML='';
   SHEETS.forEach(sh=>{
     const b=document.createElement('button');b.className='stab'+(sh.id===S.activeSheet?' on':'');b.textContent=sh.lbl;
-    b.onclick=()=>{S.activeSheet=sh.id;document.querySelectorAll('.stab').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(S.view==='plan')renderSheet(sh.id)};
+    b.onclick=()=>{
+      S.activeSheet=sh.id;
+      document.querySelectorAll('.stab').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      // Round 5p fix #9: sheet tabs only render in PLAN view. If user
+      // is currently in MAP or 3D, snap to PLAN so the selected sheet
+      // actually appears (otherwise A-4 click would update state but
+      // leave the 3D/map canvas visible — observed in live test).
+      if(S.view==='plan')renderSheet(sh.id);
+      else setView('plan');
+    };
     tabs.appendChild(b);
   });
 }
@@ -3037,7 +3168,7 @@ function buildUseCaseBrief(a){
 // ── SHEET: A-0 Cover Sheet ──
 function drawCoverSheet(ctx,W,H){
   const m=S.plan?.meta||{};const z=S._z||{};const st=z.state||'';
-  const db=STATE_DB[st]||{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115'};
+  const db=STATE_DB[normalizeState(st)]||{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115'};
   ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
   // Border
   ctx.strokeStyle='rgba(61,139,255,.35)';ctx.lineWidth=2;ctx.strokeRect(12,12,W-24,H-24);
@@ -3109,7 +3240,7 @@ function drawCoverSheet(ctx,W,H){
 
 // ── CODE-2 helper: energy schedule called from drawSchedulesSheet ──
 function drawEnergySchedule(ctx,W,H,TY,z){
-  const st=z?.state||'';const db=STATE_DB[st]||{ec:'IECC 2018'};
+  const st=normalizeState(z?.state||'');const db=STATE_DB[st]||{ec:'IECC 2018'};
   const isCA=st==='CA',isFL=st==='FL',isAK=st==='AK',isWA=st==='WA';
   const R={
     ceil:isCA?'R-49':isFL?'R-30':isAK?'R-60':'R-49',
@@ -4051,8 +4182,123 @@ try {
   const useVault = !new URLSearchParams(location.search).has('legacy');
   if (useVault) document.getElementById('landing')?.classList.add('vault');
 } catch (_) {}
-// Try the saved key first; only fall back to probeConnection() when no valid key is stored.
-bootstrapStoredKey().then(ok=>{if(!ok)probeConnection()}).catch(()=>probeConnection());
+
+// ── P0-1 hosted-key bootstrap ──
+// When ADIAuth.isHostedMode() is true:
+//   - skip BYOK probe entirely
+//   - if a Supabase session exists → mark connected, ready to analyze
+//   - else show the auth modal (sign-in / sign-up)
+// When hosted mode is off, the legacy BYOK path (bootstrapStoredKey →
+// probeConnection) runs unchanged.
+async function adiInitAuth() {
+  const A = window.ADIAuth;
+  if (!A || !A.isHostedMode()) {
+    bootstrapStoredKey().then(ok => { if (!ok) probeConnection(); }).catch(() => probeConnection());
+    return;
+  }
+  if (!A.isConfigured()) {
+    setBanner('needs-key', '⚠ Hosted mode not configured',
+      'data/auth-config.js is missing supabaseUrl / supabaseAnonKey. Falling back to BYOK. Owner: paste credentials per supabase/README.md.');
+    bootstrapStoredKey().then(ok => { if (!ok) probeConnection(); }).catch(() => probeConnection());
+    return;
+  }
+  try {
+    const session = await A.getSession();
+    if (session) {
+      adiOnSignedIn(session);
+    } else {
+      adiShowAuthModal('signin');
+    }
+  } catch (e) {
+    L.error('adiInitAuth threw:', e?.message);
+    adiShowAuthModal('signin');
+  }
+  // React to auth changes (token refresh, sign-out from another tab)
+  A.onAuthChange((event, sess) => {
+    if (event === 'SIGNED_OUT') {
+      S.mode = 'embedded'; S.apiReady = false;
+      document.getElementById('run-btn').disabled = true;
+      adiShowAuthModal('signin');
+    } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+      adiOnSignedIn(sess);
+    }
+  });
+}
+
+async function adiOnSignedIn(session) {
+  S.mode = 'hosted'; S.apiReady = true;
+  const u = session?.user;
+  let usage = { used: 0, quota: 1, plan: 'trial' };
+  try { usage = await window.ADIAuth.usage(); } catch (_) {}
+  const remaining = Math.max(0, (usage.quota || 0) - (usage.used || 0));
+  setBanner('ok', '✓ Signed in',
+    `${u?.email || 'authenticated'} · ${usage.plan} plan · ${usage.used}/${usage.quota} used <a href="#" onclick="adiSignOut();return false" style="color:var(--txt3);font-size:8px;margin-left:6px">sign out</a>`);
+  document.getElementById('run-btn').disabled = (remaining <= 0);
+  if (remaining <= 0) adiShowPaywall(usage);
+  adiHideAuthModal();
+}
+
+async function adiSignOut() {
+  try { await window.ADIAuth.signOut(); } catch (_) {}
+  S.mode = 'embedded'; S.apiReady = false;
+  adiShowAuthModal('signin');
+}
+
+function adiShowAuthModal(tab) {
+  const m = document.getElementById('auth-modal');
+  if (!m) return;
+  m.style.display = 'flex';
+  adiSwitchAuthTab(tab || 'signin');
+}
+function adiHideAuthModal() {
+  const m = document.getElementById('auth-modal'); if (m) m.style.display = 'none';
+}
+function adiSwitchAuthTab(tab) {
+  document.getElementById('auth-tab-signin').classList.toggle('active', tab === 'signin');
+  document.getElementById('auth-tab-signup').classList.toggle('active', tab === 'signup');
+  document.getElementById('auth-pane-signin').style.display = tab === 'signin' ? 'block' : 'none';
+  document.getElementById('auth-pane-signup').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('auth-msg').textContent = '';
+}
+async function adiSubmitSignIn() {
+  const email = document.getElementById('auth-email-in').value.trim();
+  const pw = document.getElementById('auth-pw-in').value;
+  if (!email || !pw) { document.getElementById('auth-msg').textContent = 'Email and password required.'; return; }
+  document.getElementById('auth-msg').textContent = 'Signing in…';
+  const { user, session, error } = await window.ADIAuth.signIn(email, pw);
+  if (error) { document.getElementById('auth-msg').textContent = '✗ ' + error.message; return; }
+  if (session) adiOnSignedIn(session);
+}
+async function adiSubmitSignUp() {
+  const email = document.getElementById('auth-email-up').value.trim();
+  const pw = document.getElementById('auth-pw-up').value;
+  if (!email || !pw) { document.getElementById('auth-msg').textContent = 'Email and password required.'; return; }
+  if (pw.length < 8) { document.getElementById('auth-msg').textContent = 'Password must be ≥ 8 characters.'; return; }
+  document.getElementById('auth-msg').textContent = 'Creating account…';
+  const { user, session, error } = await window.ADIAuth.signUp(email, pw);
+  if (error) { document.getElementById('auth-msg').textContent = '✗ ' + error.message; return; }
+  if (session) { adiOnSignedIn(session); return; }
+  document.getElementById('auth-msg').textContent = '✓ Account created. Check your email to confirm, then sign in.';
+}
+async function adiSignInGoogle() {
+  document.getElementById('auth-msg').textContent = 'Redirecting to Google…';
+  const { error } = await window.ADIAuth.signInWithGoogle();
+  if (error) document.getElementById('auth-msg').textContent = '✗ ' + error.message;
+}
+async function adiPasswordReset() {
+  const email = document.getElementById('auth-email-in').value.trim();
+  if (!email) { document.getElementById('auth-msg').textContent = 'Enter your email above first.'; return; }
+  const { error } = await window.ADIAuth.sendPasswordReset(email);
+  document.getElementById('auth-msg').textContent = error ? ('✗ ' + error.message) : '✓ Reset email sent.';
+}
+function adiShowPaywall(usage) {
+  const cfg = window.ADI_AUTH_CONFIG || {};
+  const planLabel = cfg.plans?.[usage.plan]?.label || usage.plan;
+  setBanner('needs-key', '⛔ Plan limit reached',
+    `${usage.used}/${usage.quota} on ${planLabel}. Upgrade to continue. <a href="#" onclick="alert('Stripe billing arrives in P1. Contact support for early upgrade.');return false" style="color:var(--blue);font-size:8px;margin-left:6px">Upgrade →</a>`);
+}
+
+adiInitAuth();
 </script>
 </body>
 </html>

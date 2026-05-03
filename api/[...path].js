@@ -27,7 +27,7 @@
 //   GET /api/permits/<city>?... → Socrata permit search
 //   GET /api/diag?url=      → upstream debugging passthrough
 
-const PROXY_VERSION = '7-vercel'; // v7 — P0-1 hosted-AI routes (/api/ai/messages) with Supabase JWT + per-user quota
+const PROXY_VERSION = '8-vercel'; // v8 — browser UA on ArcGIS, /api/overpass route, surfaced 502 errors
 
 // v5: permissive CORS for public data. Reflect the requesting origin so the
 // proxy works from any deployment target (github.io, vercel.app, custom
@@ -130,13 +130,65 @@ async function handleFema(params, origin) {
   }, origin, 502, 'no-store');
 }
 
+// Some ArcGIS endpoints (USGS hazards, USDA wildland, several county GIS
+// servers fronted by Cloudflare) bot-block the default ArchDrawIntel-Proxy
+// User-Agent. They return 403 / refuse the TLS handshake / hang. Sending
+// a real-browser UA bypasses the heuristic. Accept-Language nudges some
+// CDNs to serve content rather than a captcha page.
+const ARCGIS_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+  'Accept': 'application/json, text/plain;q=0.9, */*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.9',
+};
+
 async function handleArcgis(params, origin) {
   const url = params.get('url');
   if (!url) return jsonResponse({ error: 'url required' }, origin, 400);
   if (!/arcgis|services\.arcgisonline|gismaps|portlandmaps|hazards\.fema|dpw\.gis\.lacounty|sfplanninggis|acgov|hazards\.usgs|coast\.noaa|apps\.fs\.usda|fortress\.wa\.gov|gis\.dnr\.wa\.gov|gis\.conservation\.ca\.gov|services1\.arcgis|services6\.arcgis|fdot|saccounty|kingcounty|mcassessor|clarkcountynv|colorado\.gov|jeffco|miamidade|hillsborough|ocpafl|fultoncountyga|cobbcountyga|dekalbcountyga|wakegov|charlottenc|fairfaxcounty|franklincountyohio|cuyahogacounty|pasda\.psu|alleghenycounty|hennepin|webgis\.sccgov|gis-public\.sandiegocounty|countyofriverside|mapservices\.gis\.saccounty|gisportal\.jeffco|maps\.hillsboroughcounty|vgispublic\.ocpafl|gismaps\.fultoncountyga|geo-cobbcountyga|dcgis\.dekalbcountyga|maps\.wakegov|gis\.charlottenc|fairfaxcounty|gis\.franklincountyohio|gis\.cuyahogacounty|gisdata\.alleghenycounty|gis\.hennepin|www\.ocgis|clvgis|denvergov\.org|mapdata\.lasvegasnevada|sandiegocounty/i.test(url))
     return jsonResponse({ error: 'url must be an ArcGIS REST endpoint' }, origin, 400);
-  const resp = await fetch(url, { headers: PROXY_HEADERS });
-  return jsonPassthrough(resp, origin, 'arcgis');
+  // Wrap fetch + passthrough so any error surfaces in the response body
+  // instead of reaching the outer handler() catch-all (which swallows
+  // upstream context). The pre-PR version was returning a generic 500
+  // for both DNS failures and 403 bot-block walls — both look the same
+  // to the client.
+  try {
+    const resp = await fetch(url, { headers: ARCGIS_HEADERS });
+    return jsonPassthrough(resp, origin, 'arcgis');
+  } catch (e) {
+    // Edge runtime fetch throws on DNS failures, TLS errors, refused
+    // connections. Surface the message + URL host so we can tell why.
+    let host = '(unparseable)';
+    try { host = new URL(url).host; } catch (_) {}
+    return jsonResponse({
+      error: 'arcgis_fetch_threw',
+      message: String(e?.message || e).substring(0, 240),
+      host,
+      hint: 'Edge runtime could not establish the upstream request. Common causes: DNS resolution failure, TLS handshake rejected, IP-blocked by the upstream (some county GIS + USGS endpoints bot-block Vercel egress).',
+    }, origin, 502);
+  }
+}
+
+async function handleOverpass(params, origin) {
+  const data = params.get('data');
+  if (!data) return jsonResponse({ error: 'data required (Overpass QL query)' }, origin, 400);
+  // Conservative size cap — defends against accidental loops in caller.
+  if (data.length > 5000) return jsonResponse({ error: 'data too large (>5000 chars)' }, origin, 400);
+  try {
+    const upstream = await fetch('https://overpass-api.de/api/interpreter', {
+      method: 'POST',
+      headers: {
+        'User-Agent': ARCGIS_HEADERS['User-Agent'],
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'data=' + encodeURIComponent(data),
+    });
+    return jsonPassthrough(upstream, origin, 'overpass');
+  } catch (e) {
+    return jsonResponse({
+      error: 'overpass_fetch_threw',
+      message: String(e?.message || e).substring(0, 240),
+    }, origin, 502);
+  }
 }
 
 async function handleMunicode(params, origin) {
@@ -375,13 +427,14 @@ export default async function handler(request) {
         ok: true,
         version: PROXY_VERSION,
         platform: 'vercel-edge',
-        routes: ['/api/fema?lat=&lon=', '/api/arcgis?url=', '/api/municode?url=', '/api/permits/:city', '/api/diag?url=', '/api/ai/messages', '/api/ai/whoami'],
+        routes: ['/api/fema?lat=&lon=', '/api/arcgis?url=', '/api/overpass?data=', '/api/municode?url=', '/api/permits/:city', '/api/diag?url=', '/api/ai/messages', '/api/ai/whoami'],
         permitCities: Object.keys(PERMIT_ENDPOINTS),
         aiHosted: !!process.env.ANTHROPIC_KEY && !!process.env.SUPABASE_URL,
       }, origin);
     }
     if (route === 'fema') return await handleFema(u.searchParams, origin);
     if (route === 'arcgis') return await handleArcgis(u.searchParams, origin);
+    if (route === 'overpass') return await handleOverpass(u.searchParams, origin);
     if (route === 'municode') return await handleMunicode(u.searchParams, origin);
     if (route === 'permits' && segments[1]) return await handlePermits(segments[1], u.searchParams, origin);
     if (route === 'diag') return await handleDiag(u.searchParams, origin);

@@ -31,9 +31,11 @@ window.ADI_AUTH_CONFIG = {
   // PASTE: eyJhbGciOi... (the anon / public key, NOT service-role)
   supabaseAnonKey: 'sb_publishable_3KyuJYc3PTBbo3rpQsk3XQ_ikTL7Mu6',
 
-  // P0-1 rollout flag. Default false until env vars + migration are live.
-  // Per-session override: localStorage.ADI_HOSTED_KEY = '1'
-  enabled: false,
+  // P0-1 rollout flag — HOSTED MODE ON.
+  // Every visitor sees the sign-in / create-account modal; AI calls go
+  // through /api/ai/messages with a Bearer JWT. The Anthropic key is
+  // never exposed to the browser. To roll back, flip this to false.
+  enabled: true,
 
   // Plan labels surfaced in the paywall + account UI. Quotas are enforced
   // server-side by public.plan_quota() in the migration.

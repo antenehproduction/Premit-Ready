@@ -837,9 +837,16 @@ async function callAIWithImg(prompt,b64,mime,sys,maxTok=1000){
 }
 
 // ═══ CONNECTION ═══
+// HTML escape for user-controlled content in setBanner — emails come
+// from sign-up and could contain script-like substrings.
+function adiEscapeHtml(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c])}
 function setBanner(state,title,body,retry=false){
   const b=document.getElementById('conn-banner');b.className=`${state} cb-${state}`;
-  document.getElementById('conn-title').innerHTML=title;document.getElementById('conn-body').textContent=body;
+  // body intentionally accepts HTML — saveKey, bootstrapStoredKey,
+  // adiShowPaywall, and adiOnSignedIn all embed <a> links. Callers
+  // are responsible for escaping any user-controlled content (see
+  // adiEscapeHtml in adiOnSignedIn for the email path).
+  document.getElementById('conn-title').innerHTML=title;document.getElementById('conn-body').innerHTML=body;
   document.getElementById('conn-retry').style.display=retry?'block':'none';
   document.getElementById('key-area').classList.toggle('vis',state==='needs-key');
 }
@@ -4238,7 +4245,7 @@ async function adiOnSignedIn(session) {
   try { usage = await window.ADIAuth.usage(); } catch (_) {}
   const remaining = Math.max(0, (usage.quota || 0) - (usage.used || 0));
   setBanner('ok', '✓ Signed in',
-    `${u?.email || 'authenticated'} · ${usage.plan} plan · ${usage.used}/${usage.quota} used <a href="#" onclick="adiSignOut();return false" style="color:var(--txt3);font-size:8px;margin-left:6px">sign out</a>`);
+    `${adiEscapeHtml(u?.email || 'authenticated')} · ${adiEscapeHtml(usage.plan)} plan · ${usage.used}/${usage.quota} used <a href="#" onclick="adiSignOut();return false" style="color:var(--txt3);font-size:8px;margin-left:6px">sign out</a>`);
   document.getElementById('run-btn').disabled = (remaining <= 0);
   if (remaining <= 0) adiShowPaywall(usage);
   adiHideAuthModal();

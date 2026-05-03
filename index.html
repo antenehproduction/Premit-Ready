@@ -687,6 +687,8 @@ const phaseRunners={};
 const LOG=[];let logPanel=null;
 function log(level,...args){const msg=args.map(a=>typeof a==='object'?JSON.stringify(a).substring(0,200):String(a)).join(' ');LOG.push({t:Date.now(),level,msg});console[level]?.('[ADI]',...args);renderLog()}
 const L={info:(...a)=>log('info',...a),warn:(...a)=>log('warn',...a),error:(...a)=>log('error',...a)};
+// Expose under a non-colliding name so lib/* can log too. window.L belongs to Leaflet.
+window.ADILog=L;
 window.onerror=(m,s,l)=>L.error(`Uncaught: ${m} (${s}:${l})`);
 window.onunhandledrejection=e=>L.error('UnhandledPromise:',e.reason?.message||e.reason);
 function renderLog(){if(!logPanel)return;const tb=logPanel.querySelector('#lb');if(!tb)return;tb.innerHTML=LOG.slice(-80).map(e=>{const ts=((e.t-LOG[0]?.t)/1000).toFixed(1)+'s';const col=e.level==='error'?'var(--coral)':e.level==='warn'?'var(--amber)':'var(--txt2)';return`<tr><td style="color:var(--txt3);padding:1px 6px;white-space:nowrap">${ts}</td><td style="color:${col};padding:1px 4px;word-break:break-all">${e.msg.replace(/</g,'&lt;')}</td></tr>`}).join('');tb.scrollTop=1e9}

@@ -133,11 +133,11 @@
           "type": "FeatureServer"
         },
         {
-          "name": "Building_Address_Points",
+          "name": "Future_Land_Use",
           "type": "FeatureServer"
         },
         {
-          "name": "Future_Land_Use",
+          "name": "Building_Address_Points",
           "type": "FeatureServer"
         }
       ]

@@ -487,8 +487,8 @@
       "host": "data.austintexas.gov",
       "name": "Issued Construction Permits",
       "registryKey": "austin",
-      "rowsUpdatedAt": 1777118096,
-      "viewLastModified": 1777116968
+      "rowsUpdatedAt": 1780321060,
+      "viewLastModified": 1780313829
     },
     "data.cityofchicago.org:ydr8-5enu": {
       "addressFieldGuess": "location",
@@ -1228,13 +1228,13 @@
         }
       ],
       "datasetId": "ydr8-5enu",
-      "description": "<b>Note, 10/15/2025:</b> We have added a PERMIT_CONDITION column.\n\nThis dataset includes information about building permits issued by the City of Chicago from 2006 to the present, excluding permits that have been voided or revoked after issuance. Most types of permits are issued subject to payment of the applicable permit fee. Work under a permit may not begin until the applicable permit fee is paid. \n\nFor more information about building permits, see http://www.chicago.gov/permit.",
+      "description": "This dataset includes information about building permits issued by the City of Chicago from 2006 to the present, excluding permits that have been voided or revoked after issuance. Most types of permits are issued subject to payment of the applicable permit fee. Work under a permit may not begin until the applicable permit fee is paid. \n\nFor more information about building permits, see http://www.chicago.gov/permit.",
       "geoFieldGuess": "location",
       "host": "data.cityofchicago.org",
       "name": "Building Permits",
       "registryKey": "chicago",
-      "rowsUpdatedAt": 1777118872,
-      "viewLastModified": 1773951276
+      "rowsUpdatedAt": 1780316724,
+      "viewLastModified": 1780080970
     },
     "data.cityofnewyork.us:ipu4-2q9a": {
       "addressFieldGuess": null,
@@ -1554,18 +1554,6 @@
         },
         {
           "dataTypeName": "text",
-          "description": "Owner's Phone #",
-          "fieldName": "owner_s_phone__",
-          "name": "Owner's Phone #"
-        },
-        {
-          "dataTypeName": "text",
-          "description": "Date when query is run and pushed to Open Data. Could be used to differentiate report dates.",
-          "fieldName": "dobrundate",
-          "name": "DOBRunDate"
-        },
-        {
-          "dataTypeName": "text",
           "description": null,
           "fieldName": "permit_si_no",
           "name": "PERMIT_SI_NO"
@@ -1595,10 +1583,22 @@
           "name": "CENSUS_TRACT"
         },
         {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "bbl",
+          "name": "BBL"
+        },
+        {
           "dataTypeName": "text",
           "description": null,
           "fieldName": "gis_nta_name",
           "name": "NTA_NAME"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date when query is run and pushed to Open Data. Could be used to differentiate report dates.",
+          "fieldName": "dobrundate",
+          "name": "DOBRunDate"
         }
       ],
       "datasetId": "ipu4-2q9a",
@@ -1607,8 +1607,8 @@
       "host": "data.cityofnewyork.us",
       "name": "DOB Permit Issuance",
       "registryKey": "nyc",
-      "rowsUpdatedAt": 1777147576,
-      "viewLastModified": 1764798554
+      "rowsUpdatedAt": 1780271630,
+      "viewLastModified": 1780266644
     },
     "data.everettwa.gov:3w3u-656c": {
       "addressFieldGuess": "siteaddress",
@@ -1747,8 +1747,8 @@
       "host": "data.everettwa.gov",
       "name": "Trakit Permits",
       "registryKey": "everett",
-      "rowsUpdatedAt": 1777112145,
-      "viewLastModified": 1777112127
+      "rowsUpdatedAt": 1780308998,
+      "viewLastModified": 1780308942
     },
     "data.sandiegocounty.gov:dyzh-7eat": {
       "addressFieldGuess": "full_address",
@@ -2183,8 +2183,8 @@
       "host": "data.seattle.gov",
       "name": "Building Permits",
       "registryKey": "seattle",
-      "rowsUpdatedAt": 1777079187,
-      "viewLastModified": 1777079099
+      "rowsUpdatedAt": 1780275835,
+      "viewLastModified": 1780275776
     },
     "data.sfgov.org:i98e-djp9": {
       "addressFieldGuess": "location",
@@ -2515,7 +2515,7 @@
       "host": "data.sfgov.org",
       "name": "Building Permits",
       "registryKey": "sf",
-      "rowsUpdatedAt": 1777120178,
+      "rowsUpdatedAt": 1780317464,
       "viewLastModified": 1755626161
     },
     "internal.open.piercecountywa.gov:nhnt-v7ka": {
@@ -2727,7 +2727,7 @@
       "host": "internal.open.piercecountywa.gov",
       "name": "Permits - Pierce County",
       "registryKey": "pierce_county_unincorp",
-      "rowsUpdatedAt": 1777123148,
+      "rowsUpdatedAt": 1778877662,
       "viewLastModified": 1749281817
     }
   }

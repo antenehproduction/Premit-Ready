@@ -4198,14 +4198,29 @@ try {
 // probeConnection) runs unchanged.
 async function adiInitAuth() {
   const A = window.ADIAuth;
-  if (!A || !A.isHostedMode()) {
+  // Shared legacy BYOK path — used when hosted mode is off, unconfigured, or
+  // (P0-A) when the hosted backend is unreachable. bootstrapStoredKey tries a
+  // saved key; probeConnection handles the rest of the BYOK UI.
+  const fallbackToBYOK = () =>
     bootstrapStoredKey().then(ok => { if (!ok) probeConnection(); }).catch(() => probeConnection());
-    return;
-  }
+
+  if (!A || !A.isHostedMode()) { fallbackToBYOK(); return; }
   if (!A.isConfigured()) {
     setBanner('needs-key', '⚠ Hosted mode not configured',
       'data/auth-config.js is missing supabaseUrl / supabaseAnonKey. Falling back to BYOK. Owner: paste credentials per supabase/README.md.');
-    bootstrapStoredKey().then(ok => { if (!ok) probeConnection(); }).catch(() => probeConnection());
+    fallbackToBYOK();
+    return;
+  }
+  // P0-A: probe the hosted backend before forcing the auth modal. A paused
+  // free-tier Supabase (auto-pauses after ~7 idle days) would otherwise brick
+  // the app — show the BYOK key path instead of an inescapable sign-in modal.
+  let backendUp = true;
+  try { backendUp = await A.reachable(); } catch (_) { backendUp = false; }
+  if (!backendUp) {
+    L.warn('Hosted backend unreachable — falling back to BYOK key path.');
+    setBanner('needs-key', '⚠ Hosted service unavailable',
+      'Could not reach the hosted backend right now. Enter your own Anthropic API key to continue.');
+    fallbackToBYOK();
     return;
   }
   try {
@@ -4267,24 +4282,35 @@ function adiSwitchAuthTab(tab) {
   document.getElementById('auth-msg').textContent = '';
 }
 async function adiSubmitSignIn() {
+  const msg = document.getElementById('auth-msg');
   const email = document.getElementById('auth-email-in').value.trim();
   const pw = document.getElementById('auth-pw-in').value;
-  if (!email || !pw) { document.getElementById('auth-msg').textContent = 'Email and password required.'; return; }
-  document.getElementById('auth-msg').textContent = 'Signing in…';
-  const { user, session, error } = await window.ADIAuth.signIn(email, pw);
-  if (error) { document.getElementById('auth-msg').textContent = '✗ ' + error.message; return; }
+  if (!email || !pw) { msg.textContent = 'Email and password required.'; return; }
+  msg.textContent = 'Signing in…';
+  // P0-B: a thrown network error (paused/offline backend) must not leave the
+  // UI stuck on "Signing in…" — surface it and point at the BYOK alternative.
+  let res;
+  try { res = await window.ADIAuth.signIn(email, pw); }
+  catch (e) { msg.textContent = '✗ Network error — backend unreachable. Reload to use your own API key.'; return; }
+  const { session, error } = res || {};
+  if (error) { msg.textContent = '✗ ' + error.message; return; }
   if (session) adiOnSignedIn(session);
 }
 async function adiSubmitSignUp() {
+  const msg = document.getElementById('auth-msg');
   const email = document.getElementById('auth-email-up').value.trim();
   const pw = document.getElementById('auth-pw-up').value;
-  if (!email || !pw) { document.getElementById('auth-msg').textContent = 'Email and password required.'; return; }
-  if (pw.length < 8) { document.getElementById('auth-msg').textContent = 'Password must be ≥ 8 characters.'; return; }
-  document.getElementById('auth-msg').textContent = 'Creating account…';
-  const { user, session, error } = await window.ADIAuth.signUp(email, pw);
-  if (error) { document.getElementById('auth-msg').textContent = '✗ ' + error.message; return; }
+  if (!email || !pw) { msg.textContent = 'Email and password required.'; return; }
+  if (pw.length < 8) { msg.textContent = 'Password must be ≥ 8 characters.'; return; }
+  msg.textContent = 'Creating account…';
+  // P0-B: catch thrown network errors (see adiSubmitSignIn).
+  let res;
+  try { res = await window.ADIAuth.signUp(email, pw); }
+  catch (e) { msg.textContent = '✗ Network error — backend unreachable. Reload to use your own API key.'; return; }
+  const { session, error } = res || {};
+  if (error) { msg.textContent = '✗ ' + error.message; return; }
   if (session) { adiOnSignedIn(session); return; }
-  document.getElementById('auth-msg').textContent = '✓ Account created. Check your email to confirm, then sign in.';
+  msg.textContent = '✓ Account created. Check your email to confirm, then sign in.';
 }
 async function adiSignInGoogle() {
   document.getElementById('auth-msg').textContent = 'Redirecting to Google…';

@@ -1,0 +1,66 @@
+name: Keep Supabase warm
+
+# P0-C — prevents the free-tier Supabase project from auto-pausing after ~7
+# idle days (a pause makes the hosted-auth backend unreachable and, before the
+# P0-A BYOK fallback, bricked the live app — see AUDIT.md #1).
+#
+# Reads the public project URL + anon key straight out of data/auth-config.js
+# (single source of truth — both values are public-by-design) and issues a
+# tiny request to BOTH the Auth server and PostgREST so the ping counts as
+# database activity, which is what Supabase measures for inactivity.
+#
+# Any HTTP response (200/401/4xx) means the project is awake. The job fails
+# only when there is no response at all (DNS failure / hard outage), which is
+# the signal worth alerting on.
+#
+# Trigger:
+#   - daily 06:17 UTC (well inside the ~7-day pause window)
+#   - push touching this workflow or auth-config.js
+#   - workflow_dispatch (manual)
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  push:
+    paths:
+      - '.github/workflows/keep-supabase-warm.yml'
+      - 'data/auth-config.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ping Supabase (Auth + PostgREST) to prevent free-tier pause
+        run: |
+          set -euo pipefail
+          CFG=data/auth-config.js
+          URL=$(grep -oP "supabaseUrl:\s*'\K[^']+" "$CFG")
+          KEY=$(grep -oP "supabaseAnonKey:\s*'\K[^']+" "$CFG")
+          if [ -z "${URL:-}" ] || [ -z "${KEY:-}" ]; then
+            echo "Could not read supabaseUrl / supabaseAnonKey from $CFG"; exit 1
+          fi
+          URL="${URL%/}"
+          echo "Pinging project: $URL"
+
+          # 1) Auth server health
+          auth=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 \
+                 -H "apikey: $KEY" "$URL/auth/v1/health" || echo 000)
+          echo "auth/v1/health -> HTTP $auth"
+
+          # 2) PostgREST query (counts as DB activity; RLS may return [] — fine)
+          rest=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 \
+                 -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+                 "$URL/rest/v1/profiles?select=id&limit=1" || echo 000)
+          echo "rest/v1 query    -> HTTP $rest"
+
+          # Awake = at least one endpoint returned a real HTTP status.
+          if [ "$auth" = "000" ] && [ "$rest" = "000" ]; then
+            echo "::error::No response from Supabase — project may be paused or deleted."
+            exit 1
+          fi
+          echo "Supabase project is awake."

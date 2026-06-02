@@ -12,8 +12,19 @@ Single-file HTML application (`index.html`) that generates permit-ready architec
 
 ## Current state
 
-**Active branch:** `main`  
-**Working version:** v14 (all sprint fixes shipped; parse errors resolved)
+**Active branch:** `main` (clean; up to date with `origin/main`)
+**Working version:** v14 codebase + **Path 1 (#9)** and **Path 2 (#10)** shipped on top.
+**Last status review:** 2026-06-01 — all JS (index.html inline script, `data/*.js`, `workers/proxy.js`) passes `node --check`.
+
+> ⚠️ The UI title and PDF footers still print **"v14"** (index.html:6, :238, :2014, :2555) even though Path 1/2 added a CORS proxy and external data registries. Bump the version string when convenient.
+
+### Post-v14 work shipped (not in the v14 sprint list below)
+- **Path 1 (#9 / 8d5c78e)** — FEMA CORS fallback via `proxyFetch`, OSM-based lot calibration (`calibrateLotFromOSM`), expandable permit checklist.
+- **Path 2 (#10 / 58de684)** — Cloudflare Worker proxy (`workers/proxy.js`) + three external registries loaded as `<script src>` before the main inline script:
+  - `data/county-registry.js` — verified county ArcGIS parcel endpoints (real parcel polygons → `MAP-6` partially addressed).
+  - `data/zoning-matrix.js` — jurisdiction/district zoning lookups.
+  - `data/permit-registry.js` — city permit-portal links + Socrata endpoints.
+- These three files + `workers/` mean the project is **no longer strictly single-file** — see amended rule #7.
 
 ### v14 sprint fixes included
 - API-3 retry wrappers with exponential backoff (`callAIWithRetry`, `callJSONWithRetry`)
@@ -31,9 +42,17 @@ The original v14 drop had parse errors from unescaped apostrophes in single-quot
 
 ## Architecture
 
-Everything lives in `index.html`. No separate JS/CSS files.
+The app shell + all logic live in `index.html`. As of Path 2 there are also three
+data registries (`data/*.js`) loaded via `<script src>` and an optional Cloudflare
+Worker proxy (`workers/proxy.js`). CSS still lives only in `index.html`.
 
 ```
+data/county-registry.js   window.COUNTY_REGISTRY + countyRegistryKey()   ← loaded before main script
+data/zoning-matrix.js     window.ZONING_MATRIX_DB + zoningMatrixKey()
+data/permit-registry.js   window.PERMIT_PORTAL_REGISTRY + permitRegistryKey()
+workers/proxy.js          Cloudflare Worker — /fema /arcgis /municode /permits/:city
+                          (CORS + caching; optional, gated by localStorage 'ADI_PROXY')
+
 index.html
 ├── <style>          CSS variables, layout, component styles
 ├── HTML             Landing screen + Workspace (3-panel layout)
@@ -67,7 +86,7 @@ index.html
 
 6. **Floor plan is local** — `localFloorPlan(z, selectedOption)` has no API call. Do not add one. The timeout issues that plagued v1–v9 were caused by asking AI to generate JSON geometry.
 
-7. **Single file** — keep everything in `index.html`. No splitting into separate .js or .css files unless explicitly requested.
+7. **Mostly single file** — keep app logic + all CSS in `index.html`. The *only* sanctioned external JS is the three `data/*.js` registries (pure data, loaded before the main script) and `workers/proxy.js` (runs on Cloudflare, not in the browser). Do not split the main inline script, the floor-plan/drawing engine, or CSS into separate files unless explicitly requested.
 
 ---
 
@@ -125,18 +144,24 @@ Google Fonts      fonts.googleapis.com
 
 Priority order:
 1. ~~**API-CONN** — probeConnection / saveKey broken in v14~~ — resolved: was a script parse error from unescaped apostrophes, not a real bug in the connection functions
-2. **DRAW-5** — PDF aspect ratio slight distortion (1440/960 ≠ 914/610mm exactly)
-3. **GEOM-2** — ADU rooms can exceed rear setback when lot is shallow
-4. **MAP-6** — Parcel shown as rectangle; real parcels are irregular
-5. **DATA-2** — Cost estimates use fixed $/SF, don't adjust for current ENR index
+2. **DRAW-5** — PDF aspect ratio slight distortion (1440/960 ≠ 914/610mm exactly) — still open
+3. **GEOM-2** — ADU rooms can exceed rear setback when lot is shallow — still open
+4. ~~**MAP-6** — Parcel shown as rectangle; real parcels are irregular~~ — **partially resolved** by Path 2: counties in `data/county-registry.js` now return real surveyed parcel polygons via ArcGIS; lots outside the registry still fall back to a calibrated rectangle (`calibrateLotFromOSM`). Remaining work: broaden county coverage + render the actual polygon on the drawing sheets.
+5. **DATA-2** — Cost estimates use fixed $/SF, don't adjust for current ENR index — still open (only reference is index.html:1981)
+
+### New issues found in 2026-06-01 review
+6. **ENV-1** — `.env.txt` is untracked in the working tree but `.gitignore` only ignores `.env`/`.env.local`, **not** `.env.txt`. It is currently empty (0 bytes), so nothing leaked — but if a key is ever pasted in, `git add -A` would commit it. Fix: add `.env.txt` (or `*.env*`) to `.gitignore`, or delete the stray file.
+7. **PROXY-SEC** — `workers/proxy.js` `/arcgis` and `/municode` validate the upstream `url` param with a loose substring regex (`/arcgis|.../`), which a crafted host like `attacker.com/arcgis` could satisfy (mild SSRF). Low risk for a read-only, origin-locked, free-tier proxy, but tighten to an allowlist of host suffixes if the proxy is ever deployed publicly.
 
 ---
 
 ## File history
 
 ```
-index.html    v14 — sprint fixes, retries, autocomplete, CSV export, responsive layout
-archdraw-intel-v14.html  snapshot kept for reference; do not edit
+index.html    v14 + Path 1 (#9) + Path 2 (#10) — proxyFetch, lot calibration, county/zoning/permit registries
+data/*.js     Path 2 — county-registry, zoning-matrix, permit-registry (loaded before main script)
+workers/      Path 2 — Cloudflare Worker proxy (proxy.js, wrangler.toml, README.md)
+archdraw-intel-v14.html  pre-Path snapshot kept for reference; do not edit
 ```
 
 Do not create additional versioned files. Git history tracks versions.

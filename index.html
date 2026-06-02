@@ -1625,6 +1625,16 @@ async function fetchOverlays(lat,lon,state){
 }
 
 // ── DEVELOPMENT OPTIONS GENERATION (local, instant) ──
+// Single source of truth for construction $/SF (pre-inflation). Both the
+// options panel and the checklist valuation call this so they can never
+// disagree again (was $220/$380 in options vs $200/$260/$380 in checklist —
+// AUDIT.md #18). Caller multiplies by window.COST_INDEX for inflation.
+function baseCostPerSF(state){
+  const s=normalizeState(state);
+  if(['CA','NY','DC','MA','WA'].includes(s))return 380; // high-cost coastal metros
+  if(['FL','TX'].includes(s))return 200;                // low-cost, high-volume
+  return 260;                                            // national mid
+}
 function generateOptions(z){
   const bW=Math.max(14,z.lotWidth-z.leftSetback-z.rightSetback);
   const bD=Math.max(20,z.lotDepth-z.frontSetback-z.rearSetback);
@@ -1648,7 +1658,7 @@ function generateOptions(z){
   // ratio, and bump COST_INDEX.asOf. Auto-refresh script is a planned
   // follow-up (parallel to fetch-socrata-schemas.py — workflow on cron).
   const costIndex=(window.COST_INDEX&&window.COST_INDEX.current)||1.06;
-  const costPerSF=Math.round((isCA||isWA?380:220)*costIndex);
+  const costPerSF=Math.round(baseCostPerSF(z.state)*costIndex);
   const valuePerUnit=Math.round(((isCA)?720000:isWA?540000:320000)*costIndex);
   const costMultiplier=(highSeismic)?1.18:1.0;// seismic premium
 
@@ -1873,7 +1883,7 @@ async function runPhase_chk(){
   // DATA-2 fix: apply ENR-style inflation multiplier (BLS PPI proxy) —
   // see options-panel cost calc above for full rationale and update path.
   const costIndex=(window.COST_INDEX&&window.COST_INDEX.current)||1.06;
-  const costPerSF=Math.round(((isCA||isNY||isDC||isMA||isWA)?380:(isFL||isTX)?200:260)*costIndex);
+  const costPerSF=Math.round(baseCostPerSF(st)*costIndex);
   const valuation=Math.round(totalSF*costPerSF);const feeRate=(isCA||isNY)?.012:(isWA||isOR)?.01:.008;
   const feeEst=Math.round(valuation*feeRate/100)*100;
   const feeRange=`$${(feeEst*.8/1000).toFixed(0)}K–$${(feeEst*1.4/1000).toFixed(0)}K`;

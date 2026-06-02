@@ -261,7 +261,37 @@ window.PERMIT_PORTAL_REGISTRY = {
 
 };
 
-window.permitRegistryKey = function(city) {
+// Map of normalized jurisdiction name → registry key, for cities whose key is
+// an abbreviation or alliance name rather than the spelled-out city name.
+// Without this, permitRegistryKey('San Francisco') → 'sanfrancisco' missed the
+// registry key 'sf' and the verified-permit cross-check silently never ran
+// (same for NYC/LA/DC/Miami + the eCityGov cities). See AUDIT.md #15/#16.
+var PERMIT_KEY_ALIASES = {
+  sanfrancisco: 'sf', sanfran: 'sf',
+  newyork: 'nyc', newyorkcity: 'nyc', manhattan: 'nyc', brooklyn: 'nyc',
+  bronx: 'nyc', queens: 'nyc', statenisland: 'nyc',
+  losangeles: 'la',
+  washington: 'dc', washingtondc: 'dc', districtofcolumbia: 'dc',
+  miami: 'miamidade', miamidadecounty: 'miamidade',
+  piercecounty: 'pierce_county_unincorp', piercecountyunincorporated: 'pierce_county_unincorp',
+  snohomishcounty: 'snohomish_county_unincorp', snohomishcountyunincorporated: 'snohomish_county_unincorp',
+};
+// eCityGov Alliance (MyBuildingPermit) covered cities all resolve to one key.
+// Sourced from the registry entry so the list stays single-source.
+(window.PERMIT_PORTAL_REGISTRY.mybuildingpermit &&
+ window.PERMIT_PORTAL_REGISTRY.mybuildingpermit.coversCities || []).forEach(function (c) {
+  PERMIT_KEY_ALIASES[String(c).toLowerCase().replace(/[^a-z]/g, '')] = 'mybuildingpermit';
+});
+
+// Normalize a jurisdiction name to a PERMIT_PORTAL_REGISTRY key.
+// Strips an ANCHORED "city/town/village of " prefix (not a mid-word "city",
+// which previously mangled "Jersey City" → "jersey"), drops all non-letters,
+// then applies the alias map. Returns the normalized key (which equals the
+// registry key for cities named plainly, e.g. seattle/denver/atlanta).
+window.permitRegistryKey = function (city) {
   if (!city) return null;
-  return String(city).toLowerCase().replace(/\s+/g,'').replace(/city(of)?/,'');
+  var k = String(city).toLowerCase().trim()
+    .replace(/^(city|town|village|borough|county) of\s+/, '')
+    .replace(/[^a-z]/g, '');
+  return PERMIT_KEY_ALIASES[k] || k;
 };

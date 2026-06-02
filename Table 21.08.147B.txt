@@ -1,0 +1,2057 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Ch. 21.08 Neighborhood and Mixed-Use Regulations | Redmond Zoning Code</title>
+
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Ch. 21.08 Neighborhood and Mixed-Use Regulations | Redmond Zoning Code"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://redmond.municipal.codes/RZC/21.08?redirect=false"/>
+	<meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="Redmond Municipal Code"/>
+<meta name="twitter:card" content="summary"/>
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="nFaJPVTwIAr3tU-F37jzdxOPDyilbvrjsEmsDmJI_TGxBAqY_BJ4-4s1xVUAwlx2f2x498EKDfKT9kUTfKS3Dw" />
+
+
+
+	<link
+		rel="prev"
+		href="/RZC/21.06"
+			title="Ch. 21.06, Urban Recreation"
+	/>
+	<link
+		rel="next"
+		href="/RZC/21.10"
+			title="Ch. 21.10, Downtown Regulations"
+	/>
+	<link
+		rel="up"
+		href="/RZC/I"
+			title="Article I, Zone-Based Regulations"
+	/>
+
+	<link rel="stylesheet" href="/interface.css?v=1694193569" />
+
+	<link rel="stylesheet" href="/RZC/content.css?v=1775867882" />
+
+<link rel="stylesheet" href="/custom.css?v=1777005714" />
+
+<link rel="preload" href="/fonts/glyphicons-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
+<script src="/assets/interface-f2c60572a11d309c6e0e0abe28fdc9ff8d07b3e45dfb8203ac5dc8bf9e1cf931.js" defer="defer"></script>
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-47XLS05727"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		window.googleParams = {
+			prefix: '/WA/Redmond',
+			tagId: 'G-47XLS05727',
+		};
+	</script>
+
+
+<link rel="icon" href="/images/host-icon.png" type="image/png" sizes="192x192"/>
+<link rel="apple-touch-icon" href="/images/host-icon.png" sizes="192x192"/>
+<link rel="manifest" href="/manifest.json" crossorigin="anonymous"/>
+	<meta name="theme-color" content="#2c353e"/>
+
+
+</head>
+
+<body
+	class="section_previews definition_previews pending_updates recent_updates historic_versions running-text"
+	 data-product="RZC"
+>
+<div class="inner">
+
+<a class="sr-only sr-only-focusable" href="#main-column">Skip to main content</a>
+
+<div
+	class="progress siteprogress"
+	data-controller="siteprogress"
+	data-siteprogress-active-class="siteprogress--active"
+>
+	<div
+		class="progress-bar progress-bar-striped progress-bar-animated"
+		role="progressbar"
+	>
+		Loading…
+	</div>
+</div>
+
+
+<div class="statusflags" data-controller="statusflags">
+
+
+
+</div>
+
+
+<header id="site-header" class="hidden-print">
+<div class="inner">
+
+	<a class="organization-logo no-custom-style" title="City of Redmond, Washington" href="https://www.redmond.gov/"></a>
+
+	<a class="organization-name" title="City of Redmond, Washington" href="https://www.redmond.gov/">Redmond, WA</a>
+
+	<a class="product-name" title="Redmond Zoning Code" href="/RZC">
+		Zoning Code
+		
+</a>
+	<div class="links">
+			<a rel="external" class="link " href="http://www.redmond.gov/PropertyViewer">Maps</a>
+	</div>
+
+</div>
+</header>
+
+
+<div id="navbars">
+
+	<nav class="sitenavbar navbar navbar-expand-md navbar-dark" data-controller="sitenavbar">
+<div class="container-fluid">
+	<ul class="sitenavbar-compact nav navbar-nav d-md-none">
+		<li class="sitenavbar-home nav-item">
+			<a
+				class="nav-link nav-home"
+				href="/"
+			>
+				<span class="glyphicons glyphicons-home" aria-hidden="true"></span
+				><span class="text">Home</span>
+			</a>
+		</li>
+		<li class="sitenavbar-previous nav-item">
+				<a
+					class="nav-link"
+					href="/RZC/21.06"
+					title="Ch. 21.06, Urban Recreation"
+				>
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span
+					><span class="text">Ch. 21.06</span>
+				</a>
+		</li>
+		<li class="sitenavbar-up nav-item">
+				<a
+					class="nav-link"
+					href="/RZC/I"
+					title="Article I, Zone-Based Regulations"
+				>
+					<span class="glyphicons glyphicons-arrow-up" aria-hidden="true"></span
+					><span class="text">Article I</span>
+				</a>
+		</li>
+		<li class="sitenavbar-next nav-item">
+				<a
+					class="nav-link"
+					href="/RZC/21.10"
+					title="Ch. 21.10, Downtown Regulations"
+				>
+					<span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span
+					><span class="text">Ch. 21.10</span>
+				</a>
+		</li>
+		<button
+			type="button"
+			class="sitenavbar-toggler navbar-toggler collapsed"
+			data-toggle="collapse"
+			data-target="#aa7af990f-8c2f-4ab7-8739-02d4396e2f6f"
+			aria-expanded="false"
+		>
+			<span class="sr-only">Toggle site navigation</span>
+			<span class="navbar-toggler-icon"></span>
+			<span class="text">Menu</span>
+		</button>
+	</ul>
+	<div id="aa7af990f-8c2f-4ab7-8739-02d4396e2f6f" class="sitenavbar-full collapse navbar-collapse">
+		<div class="inner">
+			<div class="sitenavbar-search">
+					<form class="form-inline navbar-right" role="search" action="/search" accept-charset="UTF-8" method="get">
+					<div class="form-group">
+					<div class="input-group">
+						<input
+							type="text"
+							name="q"
+							class="sitenavbar-search-input form-control"
+							required="required"
+							placeholder="Search Zoning Code"
+							aria-label="Enter one or more terms to search for."
+							autocomplete="off"
+						/>
+						<span class="input-group-btn">
+							<button
+								type="submit"
+								class="sitenavbar-search-button btn btn-primary"
+								data-toggle="tooltip"
+								title="Search the Zoning Code for the term(s) you entered."
+							>
+								<span class="glyphicons glyphicons-search" aria-hidden="true"></span>
+							</button>
+						</span>
+						<input type="hidden" name="doc[]" value="RZC">
+						
+					</div>
+					</div>
+</form>							<nav
+	aria-label="Breadcrumbs"
+	class="breadcrumbs breadcrumbs--compact d-block d-md-none"
+	data-controller="breadcrumbs"
+>
+	<ul class="breadcrumbs-list breadcrumb">
+		<li class="breadcrumbs-organization breadcrumb-item"
+			><a
+				href="https://www.redmond.gov/"
+				class="breadcrumbs-link"
+			>City of Redmond</a
+		></li><li class="breadcrumb-item"
+					><a
+						href="/RZC"
+						class="breadcrumbs-link"
+					>
+						Zoning Code
+						</a
+				></li
+			><li class="breadcrumb-item"
+					><a
+						href="/RZC/I"
+						class="breadcrumbs-link"
+					>Article I, Zone-Based Regulations</a
+				></li
+			><li class="breadcrumbs-chunk breadcrumb-item"
+				><a
+					href="/RZC/21.08"
+					class="breadcrumbs-link"
+					data-breadcrumbs-target="chunk"
+				>Ch. 21.08, Neighborhood and Mixed-Use Regulations</a
+			></li><li class="breadcrumbs-onpage breadcrumb-item d-none" data-breadcrumbs-target="onpage"
+					><a
+						href
+						data-breadcrumbs-target="onpagelink"
+					></a
+				></li>
+	</ul>
+</nav>
+
+
+			</div>
+			<ul class="navbar-nav">
+				<li class="sitenavbar-home nav-item d-none d-md-block">
+					<a
+						href="/"
+						class="nav-link"
+						data-toggle="tooltip"
+						title="Browse all available publications."
+					>
+						<span class="glyphicons glyphicons-home" aria-hidden="true"></span
+						><span class="text">Home</span>
+					</a>
+				</li>
+					<li class="sitenavbar-contents nav-item">
+						<a
+							class="nav-link"
+							href="/RZC/contents"
+							data-toggle="modal"
+							data-target="#contents"
+							data-remote="false"
+							data-toggle2="tooltip"
+							title="Search or browse the full contents of this publication or others."
+						>
+							<span class="glyphicons glyphicons-list" aria-hidden="true"></span
+							><span class="text">Contents</span>
+						</a>
+					</li>
+				<li class="sitenavbar-track nav-item dropdown">
+	    			<button
+						type="button"
+						id="ad446f73f-c23c-4576-8694-f41aeefa0f12"
+						class="sitenavbar-dropdown-toggle btn btn-link nav-link dropdown-toggle"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+						data-toggle2="tooltip"
+						title="Review legislation, meetings, and code changes over time."
+					>
+						<span class="glyphicons glyphicons-history" aria-hidden="true"></span
+						><span class="text">Track</span>
+					</button>
+					<div
+						class="sitenavbar-dropdown-menu dropdown-menu"
+						aria-labelledby="ad446f73f-c23c-4576-8694-f41aeefa0f12"
+					>
+						<a class="dropdown-item" href="/enactments">
+							Legislative History
+						</a>
+							<a
+								href="/RZC/versions?home=false&amp;node=21.08"
+								class="dropdown-item "
+								data-controller="dynamodal"
+							>
+								Historic Versions
+							</a>
+							<a
+								class="dropdown-item"
+								href="/enactments?status=codifying"
+							>
+								Pending Updates
+							</a>
+							<a
+								class="dropdown-item"
+								href="/updates"
+							>
+								Recent Updates
+							</a>
+					</div>
+				</li>
+				<li class="sitenavbar-share nav-item dropdown">
+					<button
+						type="button"
+						id="a4e87922b-34d2-4973-bead-d3b65757a6e2"
+						class="sitenavbar-dropdown-toggle btn btn-link nav-link dropdown-toggle"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+						data-toggle2="tooltip"
+						title="Save, share, bookmark or print this page or your selections."
+					>
+						<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span
+						><span class="text">Share</span>
+					</button>
+					<div
+						class="sitenavbar-dropdown-menu dropdown-menu"
+						aria-labelledby="a4e87922b-34d2-4973-bead-d3b65757a6e2"
+					>
+						<a
+							href="/RZC/21.08/share"
+							class="dropdown-item"
+							data-controller="dynamodal"
+							rel="nofollow"
+						>
+							This Page
+						</a>
+						<a
+							href="/selections/share"
+							class="sitenavbar-selections dropdown-item selections disabled"
+							data-controller="dynamodal"
+							data-dynamodal-selections-value="true"
+							rel="nofollow"
+						>
+							Your Selections
+							<span class="badge badge-pill badge-primary"></span>
+						</a>
+					</div>
+				</li>
+				<li class="sitenavbar-settings nav-item">
+					<a
+						class="nav-link"
+						href="/settings"
+						role="button"
+						data-controller="dynamodal"
+						data-toggle="tooltip"
+						title="Choose how this site appears to you."
+					>
+						<span class="glyphicons glyphicons-cogwheels" aria-hidden="true"></span
+						><span class="text">Settings</span>
+					</a>
+				</li>
+				<li class="sitenavbar-help nav-item">
+					<a
+						class="nav-link"
+						href="/help"
+						target="_blank"
+						role="button"
+						data-toggle="tooltip"
+						title="Learn how to use the features of this site."
+					>
+						<span class="glyphicons glyphicons-question-sign" aria-hidden="true"></span
+						><span class="text">Help</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</nav>
+
+	
+
+	
+
+	
+
+	
+
+</div>
+
+<div id="container" class="container" data-controller="container">
+	<div id="container-main">
+		<div id="main-column" class="">
+					<nav
+	aria-label="Breadcrumbs"
+	class="breadcrumbs breadcrumbs--main d-none d-md-block"
+	data-controller="breadcrumbs"
+>
+	<ul class="breadcrumbs-list breadcrumb">
+		<li class="breadcrumbs-organization breadcrumb-item"
+			><a
+				href="https://www.redmond.gov/"
+				class="breadcrumbs-link"
+			>City of Redmond</a
+		></li><li class="breadcrumb-item"
+					><a
+						href="/RZC"
+						class="breadcrumbs-link"
+					>
+						Zoning Code
+						</a
+				></li
+			><li class="breadcrumb-item"
+					><a
+						href="/RZC/I"
+						class="breadcrumbs-link"
+					>Article I, Zone-Based Regulations</a
+				></li
+			><li class="breadcrumbs-chunk breadcrumb-item"
+				><a
+					href="/RZC/21.08"
+					class="breadcrumbs-link"
+					data-breadcrumbs-target="chunk"
+				>Ch. 21.08, Neighborhood and Mixed-Use Regulations</a
+			></li>
+	</ul>
+</nav>
+
+			<div class="flash alert alert-warning">“21.08.147” could not be found in this version. A broader portion of the code, Chapter 21.08 RZC, is shown here instead.</div>
+		
+		<main xmlns="http://www.w3.org/1999/xhtml" id="main" class="main nodes" lang="en" xml:lang="en">
+<div class="levelnodes" data-controller="levelnodes">
+	<div class="levelnodeactions d-flex justify-content-center" data-levelnodes-target="actions" data-controller="levelnodeactions">
+	<span class="dropdown">
+		<button type="button" class="btn btn-link action dropdown-toggle" data-toggle="dropdown" data-toggle2="tooltip" aria-haspopup="true" aria-expanded="false" title="Find Related">
+			<span class="glyphicons glyphicons-search" aria-hidden="true"></span>
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="/RZC/21.08/search" rel="nofollow" data-levelnodeactions-target="search">Search Within This</a>
+		</div>
+	</span>
+	<a href="/RZC/21.08/history" class="action history" role="button" data-controller="dynamodal" data-toggle="tooltip" data-levelnodeactions-target="history" title="History of This nodeType" rel="nofollow">
+		<span class="glyphicons glyphicons-history" aria-hidden="true"></span>
+	</a>
+	<a href="/RZC/21.08/share" class="action share" role="button" data-controller="dynamodal" data-toggle="tooltip" data-levelnodeactions-target="share" title="Save, Share, Bookmark or Print" rel="nofollow">
+		<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span>
+	</a>
+	<input type="checkbox" class="levelnodeactions-selector selections-selector secondary" data-toggle="tooltip" title="Include in Your Selections" data-levelnodeactions-target="selector" autocomplete="off"/><span></span>
+</div>
+
+	<article class="level4 chunking-large type-Chapter has-history chunknode" id="21.08" data-cite="Chapter 21.08 RZC" data-short-cite="Ch. 21.08" data-history="/RZC/21.08/history"><header class=" mini-header" data-type="Chapter" data-search="/RZC/21.08/search" data-share="/RZC/21.08/share" data-levelnodes-target="header"><h4 class=" inner-header"><span class="num">Chapter 21.08</span> <span class="name">NEIGHBORHOOD AND MIXED-USE REGULATIONS</span></h4></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This chapter is included in your selections.</span>
+</div>
+
+
+
+
+<p class="tocHeading heading">Sections:</p><ul class="toc from-level4 to-level6">
+
+<li class="tocItem level6"><a href="21.08.100"><span class="num">21.08.100</span> <span class="name">Neighborhood and Mixed-Use Zones.</span></a></li>
+<li class="tocItem level6"><a href="21.08.110"><span class="num">21.08.110</span> <span class="name">References.</span></a></li>
+<li class="tocItem level6"><a href="21.08.150"><span class="num">21.08.150</span> <span class="name">Mixed-Use Transition Strategy.</span></a></li>
+<li class="tocItem level6"><a href="21.08.200"><span class="num">21.08.200</span> <span class="name">Development Standards.</span></a></li>
+<li class="tocItem level6"><a href="21.08.300"><span class="num">21.08.300</span> <span class="name">Street Typology and Relationship to Buildings.</span></a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<article class="level6 chunking-small type-Section has-history" id="21.08.100" data-cite="RZC 21.08.100" data-short-cite="21.08.100" data-history="/RZC/21.08.100/history"><header class=" full-header" data-type="Section" data-search="/RZC/21.08.100/search" data-share="/RZC/21.08.100/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">21.08.100</span> <span class="name">Neighborhood and Mixed-Use Zones.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.100.A" data-cite="RZC 21.08.100.A." data-short-cite="21.08.100.A"><p class="header"><span class="num">A.&#x2002;</span><span class="name">Purpose.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.100.A.1" data-cite="RZC 21.08.100.A..1" data-short-cite="21.08.100.A.1"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>Implement the Redmond <a class="def" href="21.78.120__2e4be5605e94d5916abeb04536bd372f">Comprehensive Plan</a> vision for complete neighborhoods and vibrant <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">mixed-use</a> zones that provide a variety of housing choices in low and middle densities and opportunities to get <a class="def" href="21.78.100__bf733d8a933c1601697f364223fc7ecb">access</a> to services in residential neighborhoods.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.100.A.2" data-cite="RZC 21.08.100.A..2" data-short-cite="21.08.100.A.2"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>Allow a mixture of residential and commercial uses along major corridors and transit routes outside of centers.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.100.A.3" data-cite="RZC 21.08.100.A..3" data-short-cite="21.08.100.A.3"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>Retain vital commercial services while areas are transitioning to <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">mixed-use</a>.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.100.B" data-cite="RZC 21.08.100.B." data-short-cite="21.08.100.B"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>There are three neighborhood zones: Neighborhood Residential (NR), Neighborhood Multifamily (NMF), and Neighborhood <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">Mixed-Use</a> (NMU). These zones allow for a variety of housing types and some commercial activity.</p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.100.B.1" data-cite="RZC 21.08.100.B..1" data-short-cite="21.08.100.B.1"><p><span class="header"><span class="num">1.&#x2002;</span><span class="name">Neighborhood Residential Purpose.</span> </span>The Neighborhood Residential zone provides for primarily residential neighborhoods with a variety of housing types that serve <a class="def" href="21.78.170__ea4be67641b70cfa3fec0f86ea7f239b">households</a> at a variety of income levels. The zone allows for different types of homes such as, but not limited to, detached single-<a class="def" href="21.78.150__cefc4f7cbc8c34762e0f76703e7e174e">family</a> homes, duplexes, triplexes, fourplexes, fiveplexes, sixplexes, <a class="def" href="21.78.290__2b14e420bd0fc04e09512809ba68cd4d">townhouses</a>, <a class="def" href="21.78.280__1c7bab5638f02abb75b7a1e53c4401f8">stacked flats</a>, <a class="def" href="21.78.120__7c2965e461172fafef0d1c6c8a31b34d">courtyard apartments</a>, and <a class="def" href="21.78.120__ed61955a63a010b462a72860587d54d5">cottage</a> housing. Some nonresidential uses are allowed to provide amenities to nearby <a class="def" href="21.78.270__48e13062c4d02689178daa454f4671cf">residential uses</a> and to support complete neighborhoods.</p>
+
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.100.B.2" data-cite="RZC 21.08.100.B..2" data-short-cite="21.08.100.B.2"><p><span class="header"><span class="num">2.&#x2002;</span><span class="name">Neighborhood Multifamily Purpose.</span> </span>The Neighborhood Multifamily zone provides for multifamily residential neighborhoods on lands suitable for residential <a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">development</a>. This designation provides for stable and attractive residential neighborhoods which have an urban character and a full range of public services and facilities. To complement the primarily residential nature of these zones and encourage complete neighborhoods, some nonresidential uses are allowed.</p>
+
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.100.B.3" data-cite="RZC 21.08.100.B..3" data-short-cite="21.08.100.B.3"><p><span class="header"><span class="num">3.&#x2002;</span><span class="name">Neighborhood Mixed-Use Purpose.</span> </span>The Neighborhood <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">Mixed-Use</a> intent is to create complete neighborhoods. These are neighborhoods where most human needs are located within a comfortable walking distance. The zone allows for small commercial spaces such as corner stores and <a class="def" href="21.78.150__abf0177d311bbf5b0058d9249d9d7145">food and beverage</a>.</p>
+
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.100.C" data-cite="RZC 21.08.100.C." data-short-cite="21.08.100.C"><p><span class="header"><span class="num">C.&#x2002;</span><span class="name">Mixed-Use Zones.</span> </span>There are two citywide <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">mixed-use</a> zones: Corridor <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">Mixed-Use</a> (CMU) and Urban <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">Mixed-Use</a> (UMU). The integration of residential, commercial, and recreational spaces fosters vibrant, <a class="def" href="21.78.320__cfbc686e0fcbc71bd758d7e6c469d1a1">walkable</a>, and economically robust areas that <a class="def" href="21.78.120__f7da9b9659fe6acc74b27288e49324ae">cater</a> to the diverse needs of our community.</p>
+
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.100.C.1" data-cite="RZC 21.08.100.C..1" data-short-cite="21.08.100.C.1"><p><span class="header"><span class="num">1.&#x2002;</span><span class="name">Corridor Mixed-Use Purpose.</span> </span>This zone accommodates a broad mix of commercial uses and low- to medium-density <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">mixed-use</a> housing along transit corridors.</p>
+
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.100.C.2" data-cite="RZC 21.08.100.C..2" data-short-cite="21.08.100.C.2"><p><span class="header"><span class="num">2.&#x2002;</span><span class="name">Urban Mixed-Use Purpose.</span> </span>This zone creates vibrant, <a class="def" href="21.78.320__cfbc686e0fcbc71bd758d7e6c469d1a1">walkable</a>, economically robust nodes outside of centers. The zone permits a broad mix of commercial, employment, retail, service, cultural, and <a class="def" href="21.78.270__48e13062c4d02689178daa454f4671cf">residential uses</a> in a <a class="def" href="21.78.320__cfbc686e0fcbc71bd758d7e6c469d1a1">walkable</a>, urban format. These zones are appropriate for small to large-format commercial goods and services in a <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">mixed-use</a> setting and urban forms. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 3220)</span></p>
+
+
+
+
+</section>
+</section>
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="21.08.110" data-cite="RZC 21.08.110" data-short-cite="21.08.110" data-history="/RZC/21.08.110/history"><header class=" full-header" data-type="Section" data-search="/RZC/21.08.110/search" data-share="/RZC/21.08.110/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">21.08.110</span> <span class="name">References.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.110.A" data-cite="RZC 21.08.110.A." data-short-cite="21.08.110.A"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span>For allowed uses, see RZC Chapter <a class="cite" href="21.04" title="Ch. 21.04&#x2002;Land Uses and General Provisions">21.04</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.110.B" data-cite="RZC 21.08.110.B." data-short-cite="21.08.110.B"><p class="heading"><span class="header num-only"><span class="num">B.&#x2002;</span></span>For incentives see:</p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.110.B.1" data-cite="RZC 21.08.110.B..1" data-short-cite="21.08.110.B.1"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>RZC Chapter <a class="cite" href="21.67" title="Ch. 21.67&#x2002;Green Building Program (GBP)">21.67</a>, Green <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Building</a> Program (GBP);</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.110.B.2" data-cite="RZC 21.08.110.B..2" data-short-cite="21.08.110.B.2"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>RZC Chapter <a class="cite" href="21.20" title="Ch. 21.20&#x2002;Affordable Housing">21.20</a>, Affordable Housing;</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.110.B.3" data-cite="RZC 21.08.110.B..3" data-short-cite="21.08.110.B.3"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>RZC Chapter <a class="cite" href="21.55" title="Ch. 21.55&#x2002;Development Incentive Program">21.55</a>, <a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> Incentive Program.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.110.C" data-cite="RZC 21.08.110.C." data-short-cite="21.08.110.C"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>For mandatory Green <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Building</a> requirements, see RZC Chapter <a class="cite" href="21.67" title="Ch. 21.67&#x2002;Green Building Program (GBP)">21.67</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.110.D" data-cite="RZC 21.08.110.D." data-short-cite="21.08.110.D"><p><span class="header num-only"><span class="num">D.&#x2002;</span></span>For design standards, see RZC Chapter <a class="cite" href="21.58" title="Ch. 21.58&#x2002;Community Design Standards">21.58</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.110.E" data-cite="RZC 21.08.110.E." data-short-cite="21.08.110.E"><p><span class="header num-only"><span class="num">E.&#x2002;</span></span>For information on how to measure various <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> requirements like height and <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setbacks</a>, see RZC Chapter <a class="cite" href="21.16" title="Ch. 21.16&#x2002;Site Requirements Measurement and Other Applicable Regulations">21.16</a>, <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">Site</a> Requirements Measurement and Other Applicable Regulations. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 3220)</span></p>
+
+
+
+</section>
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" data-effective-to="2029-12-31" id="21.08.150" data-cite="RZC 21.08.150" data-short-cite="21.08.150" data-history="/RZC/21.08.150/history"><header class=" full-header" data-type="Section" data-search="/RZC/21.08.150/search" data-share="/RZC/21.08.150/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">21.08.150</span> <span class="name">Mixed-Use Transition Strategy.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.150.A" data-cite="RZC 21.08.150.A." data-short-cite="21.08.150.A"><p class="header"><span class="num">A.&#x2002;</span><span class="name">Incremental Redevelopment Provisions.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.150.A.1" data-cite="RZC 21.08.150.A..1" data-short-cite="21.08.150.A.1"><p><span class="header"><span class="num">1.&#x2002;</span><span class="name">Applicability.</span> </span><a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Buildings</a>, uses, and <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">sites</a> <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">must</a> comply with the provisions of RZC <a class="cite" href="21.04.5000" title="21.04.5000&#x2002;Legal Nonconforming Uses and Structures">21.04.5000</a>, Legal <a class="def" href="21.78.230__52e1d29a39303c359982ac9064e21ffc">Nonconforming Uses</a> and <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Structures</a>, except as provided herein to allow for property owners to gradually transition to new standards.</p>
+
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.150.A.2" data-cite="RZC 21.08.150.A..2" data-short-cite="21.08.150.A.2"><p><span class="header"><span class="num">2.&#x2002;</span><span class="name">Bringing Nonconforming Structures into Compliance.</span> </span>For <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> additions and remodels and associated <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> improvements, thresholds have been established to guide how the standards of this chapter are applied to such projects (see RZC <a class="cite" href="21.04.5000.I" title="21.04.5000.I&#x2002;Alteration or Expansion of a Nonconformance">21.04.5000.I</a>.).</p>
+
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.150.A.3" data-cite="RZC 21.08.150.A..3" data-short-cite="21.08.150.A.3"><p class="header"><span class="num">3.&#x2002;</span><span class="name">Building Additions.</span> </p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="21.08.150.A.3.a" data-cite="RZC 21.08.150.A..3.a" data-short-cite="21.08.150.A.3.a"><p><span class="header"><span class="num">a.&#x2002;</span><span class="name">Front Addition.</span> </span>Any addition to the front of the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">must</a> comply with requirements in RZC <a class="cite" href="21.08.300" title="21.08.300&#x2002;Street Typology and Relationship to Buildings">21.08.300</a>, <a class="def" href="21.78.280__d61ebdd8a0c0cd57c22455e9f0918c65">Street</a> Typology and Relationship to <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Buildings</a>.</p>
+
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="21.08.150.A.3.b" data-cite="RZC 21.08.150.A..3.b" data-short-cite="21.08.150.A.3.b"><p><span class="header"><span class="num">b.&#x2002;</span><span class="name">Rear Addition.</span> </span>Rear additions are permitted, provided they do not increase the degree of rear <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setback</a>/build-to nonconformity.</p>
+
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="21.08.150.A.3.c" data-cite="RZC 21.08.150.A..3.c" data-short-cite="21.08.150.A.3.c"><p><span class="header"><span class="num">c.&#x2002;</span><span class="name">Side Additions.</span> </span>Side additions are not permitted unless the proposed work results in the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> meeting the requirements in RZC <a class="cite" href="21.08.300" title="21.08.300&#x2002;Street Typology and Relationship to Buildings">21.08.300</a>, <a class="def" href="21.78.280__d61ebdd8a0c0cd57c22455e9f0918c65">Street</a> Typology and Relationship to <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Buildings</a>. If no build-to requirements apply, side additions are permitted.</p>
+
+
+
+
+</section>
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.150.A.4" data-cite="RZC 21.08.150.A..4" data-short-cite="21.08.150.A.4"><p><span class="header"><span class="num">4.&#x2002;</span><span class="name">New Buildings Where Existing Building Remains in Place.</span> </span>New <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">buildings</a> and associated improvements <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">must</a> comply with RZC standards.</p>
+
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.150.A.5" data-cite="RZC 21.08.150.A..5" data-short-cite="21.08.150.A.5"><p class="header"><span class="num">5.&#x2002;</span><span class="name">Administrative Design Flexibility for Additions, Remodels, or New Buildings Added to the Parcel.</span> </p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="21.08.150.A.5.a" data-cite="RZC 21.08.150.A..5.a" data-short-cite="21.08.150.A.5.a"><p class="heading"><span class="header num-only"><span class="num">a.&#x2002;</span></span>Design flexibility for <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> layout, <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setbacks</a>, and/or screening standards <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> be approved by the <a class="def" href="21.78.100__7b7bc2512ee1fedcd76bdc68926d4f7b">Administrator</a> when the <a class="def" href="21.78.100__7b7bc2512ee1fedcd76bdc68926d4f7b">Administrator</a> determines that:</p>
+
+
+
+<section class="subsec subsec4 chunking-none type-Subsec4" id="21.08.150.A.5.a.i" data-cite="RZC 21.08.150.A..5.a.i" data-short-cite="21.08.150.A.5.a.i"><p><span class="header num-only"><span class="num">i.&#x2002;</span></span>The alternative would assist legal nonconforming <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">structures</a> to gradually come into compliance with new regulations or the proposed alternative removes a barrier to reinvestment; and</p>
+
+
+
+</section>
+<section class="subsec subsec4 chunking-none type-Subsec4" id="21.08.150.A.5.a.ii" data-cite="RZC 21.08.150.A..5.a.ii" data-short-cite="21.08.150.A.5.a.ii"><p><span class="header num-only"><span class="num">ii.&#x2002;</span></span>The alternative meets the intent of the standards; and</p>
+
+
+
+</section>
+<section class="subsec subsec4 chunking-none type-Subsec4" id="21.08.150.A.5.a.iii" data-cite="RZC 21.08.150.A..5.a.iii" data-short-cite="21.08.150.A.5.a.iii"><p><span class="header num-only"><span class="num">iii.&#x2002;</span></span>The alternative is designed in a manner that ensures that new investments do not impede future implementation of the standards of this chapter.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="21.08.150.A.5.b" data-cite="RZC 21.08.150.A..5.b" data-short-cite="21.08.150.A.5.b"><p class="header"><span class="num">b.&#x2002;</span><span class="name">Publicly Accessible Open Space Design Alternative.</span> </p>
+
+
+
+<section class="subsec subsec4 chunking-none type-Subsec4" id="21.08.150.A.5.b.i" data-cite="RZC 21.08.150.A..5.b.i" data-short-cite="21.08.150.A.5.b.i"><p class="heading"><span class="header num-only"><span class="num">i.&#x2002;</span></span>In the <a class="def" href="21.78.290__df9e68ad7afef92133cccb9ca2ab304f">TOD</a> focus area, the <a class="def" href="21.78.100__7b7bc2512ee1fedcd76bdc68926d4f7b">Administrator</a> <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> consider the use of pedestrian-oriented publicly <a class="def" href="21.78.100__05cacb83177558542e367abd89434567">accessible</a> <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> in lieu of meeting <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setback</a> or build-to requirements in the following circumstances:</p>
+
+
+
+<section class="subsec subsec5 chunking-none type-Subsec5" id="21.08.150.A.5.b.i.A" data-cite="RZC 21.08.150.A..5.b.i.A" data-short-cite="21.08.150.A.5.b.i.A"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span>The <a class="def" href="21.78.100__7b7bc2512ee1fedcd76bdc68926d4f7b">Administrator</a> <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> approve the use of publicly <a class="def" href="21.78.100__05cacb83177558542e367abd89434567">accessible</a> enhanced amenity spaces (PEAS) in lieu of some or all of the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> addition meeting the requirements in RZC <a class="cite" href="21.08.200" title="21.08.200&#x2002;Development Standards">21.08.200</a> and <a class="cite" href="21.08.300" title="21.08.300&#x2002;Street Typology and Relationship to Buildings">21.08.300</a> subject to the design standards of RZC <a class="cite" href="21.08.150" title="21.08.150&#x2002;Mixed-Use Transition Strategy">21.08.150</a>, <a class="cite" href="21.36.200" title="21.36.200&#x2002;Publicly Accessible Enhanced Amenities Spaces (PEAS)">21.36.200</a>, and RZC Chapter <a class="cite" href="21.58" title="Ch. 21.58&#x2002;Community Design Standards">21.58</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec5 chunking-none type-Subsec5" id="21.08.150.A.5.b.i.B" data-cite="RZC 21.08.150.A..5.b.i.B" data-short-cite="21.08.150.A.5.b.i.B"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>The placement of the proposed <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> or addition <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> not conflict with any applicable requirements of RZC <a class="cite" href="21.76.070.P" title="21.76.070.P&#x2002;Master Planned Development (MPD)">21.76.070.P</a>, <a class="def" href="21.78.220__2ab375f781c395f79453b05c7107a371">Master Planned Development</a> (MPD).</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec4 chunking-none type-Subsec4" id="21.08.150.A.5.b.ii" data-cite="RZC 21.08.150.A..5.b.ii" data-short-cite="21.08.150.A.5.b.ii"><p class="heading"><span class="header"><span class="num">ii.&#x2002;</span><span class="name">Design Standards.</span> </span>To be approved by the <a class="def" href="21.78.100__7b7bc2512ee1fedcd76bdc68926d4f7b">Administrator</a> as a publicly <a class="def" href="21.78.100__05cacb83177558542e367abd89434567">accessible</a> <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> design alternative, the <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">must</a>:</p>
+
+
+
+
+<section class="subsec subsec5 chunking-none type-Subsec5" id="21.08.150.A.5.b.ii.A" data-cite="RZC 21.08.150.A..5.b.ii.A" data-short-cite="21.08.150.A.5.b.ii.A"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span>Provide a continuous pedestrian connection from the sidewalk to the front of the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a>. There <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> be no parking or other interruptions between the <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> and the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec5 chunking-none type-Subsec5" id="21.08.150.A.5.b.ii.B" data-cite="RZC 21.08.150.A..5.b.ii.B" data-short-cite="21.08.150.A.5.b.ii.B"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>Average a minimum of 10 linear feet in width from interior edge of the sidewalk and provide an ADA compliant <a class="def" href="21.78.100__bf733d8a933c1601697f364223fc7ecb">access</a> along the entire path of travel from the sidewalk to the front <a class="def" href="21.78.140__057676630fa6d2502f87b8f39e29dfe0">entrance</a>(s) of the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec5 chunking-none type-Subsec5" id="21.08.150.A.5.b.ii.C" data-cite="RZC 21.08.150.A..5.b.ii.C" data-short-cite="21.08.150.A.5.b.ii.C"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>Comply with the requirements of RZC <a class="cite" href="21.36.400.C" title="21.36.400.C&#x2002;Open Space Amenities">21.36.400.C</a>, <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">Open Space</a> Amenities, and <a class="cite" href="21.36.400.D" title="21.36.400.D&#x2002;Plazas">D</a>, Plazas, and the standards in RZC <a class="cite" href="21.36.200" title="21.36.200&#x2002;Publicly Accessible Enhanced Amenities Spaces (PEAS)">21.36.200</a>, Publicly <a class="def" href="21.78.100__05cacb83177558542e367abd89434567">Accessible</a> Enhanced Amenities Spaces (PEAS).</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec4 chunking-none type-Subsec4" id="21.08.150.A.5.b.iii" data-cite="RZC 21.08.150.A..5.b.iii" data-short-cite="21.08.150.A.5.b.iii"><p><span class="header num-only"><span class="num">iii.&#x2002;</span></span>Publicly <a class="def" href="21.78.100__05cacb83177558542e367abd89434567">accessible</a> <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> design alternative for <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setback</a> and build-to requirement flexibility <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> be used to meet minimum <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> requirements for the parcel but is not eligible for <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> incentives in RZC Chapter <a class="cite" href="21.55" title="Ch. 21.55&#x2002;Development Incentive Program">21.55</a>.</p>
+
+
+
+</section>
+</section>
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.150.A.6" data-cite="RZC 21.08.150.A..6" data-short-cite="21.08.150.A.6"><p><span class="header num-only"><span class="num">6.&#x2002;</span></span><a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Buildings</a> added to the <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> or other alterations or additions that comply with RZC <a class="cite" href="21.08.150" title="21.08.150&#x2002;Mixed-Use Transition Strategy">21.08.150</a> and do not impact the space used by the legal <a class="def" href="21.78.230__52e1d29a39303c359982ac9064e21ffc">nonconforming use</a> will not impact the use&#x2019;s legal nonconforming status.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.150.A.7" data-cite="RZC 21.08.150.A..7" data-short-cite="21.08.150.A.7"><p><span class="header"><span class="num">7.&#x2002;</span><span class="name">Expiration.</span> </span>This section automatically expires on December 31, 2029. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 3220)</span></p>
+
+
+
+
+</section>
+</section>
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="21.08.200" data-cite="RZC 21.08.200" data-short-cite="21.08.200" data-history="/RZC/21.08.200/history"><header class=" full-header" data-type="Section" data-search="/RZC/21.08.200/search" data-share="/RZC/21.08.200/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">21.08.200</span> <span class="name">Development Standards.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.200.A" data-cite="RZC 21.08.200.A." data-short-cite="21.08.200.A"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span>All legal lots in Citywide <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">Mixed-Use</a> zones are allowed the greater of either the maximum allowed <a class="def" href="21.78.150__e1522e9a29466bf31ecb582583442249">floor area ratio</a> (FAR) or 10,000 square feet of <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">buildings</a>, provided all other applicable <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> requirements are met.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.200.B" data-cite="RZC 21.08.200.B." data-short-cite="21.08.200.B"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>Table 21.08.200.B contains the basic zoning regulations that apply to <a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> within the Neighborhood and <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">Mixed-Use</a> zones.</p>
+
+
+
+<figure class="type-Table" data-cite="Table 21.08.200.B">
+<table class="role-large table-dense table-extra-dense table-ruled-outside-both table-ruled-inside-both table-shaded"><caption><p class="header"><span class="num">Table 21.08.200.B.&#x2002;</span><span class="name">Neighborhood and Mixed-Use Development Standards</span></p>
+
+
+
+</caption><colgroup><col style="width: 94pt;"/><col style="width: 80pt;"/><col style="width: 80pt;"/><col style="width: 80pt;"/><col style="width: 80pt;"/><col style="width: 80pt;"/><col style="width: 94pt;"/>
+</colgroup><thead>
+<tr>
+<th rowspan="2">
+<p><a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> Standards</p>
+</th>
+<th colspan="3">
+<p>Neighborhood Zones</p>
+</th>
+<th colspan="2">
+<p>Citywide <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">Mixed-Use</a></p>
+</th>
+<th rowspan="2">
+<p>References</p>
+</th>
+</tr>
+<tr>
+<th>
+<p>NR</p>
+</th>
+<th>
+<p>NMF</p>
+</th>
+<th>
+<p>NMU</p>
+</th>
+<th>
+<p>CMU</p>
+</th>
+<th>
+<p>UMU</p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>
+<p>Base Maximum <a class="def" href="21.78.130__1f8211c4341716d097d92d53d721aed3">Dwelling Units</a> Per Lot </p>
+<p>(w/o one on-<a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> <a class="def" href="21.78.100__aaf02d6b568dbeaf4e7f2b7179220307">affordable housing unit</a>)</p>
+</td>
+<td>
+<p>6</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Base Maximum <a class="def" href="21.78.130__1f8211c4341716d097d92d53d721aed3">Dwelling Units</a> Per Lot </p>
+<p>(with one on-<a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> <a class="def" href="21.78.100__aaf02d6b568dbeaf4e7f2b7179220307">affordable housing unit</a>)</p>
+</td>
+<td>
+<p>8</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>RZC <a class="cite" href="21.20.060.A.1" title="21.20.060.A.1&#x2002;Neighborhood Residential Zone">21.20.060.A.1</a>, at least one affordable unit, affordable to <a class="def" href="21.78.170__ea4be67641b70cfa3fec0f86ea7f239b">households</a> earning up to 80 percent <a class="def" href="21.78.100__c7b7c7466cea026ab9d5dfb224039009">AMI</a>, <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">must</a> be provided on <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> on the same lot.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Base Maximum FAR </p>
+<p>(w/o Incentives)</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>1.1 <sup><a class="fn" href="21.08.200.B#21.08.200.B__1" title="1">1</a></sup></p>
+</td>
+<td>
+<p>0.6 <sup><a class="fn" href="21.08.200.B#21.08.200.B__1" title="1">1</a></sup></p>
+</td>
+<td>
+<p>2.0 <sup><a class="fn" href="21.08.200.B#21.08.200.B__1" title="1">1</a></sup></p>
+</td>
+<td>
+<p>4.5 <sup><a class="fn" href="21.08.200.B#21.08.200.B__1" title="1">1</a></sup></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum FAR with incentives </p>
+<p>(outside <a class="def" href="21.78.290__df9e68ad7afef92133cccb9ca2ab304f">TOD</a> Focus Area / inside <a class="def" href="21.78.290__df9e68ad7afef92133cccb9ca2ab304f">TOD</a> Focus Area)</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>1.5 / N/A</p>
+</td>
+<td>
+<p>1.0 <sup><a class="fn" href="21.08.200.B#21.08.200.B__2" title="2">2</a></sup> / N/A</p>
+</td>
+<td>
+<p>3.0 / N/A</p>
+</td>
+<td>
+<p>6.5 / 8.0</p>
+</td>
+<td>
+<p>Portions of UMU zones qualify for Marymoor Village <a class="def" href="21.78.290__df9e68ad7afef92133cccb9ca2ab304f">TOD</a> incentives. See RZC Chapters <a class="cite" href="21.05" title="Ch. 21.05&#x2002;Special Districts and Overlays">21.05</a> and <a class="cite" href="21.55" title="Ch. 21.55&#x2002;Development Incentive Program">21.55</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Commercial Square Feet</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>Min. 500 sq. ft.</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>No Net Loss <sup><a class="fn" href="21.08.200.B#21.08.200.B__3" title="3">3</a></sup></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Ground Floor Ceiling Height (minimum)</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>16 ft. <sup><a class="fn" href="21.08.200.B#21.08.200.B__4" title="4">4</a>, <a class="fn" href="21.08.200.B#21.08.200.B__5" title="5">5</a></sup></p>
+</td>
+<td>
+<p>20 ft. <sup><a class="fn" href="21.08.200.B#21.08.200.B__4" title="4">4</a>, <a class="fn" href="21.08.200.B#21.08.200.B__5" title="5">5</a></sup></p>
+</td>
+<td>
+<p>Applicable to nonresidential and <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">mixed-use</a> projects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Base Maximum Height </p>
+<p>(w/o Incentives)</p>
+</td>
+<td>
+<p>38 ft.</p>
+</td>
+<td>
+<p>60 ft.</p>
+</td>
+<td>
+<p>38 ft.</p>
+</td>
+<td>
+<p>45 ft. <sup><a class="fn" href="21.08.200.B#21.08.200.B__6" title="6">6</a></sup></p>
+</td>
+<td>
+<p>60 FT <sup><a class="fn" href="21.08.200.B#21.08.200.B__6" title="6">6</a></sup></p>
+</td>
+<td rowspan="2">
+<p>&#x2022; See RZC Chapter <a class="cite" href="21.58" title="Ch. 21.58&#x2002;Community Design Standards">21.58</a> for design standards options impacting maximum <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> height.</p>
+<p>&#x2022; Portions of UMU zones qualify for Marymoor Village <a class="def" href="21.78.290__df9e68ad7afef92133cccb9ca2ab304f">TOD</a> incentives. See RZC Chapters <a class="cite" href="21.05" title="Ch. 21.05&#x2002;Special Districts and Overlays">21.05</a> and <a class="cite" href="21.55" title="Ch. 21.55&#x2002;Development Incentive Program">21.55</a>.</p>
+<p>&#x2022; See RZC Chapter <a class="cite" href="21.55" title="Ch. 21.55&#x2002;Development Incentive Program">21.55</a> for incentive adjustments to <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> height.</p>
+<p>&#x2022; See RZC <a class="cite" href="21.58.5200" title="21.58.5200&#x2002;Towers">21.58.5200</a>, <a class="def" href="21.78.290__8f8b35b2b5f50b489f1e528f89bdd6e4">Towers</a>, for additional regulations regarding <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> heights and floorplates.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum Height with Incentives </p>
+<p>(outside <a class="def" href="21.78.290__df9e68ad7afef92133cccb9ca2ab304f">TOD</a> Focus Area / inside <a class="def" href="21.78.290__df9e68ad7afef92133cccb9ca2ab304f">TOD</a> Focus Area)</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>65 ft. / N/A <sup><a class="fn" href="21.08.200.B#21.08.200.B__6" title="6">6</a></sup></p>
+</td>
+<td>
+<p>85 ft. / 144 ft. <sup><a class="fn" href="21.08.200.B#21.08.200.B__6" title="6">6</a></sup></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum <a class="def" href="21.78.180__85ea6796a5cf8f5b37cac8a3fb0ddd36">Impervious Surface</a></p>
+</td>
+<td>
+<p>70% <sup><a class="fn" href="21.08.200.B#21.08.200.B__7" title="7">7</a></sup></p>
+</td>
+<td>
+<p>75% <sup><a class="fn" href="21.08.200.B#21.08.200.B__7" title="7">7</a></sup></p>
+</td>
+<td>
+<p>70% <sup><a class="fn" href="21.08.200.B#21.08.200.B__7" title="7">7</a></sup></p>
+</td>
+<td>
+<p>70% <sup><a class="fn" href="21.08.200.B#21.08.200.B__7" title="7">7</a></sup></p>
+</td>
+<td>
+<p>75% <sup><a class="fn" href="21.08.200.B#21.08.200.B__7" title="7">7</a></sup></p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a class="def" href="21.78.210__c9151b5f2819a9be2b150813e4befe82">Lot Coverage</a></p>
+</td>
+<td>
+<p>50% / 60% <sup><a class="fn" href="21.08.200.B#21.08.200.B__8" title="8">8</a></sup></p>
+</td>
+<td>
+<p>60%</p>
+</td>
+<td>
+<p>60%</p>
+</td>
+<td>
+<p>65%</p>
+</td>
+<td>
+<p>70%</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</tbody></table>
+<div class="note">
+<p class="heading"><b>NOTES:</b></p>
+<div class="note" id="21.08.200.B__1"><p><span class="header num-only"><span class="num">1</span></span>The FAR <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> be calculated for the entire project then distributed across the <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a> throughout multiple <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">buildings</a> and phases provided the maximum FAR is not exceeded. Where publicly <a class="def" href="21.78.100__05cacb83177558542e367abd89434567">accessible</a> <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> and amenities are provided on upper <a class="def" href="21.78.280__dfba89a600b608b2b724efe1f06f599a">stories</a> or rooftop, and spaces meet all requirements of RZC <a class="cite" href="21.36.400" title="21.36.400&#x2002;Design Requirements">21.36.400</a>, the FAR for those spaces <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> be excluded from maximum FAR calculations when spaces include <a class="def" href="21.78.100__bf733d8a933c1601697f364223fc7ecb">access</a> to adjacent outdoor spaces designed per RZC <a class="cite" href="21.36.400" title="21.36.400&#x2002;Design Requirements">21.36.400</a>, plaza and <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> design criteria.</p>
+
+
+
+</div>
+<div class="note" id="21.08.200.B__2"><p><span class="header num-only"><span class="num">2</span></span>Maximum FAR can be increased through incentives if the property contains one or more housing units. Incentives are not available for properties that do not contain housing. See RZC Chapter <a class="cite" href="21.55" title="Ch. 21.55&#x2002;Development Incentive Program">21.55</a>.</p>
+
+
+
+</div>
+<div class="note" id="21.08.200.B__3"><p><span class="header num-only"><span class="num">3</span></span>New <a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">must</a> retain or replace existing commercial square footage (excluding hotel and lodging uses). <a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> reallocate or modify areas allocated to commercial uses, subject to a minimum floor area and active pedestrian uses requirements to be negotiated as a condition to any <a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> agreement.</p>
+
+
+
+</div>
+<div class="note" id="21.08.200.B__4"><p class="heading"><span class="header num-only"><span class="num">4</span></span>Exemptions from ground floor ceiling height requirements:</p>
+
+
+
+<p>a. <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Buildings</a> that do not contain nonresidential uses; and</p>
+<p>b. <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Buildings</a> where 100 percent of residential units are <a class="def" href="21.78.100__aaf02d6b568dbeaf4e7f2b7179220307">affordable housing units</a> meeting the affordability threshold of RZC Chapter <a class="cite" href="21.20" title="Ch. 21.20&#x2002;Affordable Housing">21.20</a>; and</p>
+<p>c. Where <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">buildings</a> that are interior to the lot and not adjacent to a public parking garage, an urban pathway or other pedestrian-oriented sidewalks or pathways; and</p>
+<p>d. Parcels zoned UMU within the Marymoor Village Center <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> have a minimum 16-foot ground floor ceiling height to be consistent with the adjacent Marymoor Core zone.</p>
+</div>
+<div class="note" id="21.08.200.B__5"><p><span class="header num-only"><span class="num">5</span></span>A minimum of 50 percent of the first floor nonresidential space <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">must</a> meet the minimum ceiling height. First floor nonresidential spaces <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> have a ceiling height of 16 feet minimum for the entire first floor.</p>
+
+
+
+<p>a. Where first floor ceiling height varies, the tallest ceiling heights <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> be provided on <a class="def" href="21.78.280__fe42e9297a9a0c44abd0adc9f03a45b6">street frontage</a>, spaces fronting urban pathways and/or mid-<a class="def" href="21.78.110__e1e4c8c9ccd9fc39c391da4bcd093fb2">block</a> connections, and in parking garage loading/unloading and waste pickup areas.</p>
+<p>b. For portions of the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> that have a first floor ceiling height greater than 10 feet to meet minimum ground floor ceiling height requirements, the additional ground floor ceiling height <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> increase the maximum <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> height. For example, if first floor is 20 feet, the maximum <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> height increases by 10 feet (20 - 10 = 10 foot increase in max <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> height).</p>
+</div>
+<div class="note" id="21.08.200.B__6"><p><span class="header num-only"><span class="num">6</span></span><b>Properties in the CARA</b></p>
+
+
+
+<p>a. In the <a class="def" href="21.78.120__3021814dd105bc4bc69523b219a0c6ba">critical aquifer recharge area</a> (CARA), <a class="def" href="21.78.120__2a0d30cb1153031c3dfc239c6e0407ea">construction</a> methods for <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> foundation support will be limited to types that can be <a class="def" href="21.78.120__2a0d30cb1153031c3dfc239c6e0407ea">constructed</a> to meet temporary <a class="def" href="21.78.120__2a0d30cb1153031c3dfc239c6e0407ea">construction</a> dewatering (TCD) requirements of RMC Chapter <a class="cite ctx-RMC" href="/RMC/13.25" title="Ch. 13.25&#x2002;Temporary Construction Dewatering">13.25</a>.</p>
+<p class="heading">b. Where <a class="def" href="21.78.280__39c6ab51c6a55437020795fc6212e5b9">underground parking</a> is not possible due to RMC Chapter <a class="cite ctx-RMC" href="/RMC/13.25" title="Ch. 13.25&#x2002;Temporary Construction Dewatering">13.25</a>&#x2019;s TCD limitations, the maximum <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> height <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> be exceeded by up to 12 feet if all of the following criteria are met:</p>
+<p>i. The additional height is the result of <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> a maximum of one level of additional above-<a class="def" href="21.78.160__4b3b9db8c9784468094acde0f8bf7071">grade</a> parking; and</p>
+<p>ii. Proposed parking added by the additional height <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> not exceed the maximum fully dedicated parking ratios in RZC Chapter <a class="cite" href="21.40" title="Ch. 21.40&#x2002;Parking Standards">21.40</a>; and</p>
+<p>iii. The additional height on <a class="def" href="21.78.280__fe42e9297a9a0c44abd0adc9f03a45b6">street frontages</a> meets a 20 foot step-back to limit impacts to the pedestrian realm.</p>
+</div>
+<div class="note" id="21.08.200.B__7"><p><span class="header num-only"><span class="num">7</span></span>Other regulations will impact the <a class="def" href="21.78.180__23ecf4bb91cd9ca50416053e8b659f75">impervious surface area</a> and <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> result in less than the maximum impervious area. These include but are not limited to <a class="def" href="21.78.120__6b80bb7747129f66efc03530da19b543">critical areas</a> requirements, <a class="def" href="21.78.240__53e263073a3716cbca0f87ee0b41220b">open space</a> and landscaping requirements, parking, mid-<a class="def" href="21.78.110__e1e4c8c9ccd9fc39c391da4bcd093fb2">block</a> connections, <a class="def" href="21.78.300__ceba282b7418b7f199798b645e1cba56">utility</a> easements, and <a class="def" href="21.78.280__0ed537c5b4390c7a581135f79175a035">stormwater management</a>.</p>
+
+
+
+</div>
+<div class="note" id="21.08.200.B__8"><p class="heading"><span class="header num-only"><span class="num">8</span></span><a class="def" href="21.78.210__c9151b5f2819a9be2b150813e4befe82">Lot coverage</a>&#x202F;for&#x202F;<a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">structures</a>&#x202F;maximum will be 60 percent of total area for lots which meet the following requirements:</p>
+
+
+
+<p>a. The lot is 18,000 square feet or less; and</p>
+<p>b. The lot contains at least three&#x202F;<a class="def" href="21.78.130__1f8211c4341716d097d92d53d721aed3">dwelling units</a>.</p>
+</div>
+</div>
+</figure>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.200.C" data-cite="RZC 21.08.200.C." data-short-cite="21.08.200.C"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>Dimensional standards for the Neighborhood Residential zone are as shown on Table 21.08.200.C.</p>
+
+
+
+<figure class="type-Table" data-cite="Table 21.08.200C">
+<table class="role-medium table-dense table-extra-dense table-ruled-outside-both table-ruled-inside-both table-shaded"><caption><p class="header"><span class="num">Table 21.08.200C.&#x2002;</span><span class="name">Maximum Total Gross Floor Area for All Structures Within the Lot</span></p>
+
+
+
+</caption><colgroup><col style="width: 240pt;"/><col style="width: 240pt;"/>
+</colgroup><thead>
+<tr>
+<th class="Zoning" colspan="2">
+<p>Standards</p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td colspan="2">
+<p>The maximum for the total square footage for all <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">structures</a> within the lot <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> be determined by the quantity of <a class="def" href="21.78.130__1f8211c4341716d097d92d53d721aed3">dwelling units</a> provided on the lot. Below <a class="def" href="21.78.160__4b3b9db8c9784468094acde0f8bf7071">grade</a> floor area <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> count toward maximum total <a class="def" href="21.78.160__e369fc45a9fb2a622369652e28a2e908">gross floor area</a>.</p>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<p>Provisions for the measuring of <a class="def" href="21.78.160__e369fc45a9fb2a622369652e28a2e908">gross floor area</a> for all <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">structures</a> within the Neighborhood Residential zone are described in RZC <a class="cite" href="21.16.200" title="21.16.200&#x2002;Building Measurements and Placement Standards">21.16.200</a>, <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Building</a> Measurements and Placement Standards.</p>
+</td>
+</tr>
+<tr>
+<th class="SubHeader">
+<p>Total Number of <a class="def" href="21.78.130__1f8211c4341716d097d92d53d721aed3">Dwelling Units</a> for All <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Structures</a> on Lot</p>
+</th>
+<th class="SubHeader">
+<p>Maximum Square Footage for Total <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Structures</a></p>
+</th>
+</tr>
+<tr>
+<td class="center">
+<p>1</p>
+</td>
+<td class="center">
+<p>4,500</p>
+</td>
+</tr>
+<tr>
+<td class="center">
+<p>2</p>
+</td>
+<td class="center">
+<p>6,000</p>
+</td>
+</tr>
+<tr>
+<td class="center">
+<p>3</p>
+</td>
+<td class="center">
+<p>7,500</p>
+</td>
+</tr>
+<tr>
+<td class="center">
+<p>4</p>
+</td>
+<td class="center">
+<p>9,000</p>
+</td>
+</tr>
+<tr>
+<td class="center">
+<p>5</p>
+</td>
+<td class="center">
+<p>10,500</p>
+</td>
+</tr>
+<tr>
+<td class="center">
+<p>6</p>
+</td>
+<td class="center">
+<p>12,000</p>
+</td>
+</tr>
+<tr>
+<td class="center">
+<p>7</p>
+</td>
+<td class="center">
+<p>13,500</p>
+</td>
+</tr>
+<tr>
+<td class="center">
+<p>8</p>
+</td>
+<td class="center">
+<p>15,000</p>
+</td>
+</tr>
+</tbody></table>
+</figure>
+</section>
+
+<div class="note history history--linked" data-action="click-&gt;levelnodes#openHistory"><p>(Ord. 3220)</p></div>
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="21.08.300" data-cite="RZC 21.08.300" data-short-cite="21.08.300" data-history="/RZC/21.08.300/history"><header class=" full-header" data-type="Section" data-search="/RZC/21.08.300/search" data-share="/RZC/21.08.300/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">21.08.300</span> <span class="name">Street Typology and Relationship to Buildings.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="21.08.300.A" data-cite="RZC 21.08.300.A." data-short-cite="21.08.300.A"><p class="header"><span class="num">A.&#x2002;</span><span class="name">Building and Street Relationships.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.300.A.1" data-cite="RZC 21.08.300.A..1" data-short-cite="21.08.300.A.1"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>The table below sets standards that contribute to an attractive public realm.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.300.A.2" data-cite="RZC 21.08.300.A..2" data-short-cite="21.08.300.A.2"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>Improvements less than 30 inches above <a class="def" href="21.78.160__4b3b9db8c9784468094acde0f8bf7071">grade</a>, including decks, patios, walks and <a class="def" href="21.78.130__554d5cf3913643edd4a3b09576ae9b64">driveways</a> are permitted in <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setbacks</a>. Fences, landscaping, flagpoles, <a class="def" href="21.78.280__d61ebdd8a0c0cd57c22455e9f0918c65">street</a> furniture, transit shelters, and <a class="def" href="21.78.280__fe1675056fb642e9a2532abeb8428889">slope</a> stability <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">structures</a> are permitted in <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setback</a> areas; provided, that all other applicable requirements are met. No other <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">structures</a>, including <a class="def" href="21.78.100__27cce6986daeb024ef2f4d46d6bdf430">accessory structures</a>, are permitted in <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setback</a> areas.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="21.08.300.A.3" data-cite="RZC 21.08.300.A..3" data-short-cite="21.08.300.A.3"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>Administrative design flexibility for <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> is allowed for <a class="def" href="21.78.280__a7d6475ec8993b7224d6facc8cb0ead6">site</a>-specific conditions that limit the ability to place the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> at the <a class="def" href="21.78.280__d61ebdd8a0c0cd57c22455e9f0918c65">street</a> level, including but not limited to topography, easements, SR 520 ROW, or trails.</p>
+
+
+
+<figure class="type-Table" data-cite="Table 21.08.300.A">
+<table class="role-large table-dense table-extra-dense table-ruled-outside-both table-ruled-inside-both table-shaded"><caption><p class="header"><span class="num">Table 21.08.300.A.&#x2002;</span><span class="name">Neighborhood and Mixed-Use Building Placement Standards</span></p>
+
+
+
+</caption><colgroup><col style="width: 94pt;"/><col style="width: 80pt;"/><col style="width: 80pt;"/><col style="width: 80pt;"/><col style="width: 80pt;"/><col style="width: 80pt;"/><col style="width: 90pt;"/>
+</colgroup><thead>
+<tr>
+<th rowspan="2">
+<p><a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> Standards</p>
+</th>
+<th colspan="3">
+<p>Neighborhood Zones</p>
+</th>
+<th colspan="2">
+<p>Citywide <a class="def" href="21.78.220__e33f52939de0aac2f6e22cccb142eb51">Mixed Use</a></p>
+</th>
+<th rowspan="2">
+<p>References</p>
+</th>
+</tr>
+<tr>
+<th>
+<p>NR</p>
+</th>
+<th>
+<p>NMF</p>
+</th>
+<th>
+<p>NMU</p>
+</th>
+<th>
+<p>CMU</p>
+</th>
+<th>
+<p>UMU</p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>
+<p>Front <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">Setback</a> Min.</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>30 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>NMU reduced front <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">setback</a> for commercial spaces (2 feet)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Side (<a class="def" href="21.78.280__d61ebdd8a0c0cd57c22455e9f0918c65">Street</a>) <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">Setback</a> Min.</p>
+</td>
+<td>
+<p>10 feet <sup><a class="fn" href="21.08.300.A.3#21.08.300.A.3__1" title="1">1</a></sup></p>
+</td>
+<td>
+<p>15 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Side (Interior) <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">Setback</a> Min.</p>
+</td>
+<td>
+<p>3 feet <sup><a class="fn" href="21.08.300.A.3#21.08.300.A.3__1" title="1">1</a></sup></p>
+</td>
+<td>
+<p>15 feet</p>
+</td>
+<td>
+<p>3 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Rear <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">Setback</a> Min.</p>
+</td>
+<td>
+<p>5 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>5 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p>10 feet</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Garage <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">Setback</a> from main <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a> <a class="def" href="21.78.150__a83b97f7b2944a1a1a07881e362334b2">frontage</a>, Min.</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>3 feet <sup><a class="fn" href="21.08.300.A.3#21.08.300.A.3__2" title="2">2</a></sup></p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a class="def" href="21.78.100__67a9a13318c92022d3693d56249a3405">Alley</a> <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">Setback</a> Min.</p>
+</td>
+<td>
+<p>2 feet</p>
+</td>
+<td>
+<p>4 feet</p>
+</td>
+<td>
+<p>2 feet</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Lake Sammamish <a class="def" href="21.78.280__454e7351c6ac0768d6108d7cfcee957a">Setback</a> Min.</p>
+</td>
+<td>
+<p>35 feet</p>
+</td>
+<td>
+<p>35 feet</p>
+</td>
+<td>
+<p>35 feet</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">Building</a> Separation Min.</p>
+</td>
+<td>
+<p>5 feet <sup><a class="fn" href="21.08.300.A.3#21.08.300.A.3__1" title="1">1</a></sup></p>
+</td>
+<td>
+<p>15 feet</p>
+</td>
+<td>
+<p>5 feet</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p></p>
+</td>
+</tr>
+</tbody></table>
+<div class="note">
+<p class="heading">NOTE:</p>
+<div class="note" id="21.08.300.A.3__1"><p><span class="header num-only"><span class="num">1</span></span>Zero lot line exception: Standards <a class="def" href="21.78.220__195fbb57ffe7449796d23466085ce6d8">may</a> vary for <a class="def" href="21.78.130__330f49df8243756a8a4dc7f7f7ee6dfe">developments</a> that comply with the zero lot line regulations in RZC <a class="cite" href="21.16.200.D" title="21.16.200.D&#x2002;Zero Lot Line Development">21.16.200.D</a>.</p>
+
+
+
+</div>
+<div class="note" id="21.08.300.A.3__2"><p><span class="header num-only"><span class="num">2</span></span>If a residential garage door or carport faces the <a class="def" href="21.78.280__d61ebdd8a0c0cd57c22455e9f0918c65">street</a> front, the minimum <a class="def" href="21.78.130__554d5cf3913643edd4a3b09576ae9b64">driveway</a> depth outside the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a>&#xA0;&#x2013; measured from the outer edge of the existing or ultimate sidewalk, or from the <a class="def" href="21.78.270__eef3b5b79629663dc4da058880ee3b4a">right-of-way</a> line, whichever is closer to the <a class="def" href="21.78.280__dc4c71563b9bc39a65be853457e6b7b6">building</a>&#xA0;&#x2013; <a class="def" href="21.78.280__efd9f26ca2fe77e2532fb6cb8a4d94be">shall</a> be at least 18 feet, to prevent <a class="def" href="21.78.310__d6af9c1eaff2a89ebd3f8d0c542be12b">vehicle</a> parking on the <a class="def" href="21.78.130__554d5cf3913643edd4a3b09576ae9b64">driveway</a> from overhanging into the sidewalk or <a class="def" href="21.78.270__eef3b5b79629663dc4da058880ee3b4a">right-of-way</a> area.</p>
+
+
+
+</div>
+</div>
+</figure>
+</section>
+</section>
+
+<div class="note history history--linked" data-action="click-&gt;levelnodes#openHistory"><p>(Ord. 3220)</p></div>
+
+
+</article>
+</article>
+</div>
+
+</main>
+		
+
+		</div>
+	</div>
+		<aside id="sidebar-right" class="container-sidebar d-print-none d-none d-md-flex" data-container-target="sidebar">
+					<a
+	id="selections"
+	class="selectionsbutton btn btn-secondary d-none"
+	href="/selections"
+	data-toggle="tooltip"
+	title="Work with the parts of the publication that you have selected."
+	data-action="click->selectionsbutton#showSelections"
+	data-controller="selectionsbutton"
+>
+	Your Selections
+	<span class="badge badge-pill selections-count">
+		
+	</span>
+</a>
+
+		<nav class="nearby card" data-controller="nearby">
+	<div class="nearby-header card-header">What’s Nearby</div>
+			<div class="nearby-depth">Article</div>
+		<div class="nearby-buttons" role="group" aria-label="Article">
+				<a
+					class="nearby-previous btn"
+					href="/RZC/21.02"
+					data-toggle="tooltip"
+					title="Chapter 21.02 RZC, Preface"
+				>
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span
+					><span class="text">…21.02</span>
+				</a>
+				<a
+					class="nearby-current btn"
+					href="/RZC/I"
+					data-toggle="tooltip"
+					title="RZC Article I, Zone-Based Regulations"
+				>
+					<span class="text">I</span>
+				</a>
+				<a
+					class="nearby-next btn"
+					href="/RZC/II"
+					data-toggle="tooltip"
+					title="RZC Article II, Citywide Regulations"
+				>
+					<span class="text">II</span
+					><span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span>
+				</a>
+		</div>
+			<div class="nearby-depth">Chapter</div>
+		<div class="nearby-buttons" role="group" aria-label="Chapter">
+				<a
+					class="nearby-previous btn"
+					href="/RZC/21.06"
+					data-toggle="tooltip"
+					title="Chapter 21.06 RZC, Urban Recreation"
+				>
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span
+					><span class="text">21.06</span>
+				</a>
+				<a
+					class="nearby-current btn"
+					href="/RZC/21.08"
+					data-toggle="tooltip"
+					title="Chapter 21.08 RZC, Neighborhood and Mixed-Use Regulations"
+				>
+					<span class="text">21.08</span>
+				</a>
+				<a
+					class="nearby-next btn"
+					href="/RZC/21.10"
+					data-toggle="tooltip"
+					title="Chapter 21.10 RZC, Downtown Regulations"
+				>
+					<span class="text">21.10</span
+					><span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span>
+				</a>
+		</div>
+</nav>
+
+		<nav class="onthispage card" data-controller="onthispage">
+	<div class="onthispage-header card-header">
+		On This Page
+	</div>
+	<button
+		class="onthispage-previous disabled"
+		type="button"
+		data-onthispage-target="previous"
+		data-action="click->onthispage#previous"
+		aria-label="Previous Items"
+	>
+		<span class="glyphicons glyphicons-chevron-up" aria-hidden="true"></span>
+	</button>
+	<div
+		class="onthispage-list list-group list-group-flush"
+		role="list"
+		data-onthispage-target="list"
+	>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/RZC/21.08.100"
+				data-onthispage-target="item"
+				data-node="21.08.100"
+				title="RZC 21.08.100, Neighborhood and Mixed-Use Zones"
+			>
+				21.08.100 Neighborhood and Mixed-Use Zones
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/RZC/21.08.110"
+				data-onthispage-target="item"
+				data-node="21.08.110"
+				title="RZC 21.08.110, References"
+			>
+				21.08.110 References
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/RZC/21.08.150"
+				data-onthispage-target="item"
+				data-node="21.08.150"
+				title="RZC 21.08.150, Mixed-Use Transition Strategy"
+			>
+				21.08.150 Mixed-Use Transition Strategy
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/RZC/21.08.200"
+				data-onthispage-target="item"
+				data-node="21.08.200"
+				title="RZC 21.08.200, Development Standards"
+			>
+				21.08.200 Development Standards
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/RZC/21.08.300"
+				data-onthispage-target="item"
+				data-node="21.08.300"
+				title="RZC 21.08.300, Street Typology and Relationship to Buildings"
+			>
+				21.08.300 Street Typology and Relationship to Buildings
+			</a>
+	</div>
+	<button
+		class="onthispage-next disabled"
+		type="button"
+		data-onthispage-target="next"
+		data-action="click->onthispage#next"
+		aria-label="Next Items"
+	>
+		<span class="glyphicons glyphicons-chevron-down" aria-hidden="true"></span>
+	</button>
+</nav>
+
+
+		</aside>
+</div>
+
+<footer id="site-footer" class="sitefooter" data-controller="sitefooter">
+<div class="inner">
+
+		
+
+		<div class="sitefooter-message sitefooter-internet-explorer-message no-custom-style" role="alert">
+			<p>This site does not support Internet Explorer. To view this site, consider using one of the following browsers: Google Chrome, Mozilla Firefox, or Apple Safari.</p>
+		</div>
+
+
+
+
+
+		<div class="sitefooter-disclaimer">
+			
+<p><b>The Redmond Zoning Code is current through Ordinance 3226, passed September 2, 2025.</b></p>
+<p>Disclaimer: The City Clerk&#x2019;s Office has the official version of the Redmond Zoning Code. Users should contact the City Clerk&#x2019;s Office for ordinances passed subsequent to the ordinance cited above.</p>
+
+		</div>
+
+		<div class="sitefooter-links">
+				<a
+					class="sitefooter-link url"
+					href="https://www.redmond.gov/"
+				>City Website: www.redmond.gov</a>
+		</div>
+
+	<a
+		class="sitefooter-brand"
+		href="https://www.generalcode.com/"
+		target="_blank"
+		rel="external noopener"
+	><span class="sitefooter-logo">Hosted by General Code.</span></a>
+
+		<div class="sitefooter-links">
+			<a
+				class="btn btn-link"
+				href="https://www.iccsafe.org/about/icc-online-privacy-policy/"
+				target="_blank"
+				rel="external noopener"
+			>Privacy Policy</a>
+			|
+			<a
+				class="btn btn-link"
+				href="https://ecode360.com/docs/TOS.html"
+				target="_blank"
+				rel="external noopener"
+			>Terms of Use</a>
+			|
+			<button
+				class="sitefooter-cookie-preferences btn btn-link"
+				data-cc="c-settings"
+			>Cookie Preferences</button>
+		</div>
+
+</div>
+</footer>
+
+
+<nav
+	id="contents"
+	class="contents contents-modal modal fade d-print-none"
+	role="dialog"
+	tabindex="-1"
+	data-controller="contents"
+>
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content modal-tabbed">
+
+			<header class="modal-header">
+				<h1 class="modal-title">Contents</h1>
+				<button type="button" class="close" aria-label="Close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</header>
+
+			<ul
+	class="nav nav-tabs"
+	role="tablist"
+>
+		<li class="nav-item ">
+			<a
+				href="#contents-products"
+				id="contents-products-tab"
+				class="nav-link "
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-products"
+				aria-selected="false"
+			>
+					<span class="text">All Publications</span>
+			</a>
+		</li>
+
+		<li
+			class="nav-item contents-product-tab primary "
+			data-contents-target="productTab"
+		>
+			<a
+				href="#contents-product-RMC"
+				id="contents-product-RMC-tab"
+				class="nav-link "
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-product-RMC"
+				aria-selected="false"
+			>
+				<span class="text">
+					Municipal Code
+					
+				</span>
+			</a>
+		</li>
+		<li
+			class="nav-item contents-product-tab  really-current current"
+			data-contents-target="productTab"
+		>
+			<a
+				href="#contents-product-RZC"
+				id="contents-product-RZC-tab"
+				class="nav-link active"
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-product-RZC"
+				aria-selected="true"
+			>
+				<span class="text">
+					Zoning Code
+					
+				</span>
+			</a>
+		</li>
+
+	<li class="nav-item selections">
+		<a
+			href="#contents-selections"
+			id="contents-selections-tab"
+			class="nav-link"
+			data-toggle="tab"
+			data-contents-target="navTab"
+			role="tab"
+			aria-controls="contents-selections"
+			aria-selected="false"
+		>
+			<span class="glyphicons glyphicons-check" aria-hidden="true"></span
+			><span class="text">Your Selections</span>
+			<span class="badge badge-pill selections-count"></span>
+		</a>
+	</li>
+</ul>
+
+
+			<div class="modal-body" data-contents-target="modalBody">
+				<div class="tab-content">
+					<div
+	id="contents-products"
+	class="contents-products tab-pane"
+	role="tabpanel"
+	data-contents-target="tabPane"
+	data-scope="all"
+	aria-labelledby="contents-products-tab"
+>
+
+	<div class="list-group">
+			<a
+				href="#contents-product-RMC"
+				class="contents-products-link list-group-item"
+					data-action="contents#switchProduct"
+					role="button"
+			>
+				<span class="text">
+					Redmond Municipal Code
+					
+					
+					
+				</span>
+			</a>
+			<a
+				href="#contents-product-RZC"
+				class="contents-products-link list-group-item current"
+					data-action="contents#switchProduct"
+					role="button"
+			>
+				<span class="text">
+					Redmond Zoning Code
+					
+					
+					
+				</span>
+			</a>
+	</div>
+
+</div>
+
+
+						<div id="contents-product-RMC"
+	class="tab-pane contents-product"
+	role="tabpanel"
+	data-contents-target="tabPane"
+	data-source="/RMC/contents?interactive=true"
+	data-scope="RMC"
+	aria-labelledby="contents-product-RMC-tab">
+</div>
+
+						<div id="contents-product-RZC"
+	class="tab-pane contents-product really-current current active show"
+	role="tabpanel"
+	data-contents-target="tabPane currentTabPane"
+	data-source="/RZC/contents?current=21.08&amp;interactive=true"
+	data-scope="RZC"
+	aria-labelledby="contents-product-RZC-tab">
+</div>
+
+
+					<div id="contents-selections"
+	class="tab-pane"
+	role="tabpanel"
+	data-source="/selections"
+	data-scope="selections"
+	data-contents-target="tabPane"
+	aria-labelledby="contents-selections-tab">
+</div>
+
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<div data-contents-target="tocControls" class="contents-controls">
+	<button
+		class="contents-expand btn btn-light d-none d-sm-block"
+		type="button"
+		data-action="contents#expandAll"
+	>
+		<span class="glyphicons glyphicons-plus" aria-hidden="true"></span
+		><span class="text">Expand All</span>
+	</button>
+	<button
+		class="contents-collapse btn btn-light d-none d-sm-block"
+		type="button"
+		data-action="contents#collapseAll"
+	>
+		<span class="glyphicons glyphicons-minus" aria-hidden="true"></span
+		><span class="text">Collapse All</span>
+	</button>
+</div>
+
+<div data-contents-target="selectControls" class="contents-controls">
+	<a
+		id="contents-share-selections"
+		class="btn btn-primary  disabled"
+		href="/selections/share"
+		data-controller="dynamodal"
+		data-dynamodal-selections-value="true"
+		data-remote="false"
+		data-action="contents#shareSelections"
+		rel="nofollow"
+	>
+		<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span
+		><span class="text" aria-label="Share Your Selections">Share</span>
+	</a>
+	<button
+		id="contents-clear-selections"
+		class="btn btn-warning  disabled"
+		data-action="contents#clearSelections"
+	>
+		<span class="glyphicons glyphicons-erase" aria-hidden="true"></span
+		><span class="text d-none d-sm-inline">Clear</span>
+	</button>
+</div>
+
+				<button
+					class="btn btn-light"
+					type="button"
+					title="Close"
+					data-dismiss="modal"
+				>
+					<span class="glyphicons glyphicons-remove d-sm-none" aria-hidden="true"></span
+					><span class="text d-none d-sm-inline">Close</span>
+				</button>
+			</div>
+
+		</div>
+	</div>
+</nav>
+
+<aside
+	id="large-view"
+	class="largeviewmodal modal fade"
+	role="dialog"
+	tabindex="-1"
+	data-controller="largeviewmodal"
+>
+<div class="largeviewmodal-dialog modal-dialog modal-xl" role="document">
+<div class="largeviewmodal-content modal-content" data-largeviewmodal-target="modalContent">
+
+	<div class="largeviewmodal-header modal-header">
+		<h1 class="modal-title for-tables">View Full Table</h1>
+		<h1 class="modal-title for-pictures">View Full Image</h1>
+		<h1 class="modal-title for-files">View Full File</h1>
+		<button
+			type="button"
+			class="close"
+			aria-label="Close"
+			data-dismiss="modal"
+		><span aria-hidden="true">&times;</span></button>
+	</div>
+
+	<div class="largeviewmodal-body modal-body main" data-largeviewmodal-target="modalBody">
+	</div>
+
+	<div class="largeviewmodal-footer modal-footer">
+		<button
+			type="button"
+			class="btn btn-default pull-left large-view-scroll-top"
+			title="Go to Top"
+			data-action="largeviewmodal#scrollModal"
+		>
+			<span class="glyphicons glyphicons-arrow-up" aria-hidden="true"></span> <span class="d-none d-sm-inline">Go to Top</span>
+		</button>
+		<button
+			type="button"
+			class="btn btn-default pull-left large-view-scroll-bottom"
+			title="Go to Bottom"
+			data-action="largeviewmodal#scrollModal"
+		>
+			<span class="glyphicons glyphicons-arrow-down" aria-hidden="true"></span> <span class="d-none d-sm-inline">Go to Bottom</span>
+		</button>
+		<a
+			href
+			class="btn btn-default share"
+			role="button"
+			title="Share/Save"
+			data-action="largeviewmodal#shareContent"
+			data-largeviewmodal-target="share"
+		>
+			<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span> <span>Share/Save</span>
+		</a>
+		<button
+			type="button"
+			class="btn btn-default"
+			title="Close"
+			data-dismiss="modal"
+		>
+			<span class="glyphicons glyphicons-remove d-inline d-sm-none" aria-hidden="true"></span>
+			<span class="d-none d-sm-inline">Close</span>
+		</button>
+	</div>
+
+</div>
+</div>
+</aside>
+
+
+<aside
+	class="subsecnodeactions subsec-actions d-print-none d-none d-sm-block invisible"
+	data-controller="subsecnodeactions"
+>
+	<div
+		class="dropdown"
+		data-subsecnodeactions-target="dropdown"
+	>
+		<button
+			class="btn dropdown-toggle"
+			data-toggle="dropdown"
+			type="button"
+			aria-haspopup="true"
+			aria-expanded="false"
+			aria-label="Subsection Tools"
+			title="Subsection Tools"
+		>
+			<span class="glyphicons glyphicons-info-sign" aria-hidden="true"></span>
+		</button>
+		<div
+			class="dropdown-menu"
+			data-subsecnodeactions-target="menu"
+		>
+			<span
+				class="dropdown-header"
+				data-subsecnodeactions-target="header"
+			></span>
+			<a
+				class="dropdown-item"
+				data-template="/RZC/Xyzzy/share"
+				data-controller="dynamodal"
+				data-subsecnodeactions-target="link"
+				rel="nofollow"
+			>
+				Save, Share, Bookmark or Print
+			</a>
+			<a
+				class="dropdown-item disabled history"
+				data-template="/RZC/Xyzzy/history"
+				data-controller="dynamodal"
+				data-subsecnodeactions-target="link history"
+				rel="nofollow"
+			>
+				History of This Subsection
+			</a>
+		</div>
+	</div>
+</aside>
+
+
+</div>
+</body>
+
+</html>

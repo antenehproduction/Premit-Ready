@@ -1,0 +1,45 @@
+name: County parcel smoke test
+
+# P0-2 acceptance smoke test for the WA:Snohomish parcel endpoint.
+# Geocodes 3 representative addresses (incorporated city, small incorporated
+# city, near-water) and confirms each resolves to a parcel polygon with a
+# valid PARCEL_ID.
+#
+# Same egress-bypass rationale as fetch-schemas.yml: agent egress is
+# 403'd against gis.snoco.org and Nominatim from this Claude Code
+# execution context, but GitHub Actions runners use a different IP space.
+#
+# Job fails (non-zero exit) on any geocode or parcel-query miss. Output is
+# captured in the workflow log — no PR opened (this is a verification
+# probe, not a content change).
+#
+# Trigger:
+#   - push touching the workflow, the smoke script, or county-registry.js
+#   - weekly Monday 09:00 UTC (catches endpoint regressions)
+#   - workflow_dispatch (manual)
+on:
+  push:
+    paths:
+      - '.github/workflows/smoke-county-parcels.yml'
+      - 'scripts/smoke-snohomish-parcels.py'
+      - 'data/county-registry.js'
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snohomish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Smoke test — Snohomish parcels (3 addresses)
+        run: python3 scripts/smoke-snohomish-parcels.py

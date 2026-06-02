@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "buildCommand": null,
+  "outputDirectory": null,
+  "framework": null,
+  "rewrites": [
+    { "source": "/health",   "destination": "/api/health" },
+    { "source": "/fema",     "destination": "/api/fema" },
+    { "source": "/arcgis",   "destination": "/api/arcgis" },
+    { "source": "/municode", "destination": "/api/municode" },
+    { "source": "/diag",     "destination": "/api/diag" },
+    { "source": "/permits/:city", "destination": "/api/permits/:city" }
+  ]
+}

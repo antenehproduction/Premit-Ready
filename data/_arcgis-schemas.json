@@ -1,0 +1,546 @@
+{
+  "_meta": {
+    "datasetCount": 4,
+    "failures": [],
+    "generatedBy": "scripts/fetch-arcgis-schemas.py",
+    "schemaVersion": 1
+  },
+  "schemas": {
+    "snohomish_county_unincorp:org:https://services6.arcgis.com/z6WYi9VRHfgwgtyW": {
+      "kind": "org",
+      "orgHost": "https://services6.arcgis.com/z6WYi9VRHfgwgtyW",
+      "registryKey": "snohomish_county_unincorp",
+      "serviceCountTotal": 481,
+      "services": [
+        {
+          "name": "Building_Applications_Under_Review",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Building_Permits_Under_Construction",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Building_Roofprints",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Current_Building_Inspection_Areas",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Current_FutureLandUse_2025",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "D8_Permits",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Future_Land_Use_Transfer_of_Development_Rights",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "GIS_FEATURES_GDBA_buildings_schools",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Infrastructure_Islands___Population",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Issued_Permits",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Land_Use_Applications_Under_Review",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Land_Use_in_Process",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Landfill_Boundaries",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "LDA_and_ROW_Permits_Under_Construction",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Leque_Island",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "LiquefactionLandslidePoly",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Open_Space_Farmland",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Open_Space_Natural_Lands",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "PopIslandsDemos",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "PopulationIsland_WaterAcc_shp",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "PopulationIslands_Storymap",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "SmithIsland_ProjectArea",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "SnocoPopulationIslands_Final",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Station_Buildings",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Urban_Heat_Island",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Wetlands",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "SCN_FairPermenantBuildings",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "pds_planning_permit_bia_feature",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Active_Permits",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Agricultural_Land",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Building_Address_Points",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Future_Land_Use",
+          "type": "FeatureServer"
+        }
+      ]
+    },
+    "snohomish_county_unincorp:service:https://services6.arcgis.com/z6WYi9VRHfgwgtyW/arcgis/rest/services/Issued_Permits/FeatureServer/0": {
+      "kind": "service",
+      "layers": [
+        {
+          "addressFieldGuess": null,
+          "fields": [
+            {
+              "alias": "OBJECTID",
+              "length": null,
+              "name": "OBJECTID",
+              "type": "esriFieldTypeOID"
+            },
+            {
+              "alias": "PFN",
+              "length": 20,
+              "name": "PFN",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "foldertype",
+              "length": 5,
+              "name": "foldertype",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "Sub",
+              "length": 26,
+              "name": "Sub",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "Work",
+              "length": 26,
+              "name": "Work_",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "__of_Lots_or_Units",
+              "length": 5,
+              "name": "F__of_Lots_or_Units",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "propgisid1",
+              "length": null,
+              "name": "propgisid1",
+              "type": "esriFieldTypeDouble"
+            },
+            {
+              "alias": "PARCEL_ID",
+              "length": 14,
+              "name": "PARCEL_ID",
+              "type": "esriFieldTypeString"
+            }
+          ],
+          "geometryType": "esriGeometryPoint",
+          "layerIndex": 0,
+          "name": "Points_Issued_Permits",
+          "type": "Feature Layer"
+        }
+      ],
+      "registryKey": "snohomish_county_unincorp",
+      "serviceURL": "https://services6.arcgis.com/z6WYi9VRHfgwgtyW/arcgis/rest/services/Issued_Permits/FeatureServer/0"
+    },
+    "tacoma:hub:a12d6fbf58e4434b8ff5070c09646f19": {
+      "itemDescription": "<div style='text-align:Left;'><p><span>Permit data extracted from Accela permitting system.\u00a0</span>The script runs daily and pulls all of yesterday's Accela updates. Some of them are new records, but the majority are updates to the status of existing records.\u00a0</p><p>Users can also search for records via the\u00a0<a href='https://aca-prod.accela.com/TACOMA/Default.aspx' target='_blank' rel='nofollow ugc noopener noreferrer'>Customer Access Portal</a>.</p><p>Contact:<br />Nathan Connors &amp; Jason Hildreth (IT)<br /><br /></p></div>",
+      "itemId": "a12d6fbf58e4434b8ff5070c09646f19",
+      "itemName": "Accela Permit Data (Tacoma)",
+      "itemType": "Feature Service",
+      "kind": "hub",
+      "layers": [
+        {
+          "addressFieldGuess": "address_line_1",
+          "fields": [
+            {
+              "alias": "OBJECTID",
+              "length": null,
+              "name": "objectid",
+              "type": "esriFieldTypeOID"
+            },
+            {
+              "alias": "permit_number",
+              "length": 60,
+              "name": "permit_number",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "last_action",
+              "length": 10,
+              "name": "last_action",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "permit_group",
+              "length": 10,
+              "name": "permit_group",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "permit_type",
+              "length": 30,
+              "name": "permit_type",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "permit_subtype",
+              "length": 30,
+              "name": "permit_subtype",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "permit_category",
+              "length": 20,
+              "name": "permit_category",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "current_status",
+              "length": 40,
+              "name": "current_status",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "application_date",
+              "length": 8,
+              "name": "application_date",
+              "type": "esriFieldTypeDate"
+            },
+            {
+              "alias": "issued_date",
+              "length": 8,
+              "name": "issued_date",
+              "type": "esriFieldTypeDate"
+            },
+            {
+              "alias": "applicant_name",
+              "length": 60,
+              "name": "applicant_name",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "address_line_1",
+              "length": 80,
+              "name": "address_line_1",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "address_line_2",
+              "length": 60,
+              "name": "address_line_2",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "description",
+              "length": 4000,
+              "name": "description",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "fees_paid",
+              "length": null,
+              "name": "fees_paid",
+              "type": "esriFieldTypeDouble"
+            },
+            {
+              "alias": "latitude",
+              "length": null,
+              "name": "latitude",
+              "type": "esriFieldTypeDouble"
+            },
+            {
+              "alias": "longitude",
+              "length": null,
+              "name": "longitude",
+              "type": "esriFieldTypeDouble"
+            },
+            {
+              "alias": "parcel_number",
+              "length": 20,
+              "name": "parcel_number",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "zip",
+              "length": 20,
+              "name": "zip",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "valuation",
+              "length": null,
+              "name": "valuation",
+              "type": "esriFieldTypeInteger"
+            },
+            {
+              "alias": "housing_units",
+              "length": null,
+              "name": "housing_units",
+              "type": "esriFieldTypeSmallInteger"
+            },
+            {
+              "alias": "link",
+              "length": 200,
+              "name": "link",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "pull_date",
+              "length": 8,
+              "name": "pull_date",
+              "type": "esriFieldTypeDate"
+            },
+            {
+              "alias": "globalid",
+              "length": 38,
+              "name": "globalid_1",
+              "type": "esriFieldTypeGlobalID"
+            },
+            {
+              "alias": "Council District Number",
+              "length": null,
+              "name": "council_district_number",
+              "type": "esriFieldTypeInteger"
+            }
+          ],
+          "geometryType": "esriGeometryPoint",
+          "layerIndex": 0,
+          "name": "Accela Permit Data",
+          "type": "Feature Layer"
+        }
+      ],
+      "registryKey": "tacoma",
+      "serviceURL": "https://services3.arcgis.com/SCwJH1pD8WSn5T5y/arcgis/rest/services/accela_permit_data/FeatureServer"
+    },
+    "tacoma:service:https://services3.arcgis.com/SCwJH1pD8WSn5T5y/arcgis/rest/services/accela_permit_data/FeatureServer/0": {
+      "kind": "service",
+      "layers": [
+        {
+          "addressFieldGuess": "address_line_1",
+          "fields": [
+            {
+              "alias": "OBJECTID",
+              "length": null,
+              "name": "objectid",
+              "type": "esriFieldTypeOID"
+            },
+            {
+              "alias": "permit_number",
+              "length": 60,
+              "name": "permit_number",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "last_action",
+              "length": 10,
+              "name": "last_action",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "permit_group",
+              "length": 10,
+              "name": "permit_group",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "permit_type",
+              "length": 30,
+              "name": "permit_type",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "permit_subtype",
+              "length": 30,
+              "name": "permit_subtype",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "permit_category",
+              "length": 20,
+              "name": "permit_category",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "current_status",
+              "length": 40,
+              "name": "current_status",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "application_date",
+              "length": 8,
+              "name": "application_date",
+              "type": "esriFieldTypeDate"
+            },
+            {
+              "alias": "issued_date",
+              "length": 8,
+              "name": "issued_date",
+              "type": "esriFieldTypeDate"
+            },
+            {
+              "alias": "applicant_name",
+              "length": 60,
+              "name": "applicant_name",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "address_line_1",
+              "length": 80,
+              "name": "address_line_1",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "address_line_2",
+              "length": 60,
+              "name": "address_line_2",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "description",
+              "length": 4000,
+              "name": "description",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "fees_paid",
+              "length": null,
+              "name": "fees_paid",
+              "type": "esriFieldTypeDouble"
+            },
+            {
+              "alias": "latitude",
+              "length": null,
+              "name": "latitude",
+              "type": "esriFieldTypeDouble"
+            },
+            {
+              "alias": "longitude",
+              "length": null,
+              "name": "longitude",
+              "type": "esriFieldTypeDouble"
+            },
+            {
+              "alias": "parcel_number",
+              "length": 20,
+              "name": "parcel_number",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "zip",
+              "length": 20,
+              "name": "zip",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "valuation",
+              "length": null,
+              "name": "valuation",
+              "type": "esriFieldTypeInteger"
+            },
+            {
+              "alias": "housing_units",
+              "length": null,
+              "name": "housing_units",
+              "type": "esriFieldTypeSmallInteger"
+            },
+            {
+              "alias": "link",
+              "length": 200,
+              "name": "link",
+              "type": "esriFieldTypeString"
+            },
+            {
+              "alias": "pull_date",
+              "length": 8,
+              "name": "pull_date",
+              "type": "esriFieldTypeDate"
+            },
+            {
+              "alias": "globalid",
+              "length": 38,
+              "name": "globalid_1",
+              "type": "esriFieldTypeGlobalID"
+            },
+            {
+              "alias": "Council District Number",
+              "length": null,
+              "name": "council_district_number",
+              "type": "esriFieldTypeInteger"
+            }
+          ],
+          "geometryType": "esriGeometryPoint",
+          "layerIndex": 0,
+          "name": "Accela Permit Data",
+          "type": "Feature Layer"
+        }
+      ],
+      "registryKey": "tacoma",
+      "serviceURL": "https://services3.arcgis.com/SCwJH1pD8WSn5T5y/arcgis/rest/services/accela_permit_data/FeatureServer/0"
+    }
+  }
+}

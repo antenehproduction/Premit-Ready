@@ -1,0 +1,3419 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>General Requirements | Bellevue Land Use Code</title>
+
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="General Requirements | Bellevue Land Use Code"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://bellevue.municipal.codes/LUC/20.20.010"/>
+	<meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="Bellevue City Code"/>
+<meta name="twitter:card" content="summary"/>
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="dFsJvLFDFFGpgF2T47ChJSVzlAL85VULUJOcALbVG8m6DAg5yDl60SQSpdpmz5_caqu9Sq7TpGzY89HLk-P5HQ" />
+
+
+
+	<link
+		rel="canonical"
+		href="/LUC/20.20_GeneralRequirements#20.20.010"
+	/>
+	<link
+		rel="prev"
+		href="/LUC/20.20"
+			title="Ch. 20.20, General Development Requirements"
+	/>
+	<link
+		rel="next"
+		href="/LUC/20.20_WordIndex"
+			title="Word Index"
+	/>
+	<link
+		rel="up"
+		href="/LUC/20.20"
+			title="Ch. 20.20, General Development Requirements"
+	/>
+
+	<link rel="stylesheet" href="/interface.css?v=1590802019" />
+
+	<link rel="stylesheet" href="/LUC/content.css?v=1776531777" />
+
+<link rel="stylesheet" href="/custom.css?v=1777005724" />
+
+<link rel="preload" href="/fonts/glyphicons-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
+<script src="/assets/interface-f2c60572a11d309c6e0e0abe28fdc9ff8d07b3e45dfb8203ac5dc8bf9e1cf931.js" defer="defer"></script>
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-47XLS05727"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		window.googleParams = {
+			prefix: '/WA/Bellevue',
+			tagId: 'G-47XLS05727',
+		};
+	</script>
+
+
+<link rel="icon" href="/images/host-icon.png" type="image/png" sizes="192x192"/>
+<link rel="apple-touch-icon" href="/images/host-icon.png" sizes="192x192"/>
+<link rel="manifest" href="/manifest.json" crossorigin="anonymous"/>
+	<meta name="theme-color" content="#217b87"/>
+
+
+</head>
+
+<body
+	class="section_previews definition_previews document_hosting pending_updates recent_updates historic_versions running-text"
+	 data-product="LUC"
+>
+<div class="inner">
+
+<a class="sr-only sr-only-focusable" href="#main-column">Skip to main content</a>
+
+<div
+	class="progress siteprogress"
+	data-controller="siteprogress"
+	data-siteprogress-active-class="siteprogress--active"
+>
+	<div
+		class="progress-bar progress-bar-striped progress-bar-animated"
+		role="progressbar"
+	>
+		Loading…
+	</div>
+</div>
+
+
+<div class="statusflags" data-controller="statusflags">
+
+
+
+</div>
+
+
+<header id="site-header" class="hidden-print">
+<div class="inner">
+
+	<a class="organization-logo no-custom-style" title="City of Bellevue, Washington" href="https://www.bellevuewa.gov/"></a>
+
+	<a class="organization-name" title="City of Bellevue, Washington" href="https://www.bellevuewa.gov/">Bellevue, WA</a>
+
+	<a class="product-name" title="Bellevue Land Use Code" href="/LUC">
+		Land Use Code
+		
+</a>
+
+</div>
+</header>
+
+
+<div id="navbars">
+
+	<nav class="sitenavbar navbar navbar-expand-md navbar-dark" data-controller="sitenavbar">
+<div class="container-fluid">
+	<ul class="sitenavbar-compact nav navbar-nav d-md-none">
+		<li class="sitenavbar-home nav-item">
+			<a
+				class="nav-link nav-home"
+				href="/"
+			>
+				<span class="glyphicons glyphicons-home" aria-hidden="true"></span
+				><span class="text">Home</span>
+			</a>
+		</li>
+		<li class="sitenavbar-previous nav-item">
+				<a
+					class="nav-link"
+					href="/LUC/20.20"
+					title="Ch. 20.20, General Development Requirements"
+				>
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span
+					><span class="text">Ch. 20.20</span>
+				</a>
+		</li>
+		<li class="sitenavbar-up nav-item">
+				<a
+					class="nav-link"
+					href="/LUC/20.20"
+					title="Ch. 20.20, General Development Requirements"
+				>
+					<span class="glyphicons glyphicons-arrow-up" aria-hidden="true"></span
+					><span class="text">Ch. 20.20</span>
+				</a>
+		</li>
+		<li class="sitenavbar-next nav-item">
+				<a
+					class="nav-link"
+					href="/LUC/20.20_WordIndex"
+					title="Word Index"
+				>
+					<span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span
+					><span class="text">Next</span>
+				</a>
+		</li>
+		<button
+			type="button"
+			class="sitenavbar-toggler navbar-toggler collapsed"
+			data-toggle="collapse"
+			data-target="#a62b7ea08-3f36-430b-b41b-a783eefc68d3"
+			aria-expanded="false"
+		>
+			<span class="sr-only">Toggle site navigation</span>
+			<span class="navbar-toggler-icon"></span>
+			<span class="text">Menu</span>
+		</button>
+	</ul>
+	<div id="a62b7ea08-3f36-430b-b41b-a783eefc68d3" class="sitenavbar-full collapse navbar-collapse">
+		<div class="inner">
+			<div class="sitenavbar-search">
+					<form class="form-inline navbar-right" role="search" action="/search" accept-charset="UTF-8" method="get">
+					<div class="form-group">
+					<div class="input-group">
+						<input
+							type="text"
+							name="q"
+							class="sitenavbar-search-input form-control"
+							required="required"
+							placeholder="Search Land Use Code"
+							aria-label="Enter one or more terms to search for."
+							autocomplete="off"
+						/>
+						<span class="input-group-btn">
+							<button
+								type="submit"
+								class="sitenavbar-search-button btn btn-primary"
+								data-toggle="tooltip"
+								title="Search the Land Use Code for the term(s) you entered."
+							>
+								<span class="glyphicons glyphicons-search" aria-hidden="true"></span>
+							</button>
+						</span>
+						<input type="hidden" name="doc[]" value="LUC">
+						
+					</div>
+					</div>
+</form>							<nav
+	aria-label="Breadcrumbs"
+	class="breadcrumbs breadcrumbs--compact d-block d-md-none"
+	data-controller="breadcrumbs"
+>
+	<ul class="breadcrumbs-list breadcrumb">
+		<li class="breadcrumbs-organization breadcrumb-item"
+			><a
+				href="https://www.bellevuewa.gov/"
+				class="breadcrumbs-link"
+			>City of Bellevue</a
+		></li><li class="breadcrumb-item"
+					><a
+						href="/LUC"
+						class="breadcrumbs-link"
+					>
+						Land Use Code
+						</a
+				></li
+			><li class="breadcrumb-item"
+					><a
+						href="/LUC/20.20"
+						class="breadcrumbs-link"
+					>Ch. 20.20, General Development Requirements</a
+				></li
+			><li class="breadcrumbs-chunk breadcrumb-item"
+				><a
+					href="/LUC/20.20_GeneralRequirements"
+					class="breadcrumbs-link"
+					data-breadcrumbs-target="chunk"
+				>General Requirements</a
+			></li><li class="breadcrumbs-onpage breadcrumb-item d-none" data-breadcrumbs-target="onpage"
+					><a
+						href
+						data-breadcrumbs-target="onpagelink"
+					></a
+				></li>
+	</ul>
+</nav>
+
+
+			</div>
+			<ul class="navbar-nav">
+				<li class="sitenavbar-home nav-item d-none d-md-block">
+					<a
+						href="/"
+						class="nav-link"
+						data-toggle="tooltip"
+						title="Browse all available publications."
+					>
+						<span class="glyphicons glyphicons-home" aria-hidden="true"></span
+						><span class="text">Home</span>
+					</a>
+				</li>
+					<li class="sitenavbar-contents nav-item">
+						<a
+							class="nav-link"
+							href="/LUC/contents"
+							data-toggle="modal"
+							data-target="#contents"
+							data-remote="false"
+							data-toggle2="tooltip"
+							title="Search or browse the full contents of this publication or others."
+						>
+							<span class="glyphicons glyphicons-list" aria-hidden="true"></span
+							><span class="text">Contents</span>
+						</a>
+					</li>
+				<li class="sitenavbar-track nav-item dropdown">
+	    			<button
+						type="button"
+						id="a6205e651-d2f5-41b4-9b66-c4bacaba06e9"
+						class="sitenavbar-dropdown-toggle btn btn-link nav-link dropdown-toggle"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+						data-toggle2="tooltip"
+						title="Review legislation, meetings, and code changes over time."
+					>
+						<span class="glyphicons glyphicons-history" aria-hidden="true"></span
+						><span class="text">Track</span>
+					</button>
+					<div
+						class="sitenavbar-dropdown-menu dropdown-menu"
+						aria-labelledby="a6205e651-d2f5-41b4-9b66-c4bacaba06e9"
+					>
+						<a class="dropdown-item" href="/enactments">
+							Legislative History
+						</a>
+							<a
+								href="/LUC/versions?home=false&amp;node=20.20.010"
+								class="dropdown-item "
+								data-controller="dynamodal"
+							>
+								Historic Versions
+							</a>
+							<a
+								class="dropdown-item"
+								href="/enactments?status=codifying"
+							>
+								Pending Updates
+							</a>
+							<a
+								class="dropdown-item"
+								href="/updates"
+							>
+								Recent Updates
+							</a>
+					</div>
+				</li>
+				<li class="sitenavbar-share nav-item dropdown">
+					<button
+						type="button"
+						id="a9b163358-6a14-497f-9a12-a5cdbe732a8c"
+						class="sitenavbar-dropdown-toggle btn btn-link nav-link dropdown-toggle"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+						data-toggle2="tooltip"
+						title="Save, share, bookmark or print this page or your selections."
+					>
+						<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span
+						><span class="text">Share</span>
+					</button>
+					<div
+						class="sitenavbar-dropdown-menu dropdown-menu"
+						aria-labelledby="a9b163358-6a14-497f-9a12-a5cdbe732a8c"
+					>
+						<a
+							href="/LUC/20.20_GeneralRequirements/share"
+							class="dropdown-item"
+							data-controller="dynamodal"
+							rel="nofollow"
+						>
+							This Page
+						</a>
+						<a
+							href="/selections/share"
+							class="sitenavbar-selections dropdown-item selections disabled"
+							data-controller="dynamodal"
+							data-dynamodal-selections-value="true"
+							rel="nofollow"
+						>
+							Your Selections
+							<span class="badge badge-pill badge-primary"></span>
+						</a>
+					</div>
+				</li>
+				<li class="sitenavbar-settings nav-item">
+					<a
+						class="nav-link"
+						href="/settings"
+						role="button"
+						data-controller="dynamodal"
+						data-toggle="tooltip"
+						title="Choose how this site appears to you."
+					>
+						<span class="glyphicons glyphicons-cogwheels" aria-hidden="true"></span
+						><span class="text">Settings</span>
+					</a>
+				</li>
+				<li class="sitenavbar-help nav-item">
+					<a
+						class="nav-link"
+						href="/help"
+						target="_blank"
+						role="button"
+						data-toggle="tooltip"
+						title="Learn how to use the features of this site."
+					>
+						<span class="glyphicons glyphicons-question-sign" aria-hidden="true"></span
+						><span class="text">Help</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</nav>
+
+	
+
+	
+
+	
+
+	
+
+</div>
+
+<div id="container" class="container" data-controller="container">
+	<div id="container-main">
+		<div id="main-column" class="">
+					<nav
+	aria-label="Breadcrumbs"
+	class="breadcrumbs breadcrumbs--main d-none d-md-block"
+	data-controller="breadcrumbs"
+>
+	<ul class="breadcrumbs-list breadcrumb">
+		<li class="breadcrumbs-organization breadcrumb-item"
+			><a
+				href="https://www.bellevuewa.gov/"
+				class="breadcrumbs-link"
+			>City of Bellevue</a
+		></li><li class="breadcrumb-item"
+					><a
+						href="/LUC"
+						class="breadcrumbs-link"
+					>
+						Land Use Code
+						</a
+				></li
+			><li class="breadcrumb-item"
+					><a
+						href="/LUC/20.20"
+						class="breadcrumbs-link"
+					>Ch. 20.20, General Development Requirements</a
+				></li
+			><li class="breadcrumbs-chunk breadcrumb-item"
+				><a
+					href="/LUC/20.20_GeneralRequirements"
+					class="breadcrumbs-link"
+					data-breadcrumbs-target="chunk"
+				>General Requirements</a
+			></li>
+	</ul>
+</nav>
+
+		
+		<main xmlns="http://www.w3.org/1999/xhtml" id="main" class="main nodes" lang="en" xml:lang="en">
+<div class="levelnodes" data-controller="levelnodes">
+	<div class="levelnodeactions d-flex justify-content-center" data-levelnodes-target="actions" data-controller="levelnodeactions">
+	<span class="dropdown">
+		<button type="button" class="btn btn-link action dropdown-toggle" data-toggle="dropdown" data-toggle2="tooltip" aria-haspopup="true" aria-expanded="false" title="Find Related">
+			<span class="glyphicons glyphicons-search" aria-hidden="true"></span>
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="/LUC/20.20_GeneralRequirements/search" rel="nofollow" data-levelnodeactions-target="search">Search Within This</a>
+		</div>
+	</span>
+	<a href="/LUC/20.20_GeneralRequirements/history" class="action history" role="button" data-controller="dynamodal" data-toggle="tooltip" data-levelnodeactions-target="history" title="History of This nodeType" rel="nofollow">
+		<span class="glyphicons glyphicons-history" aria-hidden="true"></span>
+	</a>
+	<a href="/LUC/20.20_GeneralRequirements/share" class="action share" role="button" data-controller="dynamodal" data-toggle="tooltip" data-levelnodeactions-target="share" title="Save, Share, Bookmark or Print" rel="nofollow">
+		<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span>
+	</a>
+	<input type="checkbox" class="levelnodeactions-selector selections-selector secondary" data-toggle="tooltip" title="Include in Your Selections" data-levelnodeactions-target="selector" autocomplete="off"/><span></span>
+</div>
+
+	<article class="level4 chunking-large type-Part chunknode" id="20.20_GeneralRequirements"><header class=" mini-header" data-type="Part" data-search="/LUC/20.20_GeneralRequirements/search" data-share="/LUC/20.20_GeneralRequirements/share" data-levelnodes-target="header"><h4 class=" inner-header"><span class="name">General Requirements</span> <span class="badge badge-success" title="This part was amended by recently codified enactment(s).">Revised</span> <span class="badge badge-info" title="This part has been amended by enactment(s) pending codification.">Amended</span></h4></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This part is included in your selections.</span>
+</div>
+
+
+
+<article class="level6 chunking-none type-Section has-history" id="20.20.005" data-cite="LUC 20.20.005" data-short-cite="20.20.005" data-history="/LUC/20.20.005/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.005/search" data-share="/LUC/20.20.005/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.005</span> <span class="name">Chart of dimensional requirements described.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+<div class="track-indicator pending-updates alert alert-info">
+	<span class="glyphicons glyphicons-pending-notifications" aria-hidden="true"></span>
+	<div class="text">
+		<a class="alert-link" href="/enactments/Ord6906?node=20.20.005&amp;product=LUC" data-controller="dynamodal">
+			This section has been amended by Ordinance 6906, which is pending codification.
+		</a>
+	</div>
+</div>
+
+
+
+
+<p>Chart 20.20.010 sets forth the dimensional requirements for each <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> district except: the <a class="def" href="20.50.016__df45e3fc3b7917353a8933cb8814cd36">Downtown</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Districts, the Evergreen Highlands Design District, the Evergreen Highlands Subarea Transportation Improvement Overlay District, the <a class="def" href="20.50.034__f6b7559aeb02bea8b8ad93ead259b901">Medical Institution District</a>, the OLB-OS <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> District, and the <a class="def" href="20.50.012__5c523377c6da0dd07cd27247e5b9269e">BelRed</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Districts. All <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> and activities in the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> not located in the above districts shall conform to the dimensional requirements in Chart 20.20.010. Dimensional requirements for the <a class="def" href="20.50.016__df45e3fc3b7917353a8933cb8814cd36">Downtown</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Districts are found in LUC <a class="cite" href="20.25A.060" title="20.25A.060&#x2002;Dimensional charts">20.25A.060</a>. Dimensional requirements for the Evergreen Highlands Design District are found in Part <a class="cite" href="20.25F" title="Part 20.25F&#x2002;Evergreen Highlands Design District">20.25F</a> LUC. Dimensional requirements for the Evergreen Highlands Subarea Transportation Improvement Overlay District are found in Part <a class="cite" href="20.25G" title="Part 20.25G&#x2002;Evergreen Highlands Subarea Transportation Improvement Overlay District">20.25G</a> LUC. Dimensional requirements for the <a class="def" href="20.50.034__f6b7559aeb02bea8b8ad93ead259b901">Medical Institution District</a> are found in Part <a class="cite" href="20.25J" title="Part 20.25J&#x2002;Medical Institution District">20.25J</a> LUC. Dimensional requirements for the OLB-OS <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> District are found in LUC <a class="cite" href="20.25L.030" title="20.25L.030&#x2002;Dimensional requirements">20.25L.030</a>. Dimensional requirements for the <a class="def" href="20.50.012__5c523377c6da0dd07cd27247e5b9269e">BelRed</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Districts are found in LUC <a class="cite" href="20.25D.080" title="20.25D.080&#x2002;Dimensional Requirements">20.25D.080</a>. Dimensional requirements for the Eastgate Transit Oriented <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> District are found in LUC <a class="cite" href="20.25P.060.A" title="20.25P.060.A&#x2002;General">20.25P.060.A</a>. Additional special dimensional requirements for designated areas of the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> are contained in other parts of the Code as follows:</p>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.005.A" data-cite="LUC 20.20.005.A" data-short-cite="20.20.005.A"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span>Part <a class="cite link-repealed" href="20.25B">20.25B</a> LUC&#xA0;&#x2013; <a class="def" href="20.50.048__10ecacb051b3debfa1474aa224824121">Transition Areas</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.005.B" data-cite="LUC 20.20.005.B" data-short-cite="20.20.005.B"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>Part <a class="cite" href="20.25C" title="Part 20.25C&#x2002;Office and Limited Business (OLB) and Office and Limited Business 2 (OLB 2) Districts">20.25C</a> LUC&#xA0;&#x2013; OLB Districts;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.005.C" data-cite="LUC 20.20.005.C" data-short-cite="20.20.005.C"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>Part <a class="cite" href="20.25E" title="Part 20.25E&#x2002;Shoreline Overlay District">20.25E</a> LUC&#xA0;&#x2013; Shoreline Overlay District;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.005.D" data-cite="LUC 20.20.005.D" data-short-cite="20.20.005.D"><p><span class="header num-only"><span class="num">D.&#x2002;</span></span>Part <a class="cite" href="20.25H" title="Part 20.25H&#x2002;Critical Areas Overlay District">20.25H</a> LUC&#xA0;&#x2013; <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">Critical Areas</a> Overlay District;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.005.E" data-cite="LUC 20.20.005.E" data-short-cite="20.20.005.E"><p><span class="header num-only"><span class="num">E.&#x2002;</span></span>Part <a class="cite" href="20.45A" title="Ch. 20.45A&#x2002;Platting and Subdivisions">20.45A</a> LUC&#xA0;&#x2013; Platting and <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">Subdivisions</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.005.F" data-cite="LUC 20.20.005.F" data-short-cite="20.20.005.F"><p><span class="header num-only"><span class="num">F.&#x2002;</span></span>Part <a class="cite" href="20.45B" title="Ch. 20.45B&#x2002;Short Plats and Short Subdivisions">20.45B</a> LUC&#xA0;&#x2013; <a class="def" href="20.50.040__064fc10a25b190c3f575f93b3aa19ed7">Short Plats</a> and <a class="def" href="20.50.046__82dd888f86a0ea86e478e1fc09fb96e8">Short Subdivisions</a>. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 6425, 10-1-18, &#xA7;&#xA0;4; Ord. 6366, 8-7-17, &#xA7;&#xA0;6; Ord. 5876, 5-18-09, &#xA7;&#xA0;5; Ord. 5717, 2-20-07, &#xA7;&#xA0;3; Ord. 5683, 6-26-06, &#xA7;&#xA0;1; Ord. 5587, 3-7-05, &#xA7;&#xA0;4; Ord. 5480, 10-20-03, &#xA7;&#xA0;3; Ord. 5403, 8-5-02, &#xA7;&#xA0;4; Ord. 4979, 3-17-97, &#xA7;&#xA0;2; Ord. 4973, 3-3-97, &#xA7;&#xA0;302; Ord. 4816, 11-27-95, &#xA7;&#xA0;402; Ord. 3775, 5-26-87, &#xA7;&#xA0;4; Ord. 3219, 1-17-83, &#xA7;&#xA0;4)</span></p>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.010" data-cite="LUC 20.20.010" data-short-cite="20.20.010" data-history="/LUC/20.20.010/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.010/search" data-share="/LUC/20.20.010/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.010</span> <span class="name">Uses in land use districts dimensional requirements.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+<div class="track-indicator pending-updates alert alert-info">
+	<span class="glyphicons glyphicons-pending-notifications" aria-hidden="true"></span>
+	<div class="text">
+		<a class="alert-link" href="/enactments/Ord6906?node=20.20.010&amp;product=LUC" data-controller="dynamodal">
+			This section has been amended by Ordinance 6906, which is pending codification.
+		</a>
+	</div>
+</div>
+<div class="track-indicator recent-updates alert alert-success">
+	<span class="glyphicons glyphicons-auction" aria-hidden="true"></span>
+	<div class="text">
+		<a class="alert-link" href="/enactments/Ord6894?node=20.20.010&amp;product=LUC" data-controller="dynamodal">
+			This section was recently amended by Ordinance 6894, codified in April 2026.
+		</a>
+	</div>
+</div>
+
+
+
+
+<figure class="type-Chart" data-cite="Chart 20.20.010">
+<table class="UseChartTable role-medium table-dense table-extra-dense table-ruled-outside-both table-ruled-inside-both"><caption><p class="header"><span class="num">Chart 20.20.010</span> <span class="name">Uses in land use districts&#xA0;&#x2013;&#xA0;Dimensional Requirements</span></p>
+
+
+
+</caption><colgroup><col style="width: 172pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/><col style="width: 28pt;"/>
+</colgroup><thead>
+<tr>
+<th class="bottom" rowspan="2">
+<p><a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">LAND USE</a> CLASSIFICATION</p>
+</th>
+<th colspan="11">
+<p>Residential</p>
+</th>
+</tr>
+<tr>
+<th>
+<p>LL-1</p>
+</th>
+<th>
+<p>LL-2</p>
+</th>
+<th>
+<p>SR-1</p>
+</th>
+<th>
+<p>SR-2</p>
+</th>
+<th>
+<p>SR-3</p>
+</th>
+<th>
+<p>SR-4</p>
+</th>
+<th>
+<p>LDR-1</p>
+</th>
+<th>
+<p>LDR-2</p>
+</th>
+<th>
+<p>LDR-3</p>
+</th>
+<th>
+<p>MDR-1</p>
+</th>
+<th>
+<p>MDR-2</p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<th>
+<p>DIMENSIONS</p>
+</th>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__43)" title="(43)">43</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__43)" title="(43)">43</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__43)" title="(43)">43</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__43)" title="(43)">43</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__43)" title="(43)">43</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__43)" title="(43)">43</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__43)" title="(43)">43</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Front <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yard</a> Minimum <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">Setback</a> of <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">Structures</a> (feet)</p>
+<p>(<a class="fn" href="20.20.010#20.20.010__18)" title="(18)">18</a>) (<a class="fn" href="20.20.010#20.20.010__20)" title="(20)">20</a>) (<a class="fn" href="20.20.010#20.20.010__38)" title="(38)">38</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>)</p>
+</td>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Rear <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yard</a> Minimum <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">Setback</a> of <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">Structures</a> (feet) (<a class="fn" href="20.20.010#20.20.010__11)" title="(11)">11</a>) (<a class="fn" href="20.20.010#20.20.010__17)" title="(17)">17</a>) (<a class="fn" href="20.20.010#20.20.010__18)" title="(18)">18</a>) (<a class="fn" href="20.20.010#20.20.010__20)" title="(20)">20</a>) (<a class="fn" href="20.20.010#20.20.010__38)" title="(38)">38</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>)</p>
+</td>
+<td>
+<p>25</p>
+</td>
+<td>
+<p>25</p>
+</td>
+<td>
+<p>25</p>
+</td>
+<td>
+<p>25</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Side <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yard</a> Minimum <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">Setback</a> of <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">Structures</a> (feet)  (<a class="fn" href="20.20.010#20.20.010__7)" title="(7)">7</a>) (<a class="fn" href="20.20.010#20.20.010__11)" title="(11)">11</a>) (<a class="fn" href="20.20.010#20.20.010__17)" title="(17)">17</a>) (<a class="fn" href="20.20.010#20.20.010__18)" title="(18)">18</a>) (<a class="fn" href="20.20.010#20.20.010__20)" title="(20)">20</a>) (<a class="fn" href="20.20.010#20.20.010__38)" title="(38)">38</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>)</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>5</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>2 Side <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yards</a> Minimum <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">Setback</a> of <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">Structures</a> (feet)  (<a class="fn" href="20.20.010#20.20.010__7)" title="(7)">7</a>) (<a class="fn" href="20.20.010#20.20.010__17)" title="(17)">17</a>) (<a class="fn" href="20.20.010#20.20.010__18)" title="(18)">18</a>) (<a class="fn" href="20.20.010#20.20.010__20)" title="(20)">20</a>) (<a class="fn" href="20.20.010#20.20.010__38)" title="(38)">38</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>)</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>15</p>
+</td>
+<td>
+<p>15</p>
+</td>
+<td>
+<p>15</p>
+</td>
+<td>
+<p>15</p>
+</td>
+<td>
+<p>15</p>
+</td>
+<td>
+<p>10</p>
+</td>
+<td>
+<p>10</p>
+</td>
+<td>
+<p>10</p>
+</td>
+<td>
+<p>10</p>
+</td>
+<td>
+<p>10</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Minimum <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">Lot</a> Area</p>
+<p>Thousands of Sq. Ft. (<a class="fn" href="20.20.010#20.20.010__3)" title="(3)">3</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>)</p>
+</td>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>13.5</p>
+</td>
+<td>
+<p>10</p>
+</td>
+<td>
+<p>8.5</p>
+</td>
+<td>
+<p>7.2</p>
+</td>
+<td>
+<p>4.7</p>
+</td>
+<td></td>
+<td></td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__12)" title="(12)">12</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__12)" title="(12)">12</a>)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a class="def" href="20.50.016__1f8211c4341716d097d92d53d721aed3">Dwelling Units</a> per Acre (<a class="fn" href="20.20.010#20.20.010__22)" title="(22)">22</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__1)" title="(1)">1</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__1)" title="(1)">1</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__1)" title="(1)">1</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__1)" title="(1)">1</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__1)" title="(1)">1</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__1)" title="(1)">1</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__1)" title="(1)">1</a>)</p>
+</td>
+<td>
+<p>10 (<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>15 (<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>20 (<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>30 (<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Minimum Width of <a class="def" href="20.50.032__6bdc32536e69b38777ac6c735f11857c">Street Frontage</a> (feet)</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>
+<p>Minimum Width Required in <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">Lot</a> (feet) (<a class="fn" href="20.20.010#20.20.010__4)" title="(4)">4</a>)</p>
+</td>
+<td>
+<p>100</p>
+</td>
+<td>
+<p>90</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>70</p>
+</td>
+<td>
+<p>65</p>
+</td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>50</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>
+<p>Minimum Depth Required in <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">Lot</a> (feet) (<a class="fn" href="20.20.010#20.20.010__4)" title="(4)">4</a>)</p>
+</td>
+<td>
+<p>150</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>
+<p>Maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">Building Height</a> (feet) (<a class="fn" href="20.20.010#20.20.010__10)" title="(10)">10</a>) (<a class="fn" href="20.20.010#20.20.010__26)" title="(26)">26</a>) (<a class="fn" href="20.20.010#20.20.010__45)" title="(45)">45</a>)</p>
+</td>
+<td>
+<p>30/35 (<a class="fn" href="20.20.010#20.20.010__44)" title="(44)">44</a>)</p>
+</td>
+<td>
+<p>30/35 (<a class="fn" href="20.20.010#20.20.010__44)" title="(44)">44</a>)</p>
+</td>
+<td>
+<p>30/35 (<a class="fn" href="20.20.010#20.20.010__44)" title="(44)">44</a>)</p>
+</td>
+<td>
+<p>30/35 (<a class="fn" href="20.20.010#20.20.010__44)" title="(44)">44</a>)</p>
+</td>
+<td>
+<p>30/35 (<a class="fn" href="20.20.010#20.20.010__44)" title="(44)">44</a>)</p>
+</td>
+<td>
+<p>30/35 (<a class="fn" href="20.20.010#20.20.010__44)" title="(44)">44</a>)</p>
+</td>
+<td>
+<p>30/35 (<a class="fn" href="20.20.010#20.20.010__44)" title="(44)">44</a>)</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">Lot Coverage</a> by <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">Structures</a> (percent) (<a class="fn" href="20.20.010#20.20.010__14)" title="(14)">14</a>) (<a class="fn" href="20.20.010#20.20.010__16)" title="(16)&#x2002;Exceptions to Lot Coverage: ">16</a>) (<a class="fn" href="20.20.010#20.20.010__26)" title="(26)">26</a>) (<a class="fn" href="20.20.010#20.20.010__27)" title="(27)">27</a>) (<a class="fn" href="20.20.010#20.20.010__37)" title="(37)">37</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>)</p>
+</td>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum <a class="def" href="20.50.024__36567b2736d88074d94044cf6fd3862b">Hard Surface</a> Coverage (percent) (<a class="fn" href="20.20.010#20.20.010__37)" title="(37)">37</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>)</p>
+</td>
+<td>
+<p>75 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>75 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>75 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>75 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>75 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>80 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>80 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>90</p>
+</td>
+<td>
+<p>90</p>
+</td>
+<td>
+<p>90</p>
+</td>
+<td>
+<p>90</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">Impervious Surface</a> (percent) (<a class="fn" href="20.20.010#20.20.010__37)" title="(37)">37</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>)</p>
+</td>
+<td>
+<p>45 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>45 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>45 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>45 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>45 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>55 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>55 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>65</p>
+</td>
+<td>
+<p>65</p>
+</td>
+<td>
+<p>65</p>
+</td>
+<td>
+<p>65</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Alternative Maximum <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">Impervious Surface</a> (percent)  (<a class="fn" href="20.20.010#20.20.010__35)" title="(35)">35</a>) (<a class="fn" href="20.20.010#20.20.010__37)" title="(37)">37</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>) (<a class="fn" href="20.20.010#20.20.010__48)" title="(48)">48</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>55 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>55 (<a class="fn" href="20.20.010#20.20.010__36)" title="(36)">36</a>)</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Minimum <a class="def" href="20.50.022__1666961cc5e2da1f89ec9e3bf65752e4">Greenscape</a> Percentage of Front <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yard</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">Setback</a> (<a class="fn" href="20.20.010#20.20.010__40)" title="(40)">40</a>)(<a class="fn" href="20.20.010#20.20.010__51)" title="(51)">51</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__40)" title="(40)">40</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__40)" title="(40)">40</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__40)" title="(40)">40</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__40)" title="(40)">40</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__40)" title="(40)">40</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__40)" title="(40)">40</a>)</p>
+</td>
+<td>
+<p>50 (<a class="fn" href="20.20.010#20.20.010__40)" title="(40)">40</a>)</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<div class="note"><p><span class="header"><span class="name">NOTE:</span> </span>Dimensional Requirements for <a class="def" href="20.50.016__df45e3fc3b7917353a8933cb8814cd36">Downtown</a> are found in Part <a class="cite" href="20.25A" title="Part 20.25A&#x2002;Downtown">20.25A</a> LUC.</p>
+
+
+
+</div>
+<div class="note">
+<p>Additional dimensional requirements for Shoreline Overlay Districts are found in Part <a class="cite" href="20.25E" title="Part 20.25E&#x2002;Shoreline Overlay District">20.25E</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for Evergreen Highlands Design District (EH-A, EH-B, EH-C, EH-D) are found in Part <a class="cite" href="20.25F" title="Part 20.25F&#x2002;Evergreen Highlands Design District">20.25F</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for Office and Limited Business&#xA0;&#x2013; <a class="def" href="20.50.038__53e263073a3716cbca0f87ee0b41220b">Open Space</a> (OLB-OS) are found in Part <a class="cite" href="20.25L" title="Part 20.25L&#x2002;Office and Limited Business-Open Space (OLB-OS) District">20.25L</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for <a class="def" href="20.50.034__f6b7559aeb02bea8b8ad93ead259b901">Medical Institution District</a> (MI) are found in Part <a class="cite" href="20.25J" title="Part 20.25J&#x2002;Medical Institution District">20.25J</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for <a class="def" href="20.50.012__5c523377c6da0dd07cd27247e5b9269e">BelRed</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Districts are found in Part <a class="cite" href="20.25D" title="Part 20.25D&#x2002;BelRed">20.25D</a> LUC.</p>
+</div>
+</figure>
+<figure class="type-Table">
+<table class="UseChartTable role-medium table-ruled-outside-both table-ruled-inside-both"><caption><p class="header"><span class="name">Uses in land use districts&#xA0;&#x2013;&#xA0;Dimensional Requirements</span></p>
+
+
+</caption><colgroup><col style="width: 27pt;"/><col style="width: 156pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/><col style="width: 24pt;"/>
+</colgroup><thead>
+<tr style="height: 168pt;">
+<th class="bottom" rowspan="2">
+<p>STD <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">LAND USE</a> CODE REF</p>
+</th>
+<th class="bottom" rowspan="2">
+<p><a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">LAND USE</a> CLASSIFICATION</p>
+</th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>Professional Office</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>Office</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>Office/Limited Business</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>Office/Limited Business 2</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>Light Industry</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>General Commercial</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>Neighborhood Business</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>Neighborhood Mixed Use</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p>Community Business</p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p><a class="def" href="20.50.020__270c17df5cc3201266e30aceb91d038a">Factoria Land Use District 1</a></p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p><a class="def" href="20.50.020__97a16484e96fff37648942d93e1972fb">Factoria Land Use District 2</a></p></div></div></th>
+<th class="center bottom rotate deg--90"><div><div>
+<p><a class="def" href="20.50.020__f5b92407abb7b2c374742e4c0569776f">Factoria Land Use District 3</a></p></div></div></th>
+</tr>
+<tr>
+<th>
+<p>PO</p>
+</th>
+<th>
+<p>O</p>
+</th>
+<th>
+<p>OLB</p>
+</th>
+<th>
+<p>OLB 2</p>
+</th>
+<th>
+<p>LI</p>
+</th>
+<th>
+<p>GC</p>
+</th>
+<th>
+<p>NB</p>
+</th>
+<th>
+<p>NMU</p>
+</th>
+<th>
+<p>CB</p>
+</th>
+<th>
+<p><a class="def" href="20.50.020__270c17df5cc3201266e30aceb91d038a">F1</a></p>
+</th>
+<th>
+<p><a class="def" href="20.50.020__97a16484e96fff37648942d93e1972fb">F2</a></p>
+</th>
+<th>
+<p><a class="def" href="20.50.020__f5b92407abb7b2c374742e4c0569776f">F3</a></p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<th>
+<p>DIMENSIONS</p>
+</th>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__28)" title="(28)">28</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>, <a class="fn" href="20.20.010#20.20.010__31)" title="(31)">31</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__21)" title="(21)">21</a>, <a class="fn" href="20.20.010#20.20.010__32)" title="(32)">32</a>, <a class="fn" href="20.20.010#20.20.010__52)" title="(52)">52</a>)</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Minimum <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">Setbacks</a> of <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">Structures</a> (feet) Front <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yard</a> (<a class="fn" href="20.20.010#20.20.010__18)" title="(18)">18</a>) (<a class="fn" href="20.20.010#20.20.010__20)" title="(20)">20</a>)</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>50</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>15</p>
+</td>
+<td>
+<p>15</p>
+</td>
+<td></td>
+<td>
+<p>0</p>
+</td>
+<td></td>
+<td></td>
+<td>
+<p>50</p>
+</td>
+<td>
+<p>20</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Rear <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yard</a> (<a class="fn" href="20.20.010#20.20.010__17)" title="(17)">17</a>) (<a class="fn" href="20.20.010#20.20.010__18)" title="(18)">18</a>) (<a class="fn" href="20.20.010#20.20.010__20)" title="(20)">20</a>)</p>
+</td>
+<td>
+<p>25</p>
+</td>
+<td>
+<p>25</p>
+</td>
+<td>
+<p>50</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td></td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>5</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Side <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yard</a> (<a class="fn" href="20.20.010#20.20.010__17)" title="(17)">17</a>) (<a class="fn" href="20.20.010#20.20.010__18)" title="(18)">18</a>) (<a class="fn" href="20.20.010#20.20.010__20)" title="(20)">20</a>)</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td></td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>5</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>2 Side <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">Yards</a> (<a class="fn" href="20.20.010#20.20.010__17)" title="(17)">17</a>) (<a class="fn" href="20.20.010#20.20.010__18)" title="(18)">18</a>) (<a class="fn" href="20.20.010#20.20.010__20)" title="(20)">20</a>)</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>40</p>
+</td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td></td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td></td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>10</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p><a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">Floor Area Ratio</a></p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__8)" title="(8)">8</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__8)" title="(8)">8</a>, <a class="fn" href="20.20.010#20.20.010__50)" title="(50)">50</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__8)" title="(8)">8</a>)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__8)" title="(8)">8</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__8)" title="(8)">8</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__8)" title="(8)">8</a>)</p>
+</td>
+<td>
+<p>1 (<a class="fn" href="20.20.010#20.20.010__49)" title="(49)">49</a>)</p>
+</td>
+<td>
+<p>(<a class="fn" href="20.20.010#20.20.010__8)" title="(8)">8</a>)</p>
+</td>
+<td></td>
+<td>
+<p>.75</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Minimum <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">Lot</a> Area Acres (A) or Thousands of Sq. Ft. (<a class="fn" href="20.20.010#20.20.010__3)" title="(3)">3</a>)</p>
+</td>
+<td></td>
+<td></td>
+<td>
+<p>2A</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+<p>2A</p>
+</td>
+<td>
+<p>2A</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p><a class="def" href="20.50.016__1f8211c4341716d097d92d53d721aed3">Dwelling Units</a> per Acre (<a class="fn" href="20.20.010#20.20.010__15)" title="(15)">15</a>) (<a class="fn" href="20.20.010#20.20.010__22)" title="(22)">22</a>) (<a class="fn" href="20.20.010#20.20.010__53)" title="(53)">53</a>)</p>
+</td>
+<td>
+<p>10 (<a class="fn" href="20.20.010#20.20.010__23)" title="(23)">23</a>)</p>
+</td>
+<td>
+<p>20 (<a class="fn" href="20.20.010#20.20.010__23)" title="(23)">23</a>)</p>
+</td>
+<td>
+<p>30 (<a class="fn" href="20.20.010#20.20.010__23)" title="(23)">23</a>)</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+<p>15 (<a class="fn" href="20.20.010#20.20.010__23)" title="(23)">23</a>)</p>
+</td>
+<td></td>
+<td>
+<p>30 (<a class="fn" href="20.20.010#20.20.010__23)" title="(23)">23</a>)</p>
+</td>
+<td></td>
+<td>
+<p>30 (<a class="fn" href="20.20.010#20.20.010__23)" title="(23)">23</a>)</p>
+</td>
+<td>
+<p>30 (<a class="fn" href="20.20.010#20.20.010__23)" title="(23)">23</a>)</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Minimum Dimensions (feet) Width of <a class="def" href="20.50.032__6bdc32536e69b38777ac6c735f11857c">Street Frontage</a></p>
+</td>
+<td></td>
+<td></td>
+<td>
+<p>200</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+<p>200</p>
+</td>
+<td>
+<p>200</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Width Required in <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">Lot</a> (<a class="fn" href="20.20.010#20.20.010__4)" title="(4)">4</a>)</p>
+</td>
+<td></td>
+<td></td>
+<td>
+<p>200</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+<p>200</p>
+</td>
+<td>
+<p>200</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Depth Required in <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">Lot</a> (<a class="fn" href="20.20.010#20.20.010__4)" title="(4)">4</a>)</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Maximum in <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">Building Height</a> (feet) (<a class="fn" href="20.20.010#20.20.010__10)" title="(10)">10</a>)</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>45</p>
+<p>(<a class="fn" href="20.20.010#20.20.010__6)" title="(6)">6</a>)</p>
+</td>
+<td>
+<p>75</p>
+</td>
+<td>
+<p>45</p>
+<p>(<a class="fn" href="20.20.010#20.20.010__9)" title="(9)">9</a>)</p>
+</td>
+<td>
+<p>30</p>
+</td>
+<td>
+<p>20 (<a class="fn" href="20.20.010#20.20.010__25)" title="(25)">25</a>)</p>
+</td>
+<td>
+<p>75</p>
+</td>
+<td>
+<p>45</p>
+<p>(<a class="fn" href="20.20.010#20.20.010__46)" title="(46)">46</a>)</p>
+</td>
+<td></td>
+<td>
+<p>75</p>
+</td>
+<td>
+<p>75/135 (<a class="fn" href="20.20.010#20.20.010__33)" title="(33)">33</a>, <a class="fn" href="20.20.010#20.20.010__34)" title="(34)">34</a>)</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Maximum <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">Lot Coverage</a> by <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">Structures</a> (percent) (<a class="fn" href="20.20.010#20.20.010__13)" title="(13)">13</a>) (<a class="fn" href="20.20.010#20.20.010__14)" title="(14)">14</a>) (<a class="fn" href="20.20.010#20.20.010__16)" title="(16)&#x2002;Exceptions to Lot Coverage: ">16</a>)</p>
+</td>
+<td>
+<p>35 (<a class="fn" href="20.20.010#20.20.010__24)" title="(24)">24</a>)</p>
+</td>
+<td>
+<p>35 (<a class="fn" href="20.20.010#20.20.010__24)" title="(24)">24</a>)</p>
+</td>
+<td>
+<p>35 (<a class="fn" href="20.20.010#20.20.010__24)" title="(24)">24</a>)</p>
+</td>
+<td>
+<p>35</p>
+</td>
+<td>
+<p>50</p>
+</td>
+<td></td>
+<td>
+<p>35 (<a class="fn" href="20.20.010#20.20.010__24)" title="(24)">24</a>)</p>
+</td>
+<td>
+<p>35 (<a class="fn" href="20.20.010#20.20.010__24)" title="(24)">24</a>)</p>
+</td>
+<td></td>
+<td></td>
+<td>
+<p>35 (<a class="fn" href="20.20.010#20.20.010__24)" title="(24)">24</a>)</p>
+</td>
+<td>
+<p>40</p>
+<p>(<a class="fn" href="20.20.010#20.20.010__24)" title="(24)">24</a>)</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Maximum <a class="def" href="20.50.024__36567b2736d88074d94044cf6fd3862b">Hard Surface</a> Coverage (percent) (<a class="fn" href="20.20.010#20.20.010__37)" title="(37)">37</a>) (<a class="fn" href="20.20.010#20.20.010__47)" title="(47)">47</a>)</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>90</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td></td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>85</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Maximum <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">Impervious Surface</a> (percent) (<a class="fn" href="20.20.010#20.20.010__35)" title="(35)">35</a>) (<a class="fn" href="20.20.010#20.20.010__37)" title="(37)">37</a>)</p>
+</td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>65</p>
+</td>
+<td>
+<p>65</p>
+</td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>65</p>
+</td>
+<td></td>
+<td>
+<p>60</p>
+</td>
+<td>
+<p>60</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<p>Alternative Maximum <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">Impervious Surface</a> (percent) (<a class="fn" href="20.20.010#20.20.010__35)" title="(35)">35</a>) (<a class="fn" href="20.20.010#20.20.010__37)" title="(37)">37</a>) (<a class="fn" href="20.20.010#20.20.010__39)" title="(39)">39</a>) (<a class="fn" href="20.20.010#20.20.010__48)" title="(48)">48</a>)</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>85</p>
+</td>
+<td></td>
+<td>
+<p>80</p>
+</td>
+<td>
+<p>80</p>
+</td>
+</tr>
+</tbody></table>
+<div class="note"><p><span class="header"><span class="name">NOTE:</span> </span>Dimensional Requirements for <a class="def" href="20.50.016__df45e3fc3b7917353a8933cb8814cd36">Downtown</a> are found in Part <a class="cite" href="20.25A" title="Part 20.25A&#x2002;Downtown">20.25A</a> LUC.</p>
+
+
+
+</div>
+<div class="note">
+<p>Additional dimensional requirements for Shoreline Overlay Districts are found in Part <a class="cite" href="20.25E" title="Part 20.25E&#x2002;Shoreline Overlay District">20.25E</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for Evergreen Highlands Design District (EH-A, EH-B, EH-C, EH-D) are found in Part <a class="cite" href="20.25F" title="Part 20.25F&#x2002;Evergreen Highlands Design District">20.25F</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for Office and Limited Business&#xA0;&#x2013; <a class="def" href="20.50.038__53e263073a3716cbca0f87ee0b41220b">Open Space</a> (OLB-OS) are found in Part <a class="cite" href="20.25L" title="Part 20.25L&#x2002;Office and Limited Business-Open Space (OLB-OS) District">20.25L</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for <a class="def" href="20.50.034__f6b7559aeb02bea8b8ad93ead259b901">Medical Institution District</a> (MI) are found in Part <a class="cite" href="20.25J" title="Part 20.25J&#x2002;Medical Institution District">20.25J</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for <a class="def" href="20.50.012__5c523377c6da0dd07cd27247e5b9269e">BelRed</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Districts are found in Part <a class="cite" href="20.25D" title="Part 20.25D&#x2002;BelRed">20.25D</a> LUC.</p>
+</div>
+<div class="note">
+<p>Dimensional Requirements for Eastgate Transit Oriented <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> District are found in Part <a class="cite" href="20.25F" title="Part 20.25F&#x2002;Evergreen Highlands Design District">20.25F</a> LUC.</p>
+</div>
+</figure>
+<div class="note"><p class="header"><span class="name">Notes: Uses in land use districts&#xA0;&#x2013; Dimensional requirements<sup><a class="fn" href="20.20.010#20.20.010__" title="*&#x2002;Code reviser&#x2019;s note">*</a></sup>:</span> </p><div class="note" id="20.20.010__"><p><span class="header"><span class="num">*</span> <span class="name">Code reviser&#x2019;s note:</span> </span>Ordinance <a class="enact" href="/enactments/Ord6672?product=LUC" title="Ord. 6672" data-controller="dynamodal">6672</a><a title="Original Enactment" class="file" href="/enactments/Ord6672/media/original.pdf"><span class="glyphicons glyphicons-book media-pdf"></span></a> amended these notes and unintentionally omitted the amendments made by Ordinance <a class="enact" href="/enactments/Ord6626?product=LUC" title="Ord. 6626" data-controller="dynamodal">6626</a><a title="Original Enactment" class="file" href="/enactments/Ord6626/media/original.pdf"><span class="glyphicons glyphicons-book media-pdf"></span></a>. At the city&#x2019;s request, the amendments of Ordinance <a class="enact" href="/enactments/Ord6626?product=LUC" title="Ord. 6626" data-controller="dynamodal">6626</a><a title="Original Enactment" class="file" href="/enactments/Ord6626/media/original.pdf"><span class="glyphicons glyphicons-book media-pdf"></span></a> have been retained.</p>
+
+
+
+
+</div><div class="note" id="20.20.010__1)"><p><span class="header num-only"><span class="num">(1)</span></span>At a minimum, one <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">single-family</a> <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structure</a> is permitted per <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> outside of the <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">Critical Areas</a> Overlay, unless developing <a class="def" href="20.50.034__9f5c51d8de02a60bbcfa6828d15706c8">middle housing</a>. See LUC <a class="cite" href="20.20.538" title="20.20.538&#x2002;Middle housing">20.20.538</a> for dimensional requirements for <a class="def" href="20.50.034__9f5c51d8de02a60bbcfa6828d15706c8">middle housing</a> projects. See Part <a class="cite" href="20.25H" title="Part 20.25H&#x2002;Critical Areas Overlay District">20.25H</a> LUC for restrictions on <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> within the <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">Critical Areas</a> Overlay, including <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> under a reasonable use exception.</p>
+
+
+
+</div><div class="note" id="20.20.010__2)"><p><span class="header num-only"><span class="num">(2)</span></span>The permitted number of <a class="def" href="20.50.016__1f8211c4341716d097d92d53d721aed3">dwelling units</a> shall be either the units calculated in LUC <a class="cite" href="20.20.538" title="20.20.538&#x2002;Middle housing">20.20.538</a> for <a class="def" href="20.50.034__9f5c51d8de02a60bbcfa6828d15706c8">middle housing</a> projects or <a class="def" href="20.50.016__1f8211c4341716d097d92d53d721aed3">dwelling units</a> per acre, whichever is larger.</p>
+
+
+
+</div><div class="note" id="20.20.010__3)"><p><span class="header num-only"><span class="num">(3)</span></span>See LUC <a class="cite" href="20.20.012" title="20.20.012&#x2002;Minimum lot area">20.20.012</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__4)"><p><span class="header num-only"><span class="num">(4)</span></span>See LUC <a class="cite" href="20.20.015" title="20.20.015&#x2002;Minimum lot size&#xA0;&#x2013; Shape">20.20.015</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__5)"><p><span class="header num-only"><span class="num">(5)</span></span>Intentionally deleted.</p>
+
+
+
+</div><div class="note" id="20.20.010__6)"><p><span class="header num-only"><span class="num">(6)</span></span>The maximum allowable <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> is 75 feet on any property designated OLB which lies within 475 feet of the right-of-way of I-405, between I-90 and SR-520.</p>
+
+
+
+</div><div class="note" id="20.20.010__7)"><p><span class="header num-only"><span class="num">(7)</span></span>Attached <span class="notcite">multifamily dwellings</span> located on adjacent <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> may reduce the applicable side <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">yard</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> between <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> to zero when consolidating the subject <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a>, when the <a class="def" href="20.50.040__82dd0816deefb19c86be975827fac932">project limit</a> contains multiple preexisting <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a>, or where a <a class="def" href="20.50.032__9d89499281ea96067abf97de03cc26f4">unit lot</a> <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">subdivision</a> or <a class="def" href="20.50.032__9d89499281ea96067abf97de03cc26f4">unit lot</a> <a class="def" href="20.50.046__82dd888f86a0ea86e478e1fc09fb96e8">short subdivision</a> is proposed.</p>
+
+
+
+</div><div class="note" id="20.20.010__8)"><p class="heading"><span class="header num-only"><span class="num">(8)</span></span>Any <a class="def" href="20.50.038__02882fd0dcafbce0a827808952a96d26">office building</a> or any office portion of a <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> in the PO, O, OLB, LI, GC, NB, CB or <a class="def" href="20.50.020__270c17df5cc3201266e30aceb91d038a">F1</a> Districts shall comply with the following limitations on <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">Floor Area Ratio</a>:</p>
+
+
+
+<div class="note" id="20.20.010__a)"><p><span class="header num-only"><span class="num">(a)</span></span>At 0.5 <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a>, no <a class="def" href="20.50.038__02882fd0dcafbce0a827808952a96d26">office building</a> or office portion of a <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> may exceed 50,000 square feet of <a class="def" href="20.50.020__1f102f50c5215edd3110cc11946b573f">gross floor area</a>; and</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__b)"><p class="heading"><span class="header num-only"><span class="num">(b)</span></span>For any <a class="def" href="20.50.038__02882fd0dcafbce0a827808952a96d26">office building</a> or office portion of a <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> greater than 50,000 square feet in <a class="def" href="20.50.020__1f102f50c5215edd3110cc11946b573f">gross floor area</a>, the following sliding scale shall be observed as interpolated and extrapolated below:</p>
+
+
+
+<div class="note" id="20.20.010__i)"><p><span class="header num-only"><span class="num">(i)</span></span>At 0.3 <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a>, no <a class="def" href="20.50.038__02882fd0dcafbce0a827808952a96d26">office building</a> or office portion of a <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> may exceed 100,000 square feet of <a class="def" href="20.50.020__1f102f50c5215edd3110cc11946b573f">gross floor area</a>; and</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__ii)"><p><span class="header num-only"><span class="num">(ii)</span></span>At 0.1 <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a>, no <a class="def" href="20.50.038__02882fd0dcafbce0a827808952a96d26">office building</a> or office portion of a <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> may exceed 150,000 square feet of <a class="def" href="20.50.020__1f102f50c5215edd3110cc11946b573f">gross floor area</a>.</p>
+
+
+
+</div>
+</div>
+<div class="note" id="20.20.010__c)"><p><span class="header num-only"><span class="num">(c)</span></span>In an O District, north of Factoria Mall and directly adjacent to an <a class="def" href="20.50.020__97a16484e96fff37648942d93e1972fb">F2</a> District, any <a class="def" href="20.50.038__02882fd0dcafbce0a827808952a96d26">office building</a> or any office portion of a <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> may have a <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">Floor Area Ratio</a> greater than 0.50, not to exceed a <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">Floor Area Ratio</a> of 0.75 <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a>. In this district, the sliding <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> scale does not apply.</p>
+
+
+
+</div>
+</div><div class="note" id="20.20.010__9)"><p class="heading"><span class="header num-only"><span class="num">(9)</span></span>The maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> may be exceeded upon approval of the <a class="def" href="20.50.016__7c5ba892645af8d7dba520e3978c726f">Director</a> of the <a class="def" href="20.50.016__d81482d31512037318017d823a29d7b8">Development Services Department</a>. Requests for such approval shall be processed in accordance with the administrative <a class="def" href="20.50.014__78c2f477acbdfc26b032f59e00afc491">conditional use</a> procedure of Part <a class="cite" href="20.30E" title="Part 20.30E&#x2002;Administrative Conditional Use Permit">20.30E</a> LUC. Before granting any such approval, the <a class="def" href="20.50.016__7c5ba892645af8d7dba520e3978c726f">Director</a> of the <a class="def" href="20.50.016__d81482d31512037318017d823a29d7b8">Development Services Department</a> must find that:</p>
+
+
+
+<div class="note" id="20.20.010__a)__1"><p><span class="header num-only"><span class="num">(a)</span></span>The height increase is only to accommodate equipment, <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> or <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">buildings</a> that contain special equipment primarily related to light manufacturing, wholesale, trade and distribution use, and is not for office or bulk retail use; and</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__b)__1"><p><span class="header num-only"><span class="num">(b)</span></span>There is functional need for a height increase; and</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__c)__1"><p><span class="header num-only"><span class="num">(c)</span></span>The overall <a class="def" href="20.50.046__a7d6475ec8993b7224d6facc8cb0ead6">site</a> <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> will minimize adverse impacts caused by the height increase.</p>
+
+
+
+<p>Notwithstanding the provisions of this note, no height increase is permitted within a <a class="def" href="20.50.048__10ecacb051b3debfa1474aa224824121">transition area</a> as defined in Part <a class="cite link-repealed" href="20.25B">20.25B</a> LUC.</p>
+</div>
+</div><div class="note" id="20.20.010__10)"><p><span class="header num-only"><span class="num">(10)</span></span>The allowable <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> of any <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> located in PO, O, OLB, GC, NB, or CB Districts may be increased by 1 <a class="def" href="20.50.046__dfba89a600b608b2b724efe1f06f599a">story</a>, but not to exceed 15 feet, if <a class="def" href="20.50.012__8b27b7a569da37a1fe0ba96b6aa0d12c">basement</a> parking for that <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> occupies a minimum of 75 percent of the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> footprint.</p>
+
+
+
+</div><div class="note" id="20.20.010__11)"><p><span class="header num-only"><span class="num">(11)</span></span>The LUC contains enhanced <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> requirements for churches, <a class="def" href="20.50.014__aeef646f76c57ed9084edddbb6365b9c">clubs</a>, and institutions (refer to LUC <a class="cite" href="20.20.190" title="20.20.190&#x2002;Churches, clubs and similar use structures">20.20.190</a>) and <a class="def" href="20.50.046__955cd8691ca89a6baa6ea10c7787e604">schools</a> (refer to LUC <a class="cite" href="20.20.740" title="20.20.740&#x2002;Schools">20.20.740</a>) located in residential <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> districts.</p>
+
+
+
+</div><div class="note" id="20.20.010__12)"><p><span class="header num-only"><span class="num">(12)</span></span>For each square foot of <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> area devoted to <a class="def" href="20.50.038__53e263073a3716cbca0f87ee0b41220b">open space</a> in excess of 30 percent of the total <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> area, 1 square foot is added to the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> area for the purpose of calculating density.</p>
+
+
+
+</div><div class="note" id="20.20.010__13)"><p><span class="header num-only"><span class="num">(13)</span></span>Intentionally deleted.</p>
+
+
+
+</div><div class="note" id="20.20.010__14)"><p><span class="header num-only"><span class="num">(14)</span></span>Maximum <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">lot coverage</a> by <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> is determined after <a class="def" href="20.50.044__821bc7f7b64ccf666a4a35edb9780672">public right-of-way</a> and <a class="def" href="20.50.044__369572b546987137a2b3aba81ad73a0a">private roads</a> are subtracted from the gross <a class="def" href="20.50.010__24061a4fae4779a1e7dcf10d43a5827b">land area</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__15)"><p><span class="header num-only"><span class="num">(15)</span></span>Intentionally deleted.</p>
+
+
+
+</div><div class="note" id="20.20.010__16)"><p><span class="header"><span class="num">(16)</span> <span class="name">Exceptions to Lot Coverage:</span> </span>Although not considered <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> for purposes of calculating <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">lot coverage</a>, the following may be considered <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">impervious surfaces</a> subject to the <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">impervious surface</a> limits. See LUC <a class="cite" href="20.20.460" title="20.20.460&#x2002;Impervious surface">20.20.460</a> and <a class="cite" href="20.50.026" title="20.50.026&#x2002;I definitions">20.50.026</a>.</p>
+
+
+
+
+<div class="note" id="20.20.010__a)__2"><p><span class="header num-only"><span class="num">(a)</span></span><a class="def" href="20.50.050__6a34be32018192f6b829c93829a3e381">Underground buildings</a> as defined in LUC <a class="cite" href="20.50.050" title="20.50.050&#x2002;U definitions">20.50.050</a> are not <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> for the purpose of calculating <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">lot coverage</a>.</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__b)__2"><p class="heading"><span class="header num-only"><span class="num">(b)</span></span><a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">Buildings</a> constructed partially below <a class="def" href="20.50.022__4b3b9db8c9784468094acde0f8bf7071">grade</a> and not higher than 30 inches above existing or <a class="def" href="20.50.022__9ea3a098559931be1cc1a37da3c1e12a">finished grade</a>, whichever is lower, are not <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> for the purpose of calculating <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">lot coverage</a> subject to the following conditions:</p>
+
+
+
+<div class="note" id="20.20.010__i)__1"><p><span class="header num-only"><span class="num">(i)</span></span>The 30-inch height limit must be met at all points along the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> excluding those areas necessary to provide reasonable ingress and egress to the underground portions of the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a>; and</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__ii)__1"><p><span class="header num-only"><span class="num">(ii)</span></span>The rooftop of the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> shall be screened from abutting properties with 10 feet of Type II landscaping as described in LUC <a class="cite" href="20.20.520.G.2" title="20.20.520.G.2&#x2002;Type II">20.20.520.G.2</a> except that the required trees shall be a minimum of 10 feet in height at planting; or, if a use is proposed for the rooftop, the rooftop may be landscaped consistent with the planting requirements for the specific use that is proposed and for the <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> district in which the use is located. All landscaping shall comply with standards set forth in LUC <a class="cite" href="20.20.520" title="20.20.520&#x2002;Landscape development">20.20.520</a>. The provisions of LUC <a class="cite" href="20.20.520.J" title="20.20.520.J&#x2002;Alternative Landscaping Option">20.20.520.J</a> (Alternative Landscaping Option) are applicable.</p>
+
+
+
+</div>
+</div>
+</div><div class="note" id="20.20.010__17)"><p><span class="header num-only"><span class="num">(17)</span></span>If the <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> abuts a street right-of-way, access <a class="def" href="20.50.018__b69b41f215d4be6d54ddfcd5022ad3b0">easement</a> or <a class="def" href="20.50.044__369572b546987137a2b3aba81ad73a0a">private road</a>, the minimum dimension is 10 feet unless a greater dimension is specified.</p>
+
+
+
+</div><div class="note" id="20.20.010__18)"><p><span class="header num-only"><span class="num">(18)</span></span>See LUC <a class="cite" href="20.20.030" title="20.20.030&#x2002;Designation and measurement of required setbacks">20.20.030</a> for designation and measurement of <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__19)"><p><span class="header num-only"><span class="num">(19)</span></span>(Repealed by Ord. <a class="enact" href="/enactments/Ord6670?product=LUC" title="Ord. 6670" data-controller="dynamodal">6670</a><a title="Original Enactment" class="file" href="/enactments/Ord6670/media/original.pdf"><span class="glyphicons glyphicons-book media-pdf"></span></a>).</p>
+
+
+
+</div><div class="note" id="20.20.010__20)"><p><span class="header num-only"><span class="num">(20)</span></span>See LUC <a class="cite" href="20.25H.035" title="20.25H.035&#x2002;Critical area buffers and structure setbacks">20.25H.035</a> for additional <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__21)"><p><span class="header num-only"><span class="num">(21)</span></span>Intentionally deleted.</p>
+
+
+
+</div><div class="note" id="20.20.010__22)"><p><span class="header num-only"><span class="num">(22)</span></span>Density for <a class="def" href="20.50.046__3bcbdf18887f55060185f67b7d613ed6">senior citizen dwelling</a>, <a class="def" href="20.50.014__873819b7fc2b37bfd05ab05b1d6de3af">congregate care senior housing</a>, and <a class="def" href="20.50.010__fee21599370100e4c7ab1088b1d38d8b">assisted living</a> is calculated as follows: Units less than 600 square feet count as 1/2 unit and units 600 square feet or greater count as 1 unit.</p>
+
+
+
+</div><div class="note" id="20.20.010__23)"><p><span class="header num-only"><span class="num">(23)</span></span>This residential density may be in addition to <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> only for <a class="def" href="20.50.046__3bcbdf18887f55060185f67b7d613ed6">senior citizen dwellings</a>, <a class="def" href="20.50.010__fee21599370100e4c7ab1088b1d38d8b">assisted living</a> and <a class="def" href="20.50.014__873819b7fc2b37bfd05ab05b1d6de3af">congregate care senior housing</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__24)"><p><span class="header num-only"><span class="num">(24)</span></span><a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">Lot coverage</a> may be increased to 50 percent if <a class="def" href="20.50.014__873819b7fc2b37bfd05ab05b1d6de3af">congregate care senior housing</a>, <a class="def" href="20.50.046__3bcbdf18887f55060185f67b7d613ed6">senior citizen dwellings</a>, <a class="def" href="20.50.010__fee21599370100e4c7ab1088b1d38d8b">assisted living</a> or <a class="def" href="20.50.036__fc14824cdc9fdcd1e2ce005aa3019d20">nursing homes</a> are constructed on <a class="def" href="20.50.046__a7d6475ec8993b7224d6facc8cb0ead6">site</a>; provided, however, that coverage for the nonresidential portions of the <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> cannot exceed the maximum limits indicated. <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">Lot coverage</a> within NB and NMU Districts may be increased to 50 percent for <a class="def" href="20.50.034__eac11dc2a3bcef18f0f47c1975af7c7f">mixed use development</a> which includes residential uses comprising at least 1/2 the square footage of the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> footprint. Underground parking in excess of 50 percent of the <a class="def" href="20.50.010__24061a4fae4779a1e7dcf10d43a5827b">site area</a> shall not be included in <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">lot coverage</a> calculations.</p>
+
+
+
+</div><div class="note" id="20.20.010__25)"><p><span class="header num-only"><span class="num">(25)</span></span>The maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> for <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> is increased to 30 feet only if residential uses or <a class="def" href="20.50.010__ec355cfc6b6c1cecf08a873c624125fb">administrative office</a> uses are provided on the second floor, and provided the <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structure</a> does not exceed 2 <a class="def" href="20.50.046__dfba89a600b608b2b724efe1f06f599a">stories</a>. For purposes of this note, a <a class="def" href="20.50.046__dfba89a600b608b2b724efe1f06f599a">story</a> is defined pursuant to the International <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">Building</a> Code, Section 202, as adopted and amended by the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> of Bellevue.</p>
+
+
+
+</div><div class="note" id="20.20.010__26)"><p><span class="header num-only"><span class="num">(26)</span></span>See LUC <a class="cite" href="20.20.125" title="20.20.125&#x2002;Accessory structures in residential districts&#xA0;&#x2013; Detached">20.20.125</a> for specific requirements applicable to detached accessory <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__27)"><p><span class="header num-only"><span class="num">(27)</span></span><a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">Lot coverage</a> for <a class="def" href="20.50.046__955cd8691ca89a6baa6ea10c7787e604">schools</a> located in residential <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> districts is limited to 35 percent of the <a class="def" href="20.50.010__24061a4fae4779a1e7dcf10d43a5827b">site area</a> (refer to LUC <a class="cite" href="20.20.740" title="20.20.740&#x2002;Schools">20.20.740</a>).</p>
+
+
+
+</div><div class="note" id="20.20.010__28)"><p><span class="header num-only"><span class="num">(28)</span></span>Dimensional requirements for the <a class="def" href="20.50.020__270c17df5cc3201266e30aceb91d038a">F1</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> District are listed in LUC <a class="cite" href="20.25F1.040" title="20.25F1.040&#x2002;Dimensional requirements">20.25F1.040</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__29)"><p><span class="header num-only"><span class="num">(29)</span></span>(Repealed by Ord. <a class="enact" href="/enactments/Ord5726?product=LUC" title="Ord. 5726" data-controller="dynamodal">5726</a><a title="Original Enactment" class="file" href="/enactments/Ord5726/media/original.pdf"><span class="glyphicons glyphicons-book media-pdf"></span></a>).</p>
+
+
+
+</div><div class="note" id="20.20.010__30)"><p><span class="header num-only"><span class="num">(30)</span></span>(Repealed by Ord. <a class="enact" href="/enactments/Ord5726?product=LUC" title="Ord. 5726" data-controller="dynamodal">5726</a><a title="Original Enactment" class="file" href="/enactments/Ord5726/media/original.pdf"><span class="glyphicons glyphicons-book media-pdf"></span></a>).</p>
+
+
+
+</div><div class="note" id="20.20.010__31)"><p><span class="header num-only"><span class="num">(31)</span></span>Any <a class="def" href="20.50.038__02882fd0dcafbce0a827808952a96d26">office building</a> or any office portion of a <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> in the <a class="def" href="20.50.020__97a16484e96fff37648942d93e1972fb">F2</a> District may not exceed a <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">Floor Area Ratio</a> of 0.75 <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__32)"><p><span class="header num-only"><span class="num">(32)</span></span>The maximum <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> for the combined properties in the <a class="def" href="20.50.020__f5b92407abb7b2c374742e4c0569776f">F3</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> District, regardless of use, shall be 1.26 <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a>; provided, that individual parcels or portions of property lying within the <a class="def" href="20.50.020__f5b92407abb7b2c374742e4c0569776f">F3</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> District may have <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> for those individual parcels or portions which exceed an <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> of 1.26; provided, that the <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> calculated for the entire aggregated property within the <a class="def" href="20.50.020__f5b92407abb7b2c374742e4c0569776f">F3</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> District shall not exceed 1.26. The maximum <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> permitted herein is based on a maximum total <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a>, including existing and <a class="def" href="20.50.036__2cf5b0bc5044e232752d833c30aaa4d4">new development</a> of 950,000 square feet, calculated in the same manner as provided for in the calculation of <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a>. In the event of an inconsistency between the <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> maximum of 1.26 and the maximum total <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> amount of 950,000 square feet, the latter shall control.</p>
+
+
+
+</div><div class="note" id="20.20.010__33)"><p><span class="header num-only"><span class="num">(33)</span></span>In no event shall <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> exceed 324 feet above sea level, based on North American Vertical Datum, 1988 (NAVD&#xA0;&#x2013; 88).</p>
+
+
+
+</div><div class="note" id="20.20.010__34)"><p><span class="header num-only"><span class="num">(34)</span></span>Maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> south of the <a class="def" href="20.50.020__2fca0c675e6834f940582fb023963089">F3 Land Use District Separation Line</a> shall be 135 feet, with structural elements not intended for habitation above 135 feet, so long as structural elements do not exceed 275 feet above sea level based on NAVD&#xA0;&#x2013; 88.</p>
+
+
+
+</div><div class="note" id="20.20.010__35)"><p><span class="header num-only"><span class="num">(35)</span></span>Intentionally deleted.</p>
+
+
+
+</div><div class="note" id="20.20.010__36)"><p><span class="header num-only"><span class="num">(36)</span></span><a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">Impervious surface</a> limits for legally established <a class="def" href="20.50.036__0d4b912344e7695d65adf60d53b7bb6b">nonconforming</a> nonresidential uses and for new allowed nonresidential uses in these residential <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> districts shall be 80 percent.</p>
+
+
+
+</div><div class="note" id="20.20.010__37)"><p><span class="header num-only"><span class="num">(37)</span></span>Maximum <a class="def" href="20.50.024__36567b2736d88074d94044cf6fd3862b">hard surface</a>, maximum <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">impervious surface</a>, and maximum <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">lot coverage</a> by <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> are independent limitations on allowed <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a>. All areas of <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">lot coverage</a> by <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> are included in the calculation of total maximum <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">impervious surface</a>, unless such <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structures</a> are excepted under LUC <a class="cite" href="20.20.460" title="20.20.460&#x2002;Impervious surface">20.20.460</a>. All areas of <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">impervious surface</a> coverage shall be included in the calculation of total maximum <a class="def" href="20.50.024__36567b2736d88074d94044cf6fd3862b">hard surface</a>. See LUC <a class="cite" href="20.20.460" title="20.20.460&#x2002;Impervious surface">20.20.460</a> for exceptions and performance standards relating to <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">impervious surface</a> coverage and LUC <a class="cite" href="20.20.425" title="20.20.425&#x2002;Hard surface">20.20.425</a> for exceptions and performance standards relating to <a class="def" href="20.50.024__36567b2736d88074d94044cf6fd3862b">hard surface</a> coverage.</p>
+
+
+
+</div><div class="note" id="20.20.010__38)"><p><span class="header num-only"><span class="num">(38)</span></span>Certain noncritical area <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> on <a class="def" href="20.50.046__a7d6475ec8993b7224d6facc8cb0ead6">sites</a> in the <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">Critical Areas</a> Overlay District may be modified pursuant to LUC <a class="cite" href="20.25H.040" title="20.25H.040&#x2002;Standards for modifying non-critical area setbacks">20.25H.040</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__39)"><p><span class="header num-only"><span class="num">(39)</span></span>These dimensional standards may be modified through an approved conservation <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">subdivision</a>, LUC <a class="cite" href="20.45A.060" title="20.45A.060&#x2002;Special requirements for plats with critical areas or critical area buffers">20.45A.060</a>, or conservation <a class="def" href="20.50.046__82dd888f86a0ea86e478e1fc09fb96e8">short subdivision</a>, LUC <a class="cite" href="20.45B.055" title="20.45B.055&#x2002;Special requirements for short plats with critical areas or critical area buffers">20.45B.055</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__40)"><p><span class="header num-only"><span class="num">(40)</span></span>The <a class="def" href="20.50.022__1666961cc5e2da1f89ec9e3bf65752e4">greenscape</a> requirements of this section shall be imposed any time a permit, approval, or review, including land <a class="def" href="20.50.010__e08f00b43f7aa539eb60cfa149afd92e">alteration</a> or land <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> for <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">Single-Family</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Uses</a>, is required by the Bellevue <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> Code or <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Code. Existing <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">single-family</a> front <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">yard</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> legally established on a <a class="def" href="20.50.046__a7d6475ec8993b7224d6facc8cb0ead6">site</a> prior to January 1, 2008, which do not meet the minimum <a class="def" href="20.50.022__1666961cc5e2da1f89ec9e3bf65752e4">greenscape</a> requirements set forth in Chart 20.20.010 shall not be considered <a class="def" href="20.50.036__0d4b912344e7695d65adf60d53b7bb6b">nonconforming</a>. The <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> shall not, however, approve proposals to decrease the <a class="def" href="20.50.022__1666961cc5e2da1f89ec9e3bf65752e4">greenscape</a> percentage set forth in Chart 20.20.010 where a <a class="def" href="20.50.046__a7d6475ec8993b7224d6facc8cb0ead6">site</a> already falls below the minimum <a class="def" href="20.50.022__1666961cc5e2da1f89ec9e3bf65752e4">greenscape</a> requirements. Where an existing <a class="def" href="20.50.046__a7d6475ec8993b7224d6facc8cb0ead6">site</a> falls below the minimum requirements set forth in Chart 20.20.010, the removal of <a class="def" href="20.50.022__1666961cc5e2da1f89ec9e3bf65752e4">greenscape</a> shall not be approved unless an equal amount of existing <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">impervious surface</a>, pervious surface, or hardscape is removed, such that the net amount of <a class="def" href="20.50.022__1666961cc5e2da1f89ec9e3bf65752e4">greenscape</a> is unchanged. The <a class="def" href="20.50.016__7c5ba892645af8d7dba520e3978c726f">Director</a> may modify the requirements of Chart 20.20.010 for <a class="def" href="20.50.032__761cd8ff7f5cb328cd6c4a275b1d89a5">nonconforming lots</a>, <a class="def" href="20.50.032__600f07341d5a39c0da408938d09bbb85">corner lots</a>, or <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> with unique sizes and shapes. See LUC <a class="cite" href="20.50.022" title="20.50.022&#x2002;G definitions">20.50.022</a> for the definition of <a class="def" href="20.50.022__1666961cc5e2da1f89ec9e3bf65752e4">greenscape</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__41)"><p><span class="header num-only"><span class="num">(41)</span></span>Intentionally deleted.</p>
+
+
+
+</div><div class="note" id="20.20.010__42)"><p><span class="header num-only"><span class="num">(42)</span></span>Dimensional requirements for the <a class="def" href="20.50.012__5c523377c6da0dd07cd27247e5b9269e">BelRed</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Districts are found at LUC <a class="cite" href="20.25D.080" title="20.25D.080&#x2002;Dimensional Requirements">20.25D.080</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__43)"><p><span class="header num-only"><span class="num">(43)</span></span>See LUC <a class="cite" href="20.20.390" title="20.20.390&#x2002;Floor area ratio, single-family and middle housing">20.20.390</a> for <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> requirements for <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">single-family</a> and <a class="def" href="20.50.034__9f5c51d8de02a60bbcfa6828d15706c8">middle housing</a> <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">developments</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__44)"><p><span class="header num-only"><span class="num">(44)</span></span>Maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> for <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">single-family</a> uses is 30 feet measured from the average elevation of the <a class="def" href="20.50.018__acc52159bd9d2bb15b62d71d3fa993dc">existing grade</a> around the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> to the highest point of a flat roof, or 35 feet to the ridge of a pitched roof. Refer to LUC <a class="cite" href="20.50.012" title="20.50.012&#x2002;B definitions">20.50.012</a> for definition of &#x201C;<a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">Building Height</a>&#xA0;&#x2013; <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">Single-Family</a> Uses.&#x201D;</p>
+
+
+
+</div><div class="note" id="20.20.010__45)"><p><span class="header num-only"><span class="num">(45)</span></span>For new <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">single-family</a> residential homes and additions, the maximum height of any individual <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> fa&#xE7;ade is 40 feet measured from the <a class="def" href="20.50.018__acc52159bd9d2bb15b62d71d3fa993dc">existing grade</a> at the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> wall to the ridge of a pitched roof or top of a flat roof. New <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">single-family</a> homes constructed as part of a <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">subdivision</a> pursuant to Part <a class="cite" href="20.45A" title="Ch. 20.45A&#x2002;Platting and Subdivisions">20.45A</a> LUC or <a class="def" href="20.50.040__01806c8efe2d22cbd9dee59f8ddb341f">planned unit development</a> pursuant to Part <a class="cite" href="20.30D" title="Part 20.30D&#x2002;Planned Unit Development">20.30D</a> LUC are exempt from this requirement.</p>
+
+
+
+</div><div class="note" id="20.20.010__46)"><p><span class="header num-only"><span class="num">(46)</span></span>Maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> in CB Districts of the Wilburton Subarea that are located between 116th Ave NE and the BNSF Corridor is 75 feet.</p>
+
+
+
+</div><div class="note" id="20.20.010__47)"><p><span class="header num-only"><span class="num">(47)</span></span>Intentionally deleted.</p>
+
+
+
+</div><div class="note" id="20.20.010__48)"><p><span class="header num-only"><span class="num">(48)</span></span>Maximum <a class="def" href="20.50.026__85ea6796a5cf8f5b37cac8a3fb0ddd36">impervious surface</a> limit only for <a class="def" href="20.50.046__a7d6475ec8993b7224d6facc8cb0ead6">sites</a> where the use of permeable surfacing techniques is determined to be infeasible according to the criteria in the 2014 Department of Ecology <a class="def" href="20.50.046__a9393f6aa53fe59a710077820dec61f1">Stormwater</a> Management Manual for Western Washington, now or as hereafter amended.</p>
+
+
+
+</div><div class="note" id="20.20.010__49)"><p class="heading"><span class="header num-only"><span class="num">(49)</span></span>Up to one <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> of floor area dedicated to on-<a class="def" href="20.50.046__a7d6475ec8993b7224d6facc8cb0ead6">site</a> <a class="def" href="20.50.010__5686b62f1ad791b2486a295a824b893f">affordable housing</a> shall not be counted for the purposes of calculating the <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> of a project; provided, that:</p>
+
+
+
+<div class="note" id="20.20.010__a)__3"><p><span class="header num-only"><span class="num">(a)</span></span>The ratio of <a class="def" href="20.50.010__5686b62f1ad791b2486a295a824b893f">affordable housing</a> is 2.5 market rate units to 1.0 <a class="def" href="20.50.010__5686b62f1ad791b2486a295a824b893f">affordable housing</a> units at 80 percent AMI;</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__b)__3"><p><span class="header num-only"><span class="num">(b)</span></span>The general <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> requirements contained in LUC <a class="cite" href="20.20.128" title="20.20.128&#x2002;Affordable housing">20.20.128</a> do not apply;</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__c)__2"><p><span class="header num-only"><span class="num">(c)</span></span>The bedroom mix and exterior finishes shall be comparable to the market rate units, but interior design, unit size, amenities and interior finishes may vary; and</p>
+
+
+
+</div>
+<div class="note" id="20.20.010__d)"><p><span class="header num-only"><span class="num">(d)</span></span>An agreement in a form approved by the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> will be executed by the applicant and recorded with the King County Record&#x2019;s Office, or its successor organization, requiring the <a class="def" href="20.50.010__5686b62f1ad791b2486a295a824b893f">affordable housing</a> to remain for the life of the project. This agreement shall be a covenant running with the land, binding on assigns, heirs, and successors of the applicant.</p>
+
+
+
+</div>
+</div><div class="note" id="20.20.010__50)"><p><span class="header num-only"><span class="num">(50)</span></span>Office-designated properties in the Eastgate Subarea annexed into the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> with the Eastgate annexation (May 2012) shall not be considered <a class="def" href="20.50.036__0d4b912344e7695d65adf60d53b7bb6b">nonconforming</a> with respect to <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> if the <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> thereon was legally established prior to the date of annexation.</p>
+
+
+
+</div><div class="note" id="20.20.010__51)"><p><span class="header num-only"><span class="num">(51)</span></span>Not applicable to properties located in Shoreline Overlay Districts and which have shoreline frontage. For requirements applicable to such properties, see LUC <a class="cite" href="20.25E.065" title="20.25E.065&#x2002;Residential shoreline regulations">20.25E.065</a>.</p>
+
+
+
+</div><div class="note" id="20.20.010__52)"><p><span class="header num-only"><span class="num">(52)</span></span>See LUC <a class="cite" href="20.20.128.F" title="20.20.128.F&#x2002;Dimensional Standard Modification">20.20.128.F</a> for modified dimensional requirements for <a class="def" href="20.50.010__5686b62f1ad791b2486a295a824b893f">affordable housing</a> when the requirements of LUC <a class="cite" href="20.20.128" title="20.20.128&#x2002;Affordable housing">20.20.128</a> are met.</p>
+
+
+
+</div><div class="note" id="20.20.010__53)"><p><span class="header num-only"><span class="num">(53)</span></span>This requirement is not applicable to <a class="def" href="20.20.845.C.2">Supportive Housing</a>, as defined pursuant to LUC <a class="cite" href="20.20.845.C.2" title="20.20.845.C.2&#x2002;Supportive Housing">20.20.845.C.2</a>.</p>
+
+
+
+</div>
+
+
+</div>
+<figure class="type-Table">
+<table class="table-dense table-ruled-outside-both table-ruled-inside-both"><caption><p class="header"><span class="name">Uses in Mixed-Use Land Use Districts&#xA0;&#x2013; Dimensional Requirements</span></p>
+
+
+</caption><colgroup><col style="width: 68.6pt;"/><col style="width: 68.6pt;"/><col style="width: 68.6pt;"/><col style="width: 68.6pt;"/><col style="width: 68.6pt;"/><col style="width: 68.6pt;"/><col style="width: 68.6pt;"/>
+</colgroup><thead>
+<tr>
+<th></th>
+<th colspan="2">
+<p>UC</p>
+</th>
+<th colspan="2">
+<p>MU-H</p>
+</th>
+<th>
+<p>MU-M</p>
+</th>
+<th>
+<p>MUR-M</p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>
+<p><a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> Type (<a class="fn" href="20.20.010#20.20.010__1)" title="(1)">1</a>)(<a class="fn" href="20.20.010#20.20.010__2)" title="(2)">2</a>)</p>
+</td>
+<td>
+<p>Nonres.</p>
+</td>
+<td>
+<p>Res.</p>
+</td>
+<td>
+<p>Nonres.</p>
+</td>
+<td>
+<p>Res.</p>
+</td>
+<td>
+<p>All</p>
+</td>
+<td>
+<p>All</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum Height (<a class="fn" href="20.20.010#20.20.010__3)" title="(3)">3</a>)</p>
+</td>
+<td>
+<p>450'</p>
+</td>
+<td>
+<p>450'</p>
+</td>
+<td>
+<p>250'</p>
+</td>
+<td>
+<p>250'</p>
+</td>
+<td>
+<p>100'</p>
+</td>
+<td>
+<p>100'</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Base <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a></p>
+</td>
+<td>
+<p>6.0</p>
+</td>
+<td>
+<p>8.0</p>
+</td>
+<td>
+<p>4.0</p>
+</td>
+<td>
+<p>6.0</p>
+</td>
+<td>
+<p>2.5</p>
+</td>
+<td>
+<p>2.5</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a></p>
+</td>
+<td>
+<p>10.0</p>
+</td>
+<td>
+<p>Unlimited</p>
+</td>
+<td>
+<p>8.0</p>
+</td>
+<td>
+<p>Unlimited</p>
+</td>
+<td>
+<p>6.0</p>
+</td>
+<td>
+<p>6.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum Floor Plate Above 55' Where <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">Building</a> Exceeds 100' (<a class="fn" href="20.20.010#20.20.010__4)" title="(4)">4</a>)(<a class="fn" href="20.20.010#20.20.010__5)" title="(5)">5</a>)</p>
+</td>
+<td>
+<p>30,000 gsf</p>
+</td>
+<td>
+<p>16,000 gsf</p>
+</td>
+<td>
+<p>30,000 gsf</p>
+</td>
+<td>
+<p>16,000 gsf</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+</tr>
+</tbody></table>
+</figure>
+<div class="note"><p class="header"><span class="name">Notes: Dimensional Requirements in Mixed-Use Land Use Districts:</span> </p><div class="note" id="20.20.010__1)__1"><p><span class="header num-only"><span class="num">(1)</span></span>For purposes of applying <a class="def" href="20.50.020__da548d3efb47fa04d9e6ab48ea450f87">FAR</a> and height limits, a single <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> is considered residential if more than 50 percent of the <a class="def" href="20.50.020__1f102f50c5215edd3110cc11946b573f">gross floor area</a> is devoted to residential uses. The maximum floor plate shall be determined based on whether more than 50 percent of the <a class="def" href="20.50.020__1f102f50c5215edd3110cc11946b573f">gross floor area</a> of an individual <a class="def" href="20.50.048__8f8b35b2b5f50b489f1e528f89bdd6e4">tower</a> is dedicated to residential or nonresidential use.</p>
+
+
+
+</div><div class="note" id="20.20.010__2)__1"><p><span class="header num-only"><span class="num">(2)</span></span><a class="def" href="20.50.024__0819754e310822ff45320d00656ebedb">Hotels</a> and <a class="def" href="20.50.024__0819754e310822ff45320d00656ebedb">motels</a> and other <a class="def" href="20.50.048__44d714eab27c3d9be97518d2afb98e1b">transient lodging</a> shall be considered nonresidential uses for purposes of this Chart 20.20.010.</p>
+
+
+
+</div><div class="note" id="20.20.010__3)__1"><p><span class="header num-only"><span class="num">(3)</span></span>Refer to LUC <a class="cite" href="20.25R.040.B.2" title="20.25R.040.B.2&#x2002;Allowable Projections Above Maximum Height">20.25R.040.B.2</a> and <a class="cite" href="20.20.525" title="20.20.525&#x2002;Mechanical equipment">20.20.525</a> for allowable projections above the maximum height limits.</p>
+
+
+
+</div><div class="note" id="20.20.010__4)__1"><p><span class="header num-only"><span class="num">(4)</span></span>Refer to LUC <a class="cite" href="20.25R.040.B.3" title="20.25R.040.B.3&#x2002;Floor Plates">20.25R.040.B.3</a> for exceptions to this requirement.</p>
+
+
+
+</div><div class="note" id="20.20.010__5)__1"><p><span class="header num-only"><span class="num">(5)</span></span>Where a <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> exceeds 100 feet in height, the maximum floor plate restriction shall apply beginning with the first full floor plate located above 55 feet in height and then to all floor <a class="def" href="20.50.040__b7beed125a75ff65d74424407f05e8b1">plates</a> going up to the applicable maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a>.</p>
+
+
+
+</div>
+
+
+</div>
+
+<div class="note history history--linked" data-action="click-&gt;levelnodes#openHistory"><p>(Ord. 6894, 12-9-25, &#xA7;&#xA0;2; Ord. 6851, 6-24-25, &#xA7;&#xA0;8; Ord. 6846, 6-17-25, &#xA7;&#xA0;7; Ord. 6672, 7-25-22, &#xA7;&#xA0;2; Ord. 6670, 7-18-22, &#xA7;&#xA0;5; Ord. 6626, 12-6-21, &#xA7;&#xA7;&#xA0;3, 4; Ord. 6417, 5-21-18, &#xA7;&#xA7;&#xA0;9, 10, 11, 13; Ord. 6366, 8-7-17, &#xA7;&#xA0;7; Ord. 6323, 11-21-16, &#xA7;&#xA7;&#xA0;1, 2,&#xA0;3; Ord. 6197, 11-17-14, &#xA7;&#xA0;6; Ord. 6169, 7-14-14, &#xA7;&#xA7;&#xA0;2,&#xA0;3; Ord. 5896, 8-3-09, &#xA7;&#xA0;1; Ord. 5876, 5-18-09, &#xA7;&#xA7;&#xA0;6,&#xA0;7; Ord. 5867, 4-6-09, &#xA7;&#xA7;&#xA0;1, 2; Ord. 5791, 12-3-07, &#xA7;&#xA7;&#xA0;11, 12; Ord. 5726, 3-19-07, &#xA7;&#xA0;2; Ord. 5683, 6-26-06, &#xA7;&#xA0;2; Ord. 5672, 5-15-06, &#xA7;&#xA0;1; Ord. 5571, 12-6-04, &#xA7;&#xA0;1; Ord. 5480, 10-20-03, &#xA7;&#xA0;4; Ord. 5475, 10-20-03, &#xA7;&#xA0;5; Ord. 5430, 1-21-03, &#xA7;&#xA0;3; Ord. 5385, 7-15-02, &#xA7;&#xA0;6; Ord. 5232, 6-26-00, &#xA7;&#xA0;2; Ord. 5089, 8-3-98, &#xA7;&#xA0;4; Ord. 4979, 3-17-97, &#xA7;&#xA0;3; Ord. 4977, 3-17-97, &#xA7;&#xA0;1; Ord. 4973, 3-3-97, &#xA7;&#xA0;303; Ord. 4816, 11-27-95, &#xA7;&#xA7;&#xA0;402, 403; Ord. 4654, 6-6-94, &#xA7;&#xA0;18; Ord. 4422, 9-28-92, &#xA7;&#xA0;2; Ord. 4270, 7-8-91, &#xA7;&#xA0;6; Ord. 4065, 10-23-89, &#xA7;&#xA0;3; Ord. 3936, 7-18-88, &#xA7;&#xA0;2; Ord. 3780, 5-26-87, &#xA7;&#xA0;1; Ord. 3775, 5-26-87, &#xA7;&#xA0;6; Ord. 3747, 1-20-87, &#xA7;&#xA0;2; Ord. 3690, 8-4-86, &#xA7;&#xA0;2; Ord. 3530, 8-12-85, &#xA7;&#xA0;11; Ord. 3498, 5-28-85, &#xA7;&#xA0;2)</p></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.012" data-cite="LUC 20.20.012" data-short-cite="20.20.012" data-history="/LUC/20.20.012/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.012/search" data-share="/LUC/20.20.012/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.012</span> <span class="name">Minimum lot area.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.012.A" data-cite="LUC 20.20.012.A" data-short-cite="20.20.012.A"><p class="heading"><span class="header num-only"><span class="num">A.&#x2002;</span></span>All of the following are deleted from the gross square footage of a <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> for the purpose of determining minimum <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> area pursuant to LUC <a class="cite" href="20.20.010" title="20.20.010&#x2002;Uses in land use districts dimensional requirements">20.20.010</a>:</p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.012.A.1" data-cite="LUC 20.20.012.A.1" data-short-cite="20.20.012.A.1"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span><a class="def" href="20.50.044__821bc7f7b64ccf666a4a35edb9780672">Public right-of-way</a>; and</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.012.A.2" data-cite="LUC 20.20.012.A.2" data-short-cite="20.20.012.A.2"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span><a class="def" href="20.50.044__369572b546987137a2b3aba81ad73a0a">Private roads</a> in separate <a class="def" href="20.50.048__bd4431c3a8deb901bea89e09891cd187">tracts</a>; and</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.012.A.3" data-cite="LUC 20.20.012.A.3" data-short-cite="20.20.012.A.3"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>Submerged lands (lands waterward of the ordinary high water mark).</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.012.B" data-cite="LUC 20.20.012.B" data-short-cite="20.20.012.B"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>The area of an <a class="def" href="20.50.018__b69b41f215d4be6d54ddfcd5022ad3b0">easement</a>, including an access <a class="def" href="20.50.018__b69b41f215d4be6d54ddfcd5022ad3b0">easement</a>, is not subtracted from the gross square footage of a <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4654, 6-6-94, &#xA7;&#xA0;19; Ord. 3775, 5-26-87, &#xA7;&#xA0;7)</span></p>
+
+
+
+</section>
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.015" data-cite="LUC 20.20.015" data-short-cite="20.20.015" data-history="/LUC/20.20.015/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.015/search" data-share="/LUC/20.20.015/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.015</span> <span class="name">Minimum lot size&#xA0;&#x2013; Shape.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p>Every <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> shall be of a shape such that two lines, one equal to the required width and one equal to the required depth for the <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> district, may be placed at right angles to each other entirely within the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> boundaries. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 6197, 11-17-14, &#xA7;&#xA0;7)</span></p>
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.017" data-cite="LUC 20.20.017" data-short-cite="20.20.017" data-history="/LUC/20.20.017/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.017/search" data-share="/LUC/20.20.017/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.017</span> <span class="name">Minimum lot size&#xA0;&#x2013; Averaging in short plats and subdivisions.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p>In approved <a class="def" href="20.50.040__064fc10a25b190c3f575f93b3aa19ed7">short plats</a> and <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">subdivisions</a>, the individual <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> shall be considered in compliance with minimum area requirements if the average of the areas of all the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> in the <a class="def" href="20.50.040__064fc10a25b190c3f575f93b3aa19ed7">short plat</a> or <a class="def" href="20.50.040__b7beed125a75ff65d74424407f05e8b1">plat</a> meets the minimum requirement for the district in which the <a class="def" href="20.50.040__064fc10a25b190c3f575f93b3aa19ed7">short plat</a> or <a class="def" href="20.50.040__b7beed125a75ff65d74424407f05e8b1">plat</a> is located, provided: (1) that no individual <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> therein shall be reduced more than 10 percent from the district minimum required area, except that <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> in zones LL-1, LL-2, SR-1, and SR-2 may be reduced by up to 15 percent from the district minimum; (2) a reduction of five percent in the required <a class="def" href="20.50.032__bd2ec18a75325b6ff49dd8d6d857b7bc">lot width</a> may be applied to 20 percent of the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a>, provided no reduction in the required area is applied to these <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a>. The <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> averaging described in this section shall not be allowed for conservation <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">subdivisions</a> or conservation <a class="def" href="20.50.046__82dd888f86a0ea86e478e1fc09fb96e8">short subdivisions</a> where the required minimum <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> size for such <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">subdivision</a> is reduced as allowed under LUC <a class="cite" href="20.45A.060" title="20.45A.060&#x2002;Special requirements for plats with critical areas or critical area buffers">20.45A.060</a> or <a class="cite" href="20.45B.055" title="20.45B.055&#x2002;Special requirements for short plats with critical areas or critical area buffers">20.45B.055</a>, as applicable. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 6851, 6-24-25, &#xA7;&#xA0;9; Ord. 5683, 6-26-06, &#xA7;&#xA0;3; Ord. 5089, 8-3-98, &#xA7;&#xA0;5; Ord. 4654, 6-6-94, &#xA7;&#xA0;20; Ord. 3921, 6-20-88, &#xA7;&#xA0;1)</span></p>
+
+
+
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.018" data-cite="LUC 20.20.018" data-short-cite="20.20.018" data-history="/LUC/20.20.018/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.018/search" data-share="/LUC/20.20.018/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.018</span> <span class="name">Variation in minimum requirements&#xA0;&#x2013; Area, width and depth.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p>Except as set forth in LUC <a class="cite" href="20.20.017" title="20.20.017&#x2002;Minimum lot size&#xA0;&#x2013; Averaging in short plats and subdivisions">20.20.017</a>, in no case may the <a class="def" href="20.50.016__7c5ba892645af8d7dba520e3978c726f">Director</a> or any other hearing body vary the minimum requirements for minimum <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> area, width of <a class="def" href="20.50.032__6bdc32536e69b38777ac6c735f11857c">street frontage</a>, width required in <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> or depth required in <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>, as stated in Chart 20.20.010, by more than 10 percent; except that this section shall not apply to <a class="def" href="20.50.040__01806c8efe2d22cbd9dee59f8ddb341f">planned unit developments</a>, Part <a class="cite" href="20.30D" title="Part 20.30D&#x2002;Planned Unit Development">20.30D</a> LUC; conservation <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">subdivisions</a>, LUC <a class="cite" href="20.45A.060" title="20.45A.060&#x2002;Special requirements for plats with critical areas or critical area buffers">20.45A.060</a>; or conservation <a class="def" href="20.50.046__82dd888f86a0ea86e478e1fc09fb96e8">short subdivisions</a>, LUC <a class="cite" href="20.45B.055" title="20.45B.055&#x2002;Special requirements for short plats with critical areas or critical area buffers">20.45B.055</a>. See Part <a class="cite" href="20.30G" title="Part 20.30G&#x2002;Variance from the Land Use Code">20.30G</a> LUC relating to <a class="def" href="20.50.052__700bc90a2a50660ba168a0ecdc917606">variances</a> from the <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Code and Part <a class="cite" href="20.25E" title="Part 20.25E&#x2002;Shoreline Overlay District">20.25E</a> LUC relating to <a class="def" href="20.50.052__700bc90a2a50660ba168a0ecdc917606">variances</a> from the Shoreline Master Program. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 6417, 5-21-18, &#xA7;&#xA0;12; Ord. 5683, 6-26-06, &#xA7;&#xA0;4; Ord. 5480, 10-20-03, &#xA7;&#xA0;5; Ord. 4973, 3-3-97, &#xA7;&#xA0;801; Ord. 4816, 11-27-95, &#xA7;&#xA0;901; Ord. 3530, 8-12-85, &#xA7;&#xA0;12)</span></p>
+
+
+
+
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.022" data-cite="LUC 20.20.022" data-short-cite="20.20.022" data-history="/LUC/20.20.022/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.022/search" data-share="/LUC/20.20.022/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.022</span> <span class="name">Setbacks&#xA0;&#x2013; Exception for sidewalk and street improvements.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p>Improvements such as but not limited to rockeries and retaining walls which are required by the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> as part of <a class="def" href="20.50.032__6bdc32536e69b38777ac6c735f11857c">street frontage</a> improvements and which are located on a public <a class="def" href="20.50.018__b69b41f215d4be6d54ddfcd5022ad3b0">easement</a> may be constructed in the <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> if no feasible alternative exists. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 3775, 5-26-87, &#xA7;&#xA0;10)</span></p>
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.025" data-cite="LUC 20.20.025" data-short-cite="20.20.025" data-history="/LUC/20.20.025/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.025/search" data-share="/LUC/20.20.025/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.025</span> <span class="name">Intrusions into required setbacks.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+<div class="track-indicator recent-updates alert alert-success">
+	<span class="glyphicons glyphicons-auction" aria-hidden="true"></span>
+	<div class="text">
+		<a class="alert-link" href="/enactments/Ord6894?node=20.20.025&amp;product=LUC" data-controller="dynamodal">
+			This section was recently amended by Ordinance 6894, codified in April 2026.
+		</a>
+	</div>
+</div>
+<div class="note">
+<p>(Note: This section is not applicable in the Shoreline Overlay District.)</p>
+</div>
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.025.A" data-cite="LUC 20.20.025.A" data-short-cite="20.20.025.A"><p><span class="header"><span class="num">A.&#x2002;</span><span class="name">Signs, Marquees and Awnings.</span> </span>See <a class="def" href="20.50.046__31c6b3fdfaaa80dba2dbf92a4600524c">Sign</a> Code, Chapter <a class="cite ctx-BCC" href="/BCC/22B.10" title="Ch. 22B.10&#x2002;Sign Code">22B.10</a> BCC.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.025.B" data-cite="LUC 20.20.025.B" data-short-cite="20.20.025.B"><p class="header"><span class="num">B.&#x2002;</span><span class="name">Garages/Carports on Slopes.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.B.1" data-cite="LUC 20.20.025.B.1" data-short-cite="20.20.025.B.1"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>If the topography of a <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> is such that the front <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> line is eight feet or more above the street <a class="def" href="20.50.022__4b3b9db8c9784468094acde0f8bf7071">grade</a>, and there is no reasonable way to construct a driveway up to the dwelling level, a garage/carport may be built into the bank and set at least five feet back from the front property line, except as set forth in subsection B.4 below.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.B.2" data-cite="LUC 20.20.025.B.2" data-short-cite="20.20.025.B.2"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>If the topography of a <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> is such that there is no reasonable way to construct a driveway with a slope less than 15 percent to the dwelling level, a garage/carport may be built in the front <a class="def" href="20.50.058__351cda5a720d59953a9f3d69bd2b3002">yard</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a>, LUC <a class="cite" href="20.20.010" title="20.20.010&#x2002;Uses in land use districts dimensional requirements">20.20.010</a>, subject to approval by the <a class="def" href="20.50.016__7c5ba892645af8d7dba520e3978c726f">Director</a> of the <a class="def" href="20.50.016__d81482d31512037318017d823a29d7b8">Development Services Department</a>. The garage/carport must be set at least five feet back from the front <a class="def" href="20.50.032__fca7ef6c62d460b6f9af7713bd6fd9d9">lot line</a>, and may not exceed 15 feet above street level measured to the peak of a pitched roof or nine feet above street level measured to the top of a flat roof. The garage/carport and its vehicular access must be located and oriented to minimize disturbance of the slope.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.B.3" data-cite="LUC 20.20.025.B.3" data-short-cite="20.20.025.B.3"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>A garage/carport must comply with the street intersection sight obstruction requirements of BCC <a class="cite ctx-BCC" href="/BCC/14.60.240" title="14.60.240&#x2002;Street intersection sight obstruction">14.60.240</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.B.4" data-cite="LUC 20.20.025.B.4" data-short-cite="20.20.025.B.4"><p><span class="header num-only"><span class="num">4.&#x2002;</span></span>Notwithstanding any other provision of this subsection B to the contrary, a garage/carport may not be located within a <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> or <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> buffer unless allowed under Part <a class="cite" href="20.25H" title="Part 20.25H&#x2002;Critical Areas Overlay District">20.25H</a> LUC.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.025.C" data-cite="LUC 20.20.025.C" data-short-cite="20.20.025.C"><p class="heading"><span class="header"><span class="num">C.&#x2002;</span><span class="name">Minor Building Elements.</span> </span>Subject to LUC <a class="cite" href="20.20.025.C.3" title="20.20.025.C.3">20.20.025.C.3</a>, minor <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> elements including patios, platforms, eaves, trellises, open beams, fireplace chimneys, decks, porches, balconies, lanais, bay windows, greenhouse windows and similar elements of a minor character may intrude into a required <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> as follows:</p>
+
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.C.1" data-cite="LUC 20.20.025.C.1" data-short-cite="20.20.025.C.1"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>Any portion of a minor <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> element which equals or exceeds 30 inches above <a class="def" href="20.50.022__9ea3a098559931be1cc1a37da3c1e12a">finished grade</a> at its location may intrude into a required <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> a distance no greater than 20 percent of the minimum dimension of that <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a>, or at least 18 inches, whichever is greater.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.C.2" data-cite="LUC 20.20.025.C.2" data-short-cite="20.20.025.C.2"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>Any portion of a minor <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> element which is less than 30 inches above <a class="def" href="20.50.022__9ea3a098559931be1cc1a37da3c1e12a">finished grade</a> at its location may extend to any <a class="def" href="20.50.032__fca7ef6c62d460b6f9af7713bd6fd9d9">lot line</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.C.3" data-cite="LUC 20.20.025.C.3" data-short-cite="20.20.025.C.3"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>Except for eaves, the combined length of all minor <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> elements which equal or exceed 30 inches above <a class="def" href="20.50.022__9ea3a098559931be1cc1a37da3c1e12a">finished grade</a> on any <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> <a class="def" href="20.50.020__732e3cac31f26338c08b878e326df9d9">facade</a> shall not exceed 25 percent of the length of that <a class="def" href="20.50.020__732e3cac31f26338c08b878e326df9d9">facade</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.C.4" data-cite="LUC 20.20.025.C.4" data-short-cite="20.20.025.C.4"><p><span class="header num-only"><span class="num">4.&#x2002;</span></span>Minor <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> elements may not be used to extend the enclosed <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> floor area into the required <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a>, except chimneys and bay windows protruding no more than 18 inches into the <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> may extend to the <a class="def" href="20.50.022__9ea3a098559931be1cc1a37da3c1e12a">finished grade</a> at their location.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.C.5" data-cite="LUC 20.20.025.C.5" data-short-cite="20.20.025.C.5"><p><span class="header num-only"><span class="num">5.&#x2002;</span></span>Minor <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> elements may extend into a <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structure</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> required by LUC <a class="cite" href="20.25H.035" title="20.25H.035&#x2002;Critical area buffers and structure setbacks">20.25H.035</a> only to the extent authorized under LUC <a class="cite" href="20.25H.055.D" title="20.25H.055.D&#x2002;Activities and Uses Allowed in a Critical Area Setback">20.25H.055.D</a>.</p>
+
+
+
+<p>Note: Heat pumps are not minor <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> elements. Retaining walls and rockeries 30 inches or greater in height are not minor <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> elements.</p>
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.025.D" data-cite="LUC 20.20.025.D" data-short-cite="20.20.025.D"><p><span class="header"><span class="num">D.&#x2002;</span><span class="name">Rockeries and Retaining Walls.</span> </span>On a <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> of less than 30,000 <a class="def" href="20.50.022__4666ad39c514ef2251aa0775c8c7aebd">gross square feet</a> or on any <a class="def" href="20.50.016__353634b687dc860e1b278ee47c43ba4f">single-family</a> <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>, rockeries and retaining walls 30 inches or greater in height may extend into <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> established by LUC <a class="cite" href="20.20.010" title="20.20.010&#x2002;Uses in land use districts dimensional requirements">20.20.010</a>; provided, that the <a class="def" href="20.50.018__acc52159bd9d2bb15b62d71d3fa993dc">existing grade</a> change is such that no feasible alternative to location or height exists. In any event, the <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> buffer and <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structure</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> of LUC <a class="cite" href="20.25H.035" title="20.25H.035&#x2002;Critical area buffers and structure setbacks">20.25H.035</a> apply.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.025.E" data-cite="LUC 20.20.025.E" data-short-cite="20.20.025.E"><p class="header"><span class="num">E.&#x2002;</span><span class="name">Underground Buildings and Buildings Constructed Partially Below Grade.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.E.1" data-cite="LUC 20.20.025.E.1" data-short-cite="20.20.025.E.1"><p><span class="header"><span class="num">1.&#x2002;</span><span class="name">Limitations.</span> </span>This subsection cannot be used to develop any <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> (including an <a class="def" href="20.50.050__6a34be32018192f6b829c93829a3e381">underground building</a>) which intrudes into <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical areas</a>, <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> buffers, or <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structure</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> required by Part <a class="cite" href="20.25H" title="Part 20.25H&#x2002;Critical Areas Overlay District">20.25H</a> LUC.</p>
+
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.E.2" data-cite="LUC 20.20.025.E.2" data-short-cite="20.20.025.E.2"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>Subject to the limitations contained in this subsection E, <a class="def" href="20.50.050__6a34be32018192f6b829c93829a3e381">underground buildings</a> may intrude in the required <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.025.E.3" data-cite="LUC 20.20.025.E.3" data-short-cite="20.20.025.E.3"><p class="heading"><span class="header num-only"><span class="num">3.&#x2002;</span></span>Subject to the limitations contained in this subsection E, <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">buildings</a> constructed partially below <a class="def" href="20.50.022__4b3b9db8c9784468094acde0f8bf7071">grade</a> and not higher than 30 inches above existing or <a class="def" href="20.50.022__9ea3a098559931be1cc1a37da3c1e12a">finished grade</a>, whichever is lower, may intrude into required <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> subject to the following conditions:</p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="20.20.025.E.3.a" data-cite="LUC 20.20.025.E.3.a" data-short-cite="20.20.025.E.3.a"><p><span class="header num-only"><span class="num">a.&#x2002;</span></span>The 30-inch height limit must be met at all points along the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> except those areas necessary to provide reasonable ingress and egress to the underground portions of the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a>; and</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="20.20.025.E.3.b" data-cite="LUC 20.20.025.E.3.b" data-short-cite="20.20.025.E.3.b"><p><span class="header num-only"><span class="num">b.&#x2002;</span></span>The rooftop of the <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">building</a> shall be screened from abutting properties with 10 feet of Type II landscaping as described in LUC <a class="cite" href="20.20.520.G.2" title="20.20.520.G.2&#x2002;Type II">20.20.520.G.2</a> except that the required trees shall be a minimum of 10 feet in height at planting or, if a use is proposed for the rooftop, the rooftop may be landscaped consistent with the planting requirements for the specific use that is proposed and for the <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> district in which the use is located. All landscaping shall comply with standards set forth in LUC <a class="cite" href="20.20.520" title="20.20.520&#x2002;Landscape development">20.20.520</a>. The provisions of LUC <a class="cite" href="20.20.520.J" title="20.20.520.J&#x2002;Alternative Landscaping Option">20.20.520.J</a> (Alternative Landscaping Option) are applicable.</p>
+
+
+
+</section>
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.025.F" data-cite="LUC 20.20.025.F" data-short-cite="20.20.025.F"><p><span class="header"><span class="num">F.&#x2002;</span><span class="name">Stormwater BMPs.</span> </span>Where feasible, <a class="def" href="20.50.046__a9393f6aa53fe59a710077820dec61f1">stormwater</a> BMPs, as required by the 2014 Department of Ecology <a class="def" href="20.50.046__a9393f6aa53fe59a710077820dec61f1">Stormwater</a> Management Manual for Western Washington, now or as hereafter amended, may be located within <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> required in LUC <a class="cite" href="20.20.010" title="20.20.010&#x2002;Uses in land use districts dimensional requirements">20.20.010</a>, provided they conform to the <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> requirements in the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> of Bellevue Storm and Surface Water Engineering Standards, now or hereafter amended. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 6894, 12-9-25, &#xA7;&#xA0;3; Ord. 6839, 3-4-25, &#xA7;&#xA0;77; Ord. 6417, 5-21-18, &#xA7;&#xA0;14; Ord. 6323, 11-21-16, &#xA7;&#xA0;4; Ord. 5683, 6-26-06, &#xA7;&#xA0;6; Ord. 5232, 6-26-00, &#xA7;&#xA0;3; Ord. 5089, 8-3-98, &#xA7;&#xA7;&#xA0;6, 7; Ord. 4973, 3-3-97, &#xA7;&#xA0;889; Ord. 4816, 11-27-95, &#xA7;&#xA0;989; Ord. 4654, 6-6-94, &#xA7;&#xA0;23; Ord. 3775, 5-26-87, &#xA7;&#xA0;8)</span></p>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.030" data-cite="LUC 20.20.030" data-short-cite="20.20.030" data-history="/LUC/20.20.030/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.030/search" data-share="/LUC/20.20.030/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.030</span> <span class="name">Designation and measurement of required setbacks.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.030.A" data-cite="LUC 20.20.030.A" data-short-cite="20.20.030.A"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span>Except as specifically provided in subsection <a class="cite" href="20.20.030.B" title="20.20.030.B">B</a> of this section, each <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> must contain only one <a class="def" href="20.50.046__818a306ac7a4b7585e6db25f0a65a2ef">front setback</a> and only one <a class="def" href="20.50.046__1ac80f7993c6e67e4cde9717a439810f">rear setback</a>. Any other <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> will be considered a <a class="def" href="20.50.046__280cf5b655789c9acff66585a43ae037">side setback</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.030.B" data-cite="LUC 20.20.030.B" data-short-cite="20.20.030.B"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>If a <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> abuts the intersection of two public rights-of-way, a <a class="def" href="20.50.046__818a306ac7a4b7585e6db25f0a65a2ef">front setback</a> is required along each right-of-way.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.030.C" data-cite="LUC 20.20.030.C" data-short-cite="20.20.030.C"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>The <a class="def" href="20.50.016__7c5ba892645af8d7dba520e3978c726f">Director</a> of the <a class="def" href="20.50.016__d81482d31512037318017d823a29d7b8">Development Services Department</a> is authorized to designate front, rear and <a class="def" href="20.50.046__280cf5b655789c9acff66585a43ae037">side setbacks</a> in accordance with the definitions of LUC <a class="cite" href="20.50.046" title="20.50.046&#x2002;S definitions">20.50.046</a>. If these definitions do not establish a front and <a class="def" href="20.50.046__1ac80f7993c6e67e4cde9717a439810f">rear setback</a>, the <a class="def" href="20.50.016__7c5ba892645af8d7dba520e3978c726f">Director</a> of the <a class="def" href="20.50.016__d81482d31512037318017d823a29d7b8">Development Services Department</a> shall establish these <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> based upon orientation of the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> to surrounding <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> and to any existing <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> pattern. All other <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> will be defined in relation to the established front and <a class="def" href="20.50.046__1ac80f7993c6e67e4cde9717a439810f">rear setback</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.030.D" data-cite="LUC 20.20.030.D" data-short-cite="20.20.030.D"><p><span class="header num-only"><span class="num">D.&#x2002;</span></span>A <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> is measured from the interior edge of a street right-of-way, access <a class="def" href="20.50.018__b69b41f215d4be6d54ddfcd5022ad3b0">easement</a> or <a class="def" href="20.50.044__369572b546987137a2b3aba81ad73a0a">private road</a>, except that if applicable, a <a class="def" href="20.50.046__1ac80f7993c6e67e4cde9717a439810f">rear setback</a> is measured from the centerline of an <a class="def" href="20.50.010__67a9a13318c92022d3693d56249a3405">alley</a>. Where there is no street right-of-way, access <a class="def" href="20.50.018__b69b41f215d4be6d54ddfcd5022ad3b0">easement</a> or <a class="def" href="20.50.044__369572b546987137a2b3aba81ad73a0a">private road</a>, a <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> is measured from the property line.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.030.E" data-cite="LUC 20.20.030.E" data-short-cite="20.20.030.E"><p><span class="header num-only"><span class="num">E.&#x2002;</span></span>The <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> buffer and <a class="def" href="20.50.014__6b80bb7747129f66efc03530da19b543">critical area</a> <a class="def" href="20.50.046__dc4c71563b9bc39a65be853457e6b7b6">structure</a> <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> requirements of Part <a class="cite" href="20.25H" title="Part 20.25H&#x2002;Critical Areas Overlay District">20.25H</a> LUC are in addition to the <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> requirements of LUC <a class="cite" href="20.20.010" title="20.20.010&#x2002;Uses in land use districts dimensional requirements">20.20.010</a>, <a class="cite" href="20.25D.080" title="20.25D.080&#x2002;Dimensional Requirements">20.25D.080</a>, <a class="cite" href="20.25F.040" title="20.25F.040&#x2002;Site and design requirements">20.25F.040</a>, <a class="cite" href="20.25J.030" title="20.25J.030&#x2002;Dimensional requirements">20.25J.030</a>, <a class="cite" href="20.25L.030" title="20.25L.030&#x2002;Dimensional requirements">20.25L.030</a>, <a class="cite" href="20.25N.050" title="20.25N.050&#x2002;Dimensional requirements">20.25N.050</a> and <a class="cite" href="20.25P.060" title="20.25P.060&#x2002;Dimensional requirements">20.25P.060</a>. Where there are multiple <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> requirements, the greater <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> dimension is required. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 6425, 10-1-18, &#xA7;&#xA0;5; Ord. 5683, 6-26-06, &#xA7;&#xA0;7; Ord. 5232, 6-26-00, &#xA7;&#xA0;4; Ord. 4654, 6-6-94, &#xA7;&#xA0;24; Ord. 3775, 5-26-87, &#xA7;&#xA0;9; Ord. 3498, 5-28-85, &#xA7;&#xA0;4; Ord. 3278, 8-1-83, &#xA7;&#xA0;6)</span></p>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.060" data-cite="LUC 20.20.060" data-short-cite="20.20.060" data-history="/LUC/20.20.060/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.060/search" data-share="/LUC/20.20.060/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.060</span> <span class="name">Legally created lots&#xA0;&#x2013; Development permitted&#xA0;&#x2013; Proof.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.060.A" data-cite="LUC 20.20.060.A" data-short-cite="20.20.060.A"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span><a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> shall be permitted only on <a class="def" href="20.50.032__08e104210d4327458aa1c0530aa5c1f3">legally created lots</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.060.B" data-cite="LUC 20.20.060.B" data-short-cite="20.20.060.B"><p class="heading"><span class="header num-only"><span class="num">B.&#x2002;</span></span>In order to establish that a <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> for which permit approval is sought is a <a class="def" href="20.50.032__08e104210d4327458aa1c0530aa5c1f3">legally created lot</a>, the applicant must provide:</p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.060.B.1" data-cite="LUC 20.20.060.B.1" data-short-cite="20.20.060.B.1"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>For <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> created through <a class="def" href="20.50.046__7a620d438361c15161512c4d98341ef1">subdivision</a>, a <a class="def" href="20.50.040__b7beed125a75ff65d74424407f05e8b1">plat</a> approved by the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> of Bellevue or King County separately describing the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> in question; or</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.060.B.2" data-cite="LUC 20.20.060.B.2" data-short-cite="20.20.060.B.2"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>For <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> created through <a class="def" href="20.50.046__82dd888f86a0ea86e478e1fc09fb96e8">short subdivision</a>, a <a class="def" href="20.50.040__064fc10a25b190c3f575f93b3aa19ed7">short plat</a> approved by the <a class="def" href="20.50.014__57d056ed0984166336b7879c2af3657f">City</a> of Bellevue or King County separately describing the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> in question; or</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.060.B.3" data-cite="LUC 20.20.060.B.3" data-short-cite="20.20.060.B.3"><p class="heading"><span class="header num-only"><span class="num">3.&#x2002;</span></span>A deed, contract of sale, mortgage, property tax segregation, <a class="def" href="20.50.040__b7beed125a75ff65d74424407f05e8b1">plat</a>, recorded survey or <a class="def" href="20.50.012__c39b56d4489fb2507289e7ae19567b80">Building</a> Permit separately describing the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> in question if the instrument was:</p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="20.20.060.B.3.a" data-cite="LUC 20.20.060.B.3.a" data-short-cite="20.20.060.B.3.a"><p><span class="header num-only"><span class="num">a.&#x2002;</span></span>Executed prior to March 14, 1969, or</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="20.20.060.B.3.b" data-cite="LUC 20.20.060.B.3.b" data-short-cite="20.20.060.B.3.b"><p><span class="header num-only"><span class="num">b.&#x2002;</span></span>Executed prior to July 1, 1974 while the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> in question was under the jurisdiction of King County. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 3921, 6-20-88, &#xA7;&#xA0;2)</span></p>
+
+
+
+</section>
+</section>
+</section>
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="20.20.070" data-cite="LUC 20.20.070" data-short-cite="20.20.070" data-history="/LUC/20.20.070/history"><header class=" full-header" data-type="Section" data-search="/LUC/20.20.070/search" data-share="/LUC/20.20.070/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">20.20.070</span> <span class="name">Lots nonconforming as to area, street frontage, width or depth&#xA0;&#x2013; Status.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+<div class="track-indicator pending-updates alert alert-info">
+	<span class="glyphicons glyphicons-pending-notifications" aria-hidden="true"></span>
+	<div class="text">
+		<a class="alert-link" href="/enactments/Ord6906?node=20.20.070&amp;product=LUC" data-controller="dynamodal">
+			This section has been amended by Ordinance 6906, which is pending codification.
+		</a>
+	</div>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.070.A" data-cite="LUC 20.20.070.A" data-short-cite="20.20.070.A"><p class="heading"><span class="header num-only"><span class="num">A.&#x2002;</span></span>An individual <a class="def" href="20.50.032__761cd8ff7f5cb328cd6c4a275b1d89a5">nonconforming lot</a> legally created pursuant to LUC <a class="cite" href="20.20.060" title="20.20.060&#x2002;Legally created lots&#xA0;&#x2013; Development permitted&#xA0;&#x2013; Proof">20.20.060</a> may be used for a <a class="def" href="20.50.012__8fce6f8b4e5e6db25f6f8c93753b34f8">building site</a> if:</p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.070.A.1" data-cite="LUC 20.20.070.A.1" data-short-cite="20.20.070.A.1"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>There are no restrictions on <a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">development</a> imposed by prior permits or <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> approvals; and</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="20.20.070.A.2" data-cite="LUC 20.20.070.A.2" data-short-cite="20.20.070.A.2"><p class="heading"><span class="header num-only"><span class="num">2.&#x2002;</span></span>The <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> satisfies either subsection <a class="cite" href="20.20.070.A.2.a" title="20.20.070.A.2.a">A.2.a</a> or <a class="cite" href="20.20.070.A.2.b" title="20.20.070.A.2.b">A.2.b</a> of this section:</p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="20.20.070.A.2.a" data-cite="LUC 20.20.070.A.2.a" data-short-cite="20.20.070.A.2.a"><p><span class="header num-only"><span class="num">a.&#x2002;</span></span>The <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> does not lie within a <a class="def" href="20.50.044__b9542006bb8a4c3e311ae786c403f368">Residential Land Use District</a>; or</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="20.20.070.A.2.b" data-cite="LUC 20.20.070.A.2.b" data-short-cite="20.20.070.A.2.b"><p class="heading"><span class="header num-only"><span class="num">b.&#x2002;</span></span>The <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> lies within a <a class="def" href="20.50.044__b9542006bb8a4c3e311ae786c403f368">Residential Land Use District</a> and one of the following conditions is satisfied:</p>
+
+
+
+<section class="subsec subsec4 chunking-none type-Subsec4" id="20.20.070.A.2.b.i" data-cite="LUC 20.20.070.A.2.b.i" data-short-cite="20.20.070.A.2.b.i"><p><span class="header num-only"><span class="num">i.&#x2002;</span></span>The area, width and depth of the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> each meet or exceed 70 percent of the minimum requirements for the <a class="def" href="20.50.044__b9542006bb8a4c3e311ae786c403f368">Residential Land Use District</a> in which it is located; or</p>
+
+
+
+</section>
+<section class="subsec subsec4 chunking-none type-Subsec4" id="20.20.070.A.2.b.ii" data-cite="LUC 20.20.070.A.2.b.ii" data-short-cite="20.20.070.A.2.b.ii"><p class="heading"><span class="header num-only"><span class="num">ii.&#x2002;</span></span>Although the area, width or depth of the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>, or a combination thereof, does not meet 70 percent of the minimum requirements of the <a class="def" href="20.50.044__b9542006bb8a4c3e311ae786c403f368">Residential Land Use District</a> in which it is located, the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> satisfies all of the following requirements:</p>
+
+
+
+<section class="subsec subsec5 chunking-none type-Subsec5" id="20.20.070.A.2.b.ii(1)" data-cite="LUC 20.20.070.A.2.b.ii(1)" data-short-cite="20.20.070.A.2.b.ii(1)"><p><span class="header num-only"><span class="num">(1)&#x2002;</span></span>The <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>&#x2019;s area meets or exceeds 3,000 square feet; and</p>
+
+
+
+</section>
+<section class="subsec subsec5 chunking-none type-Subsec5" id="20.20.070.A.2.b.ii(2)" data-cite="LUC 20.20.070.A.2.b.ii(2)" data-short-cite="20.20.070.A.2.b.ii(2)"><p><span class="header num-only"><span class="num">(2)&#x2002;</span></span>The <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>&#x2019;s width meets or exceeds 30 feet; and</p>
+
+
+
+</section>
+<section class="subsec subsec5 chunking-none type-Subsec5" id="20.20.070.A.2.b.ii(3)" data-cite="LUC 20.20.070.A.2.b.ii(3)" data-short-cite="20.20.070.A.2.b.ii(3)"><p><span class="header num-only"><span class="num">(3)&#x2002;</span></span>The <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>&#x2019;s depth meets or exceeds 50 feet.</p>
+
+
+
+</section>
+</section>
+</section>
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.070.B" data-cite="LUC 20.20.070.B" data-short-cite="20.20.070.B"><p class="heading"><span class="header num-only"><span class="num">B.&#x2002;</span></span><a class="def" href="20.50.016__330f49df8243756a8a4dc7f7f7ee6dfe">Development</a> of an individual <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> failing to meet 70 percent of the area, width or depth requirements of the <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> district in which it is located is restricted to a maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> computed by the following formula (see Example A at the end of this section). The maximum <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> resulting from the following formula may be modified up to the maximum height allowed in the underlying <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> district through a <a class="def" href="20.50.052__700bc90a2a50660ba168a0ecdc917606">variance</a> pursuant to Part <a class="cite" href="20.30G" title="Part 20.30G&#x2002;Variance from the Land Use Code">20.30G</a> LUC or Part <a class="cite" href="20.30H" title="Part 20.30H&#x2002;(Reserved)">20.30H</a> LUC:</p>
+
+
+
+<p><a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">Building Height</a> = 2 x C x H</p>
+<p>C = The ratio of potentially <a class="def" href="20.50.012__674088024c70423599f1da909398176b">buildable area</a> (<a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> area less the area of the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>&#x2019;s minimum <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setback</a> requirements) to total <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> area.</p>
+<p>H = The general <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> requirement otherwise applicable to the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>.</p>
+<p>(Calculation of <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> is in no way intended to suggest a waiver of <a class="def" href="20.50.032__c9151b5f2819a9be2b150813e4befe82">lot coverage</a> requirements imposed elsewhere in the Code. Similarly, calculations are based on basic Code requirements; any <a class="def" href="20.50.052__700bc90a2a50660ba168a0ecdc917606">variances</a> to <a class="def" href="20.50.046__454e7351c6ac0768d6108d7cfcee957a">setbacks</a> of the property do not affect <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> calculation.)</p>
+<p>Provided, that in no event shall <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> exceed the <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> requirement otherwise applicable to the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a>; and provided, that in no event shall a <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> requirement be imposed less than 15 feet.</p>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.070.C" data-cite="LUC 20.20.070.C" data-short-cite="20.20.070.C"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>Notwithstanding subsection <a class="cite" href="20.20.070.A" title="20.20.070.A">A</a> of this section, a <a class="def" href="20.50.032__761cd8ff7f5cb328cd6c4a275b1d89a5">nonconforming lot</a> in a <a class="def" href="20.50.044__b9542006bb8a4c3e311ae786c403f368">Residential Land Use District</a> failing to meet or exceed 70 percent of minimum area, width, and depth requirements of the district in which it is located may not be used for a <a class="def" href="20.50.012__8fce6f8b4e5e6db25f6f8c93753b34f8">building site</a> if at any time since the effective date of the ordinance which first established a minimum <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> area, width, depth, or <a class="def" href="20.50.032__6bdc32536e69b38777ac6c735f11857c">street frontage</a> requirement larger than the <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> contains or annexation, whichever was later, has a person, partnership, corporation or marital community owning said <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lot</a> simultaneously owning additional contiguous property. Such <a class="def" href="20.50.032__eeec6c7a9d2b475c23650b202208b892">lots</a> must be combined with additional contiguous property sufficient that the area, width and depth of the combined property each meets or exceeds 70 percent of the minimum requirements of the <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">land use</a> district in which the property is located. This subsection does not constitute a waiver of any of the requirements of <a class="def" href="20.50.012__320c973c0b2dad405bde6e3cfd7de485">boundary line adjustment</a> procedure.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.070.D" data-cite="LUC 20.20.070.D" data-short-cite="20.20.070.D"><p><span class="header num-only"><span class="num">D.&#x2002;</span></span>Any <a class="def" href="20.50.032__761cd8ff7f5cb328cd6c4a275b1d89a5">nonconforming lot</a> used for a <a class="def" href="20.50.012__8fce6f8b4e5e6db25f6f8c93753b34f8">building site</a> must meet the <a class="def" href="20.50.036__0d4b912344e7695d65adf60d53b7bb6b">nonconforming</a> provisions of LUC <a class="cite" href="20.20.560" title="20.20.560&#x2002;Nonconforming uses, structures, and sites&#xA0;&#x2013; General">20.20.560</a>, the <a class="def" href="20.50.012__aaaf869064e776a0c7007818de03fe71">building height</a> requirements of subsection <a class="cite" href="20.20.070.B" title="20.20.070.B">B</a> of this section and the applicable dimensional requirements of LUC <a class="cite" href="20.20.010" title="20.20.010&#x2002;Uses in land use districts dimensional requirements">20.20.010</a> for the district in which it is located, unless a <a class="def" href="20.50.052__700bc90a2a50660ba168a0ecdc917606">variance</a> has been granted pursuant to Part <a class="cite" href="20.30G" title="Part 20.30G&#x2002;Variance from the Land Use Code">20.30G</a> or <a class="cite" href="20.30H" title="Part 20.30H&#x2002;(Reserved)">20.30H</a> LUC or modification has been granted pursuant to LUC <a class="cite" href="20.25H.040.B" title="20.25H.040.B&#x2002;Allowed Modifications to General Dimensional Chart">20.25H.040.B</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="20.20.070.E" data-cite="LUC 20.20.070.E" data-short-cite="20.20.070.E"><p><span class="header num-only"><span class="num">E.&#x2002;</span></span>This section is not applicable in the <a class="def" href="20.50.012__5c523377c6da0dd07cd27247e5b9269e">BelRed</a> <a class="def" href="20.50.032__7d7c0125340167fb3baa660f4bbc7900">Land Use</a> Districts. Refer to LUC <a class="cite" href="20.25D.060" title="20.25D.060&#x2002;Existing Conditions">20.25D.060</a> for regulations relating to existing conditions.</p>
+
+
+
+</section>
+<picture class="role-medium">
+<img class="role-medium web-winner" src="media/20.20.070_001.jpg" data-rank="61" style="width: 433pt;"/>
+</picture>
+
+<div class="note history history--linked" data-action="click-&gt;levelnodes#openHistory"><p>(Ord. 6851, 6-24-25, &#xA7;&#xA0;10; Ord. 5991, 2-7-11, &#xA7;&#xA0;1; Ord. 5876, 5-18-09, &#xA7;&#xA0;8; Ord. 3921, 6-20-88, &#xA7;&#xA0;3; Ord. 3690, 8-4-86, &#xA7;&#xA0;4)</p></div>
+
+
+
+
+
+
+
+</article>
+</article>
+</div>
+
+</main>
+		
+
+		</div>
+	</div>
+		<aside id="sidebar-right" class="container-sidebar d-print-none d-none d-md-flex" data-container-target="sidebar">
+					<a
+	id="selections"
+	class="selectionsbutton btn btn-secondary d-none"
+	href="/selections"
+	data-toggle="tooltip"
+	title="Work with the parts of the publication that you have selected."
+	data-action="click->selectionsbutton#showSelections"
+	data-controller="selectionsbutton"
+>
+	Your Selections
+	<span class="badge badge-pill selections-count">
+		
+	</span>
+</a>
+
+		<nav class="nearby card" data-controller="nearby">
+	<div class="nearby-header card-header">What’s Nearby</div>
+			<div class="nearby-depth">Chapter</div>
+		<div class="nearby-buttons" role="group" aria-label="Chapter">
+				<a
+					class="nearby-previous btn"
+					href="/LUC/20.15"
+					data-toggle="tooltip"
+					title="Chapter 20.15 LUC, Affordable Housing"
+				>
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span
+					><span class="text">20.15</span>
+				</a>
+				<a
+					class="nearby-current btn"
+					href="/LUC/20.20"
+					data-toggle="tooltip"
+					title="Chapter 20.20 LUC, General Development Requirements"
+				>
+					<span class="text">20.20</span>
+				</a>
+				<a
+					class="nearby-next btn"
+					href="/LUC/20.25"
+					data-toggle="tooltip"
+					title="Chapter 20.25 LUC, Special and Overlay Districts"
+				>
+					<span class="text">20.25</span
+					><span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span>
+				</a>
+		</div>
+			<div class="nearby-depth">Part</div>
+		<div class="nearby-buttons nearby-buttons--long" role="group" aria-label="Part">
+				<a class="nearby-previous btn disabled">
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span>
+				</a>
+				<a
+					class="nearby-current btn"
+					href="/LUC/20.20_GeneralRequirements"
+					data-toggle="tooltip"
+					title="General Requirements"
+				>
+					<span class="text">General Requirements</span>
+				</a>
+				<a
+					class="nearby-next btn"
+					href="/LUC/20.20_WordIndex"
+					data-toggle="tooltip"
+					title="Word Index"
+				>
+					<span class="text">Word Index</span
+					><span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span>
+				</a>
+		</div>
+</nav>
+
+		<nav class="onthispage card" data-controller="onthispage">
+	<div class="onthispage-header card-header">
+		On This Page
+	</div>
+	<button
+		class="onthispage-previous disabled"
+		type="button"
+		data-onthispage-target="previous"
+		data-action="click->onthispage#previous"
+		aria-label="Previous Items"
+	>
+		<span class="glyphicons glyphicons-chevron-up" aria-hidden="true"></span>
+	</button>
+	<div
+		class="onthispage-list list-group list-group-flush"
+		role="list"
+		data-onthispage-target="list"
+	>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.005"
+				data-onthispage-target="item"
+				data-node="20.20.005"
+				title="LUC 20.20.005, Chart of dimensional requirements described"
+			>
+				20.20.005 Chart of dimensional requirements described
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.010"
+				data-onthispage-target="item"
+				data-node="20.20.010"
+				title="LUC 20.20.010, Uses in land use districts dimensional requirements"
+			>
+				20.20.010 Uses in land use districts dimensional requirements
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.012"
+				data-onthispage-target="item"
+				data-node="20.20.012"
+				title="LUC 20.20.012, Minimum lot area"
+			>
+				20.20.012 Minimum lot area
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.015"
+				data-onthispage-target="item"
+				data-node="20.20.015"
+				title="LUC 20.20.015, Minimum lot size – Shape"
+			>
+				20.20.015 Minimum lot size – Shape
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.017"
+				data-onthispage-target="item"
+				data-node="20.20.017"
+				title="LUC 20.20.017, Minimum lot size – Averaging in short plats and subdivisions"
+			>
+				20.20.017 Minimum lot size – Averaging in short plats and subdivisions
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.018"
+				data-onthispage-target="item"
+				data-node="20.20.018"
+				title="LUC 20.20.018, Variation in minimum requirements – Area, width and depth"
+			>
+				20.20.018 Variation in minimum requirements – Area, width and depth
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.022"
+				data-onthispage-target="item"
+				data-node="20.20.022"
+				title="LUC 20.20.022, Setbacks – Exception for sidewalk and street improvements"
+			>
+				20.20.022 Setbacks – Exception for sidewalk and street improvements
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.025"
+				data-onthispage-target="item"
+				data-node="20.20.025"
+				title="LUC 20.20.025, Intrusions into required setbacks"
+			>
+				20.20.025 Intrusions into required setbacks
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.030"
+				data-onthispage-target="item"
+				data-node="20.20.030"
+				title="LUC 20.20.030, Designation and measurement of required setbacks"
+			>
+				20.20.030 Designation and measurement of required setbacks
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.060"
+				data-onthispage-target="item"
+				data-node="20.20.060"
+				title="LUC 20.20.060, Legally created lots – Development permitted – Proof"
+			>
+				20.20.060 Legally created lots – Development permitted – Proof
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/LUC/20.20.070"
+				data-onthispage-target="item"
+				data-node="20.20.070"
+				title="LUC 20.20.070, Lots nonconforming as to area, street frontage, width or depth – Status"
+			>
+				20.20.070 Lots nonconforming as to area, street frontage, width or depth – Status
+			</a>
+	</div>
+	<button
+		class="onthispage-next disabled"
+		type="button"
+		data-onthispage-target="next"
+		data-action="click->onthispage#next"
+		aria-label="Next Items"
+	>
+		<span class="glyphicons glyphicons-chevron-down" aria-hidden="true"></span>
+	</button>
+</nav>
+
+
+		</aside>
+</div>
+
+<footer id="site-footer" class="sitefooter" data-controller="sitefooter">
+<div class="inner">
+
+		
+
+		<div class="sitefooter-message sitefooter-internet-explorer-message no-custom-style" role="alert">
+			<p>This site does not support Internet Explorer. To view this site, consider using one of the following browsers: Google Chrome, Mozilla Firefox, or Apple Safari.</p>
+		</div>
+
+
+
+
+
+		<div class="sitefooter-disclaimer">
+			
+<p><b>The Bellevue Land Use Code is current through Ordinance 6894, passed December 9, 2025.</b></p>
+<p>Disclaimer: The City Clerk&#x2019;s Office has the official version of the Bellevue Land Use Code. Users should contact the City Clerk&#x2019;s Office for ordinances passed subsequent to the ordinance cited above.</p>
+
+		</div>
+
+		<div class="sitefooter-links">
+				<a
+					class="sitefooter-link url"
+					href="https://www.bellevuewa.gov/"
+				>City Website: www.bellevuewa.gov</a>
+				<a
+					class="sitefooter-link phone"
+					href="tel:425-452-6800"
+				>City Telephone: (425) 452-6800</a>
+		</div>
+
+	<a
+		class="sitefooter-brand"
+		href="https://www.generalcode.com/"
+		target="_blank"
+		rel="external noopener"
+	><span class="sitefooter-logo">Hosted by General Code.</span></a>
+
+		<div class="sitefooter-links">
+			<a
+				class="btn btn-link"
+				href="https://www.iccsafe.org/about/icc-online-privacy-policy/"
+				target="_blank"
+				rel="external noopener"
+			>Privacy Policy</a>
+			|
+			<a
+				class="btn btn-link"
+				href="https://ecode360.com/docs/TOS.html"
+				target="_blank"
+				rel="external noopener"
+			>Terms of Use</a>
+			|
+			<button
+				class="sitefooter-cookie-preferences btn btn-link"
+				data-cc="c-settings"
+			>Cookie Preferences</button>
+		</div>
+
+</div>
+</footer>
+
+
+<nav
+	id="contents"
+	class="contents contents-modal modal fade d-print-none"
+	role="dialog"
+	tabindex="-1"
+	data-controller="contents"
+>
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content modal-tabbed">
+
+			<header class="modal-header">
+				<h1 class="modal-title">Contents</h1>
+				<button type="button" class="close" aria-label="Close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</header>
+
+			<ul
+	class="nav nav-tabs"
+	role="tablist"
+>
+		<li class="nav-item ">
+			<a
+				href="#contents-products"
+				id="contents-products-tab"
+				class="nav-link "
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-products"
+				aria-selected="false"
+			>
+					<span class="text">All Publications</span>
+			</a>
+		</li>
+
+		<li
+			class="nav-item contents-product-tab primary "
+			data-contents-target="productTab"
+		>
+			<a
+				href="#contents-product-BCC"
+				id="contents-product-BCC-tab"
+				class="nav-link "
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-product-BCC"
+				aria-selected="false"
+			>
+				<span class="text">
+					City Code
+					
+				</span>
+			</a>
+		</li>
+		<li
+			class="nav-item contents-product-tab  really-current current"
+			data-contents-target="productTab"
+		>
+			<a
+				href="#contents-product-LUC"
+				id="contents-product-LUC-tab"
+				class="nav-link active"
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-product-LUC"
+				aria-selected="true"
+			>
+				<span class="text">
+					Land Use Code
+					
+				</span>
+			</a>
+		</li>
+
+	<li class="nav-item selections">
+		<a
+			href="#contents-selections"
+			id="contents-selections-tab"
+			class="nav-link"
+			data-toggle="tab"
+			data-contents-target="navTab"
+			role="tab"
+			aria-controls="contents-selections"
+			aria-selected="false"
+		>
+			<span class="glyphicons glyphicons-check" aria-hidden="true"></span
+			><span class="text">Your Selections</span>
+			<span class="badge badge-pill selections-count"></span>
+		</a>
+	</li>
+</ul>
+
+
+			<div class="modal-body" data-contents-target="modalBody">
+				<div class="tab-content">
+					<div
+	id="contents-products"
+	class="contents-products tab-pane"
+	role="tabpanel"
+	data-contents-target="tabPane"
+	data-scope="all"
+	aria-labelledby="contents-products-tab"
+>
+
+	<div class="list-group">
+			<a
+				href="#contents-product-BCC"
+				class="contents-products-link list-group-item"
+					data-action="contents#switchProduct"
+					role="button"
+			>
+				<span class="text">
+					Bellevue City Code
+					
+					
+					
+				</span>
+			</a>
+			<a
+				href="#contents-product-LUC"
+				class="contents-products-link list-group-item current"
+					data-action="contents#switchProduct"
+					role="button"
+			>
+				<span class="text">
+					Bellevue Land Use Code
+					
+					
+					
+				</span>
+			</a>
+	</div>
+
+</div>
+
+
+						<div id="contents-product-BCC"
+	class="tab-pane contents-product"
+	role="tabpanel"
+	data-contents-target="tabPane"
+	data-source="/BCC/contents?interactive=true"
+	data-scope="BCC"
+	aria-labelledby="contents-product-BCC-tab">
+</div>
+
+						<div id="contents-product-LUC"
+	class="tab-pane contents-product really-current current active show"
+	role="tabpanel"
+	data-contents-target="tabPane currentTabPane"
+	data-source="/LUC/contents?current=20.20.010&amp;interactive=true"
+	data-scope="LUC"
+	aria-labelledby="contents-product-LUC-tab">
+</div>
+
+
+					<div id="contents-selections"
+	class="tab-pane"
+	role="tabpanel"
+	data-source="/selections"
+	data-scope="selections"
+	data-contents-target="tabPane"
+	aria-labelledby="contents-selections-tab">
+</div>
+
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<div data-contents-target="tocControls" class="contents-controls">
+	<button
+		class="contents-expand btn btn-light d-none d-sm-block"
+		type="button"
+		data-action="contents#expandAll"
+	>
+		<span class="glyphicons glyphicons-plus" aria-hidden="true"></span
+		><span class="text">Expand All</span>
+	</button>
+	<button
+		class="contents-collapse btn btn-light d-none d-sm-block"
+		type="button"
+		data-action="contents#collapseAll"
+	>
+		<span class="glyphicons glyphicons-minus" aria-hidden="true"></span
+		><span class="text">Collapse All</span>
+	</button>
+</div>
+
+<div data-contents-target="selectControls" class="contents-controls">
+	<a
+		id="contents-share-selections"
+		class="btn btn-primary  disabled"
+		href="/selections/share"
+		data-controller="dynamodal"
+		data-dynamodal-selections-value="true"
+		data-remote="false"
+		data-action="contents#shareSelections"
+		rel="nofollow"
+	>
+		<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span
+		><span class="text" aria-label="Share Your Selections">Share</span>
+	</a>
+	<button
+		id="contents-clear-selections"
+		class="btn btn-warning  disabled"
+		data-action="contents#clearSelections"
+	>
+		<span class="glyphicons glyphicons-erase" aria-hidden="true"></span
+		><span class="text d-none d-sm-inline">Clear</span>
+	</button>
+</div>
+
+				<button
+					class="btn btn-light"
+					type="button"
+					title="Close"
+					data-dismiss="modal"
+				>
+					<span class="glyphicons glyphicons-remove d-sm-none" aria-hidden="true"></span
+					><span class="text d-none d-sm-inline">Close</span>
+				</button>
+			</div>
+
+		</div>
+	</div>
+</nav>
+
+<aside
+	id="large-view"
+	class="largeviewmodal modal fade"
+	role="dialog"
+	tabindex="-1"
+	data-controller="largeviewmodal"
+>
+<div class="largeviewmodal-dialog modal-dialog modal-xl" role="document">
+<div class="largeviewmodal-content modal-content" data-largeviewmodal-target="modalContent">
+
+	<div class="largeviewmodal-header modal-header">
+		<h1 class="modal-title for-tables">View Full Table</h1>
+		<h1 class="modal-title for-pictures">View Full Image</h1>
+		<h1 class="modal-title for-files">View Full File</h1>
+		<button
+			type="button"
+			class="close"
+			aria-label="Close"
+			data-dismiss="modal"
+		><span aria-hidden="true">&times;</span></button>
+	</div>
+
+	<div class="largeviewmodal-body modal-body main" data-largeviewmodal-target="modalBody">
+	</div>
+
+	<div class="largeviewmodal-footer modal-footer">
+		<button
+			type="button"
+			class="btn btn-default pull-left large-view-scroll-top"
+			title="Go to Top"
+			data-action="largeviewmodal#scrollModal"
+		>
+			<span class="glyphicons glyphicons-arrow-up" aria-hidden="true"></span> <span class="d-none d-sm-inline">Go to Top</span>
+		</button>
+		<button
+			type="button"
+			class="btn btn-default pull-left large-view-scroll-bottom"
+			title="Go to Bottom"
+			data-action="largeviewmodal#scrollModal"
+		>
+			<span class="glyphicons glyphicons-arrow-down" aria-hidden="true"></span> <span class="d-none d-sm-inline">Go to Bottom</span>
+		</button>
+		<a
+			href
+			class="btn btn-default share"
+			role="button"
+			title="Share/Save"
+			data-action="largeviewmodal#shareContent"
+			data-largeviewmodal-target="share"
+		>
+			<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span> <span>Share/Save</span>
+		</a>
+		<button
+			type="button"
+			class="btn btn-default"
+			title="Close"
+			data-dismiss="modal"
+		>
+			<span class="glyphicons glyphicons-remove d-inline d-sm-none" aria-hidden="true"></span>
+			<span class="d-none d-sm-inline">Close</span>
+		</button>
+	</div>
+
+</div>
+</div>
+</aside>
+
+
+<aside
+	class="subsecnodeactions subsec-actions d-print-none d-none d-sm-block invisible"
+	data-controller="subsecnodeactions"
+>
+	<div
+		class="dropdown"
+		data-subsecnodeactions-target="dropdown"
+	>
+		<button
+			class="btn dropdown-toggle"
+			data-toggle="dropdown"
+			type="button"
+			aria-haspopup="true"
+			aria-expanded="false"
+			aria-label="Subsection Tools"
+			title="Subsection Tools"
+		>
+			<span class="glyphicons glyphicons-info-sign" aria-hidden="true"></span>
+		</button>
+		<div
+			class="dropdown-menu"
+			data-subsecnodeactions-target="menu"
+		>
+			<span
+				class="dropdown-header"
+				data-subsecnodeactions-target="header"
+			></span>
+			<a
+				class="dropdown-item"
+				data-template="/LUC/Xyzzy/share"
+				data-controller="dynamodal"
+				data-subsecnodeactions-target="link"
+				rel="nofollow"
+			>
+				Save, Share, Bookmark or Print
+			</a>
+			<a
+				class="dropdown-item disabled history"
+				data-template="/LUC/Xyzzy/history"
+				data-controller="dynamodal"
+				data-subsecnodeactions-target="link history"
+				rel="nofollow"
+			>
+				History of This Subsection
+			</a>
+		</div>
+	</div>
+</aside>
+
+
+</div>
+</body>
+
+</html>

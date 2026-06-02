@@ -1,0 +1,2734 @@
+{
+  "_meta": {
+    "datasetCount": 8,
+    "failures": [
+      "data.lacity.org:yv23-pmwf HTTP 403"
+    ],
+    "generatedBy": "scripts/fetch-socrata-schemas.py",
+    "schemaVersion": 1
+  },
+  "schemas": {
+    "data.austintexas.gov:3syk-w9eu": {
+      "addressFieldGuess": "location",
+      "category": "Building and Development",
+      "columns": [
+        {
+          "dataTypeName": "text",
+          "description": "Raw values indicating type of permit in abbreviated format",
+          "fieldName": "permittype",
+          "name": "Permit Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Description of the Permit Type",
+          "fieldName": "permit_type_desc",
+          "name": "Permit Type Desc"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit number",
+          "fieldName": "permit_number",
+          "name": "Permit Num"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Indicates if the permit is intended for Residential or Commercial.  This mapping is derived from the PermitClass field (if the Class starts with \"R\", it is residential, otherwise it is commercial)",
+          "fieldName": "permit_class_mapped",
+          "name": "Permit Class Mapped"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Sub Type of the permit",
+          "fieldName": "permit_class",
+          "name": "Permit Class"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Work type of the permit",
+          "fieldName": "work_class",
+          "name": "Work Class"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Is this property a condominium?",
+          "fieldName": "condominium",
+          "name": "Condominium"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Property street address as a means to help identify project.",
+          "fieldName": "permit_location",
+          "name": "Project Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Detailed description of work permitted",
+          "fieldName": "description",
+          "name": "Description"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "TCAD_ID aligns with the Geographic ID field on the TravisCAD.org website when performing a property search.",
+          "fieldName": "tcad_id",
+          "name": "TCAD ID"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Legal Description of the property associated with the permit.",
+          "fieldName": "legal_description",
+          "name": "Property Legal Description"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date on which the permit was applied.  This relates to the original Plan Review application submission where applicable.",
+          "fieldName": "applieddate",
+          "name": "Applied Date"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date on which the permit was issued",
+          "fieldName": "issue_date",
+          "name": "Issued Date"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Day of the week the permit was issued",
+          "fieldName": "day_issued",
+          "name": "Day Issued"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Calendar Year corresponding to when the Permit was issued",
+          "fieldName": "calendar_year_issued",
+          "name": "Calendar Year Issued"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Fiscal Year corresponding to when the permit was issued",
+          "fieldName": "fiscal_year_issued",
+          "name": "Fiscal Year Issued"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Yes/No value to indicate if the permit was issued in the last 30 days.  This field is evaluated using the last date that the data was refreshed.",
+          "fieldName": "issued_in_last_30_days",
+          "name": "Issued In Last 30 Days"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit issuance method.  \"Permit Center\" represents any permit which a permit center technician manually issued (e.g., will include fax based requests).  \"Online\" includes permits issued through the website including Austin Build and Connec",
+          "fieldName": "issue_method",
+          "name": "Issuance Method"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Current status of permit",
+          "fieldName": "status_current",
+          "name": "Status Current"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Indicates the last time the status or ExpiresDate of a permit was updated in the AMANDA database.",
+          "fieldName": "statusdate",
+          "name": "Status Date"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date on which the permit will/would have expire(d)",
+          "fieldName": "expiresdate",
+          "name": "Expires Date"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date on which the permit was completed",
+          "fieldName": "completed_date",
+          "name": "Completed Date"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Existing square footage of property before project",
+          "fieldName": "total_existing_bldg_sqft",
+          "name": "Total Existing Bldg SQFT"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Square footage of project affected by work being done.",
+          "fieldName": "remodel_repair_sqft",
+          "name": "Remodel Repair SQFT"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Additional square footage gained from work being done.",
+          "fieldName": "total_new_add_sqft",
+          "name": "Total New Add SQFT"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Total dollar valuation for remodeling aspects of the job",
+          "fieldName": "total_valuation_remodel",
+          "name": "Total Valuation Remodel"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Total dollar valuation for entire job for each building permit (e.g. will include Building, Electrical, Mechanical, and Plumbing valuations, but not other Building Permits in the same project)",
+          "fieldName": "total_job_valuation",
+          "name": "Total Job Valuation"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "How many floors property has",
+          "fieldName": "number_of_floors",
+          "name": "Number Of Floors"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Number of household units for a given building",
+          "fieldName": "housing_units",
+          "name": "Housing Units"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Valuation of building where project is occurring",
+          "fieldName": "building_valuation",
+          "name": "Building Valuation"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Valuation of remodel for project",
+          "fieldName": "building_valuation_remodel",
+          "name": "Building Valuation Remodel"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "electrical_valuation",
+          "name": "Electrical Valuation"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Valuation of electrical remodel work",
+          "fieldName": "electrical_valuation_remodel",
+          "name": "Electrical Valuation Remodel"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "mechanical_valuation",
+          "name": "Mechanical Valuation"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Valuation of mechanical remodel work",
+          "fieldName": "mechanical_valuation_remodel",
+          "name": "Mechanical Valuation Remodel"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "plumbing_valuation",
+          "name": "Plumbing Valuation"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Valuation of plumbing remodel work",
+          "fieldName": "plumbing_valuation_remodel",
+          "name": "Plumbing Valuation Remodel"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "medgas_valuation",
+          "name": "MedGas Valuation"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Valuation of medgas remodel work",
+          "fieldName": "medgas_valuation_remodel",
+          "name": "MedGas Valuation Remodel"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Property address associated with the permit",
+          "fieldName": "original_address1",
+          "name": "Original Address 1"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "City of the property associated with the permit",
+          "fieldName": "original_city",
+          "name": "Original City"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "State of the property assoicated with the permit",
+          "fieldName": "original_state",
+          "name": "Original State"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Zip code of the property associated with the permit",
+          "fieldName": "original_zip",
+          "name": "Original Zip"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Council District associated with the permit property location",
+          "fieldName": "council_district",
+          "name": "Council District"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Jurisdiction of permit property",
+          "fieldName": "jurisdiction",
+          "name": "Jurisdiction"
+        },
+        {
+          "dataTypeName": "url",
+          "description": "Web link that show details of project inside AB+C",
+          "fieldName": "link",
+          "name": "Link"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "ID associated with the permit within the database.  Also referred to as the FolderRSN.",
+          "fieldName": "project_id",
+          "name": "Project ID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "If the permit is listed as the child of another permit, this is the Project ID of that parent permit.  A building permit's (BP) master permit number will reference the Plan Review Project ID, while trades under that BP will reference the BP",
+          "fieldName": "masterpermitnum",
+          "name": "Master Permit Num"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Coordinate that specifies the north - south position of a point on the surface of the Earth",
+          "fieldName": "latitude",
+          "name": "Latitude"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Coordinate that specifies the east - west position of a point on the surface of the Earth",
+          "fieldName": "longitude",
+          "name": "Longitude"
+        },
+        {
+          "dataTypeName": "location",
+          "description": "The geographic coordinates for the project which are comprised of both latitude and longitude",
+          "fieldName": "location",
+          "name": "Location"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Indicates contractor trade.",
+          "fieldName": "contractor_trade",
+          "name": "Contractor Trade"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Company name of the primary contractor associated with the permit.",
+          "fieldName": "contractor_company_name",
+          "name": "Contractor Company Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Full name of the contractor",
+          "fieldName": "contractor_full_name",
+          "name": "Contractor Full Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contractor phone number",
+          "fieldName": "contractor_phone",
+          "name": "Contractor Phone"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contractor street address line 1",
+          "fieldName": "contractor_address1",
+          "name": "Contractor Address 1"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contractor street address line 2",
+          "fieldName": "contractor_address2",
+          "name": "Contractor Address 2"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contractor city",
+          "fieldName": "contractor_city",
+          "name": "Contractor City"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contractor zip",
+          "fieldName": "contractor_zip",
+          "name": "Contractor Zip"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Full name of the applicant",
+          "fieldName": "applicant_full_name",
+          "name": "Applicant Full Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Organization the applicant is associated with.",
+          "fieldName": "applicant_org",
+          "name": "Applicant Organization"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Applicant phone",
+          "fieldName": "applicant_phone",
+          "name": "Applicant Phone"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Applicant address line 1",
+          "fieldName": "applicant_address1",
+          "name": "Applicant Address 1"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Applicant address line 2",
+          "fieldName": "applicant_address2",
+          "name": "Applicant Address 2"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Applicant city",
+          "fieldName": "applicant_city",
+          "name": "Applicant City"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Applicant zip code",
+          "fieldName": "applicantzip",
+          "name": "Applicant Zip"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Yes or No field to specify if the Certificate of Occupancy was required for this permit. This information applies only to Building Permits.",
+          "fieldName": "certificate_of_occupancy",
+          "name": "Certificate Of Occupancy"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The total square footage attributed to the lot size.",
+          "fieldName": "total_lot_sq_ft",
+          "name": "Total Lot SQFT"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_8spj_utxs",
+          "name": "Single Member Council Districts"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_q9nd_rr82",
+          "name": "BOUNDARIES_single_member_districts"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_e9j2_6w3z",
+          "name": "Neighborhood Planning Areas"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_m2th_e4b7",
+          "name": "Community Registry"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_rxpj_nzrk",
+          "name": "Zipcodes"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_a3it_2a2z",
+          "name": "Zip Codes"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_qwte_z96m",
+          "name": "Zoning Review Cases_data"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_i2aj_cj5t",
+          "name": "Zipcode Boundaries (Snapshot)"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_xzeg_zdjk",
+          "name": "Neighborhood Planning Areas Dissolved"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "This column was automatically created in order to record in what polygon from the dataset 'Council Districts Fill - TESTING DO NOT USE (Adrianne)' (6gig-z43c) the point in column 'location' is located.  This enables the creation of region m",
+          "fieldName": ":@computed_region_6gig_z43c",
+          "name": "Council Districts Fill - TESTING DO NOT USE (Adrianne)"
+        }
+      ],
+      "datasetId": "3syk-w9eu",
+      "description": "<a href=\"https://data.austintexas.gov/stories/s/ranj-cccq\" target=\"_blank\">View the City of Austin Open Data Terms of Use</a>\n\nBuilding, Electrical, Mechanical, and Plumbing Permits and Driveway/Sidewalk Permits issued by the City of Austin.  Includes relevant details such as issue date, location, council district, expiration date, description of work, square footage, valuation, and units.\n\nThis dataset is compliant with the Building & Land Development Specification (BLDS) data standard.\n\nAustin Development Services Data Disclaimer:\n-------------------------------------------------------------",
+      "geoFieldGuess": "location",
+      "host": "data.austintexas.gov",
+      "name": "Issued Construction Permits",
+      "registryKey": "austin",
+      "rowsUpdatedAt": 1777118096,
+      "viewLastModified": 1777116968
+    },
+    "data.cityofchicago.org:ydr8-5enu": {
+      "addressFieldGuess": "location",
+      "category": "Buildings",
+      "columns": [
+        {
+          "dataTypeName": "text",
+          "description": "Unique database record identifier",
+          "fieldName": "id",
+          "name": "ID"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Tracking number assigned at beginning of permit application process",
+          "fieldName": "permit_",
+          "name": "PERMIT#"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Current status of permit (not available for all permit types).",
+          "fieldName": "permit_status",
+          "name": "PERMIT_STATUS"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Current milestone of permit (not available for all permit types).",
+          "fieldName": "permit_milestone",
+          "name": "PERMIT_MILESTONE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Type of permit",
+          "fieldName": "permit_type",
+          "name": "PERMIT_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Process used to review permit application",
+          "fieldName": "review_type",
+          "name": "REVIEW_TYPE"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date when City began reviewing permit application",
+          "fieldName": "application_start_date",
+          "name": "APPLICATION_START_DATE"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "For most permit types, date when City determined permit was ready to issue, subject to payment of permit fees; For Express Permit Program, date when permit issued based on full payment of applicable permit fee",
+          "fieldName": "issue_date",
+          "name": "ISSUE_DATE"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Number of days between APPLICATION_START_DATE and ISSUE_DATE",
+          "fieldName": "processing_time",
+          "name": "PROCESSING_TIME"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Address number - for buildings with address ranges, primary address is used",
+          "fieldName": "street_number",
+          "name": "STREET_NUMBER"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Street direction",
+          "fieldName": "street_direction",
+          "name": "STREET_DIRECTION"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Street name",
+          "fieldName": "street_name",
+          "name": "STREET_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Classification of activity authorized by permit (not available for all permit types).",
+          "fieldName": "work_type",
+          "name": "WORK_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Description of work authorized by the permit",
+          "fieldName": "work_description",
+          "name": "WORK_DESCRIPTION"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Conditions or comments added by reviewing department(s)",
+          "fieldName": "permit_condition",
+          "name": "PERMIT_CONDITION"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of building permit fees received",
+          "fieldName": "building_fee_paid",
+          "name": "BUILDING_FEE_PAID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of zoning review fees received",
+          "fieldName": "zoning_fee_paid",
+          "name": "ZONING_FEE_PAID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of other permit-related fees received",
+          "fieldName": "other_fee_paid",
+          "name": "OTHER_FEE_PAID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Sum of BUILDING_FEE_PAID, ZONING_FEE_PAID and OTHER_FEE_PAID",
+          "fieldName": "subtotal_paid",
+          "name": "SUBTOTAL_PAID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of building permit fees due",
+          "fieldName": "building_fee_unpaid",
+          "name": "BUILDING_FEE_UNPAID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of zoning review fees due",
+          "fieldName": "zoning_fee_unpaid",
+          "name": "ZONING_FEE_UNPAID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of other permit-related fees due",
+          "fieldName": "other_fee_unpaid",
+          "name": "OTHER_FEE_UNPAID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Sum of BUILDING_FEE_UNPAID, ZONING_FEE_UNPAID and OTHER_FEE_UNPAID",
+          "fieldName": "subtotal_unpaid",
+          "name": "SUBTOTAL_UNPAID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of building permit fees waived",
+          "fieldName": "building_fee_waived",
+          "name": "BUILDING_FEE_WAIVED"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Sum of BUILDING_FEE_PAID, BUILDING_FEE_UNPAID and BUILDING_FEE_WAIVED",
+          "fieldName": "building_fee_subtotal",
+          "name": "BUILDING_FEE_SUBTOTAL"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Sum of ZONING_FEE_PAID, ZONING _FEE_UNPAID and ZONING _FEE_WAIVED",
+          "fieldName": "zoning_fee_subtotal",
+          "name": "ZONING_FEE_SUBTOTAL"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Sum of OTHER_FEE_PAID, OTHER _FEE_UNPAID and OTHER _FEE_WAIVED",
+          "fieldName": "other_fee_subtotal",
+          "name": "OTHER_FEE_SUBTOTAL"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of zoning review fees waived",
+          "fieldName": "zoning_fee_waived",
+          "name": "ZONING_FEE_WAIVED"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Amount of other permit-related fees waived",
+          "fieldName": "other_fee_waived",
+          "name": "OTHER_FEE_WAIVED"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Sum of BUILDING_FEE_WAIVED, ZONING_FEE_WAIVED and OTHER_FEE_WAIVED",
+          "fieldName": "subtotal_waived",
+          "name": "SUBTOTAL_WAIVED"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Sum of SUBTOTAL_PAID, SUBTOTAL_UNPAID and SUBTOTAL_WAIVED",
+          "fieldName": "total_fee",
+          "name": "TOTAL_FEE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 1's relationship to permit",
+          "fieldName": "contact_1_type",
+          "name": "CONTACT_1_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 1's full name",
+          "fieldName": "contact_1_name",
+          "name": "CONTACT_1_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 1's primary address city",
+          "fieldName": "contact_1_city",
+          "name": "CONTACT_1_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 1's primary address state",
+          "fieldName": "contact_1_state",
+          "name": "CONTACT_1_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 1's primary address ZIP code",
+          "fieldName": "contact_1_zipcode",
+          "name": "CONTACT_1_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 2's relationship to permit",
+          "fieldName": "contact_2_type",
+          "name": "CONTACT_2_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 2's full name",
+          "fieldName": "contact_2_name",
+          "name": "CONTACT_2_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 2's primary address city",
+          "fieldName": "contact_2_city",
+          "name": "CONTACT_2_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 2's primary address state",
+          "fieldName": "contact_2_state",
+          "name": "CONTACT_2_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 2's primary address ZIP code",
+          "fieldName": "contact_2_zipcode",
+          "name": "CONTACT_2_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 3's relationship to permit",
+          "fieldName": "contact_3_type",
+          "name": "CONTACT_3_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 3's full name",
+          "fieldName": "contact_3_name",
+          "name": "CONTACT_3_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 3's primary address city",
+          "fieldName": "contact_3_city",
+          "name": "CONTACT_3_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 3's primary address state",
+          "fieldName": "contact_3_state",
+          "name": "CONTACT_3_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 3's primary address ZIP code",
+          "fieldName": "contact_3_zipcode",
+          "name": "CONTACT_3_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 4's relationship to permit",
+          "fieldName": "contact_4_type",
+          "name": "CONTACT_4_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 4's full name",
+          "fieldName": "contact_4_name",
+          "name": "CONTACT_4_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 4's primary address city",
+          "fieldName": "contact_4_city",
+          "name": "CONTACT_4_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 4's primary address state",
+          "fieldName": "contact_4_state",
+          "name": "CONTACT_4_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 4's primary address ZIP code",
+          "fieldName": "contact_4_zipcode",
+          "name": "CONTACT_4_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 5's relationship to permit",
+          "fieldName": "contact_5_type",
+          "name": "CONTACT_5_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 5's full name",
+          "fieldName": "contact_5_name",
+          "name": "CONTACT_5_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 5's primary address city",
+          "fieldName": "contact_5_city",
+          "name": "CONTACT_5_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 5's primary address state",
+          "fieldName": "contact_5_state",
+          "name": "CONTACT_5_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 5's primary address ZIP code",
+          "fieldName": "contact_5_zipcode",
+          "name": "CONTACT_5_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 6's relationship to permit",
+          "fieldName": "contact_6_type",
+          "name": "CONTACT_6_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 6's full name",
+          "fieldName": "contact_6_name",
+          "name": "CONTACT_6_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 6's primary address city",
+          "fieldName": "contact_6_city",
+          "name": "CONTACT_6_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 6's primary address state",
+          "fieldName": "contact_6_state",
+          "name": "CONTACT_6_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 6's primary address ZIP code",
+          "fieldName": "contact_6_zipcode",
+          "name": "CONTACT_6_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 7's relationship to permit",
+          "fieldName": "contact_7_type",
+          "name": "CONTACT_7_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 7's full name",
+          "fieldName": "contact_7_name",
+          "name": "CONTACT_7_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 7's primary address city",
+          "fieldName": "contact_7_city",
+          "name": "CONTACT_7_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 7's primary address state",
+          "fieldName": "contact_7_state",
+          "name": "CONTACT_7_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 7's primary address ZIP code",
+          "fieldName": "contact_7_zipcode",
+          "name": "CONTACT_7_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 8's relationship to permit",
+          "fieldName": "contact_8_type",
+          "name": "CONTACT_8_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 8's full name",
+          "fieldName": "contact_8_name",
+          "name": "CONTACT_8_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 8's primary address city",
+          "fieldName": "contact_8_city",
+          "name": "CONTACT_8_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 8's primary address state",
+          "fieldName": "contact_8_state",
+          "name": "CONTACT_8_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 8's primary address ZIP code",
+          "fieldName": "contact_8_zipcode",
+          "name": "CONTACT_8_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 9's relationship to permit",
+          "fieldName": "contact_9_type",
+          "name": "CONTACT_9_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 9's full name",
+          "fieldName": "contact_9_name",
+          "name": "CONTACT_9_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 9's primary address city",
+          "fieldName": "contact_9_city",
+          "name": "CONTACT_9_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 9's primary address state",
+          "fieldName": "contact_9_state",
+          "name": "CONTACT_9_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 9's primary address ZIP code",
+          "fieldName": "contact_9_zipcode",
+          "name": "CONTACT_9_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 10's relationship to permit",
+          "fieldName": "contact_10_type",
+          "name": "CONTACT_10_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 10's full name",
+          "fieldName": "contact_10_name",
+          "name": "CONTACT_10_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 10's primary address city",
+          "fieldName": "contact_10_city",
+          "name": "CONTACT_10_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 10's primary address state",
+          "fieldName": "contact_10_state",
+          "name": "CONTACT_10_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 10's primary address ZIP code",
+          "fieldName": "contact_10_zipcode",
+          "name": "CONTACT_10_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 11's relationship to permit",
+          "fieldName": "contact_11_type",
+          "name": "CONTACT_11_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 11's full name",
+          "fieldName": "contact_11_name",
+          "name": "CONTACT_11_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 11's primary address city",
+          "fieldName": "contact_11_city",
+          "name": "CONTACT_11_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 11's primary address state",
+          "fieldName": "contact_11_state",
+          "name": "CONTACT_11_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 11's primary address ZIP code",
+          "fieldName": "contact_11_zipcode",
+          "name": "CONTACT_11_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 12's relationship to permit",
+          "fieldName": "contact_12_type",
+          "name": "CONTACT_12_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 12's full name",
+          "fieldName": "contact_12_name",
+          "name": "CONTACT_12_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 12's primary address city",
+          "fieldName": "contact_12_city",
+          "name": "CONTACT_12_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 12's primary address state",
+          "fieldName": "contact_12_state",
+          "name": "CONTACT_12_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 12's primary address ZIP code",
+          "fieldName": "contact_12_zipcode",
+          "name": "CONTACT_12_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 13's relationship to permit",
+          "fieldName": "contact_13_type",
+          "name": "CONTACT_13_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 13's full name",
+          "fieldName": "contact_13_name",
+          "name": "CONTACT_13_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 13's primary address city",
+          "fieldName": "contact_13_city",
+          "name": "CONTACT_13_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 13's primary address state",
+          "fieldName": "contact_13_state",
+          "name": "CONTACT_13_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 13's primary address ZIP code",
+          "fieldName": "contact_13_zipcode",
+          "name": "CONTACT_13_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 14's relationship to permit",
+          "fieldName": "contact_14_type",
+          "name": "CONTACT_14_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 14's full name",
+          "fieldName": "contact_14_name",
+          "name": "CONTACT_14_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 14's primary address city",
+          "fieldName": "contact_14_city",
+          "name": "CONTACT_14_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 14's primary address state",
+          "fieldName": "contact_14_state",
+          "name": "CONTACT_14_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 14's primary address ZIP code",
+          "fieldName": "contact_14_zipcode",
+          "name": "CONTACT_14_ZIPCODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 15's relationship to permit",
+          "fieldName": "contact_15_type",
+          "name": "CONTACT_15_TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 15's full name",
+          "fieldName": "contact_15_name",
+          "name": "CONTACT_15_NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 15's primary address city",
+          "fieldName": "contact_15_city",
+          "name": "CONTACT_15_CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 15's primary address state",
+          "fieldName": "contact_15_state",
+          "name": "CONTACT_15_STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contact 15's primary address ZIP code",
+          "fieldName": "contact_15_zipcode",
+          "name": "CONTACT_15_ZIPCODE"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Estimated cost of work provided by applicant (not available for all permits)",
+          "fieldName": "reported_cost",
+          "name": "REPORTED_COST"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Property index number(s) (PINs) disclosed by applicant and verified by city staff as part of permit application review (not available for all permits); PINs are assigned to parcels of land for property tax purposes. This column replaces col",
+          "fieldName": "pin_list",
+          "name": "PIN_LIST"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The Chicago community area of the property's primary address. The community area map is available in a separate dataset.",
+          "fieldName": "community_area",
+          "name": "COMMUNITY_AREA"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The census tract of the property's primary address. The census tract map is available in a separate dataset.",
+          "fieldName": "census_tract",
+          "name": "CENSUS_TRACT"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The ward (city council district) of the property's primary address at the time of permit issuance. The ward map is available in a separate dataset.",
+          "fieldName": "ward",
+          "name": "WARD"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The east-west coordinate of the property's primary address, defined in feet, based on NAD 83 - State Plane Eastern IL",
+          "fieldName": "xcoordinate",
+          "name": "XCOORDINATE"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The north-south coordinate of the property's primary address, defined in feet, based on NAD 83 - State Plane Eastern IL",
+          "fieldName": "ycoordinate",
+          "name": "YCOORDINATE"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The latitude of the property's primary address",
+          "fieldName": "latitude",
+          "name": "LATITUDE"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The longitude of the property's primary address",
+          "fieldName": "longitude",
+          "name": "LONGITUDE"
+        },
+        {
+          "dataTypeName": "point",
+          "description": "The location of the property's primary address in a format that allows for creation of maps and other geographic operations on this data portal",
+          "fieldName": "location",
+          "name": "LOCATION"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_rpca_8um6",
+          "name": "Boundaries - ZIP Codes"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_vrxf_vc4k",
+          "name": "Community Areas"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_6mkv_f3dw",
+          "name": "Zip Codes"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_bdys_3d7i",
+          "name": "Census Tracts"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_43wa_7qmu",
+          "name": "Wards"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_awaf_s7ux",
+          "name": "Historical Wards 2003-2015"
+        }
+      ],
+      "datasetId": "ydr8-5enu",
+      "description": "<b>Note, 10/15/2025:</b> We have added a PERMIT_CONDITION column.\n\nThis dataset includes information about building permits issued by the City of Chicago from 2006 to the present, excluding permits that have been voided or revoked after issuance. Most types of permits are issued subject to payment of the applicable permit fee. Work under a permit may not begin until the applicable permit fee is paid. \n\nFor more information about building permits, see http://www.chicago.gov/permit.",
+      "geoFieldGuess": "location",
+      "host": "data.cityofchicago.org",
+      "name": "Building Permits",
+      "registryKey": "chicago",
+      "rowsUpdatedAt": 1777118872,
+      "viewLastModified": 1773951276
+    },
+    "data.cityofnewyork.us:ipu4-2q9a": {
+      "addressFieldGuess": null,
+      "category": "Housing & Development",
+      "columns": [
+        {
+          "dataTypeName": "text",
+          "description": "1= Manhattan, 2= Bronx, 3 = Brooklyn, 4 = Queens, 5 = Staten Island",
+          "fieldName": "borough",
+          "name": "BOROUGH"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Number assigned by City Planning to a specific building",
+          "fieldName": "bin__",
+          "name": "Bin #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "House Number of Residence or Commercial Property",
+          "fieldName": "house__",
+          "name": "House #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Street Name where Property is located",
+          "fieldName": "street_name",
+          "name": "Street Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Number assigned by DOB to Job Filing",
+          "fieldName": "job__",
+          "name": "Job #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Document Number",
+          "fieldName": "job_doc___",
+          "name": "Job doc. #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Job Type, based on DOB Job Code (NB-New Building, A1, A2, A3- Alterations 1-3, SG-Sign, etc.)",
+          "fieldName": "job_type",
+          "name": "Job Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Self_Cert",
+          "fieldName": "self_cert",
+          "name": "Self_Cert"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Tax block assigned by Department of Finance",
+          "fieldName": "block",
+          "name": "Block"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Tax lot assigned by Department of Finance",
+          "fieldName": "lot",
+          "name": "Lot"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "3-digit identifier: Borough code = first position, last 2 = community board",
+          "fieldName": "community_board",
+          "name": "Community Board"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Tax lot Zip Code",
+          "fieldName": "zip_code",
+          "name": "Zip Code"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "1-2-3 Family  or Other",
+          "fieldName": "bldg_type",
+          "name": "Bldg Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Residential",
+          "fieldName": "residential",
+          "name": "Residential"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Special District 1",
+          "fieldName": "special_district_1",
+          "name": "Special District 1"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Special District 2",
+          "fieldName": "special_district_2",
+          "name": "Special District 2"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "DOB Designated Work Types (PL-Plumbing,  BL-Boiler, MH-Mechanical, OT-Other Constuction Equipment, etc.)",
+          "fieldName": "work_type",
+          "name": "Work Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit Status",
+          "fieldName": "permit_status",
+          "name": "Permit Status"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Filing Status",
+          "fieldName": "filing_status",
+          "name": "Filing Status"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit Type (DM-Demolition, EW-Equipment Work, PL-Plumbing, etc.)  Complete List - http://www.nyc.gov/html/dob/downloads/pdf/bisjobstatus.pdf",
+          "fieldName": "permit_type",
+          "name": "Permit Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit Sequence #",
+          "fieldName": "permit_sequence__",
+          "name": "Permit Sequence #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit Subtype (Subset of Equipment Work Permit Type-- BL-Boiler, FA- Fire Alarm, Subset of Construction Equipment Permit Type-- CH-Chute, SF-Scaffold, etc.) Complete List - http://www.nyc.gov/html/dob/downloads/pdf/bisjobstatus.pdf",
+          "fieldName": "permit_subtype",
+          "name": "Permit Subtype"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Oil Gas",
+          "fieldName": "oil_gas",
+          "name": "Oil Gas"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Site Fill",
+          "fieldName": "site_fill",
+          "name": "Site Fill"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Filing Date",
+          "fieldName": "filing_date",
+          "name": "Filing Date"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Issuance Date",
+          "fieldName": "issuance_date",
+          "name": "Issuance Date"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Expiration Date",
+          "fieldName": "expiration_date",
+          "name": "Expiration Date"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Job Start Date",
+          "fieldName": "job_start_date",
+          "name": "Job Start Date"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permittee's First Name",
+          "fieldName": "permittee_s_first_name",
+          "name": "Permittee's First Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permittee's Last Name",
+          "fieldName": "permittee_s_last_name",
+          "name": "Permittee's Last Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permittee's Business Name",
+          "fieldName": "permittee_s_business_name",
+          "name": "Permittee's Business Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permittee's Phone #",
+          "fieldName": "permittee_s_phone__",
+          "name": "Permittee's Phone #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permittee's License Type",
+          "fieldName": "permittee_s_license_type",
+          "name": "Permittee's License Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permittee's License #",
+          "fieldName": "permittee_s_license__",
+          "name": "Permittee's License #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permittee Acts as Superintendent",
+          "fieldName": "act_as_superintendent",
+          "name": "Act as Superintendent"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permittee's Other Title",
+          "fieldName": "permittee_s_other_title",
+          "name": "Permittee's Other Title"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "HIC License",
+          "fieldName": "hic_license",
+          "name": "HIC License"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Site Safety Mgr's First Name",
+          "fieldName": "site_safety_mgr_s_first_name",
+          "name": "Site Safety Mgr's First Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Site Safety Mgr's Last Name",
+          "fieldName": "site_safety_mgr_s_last_name",
+          "name": "Site Safety Mgr's Last Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Site Safety Mgr Business Name",
+          "fieldName": "site_safety_mgr_business_name",
+          "name": "Site Safety Mgr Business Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Superintendent First & Last Name",
+          "fieldName": "superintendent_first___last_name",
+          "name": "Superintendent First & Last Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Superintendent Business Name",
+          "fieldName": "superintendent_business_name",
+          "name": "Superintendent Business Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Owner's Business Type",
+          "fieldName": "owner_s_business_type",
+          "name": "Owner's Business Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Non-Profit",
+          "fieldName": "non_profit",
+          "name": "Non-Profit"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Business Name of Property Owner",
+          "fieldName": "owner_s_business_name",
+          "name": "Owner's Business Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "First Name of property owner",
+          "fieldName": "owner_s_first_name",
+          "name": "Owner's First Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Last Name of property owner",
+          "fieldName": "owner_s_last_name",
+          "name": "Owner's Last Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Owner's House #",
+          "fieldName": "owner_s_house__",
+          "name": "Owner's House #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Owner's House Street Name",
+          "fieldName": "owner_s_house_street_name",
+          "name": "Owner's House Street Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Owner\u2019s House City",
+          "fieldName": "city",
+          "name": "Owner\u2019s House City"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Owner\u2019s House State",
+          "fieldName": "state",
+          "name": "Owner\u2019s House State"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Owner\u2019s House Zip Code",
+          "fieldName": "owner_s_zip_code",
+          "name": "Owner\u2019s House Zip Code"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Owner's Phone #",
+          "fieldName": "owner_s_phone__",
+          "name": "Owner's Phone #"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Date when query is run and pushed to Open Data. Could be used to differentiate report dates.",
+          "fieldName": "dobrundate",
+          "name": "DOBRunDate"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "permit_si_no",
+          "name": "PERMIT_SI_NO"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "gis_latitude",
+          "name": "LATITUDE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "gis_longitude",
+          "name": "LONGITUDE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "gis_council_district",
+          "name": "COUNCIL_DISTRICT"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "gis_census_tract",
+          "name": "CENSUS_TRACT"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "gis_nta_name",
+          "name": "NTA_NAME"
+        }
+      ],
+      "datasetId": "ipu4-2q9a",
+      "description": "The Department of Buildings (DOB) issues permits for construction and demolition activities in the City of New York. The construction industry must submit an application to DOB with details of the construction job they would like to complete. The primary types of application, aka job type, are: New Building, Demolition, and Alterations Type 1, 2, and 3. Each job type can have multiple work types, such as general construction, boiler, elevator, and plumbing. Each work type will receive a separate permit. (See the DOB Job Application Filings dataset for information about each job application.) E",
+      "geoFieldGuess": null,
+      "host": "data.cityofnewyork.us",
+      "name": "DOB Permit Issuance",
+      "registryKey": "nyc",
+      "rowsUpdatedAt": 1777147576,
+      "viewLastModified": 1764798554
+    },
+    "data.everettwa.gov:3w3u-656c": {
+      "addressFieldGuess": "siteaddress",
+      "category": "Responsive and Responsible Government",
+      "columns": [
+        {
+          "dataTypeName": "text",
+          "description": "Permit Number",
+          "fieldName": "permitno",
+          "name": "PermitNo"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit Type",
+          "fieldName": "permittype",
+          "name": "PermitType"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit Sub-Type",
+          "fieldName": "permitsubtype",
+          "name": "PermitSubType"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Applied Date",
+          "fieldName": "applieddate",
+          "name": "AppliedDate"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Approved Date",
+          "fieldName": "approveddate",
+          "name": "ApprovedDate"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Issued Date",
+          "fieldName": "issueddate",
+          "name": "IssuedDate"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Expired Date",
+          "fieldName": "expireddate",
+          "name": "ExpiredDate"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Owner Name",
+          "fieldName": "ownername",
+          "name": "OwnerName"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Applicant Name",
+          "fieldName": "applicantname",
+          "name": "ApplicantName"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Contractor Name",
+          "fieldName": "contractorname",
+          "name": "ContractorName"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Person Renting or leasing property",
+          "fieldName": "tenantname",
+          "name": "TenantName"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Record ID",
+          "fieldName": "recordid",
+          "name": "RecordId"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Site APN is the County PArcel ID Number",
+          "fieldName": "siteapn",
+          "name": "SiteAPN"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Site Address",
+          "fieldName": "siteaddress",
+          "name": "SiteAddress"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit Description",
+          "fieldName": "permitdesc",
+          "name": "PermitDesc"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "jobvalue",
+          "name": "JobValue"
+        },
+        {
+          "dataTypeName": "point",
+          "description": "LAT, LONG calculated from Address",
+          "fieldName": "geocoded_column",
+          "name": "Georeferenced Column"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_wamu_3gk7",
+          "name": "City Council Districts"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_psyp_nrnc",
+          "name": "City Limits Shading"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_c4qf_8wym",
+          "name": "Downtown Improvement District"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": ":@computed_region_cx6t_gkq3",
+          "name": "Neighborhoods"
+        }
+      ],
+      "datasetId": "3w3u-656c",
+      "description": "Data is provided as is from the City of Everett permit system.\nThis data includes information on permits issued by the City of Everett.",
+      "geoFieldGuess": "geocoded_column",
+      "host": "data.everettwa.gov",
+      "name": "Trakit Permits",
+      "registryKey": "everett",
+      "rowsUpdatedAt": 1777112145,
+      "viewLastModified": 1777112127
+    },
+    "data.sandiegocounty.gov:dyzh-7eat": {
+      "addressFieldGuess": "full_address",
+      "category": "Housing and Infrastructure",
+      "columns": [
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "id",
+          "name": "id"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "record_id",
+          "name": "RECORD ID"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": null,
+          "fieldName": "open_date",
+          "name": "OPEN DATE"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": null,
+          "fieldName": "issued_date",
+          "name": "ISSUED DATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "record_status",
+          "name": "RECORD STATUS"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "record_group",
+          "name": "RECORD GROUP"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "record_type",
+          "name": "RECORD TYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "record_subtype",
+          "name": "RECORD SUBTYPE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "record_category",
+          "name": "RECORD CATEGORY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "primary_scope_code",
+          "name": "PRIMARY SCOPE CODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "use",
+          "name": "USE"
+        },
+        {
+          "dataTypeName": "checkbox",
+          "description": null,
+          "fieldName": "homeowner_biz_owner",
+          "name": "HOMEOWNER BIZ OWNER RELIEF"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "street_address",
+          "name": "STREET ADDRESS"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "city",
+          "name": "CITY"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "state",
+          "name": "STATE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "zip_code",
+          "name": "ZIP CODE"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "full_address",
+          "name": "FULL ADDRESS"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "parcel_number",
+          "name": "PARCEL NUMBER"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "valuation",
+          "name": "VALUATION"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "floor_area",
+          "name": "FLOOR AREA"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "contractor_name",
+          "name": "CONTRACTOR NAME"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "contractor_address",
+          "name": "CONTRACTOR ADDRESS"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "contractor_phone",
+          "name": "CONTRACTOR PHONE"
+        },
+        {
+          "dataTypeName": "checkbox",
+          "description": null,
+          "fieldName": "created_online",
+          "name": "CREATED ONLINE"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": null,
+          "fieldName": "last_updated",
+          "name": "LAST UPDATED"
+        },
+        {
+          "dataTypeName": "location",
+          "description": null,
+          "fieldName": "geocoded_column",
+          "name": "New Georeferenced Column"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "This column was automatically created in order to record in what polygon from the dataset 'Atoms' (3j2u-hbuy) the point in column 'geocoded_column' is located. This enables the creation of region maps (choropleths) in the visualization canv",
+          "fieldName": ":@computed_region_3j2u_hbuy",
+          "name": "Atoms"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "This column was automatically created in order to record in what polygon from the dataset 'Zip Codes' (ka36-wfdn) the point in column 'geocoded_column' is located. This enables the creation of region maps (choropleths) in the visualization ",
+          "fieldName": ":@computed_region_ka36_wfdn",
+          "name": "Zip Codes"
+        }
+      ],
+      "datasetId": "dyzh-7eat",
+      "description": "Building permits in San Diego County, CA issued by Planning and Development Services since 2005 (updated daily)",
+      "geoFieldGuess": "geocoded_column",
+      "host": "data.sandiegocounty.gov",
+      "name": "Building Permits",
+      "registryKey": "sandiego",
+      "rowsUpdatedAt": 1724864580,
+      "viewLastModified": 1724864492
+    },
+    "data.seattle.gov:76t5-zqzr": {
+      "addressFieldGuess": "originaladdress1",
+      "category": "Built Environment",
+      "columns": [
+        {
+          "dataTypeName": "text",
+          "description": "The tracking number used to refer to this permit in SDCI's tracking system.",
+          "fieldName": "permitnum",
+          "name": "PermitNum"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The permit class tells you the type of project.",
+          "fieldName": "permitclass",
+          "name": "PermitClass"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "A description of whether the permit is for a residential or non-residential project.",
+          "fieldName": "permitclassmapped",
+          "name": "PermitClassMapped"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The permit type by category, such as building, demolition, roofing, grading, and environmentally critical areas.",
+          "fieldName": "permittypemapped",
+          "name": "PermitTypeMapped"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Additional information about the type of permit. For example, whether it is an addition/alternation or a new project.",
+          "fieldName": "permittypedesc",
+          "name": "PermitTypeDesc"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "A brief description of the work that will be done under this permit. This description is subject to change before SDCI issues the permit. The description is generally more stable if we have issued the permit. Very long descriptions have bee",
+          "fieldName": "description",
+          "name": "Description"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The change (net) in the number of housing units for the completed project.",
+          "fieldName": "housingunits",
+          "name": "HousingUnits"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The number of housing units removed during the project.",
+          "fieldName": "housingunitsremoved",
+          "name": "HousingUnitsRemoved"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The number of housing units added during the project.",
+          "fieldName": "housingunitsadded",
+          "name": "HousingUnitsAdded"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The estimated project cost of the work being proposed is based on fair market value (parts plus labor). The estimated cost (if any) represents the best available information to date, and is subject to change if the project is modified. We d",
+          "fieldName": "estprojectcost",
+          "name": "EstProjectCost"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "The date SDCI accepted the application as a complete submittal.",
+          "fieldName": "applieddate",
+          "name": "AppliedDate"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "The date SDCI issued the permit. If there is an Application Date but no Issue Date, this generally means the application is still under review.",
+          "fieldName": "issueddate",
+          "name": "IssuedDate"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "The date the application is due to expire. Generally, this is the date by which work is supposed to be completed (barring renewals or further extensions). If there is not an Expiration Date, this generally means the permit has not been issu",
+          "fieldName": "expiresdate",
+          "name": "ExpiresDate"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "The date the permit had all its inspections completed. If there is an Issue Date but not a Completed Date, this generally means the permit is still under inspection.",
+          "fieldName": "completeddate",
+          "name": "CompletedDate"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The current status in the application/review/inspection life cycle. This status shows the most recent process step that was fully completed.",
+          "fieldName": "statuscurrent",
+          "name": "StatusCurrent"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The land use permit that is related to this building permit, if there is one.",
+          "fieldName": "relatedmup",
+          "name": "RelatedMup"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The street name and number of the project.",
+          "fieldName": "originaladdress1",
+          "name": "OriginalAddress1"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The city for the project's address.",
+          "fieldName": "originalcity",
+          "name": "OriginalCity"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The state for the project's address.",
+          "fieldName": "originalstate",
+          "name": "OriginalState"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The Zip code for the project's address.",
+          "fieldName": "originalzip",
+          "name": "OriginalZip"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The contractor(s) associated with this permit.",
+          "fieldName": "contractorcompanyname",
+          "name": "ContractorCompanyName"
+        },
+        {
+          "dataTypeName": "url",
+          "description": "A link to view full details and current status information about this permit at SDCI's website.",
+          "fieldName": "link",
+          "name": "Link"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Latitude of the worksite where permit activity occurs. May be missing for a small number of permits considered \"unaddressable.\"",
+          "fieldName": "latitude",
+          "name": "Latitude"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "Longitude of the worksite where permit activity occurs. May be missing for a small number of permits considered \"unaddressable.\"",
+          "fieldName": "longitude",
+          "name": "Longitude"
+        },
+        {
+          "dataTypeName": "location",
+          "description": "The latitude and longitude location for mapping purposes.",
+          "fieldName": "location1",
+          "name": "Location1"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The number of calendar days between when a permit application was finished (the AppliedDate) and the date SDCI completed all plan reviews.",
+          "fieldName": "totaldaysplanreview",
+          "name": "TotalDaysPlanReview"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The number of calendar days between when a permit application was finished (the AppliedDate) and when the initial plan review was completed.",
+          "fieldName": "daysinitialplanreview",
+          "name": "DaysInitialPlanReview"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The number of calendar days in city control between when a permit application was finished (the AppliedDate) and when all plan reviews were completed.",
+          "fieldName": "daysplanreviewcity",
+          "name": "DaysPlanReviewCity"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The number of calendar days in the applicant's control for corrections between when a permit application was finished (the AppliedDate) and when all plan reviews were completed.",
+          "fieldName": "daysoutcorrections",
+          "name": "DaysOutCorrections"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The total number of review cycles completed for this permit. There may be multiple review cycles before a permit is issued.",
+          "fieldName": "numberreviewcycles",
+          "name": "NumberReviewCycles"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "The date SDCI completed the initial plan review.",
+          "fieldName": "initialreviewcompletedate",
+          "name": "InitialReviewCompleteDate"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "The date SDCI completed all plan reviews.",
+          "fieldName": "planreviewcompletedate",
+          "name": "PlanReviewCompleteDate"
+        },
+        {
+          "dataTypeName": "number",
+          "description": "The number of calendar days in city control between when a permit application was finished (the AppliedDate) and when SDCI issued the permit.",
+          "fieldName": "daysissuepermitcity",
+          "name": "DaysIssuePermitCity"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "The date SDCI is ready to issue the permit, pending payment of final permit fees.",
+          "fieldName": "readytoissuedate",
+          "name": "ReadyToIssueDate"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The zoning code for the project location.",
+          "fieldName": "zoning",
+          "name": "Zoning"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The type of housing being built.",
+          "fieldName": "dwellingunittype",
+          "name": "DwellingUnitType"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "A description of whether this permit uses a pre-approved DADU plan.",
+          "fieldName": "standardplan",
+          "name": "StandardPlan"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "A description of whether this permit is dependent on another permit application.",
+          "fieldName": "dependentbuilding",
+          "name": "DependentBuilding"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The permit number of the overarching permit related to this building permit, if there is one.",
+          "fieldName": "parentpermitnum",
+          "name": "ParentPermitNum"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "The type of created housing created such as single-family rebuilds, pre-approved DADUs, 'middle' multifamily housing, and 'large' multifamily housing.",
+          "fieldName": "housingcategory",
+          "name": "HousingCategory"
+        }
+      ],
+      "datasetId": "76t5-zqzr",
+      "description": "All building permits issued or in progress within the city of Seattle.",
+      "geoFieldGuess": "location1",
+      "host": "data.seattle.gov",
+      "name": "Building Permits",
+      "registryKey": "seattle",
+      "rowsUpdatedAt": 1777079187,
+      "viewLastModified": 1777079099
+    },
+    "data.sfgov.org:i98e-djp9": {
+      "addressFieldGuess": "location",
+      "category": "Housing and Buildings",
+      "columns": [
+        {
+          "dataTypeName": "text",
+          "description": "Permit Number. Permits that start with 'M' are miscellaneous permits for this like street use or address creation.",
+          "fieldName": "permit_number",
+          "name": "Permit Number"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Type of permit (i.e. Permit Application Form number)",
+          "fieldName": "permit_type",
+          "name": "Permit Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Definition of each permit type",
+          "fieldName": "permit_type_definition",
+          "name": "Permit Type Definition"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date that application is created in permit tracking system.",
+          "fieldName": "permit_creation_date",
+          "name": "Permit Creation Date"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Block",
+          "fieldName": "block",
+          "name": "Block"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Lot",
+          "fieldName": "lot",
+          "name": "Lot"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Street Number",
+          "fieldName": "street_number",
+          "name": "Street Number"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Street Number Suffix",
+          "fieldName": "street_number_suffix",
+          "name": "Street Number Suffix"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Street Name",
+          "fieldName": "street_name",
+          "name": "Street Name"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Street Suffix",
+          "fieldName": "street_suffix",
+          "name": "Street Suffix"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Unit",
+          "fieldName": "unit",
+          "name": "Unit"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Unit Suffix",
+          "fieldName": "unit_suffix",
+          "name": "Unit Suffix"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Description of permit scope of work",
+          "fieldName": "description",
+          "name": "Description"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Current Status. Note: this column should be in combination with the Approved, Issued, Completed dates.",
+          "fieldName": "status",
+          "name": "Current Status"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Current Status Date",
+          "fieldName": "status_date",
+          "name": "Current Status Date"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date permit was filed in permit tracking system",
+          "fieldName": "filed_date",
+          "name": "Filed Date"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date permit was issued (i.e. permit fees paid)",
+          "fieldName": "issued_date",
+          "name": "Issued Date"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date that completed work was finaled by inspection staff",
+          "fieldName": "completed_date",
+          "name": "Completed Date"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "For site permits, this is the date when the addenda marked as the first construction document (usually the first addenda) is issued.",
+          "fieldName": "first_construction_document_date",
+          "name": "First Construction Document Date"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date permit was approved",
+          "fieldName": "approved_date",
+          "name": "approved_date"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Structural Notification",
+          "fieldName": "structural_notification",
+          "name": "Structural Notification"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Number of Existing Stories",
+          "fieldName": "number_of_existing_stories",
+          "name": "Number of Existing Stories"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Number of Proposed Stories",
+          "fieldName": "number_of_proposed_stories",
+          "name": "Number of Proposed Stories"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Voluntary Soft-Story Retrofit",
+          "fieldName": "voluntary_soft_story_retrofit",
+          "name": "Voluntary Soft-Story Retrofit"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Fire Only Permit - i.e. permits where SFFD is is the only reviewing agency.",
+          "fieldName": "fire_only_permit",
+          "name": "Fire Only Permit"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Estimated project cost",
+          "fieldName": "estimated_cost",
+          "name": "Estimated Cost"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Revised project cost after project review",
+          "fieldName": "revised_cost",
+          "name": "Revised Cost"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Existing Use",
+          "fieldName": "existing_use",
+          "name": "Existing Use"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Existing number of units on site",
+          "fieldName": "existing_units",
+          "name": "Existing Units"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Proposed use",
+          "fieldName": "proposed_use",
+          "name": "Proposed Use"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Proposed number of units on site (after construction)",
+          "fieldName": "proposed_units",
+          "name": "Proposed Units"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Number of plan copies/ \"plansets\" submitted with application)",
+          "fieldName": "plansets",
+          "name": "Plansets"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Permit is required to pay the Transit Impact Development Fee. This fee is based on the square footage of commercial space being developed.",
+          "fieldName": "tidf_compliance",
+          "name": "TIDF Compliance"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Existing building occupancy code or codes",
+          "fieldName": "existing_occupancy",
+          "name": "Existing Occupancy"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Proposed building occupancy code or codes",
+          "fieldName": "proposed_occupancy",
+          "name": "Proposed Occupancy"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Existing Construction Type. See full definitions here: https://sf.gov/information/building-construction-type-definitions",
+          "fieldName": "existing_construction_type",
+          "name": "Existing Construction Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Existing Construction Type description. See full definitions here: https://sf.gov/information/building-construction-type-definitions",
+          "fieldName": "existing_construction_type_description",
+          "name": "Existing Construction Type Description"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Proposed Construction Type. See full definitions here: https://sf.gov/information/building-construction-type-definitions",
+          "fieldName": "proposed_construction_type",
+          "name": "Proposed Construction Type"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Proposed Construction Type description. See full definitions here: https://sf.gov/information/building-construction-type-definitions",
+          "fieldName": "proposed_construction_type_description",
+          "name": "Proposed Construction Type Description"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Site Permit",
+          "fieldName": "site_permit",
+          "name": "Site Permit"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Date of most recent activity on permit (or associated addenda for site permits) at any routing station.",
+          "fieldName": "last_permit_activity_date",
+          "name": "Last Permit Activity Date"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Indicates how the permit application was submitted to DBI, i.e. via DBI's permit web application form, SF.gov form, or in person. (Auto-generated by MIS based on other PTS data fields)",
+          "fieldName": "application_submission_method",
+          "name": "Application Submission Method"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "NOTE - this column was deprecated on 2/1/25, use primary_priority instead.Permit for an accessory dwelling unit (ADU)",
+          "fieldName": "adu",
+          "name": "ADU"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Indicates whether the address for the permit is the primary address identified by DBI",
+          "fieldName": "primary_address_flag",
+          "name": "Primary Address Flag"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Supervisor district the permit falls within",
+          "fieldName": "supervisor_district",
+          "name": "supervisor_district"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Analysis neighborhood the permit falls within",
+          "fieldName": "neighborhoods_analysis_boundaries",
+          "name": "neighborhoods_analysis_boundaries"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Zip code the permit falls within",
+          "fieldName": "zipcode",
+          "name": "Zipcode"
+        },
+        {
+          "dataTypeName": "point",
+          "description": "The latitude and longitude associated with the permit (based on block and lot, i.e. APN)",
+          "fieldName": "location",
+          "name": "Location"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Data source for the coordinate point data, i.e. parcel centroid or EAS Address point.",
+          "fieldName": "point_source",
+          "name": "point_source"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "A value of \u201cY\u201d in the Re-roofing field indicates that the permit is for an re-roofing project",
+          "fieldName": "reroof",
+          "name": "reroof"
+        },
+        {
+          "dataTypeName": "text",
+          "description": "Unique ID created from concatenating P_ADDR_ID & AVS_ADDRESSES_ID",
+          "fieldName": "record_id",
+          "name": "Record ID"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Timestamp when the record (row) was last updated in the source system",
+          "fieldName": "data_as_of",
+          "name": "data_as_of"
+        },
+        {
+          "dataTypeName": "calendar_date",
+          "description": "Timestamp when the record (row) was was last updated/ loaded into DataSF data portal",
+          "fieldName": "data_loaded_at",
+          "name": "data_loaded_at"
+        }
+      ],
+      "datasetId": "i98e-djp9",
+      "description": "<strong>Note: Starting on 12/10/2024 this dataset will only publish new records (rows) that are added and update any existing records that have updated information. New and updated records can be identified by using the data_as_of and data_loaded_at fields. To identify the most recent date when the dataset was last updated, use the maximum data_as_of or data_loaded_at value. </strong>\n\n<strong>A. SUMMARY</strong>\nThe dataset includes details of all building permit applications filed with the Department of Building Inspection. Permit numbers and associated information may be repeated in multipl",
+      "geoFieldGuess": "location",
+      "host": "data.sfgov.org",
+      "name": "Building Permits",
+      "registryKey": "sf",
+      "rowsUpdatedAt": 1777120178,
+      "viewLastModified": 1755626161
+    },
+    "internal.open.piercecountywa.gov:nhnt-v7ka": {
+      "addressFieldGuess": "siteaddress",
+      "category": null,
+      "columns": [
+        {
+          "dataTypeName": "point",
+          "description": null,
+          "fieldName": "the_geom",
+          "name": "the_geom"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "objectid",
+          "name": "OBJECTID"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "applicationnumber",
+          "name": "applicationNumber"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "applicationtype",
+          "name": "applicationType"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "applicationstatus",
+          "name": "applicationStatus"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "parcelnumber",
+          "name": "parcelNumber"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "worktype",
+          "name": "workType"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "buildingtype",
+          "name": "buildingType"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "housingtype",
+          "name": "housingType"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "sqfttotal",
+          "name": "sqFtTotal"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "buildingvaluation",
+          "name": "buildingValuation"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "dwellingunits",
+          "name": "dwellingUnits"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "stories",
+          "name": "stories"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "powercompany",
+          "name": "powerCompany"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "sewagedisposal",
+          "name": "sewageDisposal"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "acreage",
+          "name": "acreage"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "projectvalue",
+          "name": "projectValue"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "projectid",
+          "name": "projectId"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "applicationdept",
+          "name": "applicationDept"
+        },
+        {
+          "dataTypeName": "date",
+          "description": null,
+          "fieldName": "applicationdate",
+          "name": "applicationDate"
+        },
+        {
+          "dataTypeName": "date",
+          "description": null,
+          "fieldName": "submittaldate",
+          "name": "submittalDate"
+        },
+        {
+          "dataTypeName": "date",
+          "description": null,
+          "fieldName": "approvaldate",
+          "name": "approvalDate"
+        },
+        {
+          "dataTypeName": "date",
+          "description": null,
+          "fieldName": "denialdate",
+          "name": "denialDate"
+        },
+        {
+          "dataTypeName": "date",
+          "description": null,
+          "fieldName": "issueddate",
+          "name": "issuedDate"
+        },
+        {
+          "dataTypeName": "date",
+          "description": null,
+          "fieldName": "finaldate",
+          "name": "finalDate"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "workdescription",
+          "name": "workDescription"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "siteaddress",
+          "name": "siteAddress"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "projectname",
+          "name": "projectName"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "xcoord",
+          "name": "XCoord"
+        },
+        {
+          "dataTypeName": "number",
+          "description": null,
+          "fieldName": "ycoord",
+          "name": "YCoord"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "publicwater",
+          "name": "publicWater"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "urlonlinepermits",
+          "name": "urlOnlinePermits"
+        },
+        {
+          "dataTypeName": "text",
+          "description": null,
+          "fieldName": "lotssubmitted",
+          "name": "lotsSubmitted"
+        }
+      ],
+      "datasetId": "nhnt-v7ka",
+      "description": "This spatial data displays the locations of applications and permits that were reviewed and processed by Pierce County. It includes Building Permits, Development Engineering Permits, Environmental Permits, Fire Prevention Permits, Land Use Permits, and Sewer Permits. This data is extracted from the Planning and Public Works PALS Plus application. The permit points are placed using the XY coordinates from PALS Plus. Permits that have do not have XY coordinates in the PALS Plus application will not be in this spatial data. An example of this would be the parcel number associated with the applica",
+      "geoFieldGuess": "the_geom",
+      "host": "internal.open.piercecountywa.gov",
+      "name": "Permits - Pierce County",
+      "registryKey": "pierce_county_unincorp",
+      "rowsUpdatedAt": 1777123148,
+      "viewLastModified": 1749281817
+    }
+  }
+}

@@ -1,0 +1,2643 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Ch. 19.06 Lots, Setbacks and Residential Densities | Everett Municipal Code</title>
+
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Ch. 19.06 Lots, Setbacks and Residential Densities | Everett Municipal Code"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://everett.municipal.codes/EMC/19.06.020"/>
+	<meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="Everett Municipal Code"/>
+<meta name="twitter:card" content="summary"/>
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="v7Bnw729nQvbl0VLuHv9YuUMBLTu9GCphFiQF3toLF3mJ2V_Ym5nRDGWxPgyOdKF9A4YW1n1_VJKLXeNxucikQ" />
+
+
+
+	<link
+		rel="canonical"
+		href="/EMC/19.06#19.06.020"
+	/>
+	<link
+		rel="prev"
+		href="/EMC/19.05"
+			title="Ch. 19.05, Uses"
+	/>
+	<link
+		rel="next"
+		href="/EMC/19.07"
+			title="Ch. 19.07, Small Lots, Duplexes, Accessory Buildings"
+	/>
+	<link
+		rel="up"
+		href="/EMC/19"
+			title="Title 19, Unified Development Code"
+	/>
+
+	<link rel="stylesheet" href="/interface.css?v=1684534633" />
+
+	<link rel="stylesheet" href="/EMC/content.css?v=1775579546" />
+
+<link rel="stylesheet" href="/custom.css?v=1777004822" />
+
+<link rel="preload" href="/fonts/glyphicons-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
+<script src="/assets/interface-f2c60572a11d309c6e0e0abe28fdc9ff8d07b3e45dfb8203ac5dc8bf9e1cf931.js" defer="defer"></script>
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-47XLS05727"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		window.googleParams = {
+			prefix: '/WA/Everett',
+			tagId: 'G-47XLS05727',
+		};
+	</script>
+
+
+<link rel="icon" href="/images/host-icon.png" type="image/png" sizes="192x192"/>
+<link rel="apple-touch-icon" href="/images/host-icon.png" sizes="192x192"/>
+<link rel="manifest" href="/manifest.json" crossorigin="anonymous"/>
+
+
+</head>
+
+<body
+	class="section_previews definition_previews document_hosting pending_updates historic_versions running-text"
+	 data-product="EMC"
+>
+<div class="inner">
+
+<a class="sr-only sr-only-focusable" href="#main-column">Skip to main content</a>
+
+<div
+	class="progress siteprogress"
+	data-controller="siteprogress"
+	data-siteprogress-active-class="siteprogress--active"
+>
+	<div
+		class="progress-bar progress-bar-striped progress-bar-animated"
+		role="progressbar"
+	>
+		Loading…
+	</div>
+</div>
+
+
+<div class="statusflags" data-controller="statusflags">
+
+
+
+</div>
+
+
+<header id="site-header" class="hidden-print">
+<div class="inner">
+
+	<a class="organization-logo no-custom-style" title="City of Everett, Washington" href="https://www.everettwa.gov/"></a>
+
+	<a class="organization-name" title="City of Everett, Washington" href="https://www.everettwa.gov/">Everett, WA</a>
+
+	<a class="product-name" title="Everett Municipal Code" href="/EMC">
+		Municipal Code
+		
+</a>
+	<div class="links">
+			<a rel="external" class="link " href="https://everettwa.gov/27/Your-City">Your City</a>
+			<a rel="external" class="link " href="https://everettwa.gov/31/Services">Services</a>
+			<a rel="external" class="link " href="https://everettwa.gov/35/Doing-Business">Doing Business</a>
+			<a rel="external" class="link " href="https://everettwa.gov/1996/Live-Visit">Live &amp; Visit</a>
+			<a rel="external" class="link " href="https://everettwa.gov/9/I-Want-To">I Want To...</a>
+	</div>
+
+</div>
+</header>
+
+
+<div id="navbars">
+
+	<nav class="sitenavbar navbar navbar-expand-md navbar-dark" data-controller="sitenavbar">
+<div class="container-fluid">
+	<ul class="sitenavbar-compact nav navbar-nav d-md-none">
+		<li class="sitenavbar-home nav-item">
+			<a
+				class="nav-link nav-home"
+				href="/"
+			>
+				<span class="glyphicons glyphicons-home" aria-hidden="true"></span
+				><span class="text">Home</span>
+			</a>
+		</li>
+		<li class="sitenavbar-previous nav-item">
+				<a
+					class="nav-link"
+					href="/EMC/19.05"
+					title="Ch. 19.05, Uses"
+				>
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span
+					><span class="text">Ch. 19.05</span>
+				</a>
+		</li>
+		<li class="sitenavbar-up nav-item">
+				<a
+					class="nav-link"
+					href="/EMC/19"
+					title="Title 19, Unified Development Code"
+				>
+					<span class="glyphicons glyphicons-arrow-up" aria-hidden="true"></span
+					><span class="text">Title 19</span>
+				</a>
+		</li>
+		<li class="sitenavbar-next nav-item">
+				<a
+					class="nav-link"
+					href="/EMC/19.07"
+					title="Ch. 19.07, Small Lots, Duplexes, Accessory Buildings"
+				>
+					<span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span
+					><span class="text">Ch. 19.07</span>
+				</a>
+		</li>
+		<button
+			type="button"
+			class="sitenavbar-toggler navbar-toggler collapsed"
+			data-toggle="collapse"
+			data-target="#a84580005-6467-4972-96b4-ded778909da8"
+			aria-expanded="false"
+		>
+			<span class="sr-only">Toggle site navigation</span>
+			<span class="navbar-toggler-icon"></span>
+			<span class="text">Menu</span>
+		</button>
+	</ul>
+	<div id="a84580005-6467-4972-96b4-ded778909da8" class="sitenavbar-full collapse navbar-collapse">
+		<div class="inner">
+			<div class="sitenavbar-search">
+					<form class="form-inline navbar-right" role="search" action="/search" accept-charset="UTF-8" method="get">
+					<div class="form-group">
+					<div class="input-group">
+						<input
+							type="text"
+							name="q"
+							class="sitenavbar-search-input form-control"
+							required="required"
+							placeholder="Search Municipal Code"
+							aria-label="Enter one or more terms to search for."
+							autocomplete="off"
+						/>
+						<span class="input-group-btn">
+							<button
+								type="submit"
+								class="sitenavbar-search-button btn btn-primary"
+								data-toggle="tooltip"
+								title="Search the Municipal Code for the term(s) you entered."
+							>
+								<span class="glyphicons glyphicons-search" aria-hidden="true"></span>
+							</button>
+						</span>
+						<input type="hidden" name="doc[]" value="EMC">
+						
+					</div>
+					</div>
+</form>							<nav
+	aria-label="Breadcrumbs"
+	class="breadcrumbs breadcrumbs--compact d-block d-md-none"
+	data-controller="breadcrumbs"
+>
+	<ul class="breadcrumbs-list breadcrumb">
+		<li class="breadcrumbs-organization breadcrumb-item"
+			><a
+				href="https://www.everettwa.gov/"
+				class="breadcrumbs-link"
+			>City of Everett</a
+		></li><li class="breadcrumb-item"
+					><a
+						href="/EMC"
+						class="breadcrumbs-link"
+					>
+						Municipal Code
+						</a
+				></li
+			><li class="breadcrumb-item"
+					><a
+						href="/EMC/19"
+						class="breadcrumbs-link"
+					>Title 19, Unified Development Code</a
+				></li
+			><li class="breadcrumbs-chunk breadcrumb-item"
+				><a
+					href="/EMC/19.06"
+					class="breadcrumbs-link"
+					data-breadcrumbs-target="chunk"
+				>Ch. 19.06, Lots, Setbacks and Residential Densities</a
+			></li><li class="breadcrumbs-onpage breadcrumb-item d-none" data-breadcrumbs-target="onpage"
+					><a
+						href
+						data-breadcrumbs-target="onpagelink"
+					></a
+				></li>
+	</ul>
+</nav>
+
+
+			</div>
+			<ul class="navbar-nav">
+				<li class="sitenavbar-home nav-item d-none d-md-block">
+					<a
+						href="/"
+						class="nav-link"
+						data-toggle="tooltip"
+						title="Browse all available publications."
+					>
+						<span class="glyphicons glyphicons-home" aria-hidden="true"></span
+						><span class="text">Home</span>
+					</a>
+				</li>
+					<li class="sitenavbar-contents nav-item">
+						<a
+							class="nav-link"
+							href="/EMC/contents"
+							data-toggle="modal"
+							data-target="#contents"
+							data-remote="false"
+							data-toggle2="tooltip"
+							title="Search or browse the full contents of this publication or others."
+						>
+							<span class="glyphicons glyphicons-list" aria-hidden="true"></span
+							><span class="text">Contents</span>
+						</a>
+					</li>
+				<li class="sitenavbar-track nav-item dropdown">
+	    			<button
+						type="button"
+						id="ab17a561b-36bc-4e3d-8e8f-a9dd7d360197"
+						class="sitenavbar-dropdown-toggle btn btn-link nav-link dropdown-toggle"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+						data-toggle2="tooltip"
+						title="Review legislation, meetings, and code changes over time."
+					>
+						<span class="glyphicons glyphicons-history" aria-hidden="true"></span
+						><span class="text">Track</span>
+					</button>
+					<div
+						class="sitenavbar-dropdown-menu dropdown-menu"
+						aria-labelledby="ab17a561b-36bc-4e3d-8e8f-a9dd7d360197"
+					>
+						<a class="dropdown-item" href="/enactments">
+							Legislative History
+						</a>
+							<a
+								href="/EMC/versions?home=false&amp;node=19.06.020"
+								class="dropdown-item "
+								data-controller="dynamodal"
+							>
+								Historic Versions
+							</a>
+							<a
+								class="dropdown-item"
+								href="/enactments?status=codifying"
+							>
+								Pending Updates
+							</a>
+					</div>
+				</li>
+				<li class="sitenavbar-share nav-item dropdown">
+					<button
+						type="button"
+						id="a9d316e18-56e2-415c-998d-875c11bbee33"
+						class="sitenavbar-dropdown-toggle btn btn-link nav-link dropdown-toggle"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+						data-toggle2="tooltip"
+						title="Save, share, bookmark or print this page or your selections."
+					>
+						<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span
+						><span class="text">Share</span>
+					</button>
+					<div
+						class="sitenavbar-dropdown-menu dropdown-menu"
+						aria-labelledby="a9d316e18-56e2-415c-998d-875c11bbee33"
+					>
+						<a
+							href="/EMC/19.06/share"
+							class="dropdown-item"
+							data-controller="dynamodal"
+							rel="nofollow"
+						>
+							This Page
+						</a>
+						<a
+							href="/selections/share"
+							class="sitenavbar-selections dropdown-item selections disabled"
+							data-controller="dynamodal"
+							data-dynamodal-selections-value="true"
+							rel="nofollow"
+						>
+							Your Selections
+							<span class="badge badge-pill badge-primary"></span>
+						</a>
+					</div>
+				</li>
+				<li class="sitenavbar-settings nav-item">
+					<a
+						class="nav-link"
+						href="/settings"
+						role="button"
+						data-controller="dynamodal"
+						data-toggle="tooltip"
+						title="Choose how this site appears to you."
+					>
+						<span class="glyphicons glyphicons-cogwheels" aria-hidden="true"></span
+						><span class="text">Settings</span>
+					</a>
+				</li>
+				<li class="sitenavbar-help nav-item">
+					<a
+						class="nav-link"
+						href="/help"
+						target="_blank"
+						role="button"
+						data-toggle="tooltip"
+						title="Learn how to use the features of this site."
+					>
+						<span class="glyphicons glyphicons-question-sign" aria-hidden="true"></span
+						><span class="text">Help</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</nav>
+
+	
+
+	
+
+	
+
+	
+
+</div>
+
+<div id="container" class="container" data-controller="container">
+	<div id="container-main">
+		<div id="main-column" class="">
+					<nav
+	aria-label="Breadcrumbs"
+	class="breadcrumbs breadcrumbs--main d-none d-md-block"
+	data-controller="breadcrumbs"
+>
+	<ul class="breadcrumbs-list breadcrumb">
+		<li class="breadcrumbs-organization breadcrumb-item"
+			><a
+				href="https://www.everettwa.gov/"
+				class="breadcrumbs-link"
+			>City of Everett</a
+		></li><li class="breadcrumb-item"
+					><a
+						href="/EMC"
+						class="breadcrumbs-link"
+					>
+						Municipal Code
+						</a
+				></li
+			><li class="breadcrumb-item"
+					><a
+						href="/EMC/19"
+						class="breadcrumbs-link"
+					>Title 19, Unified Development Code</a
+				></li
+			><li class="breadcrumbs-chunk breadcrumb-item"
+				><a
+					href="/EMC/19.06"
+					class="breadcrumbs-link"
+					data-breadcrumbs-target="chunk"
+				>Ch. 19.06, Lots, Setbacks and Residential Densities</a
+			></li>
+	</ul>
+</nav>
+
+		
+		<main xmlns="http://www.w3.org/1999/xhtml" id="main" class="main nodes" lang="en" xml:lang="en">
+<div class="levelnodes" data-controller="levelnodes">
+	<div class="levelnodeactions d-flex justify-content-center" data-levelnodes-target="actions" data-controller="levelnodeactions">
+	<span class="dropdown">
+		<button type="button" class="btn btn-link action dropdown-toggle" data-toggle="dropdown" data-toggle2="tooltip" aria-haspopup="true" aria-expanded="false" title="Find Related">
+			<span class="glyphicons glyphicons-search" aria-hidden="true"></span>
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="/EMC/19.06/search" rel="nofollow" data-levelnodeactions-target="search">Search Within This</a>
+		</div>
+	</span>
+	<a href="/EMC/19.06/history" class="action history" role="button" data-controller="dynamodal" data-toggle="tooltip" data-levelnodeactions-target="history" title="History of This nodeType" rel="nofollow">
+		<span class="glyphicons glyphicons-history" aria-hidden="true"></span>
+	</a>
+	<a href="/EMC/19.06/share" class="action share" role="button" data-controller="dynamodal" data-toggle="tooltip" data-levelnodeactions-target="share" title="Save, Share, Bookmark or Print" rel="nofollow">
+		<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span>
+	</a>
+	<input type="checkbox" class="levelnodeactions-selector selections-selector secondary" data-toggle="tooltip" title="Include in Your Selections" data-levelnodeactions-target="selector" autocomplete="off"/><span></span>
+</div>
+
+	<article class="level4 chunking-large type-Chapter chunknode" id="19.06" data-cite="Chapter 19.06 EMC" data-short-cite="Ch. 19.06"><header class=" mini-header" data-type="Chapter" data-search="/EMC/19.06/search" data-share="/EMC/19.06/share" data-levelnodes-target="header"><h4 class=" inner-header"><span class="num">Chapter 19.06</span> <span class="name">LOTS, SETBACKS AND RESIDENTIAL DENSITIES</span></h4></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This chapter is included in your selections.</span>
+</div>
+
+
+
+
+<p class="tocHeading heading">Sections:</p><ul class="toc from-level4 to-level6">
+
+<li class="tocItem level6"><a href="19.06.010"><span class="num">19.06.010</span> <span class="name">Minimum lot area, width, depth, frontage.</span></a></li>
+<li class="tocItem level6"><a href="19.06.020"><span class="num">19.06.020</span> <span class="name">Building setbacks/building placement standards.</span></a></li>
+<li class="tocItem level6"><a href="19.06.030"><span class="num">19.06.030</span> <span class="name">Exceptions to building or structure placement requirements.</span></a></li>
+<li class="tocItem level6"><a href="19.06.040"><span class="num">19.06.040</span> <span class="name">Calculation of lot area.</span></a></li>
+<li class="tocItem level6"><a href="19.06.050"><span class="num">19.06.050</span> <span class="name">Lot type and lot line identification.</span></a></li>
+<li class="tocItem level6"><a href="19.06.060"><span class="num">19.06.060</span> <span class="name">Lot requirements for lots created or modified through land division.</span></a></li>
+<li class="tocItem level6"><a href="19.06.070"><span class="num">19.06.070</span> <span class="name">Minimum lot area&#x2014;Averaging in land divisions.</span></a></li>
+<li class="tocItem level6"><a href="19.06.080"><span class="num">19.06.080</span> <span class="name">Land divisions&#x2014;Exceptions to minimum lot area, width, depth, frontage and lot coverage.</span></a></li>
+<li class="tocItem level6"><a href="19.06.090"><span class="num">19.06.090</span> <span class="name">Other administrative modifications of development standards.</span></a></li>
+<li class="tocItem level6"><a href="19.06.100"><span class="num">19.06.100</span> <span class="name">Residential densities.</span></a></li>
+<li class="tocItem level6"><a href="19.06.110"><span class="num">19.06.110</span> <span class="name">Density and lot size&#x2014;Neighborhood residential-constrained zone.</span></a></li>
+</ul>
+<article class="level6 chunking-small type-Section has-history" id="19.06.010" data-cite="EMC 19.06.010" data-short-cite="19.06.010" data-history="/EMC/19.06.010/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.010/search" data-share="/EMC/19.06.010/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.010</span> <span class="name">Minimum lot area, width, depth, frontage.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p>Minimum requirements for <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a>, width, depth, <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontage</a> and maximum <a class="def" href="19.04.040__4ad8896f691fe154ff6eea944fc33673">lot coverage by building</a> standards are shown in Table 6-1 below. Note there <a class="def" href="19.04.010">may</a> be additional requirements for individual <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zones</a> based on specific land <a class="def" href="19.04.010">use</a> types. Exceptions to these standards <a class="def" href="19.04.010">may</a> be granted for <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> created through a <a class="def" href="19.04.030__4bdf900af8dc45746c2bfc12e357cec2">binding site plan</a> or unit <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> land division as allowed in EMC <a class="cite" href="19.06.080" title="19.06.080&#x2002;Land divisions&#x2014;Exceptions to minimum lot area, width, depth, frontage and lot coverage">19.06.080</a>.</p>
+<figure class="type-Table" data-cite="Table 6-1">
+<table class="role-medium table-ruled-outside-both table-ruled-inside-both"><caption><p class="header"><span class="num">Table 6-1:&#x2002;</span><span class="name">Minimum Lot Area, Width, Depth, Frontage, Lot Coverage by Building</span></p>
+
+
+
+</caption><colgroup><col style="width: 70.3pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/><col style="width: 39pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/><col style="width: 31.1pt;"/>
+</colgroup><thead>
+<tr>
+<th>
+<p><b>ZONE</b></p>
+</th>
+<th>
+<p><b>NR-C</b></p>
+</th>
+<th>
+<p><b>NR</b></p>
+</th>
+<th>
+<p><b>UR4</b></p>
+</th>
+<th>
+<p><b>UR7</b></p>
+</th>
+<th>
+<p><b>MU4</b></p>
+</th>
+<th>
+<p><b>MU7</b></p>
+</th>
+<th>
+<p><b>MU15</b></p>
+</th>
+<th>
+<p><b>MU25</b></p>
+</th>
+<th>
+<p><b>LI-MU</b></p>
+</th>
+<th>
+<p><b>LI</b></p>
+</th>
+<th>
+<p><b>HI</b></p>
+</th>
+<th>
+<p><b>AG</b></p>
+</th>
+</tr>
+<tr>
+<th class="left" colspan="13">
+<p>STANDARDS<sup><a class="fn" href="19.06.010#19.06.010__1)" title="(1)">1</a></sup>:</p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>
+<p>Min. <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">Lot Area</a></p>
+</td>
+<td class="center">
+<p>9,000 sf </p>
+</td>
+<td class="center">
+<p>5,000 sf </p>
+</td>
+<td class="center">
+<p>5,000 sf</p>
+</td>
+<td class="center">
+<p>5,000 sf</p>
+</td>
+<td class="center">
+<p>5,000 sf</p>
+</td>
+<td class="center">
+<p>5,000 sf</p>
+</td>
+<td class="center">
+<p>5,000 sf</p>
+</td>
+<td class="center">
+<p>5,000 sf</p>
+</td>
+<td class="center">
+<p>5,000 sf</p>
+</td>
+<td class="center">
+<p>2.5 acres</p>
+</td>
+<td class="center">
+<p>1 acre</p>
+</td>
+<td>
+<p>5 acres</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a class="def" href="19.04.040__bd500533e607804a9274837e5cd04c6f">Lot Width</a>, Min.</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>50'</p>
+</td>
+<td class="center">
+<p>150'</p>
+</td>
+<td class="center">
+<p>100'</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a class="def" href="19.04.040__440deb2c1cf84ef9ad058c059c72a709">Lot Depth</a>, Min.</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>80'</p>
+</td>
+<td class="center">
+<p>150'</p>
+</td>
+<td class="center">
+<p>100'</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a class="def" href="19.04.040__9cde7eb4c4dc91ef1d1edaec48c3ba1f">Lot Frontage</a>, Min.</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td class="center">
+<p>40'</p>
+</td>
+<td>
+<p>40'</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Maximum <a class="def" href="19.04.040__4ad8896f691fe154ff6eea944fc33673">Lot Coverage by Building</a></p>
+</td>
+<td class="center">
+<p>35%</p>
+</td>
+<td class="center">
+<p>50%<sup><a class="fn" href="19.06.010#19.06.010__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td class="center">
+<p>N/A</p>
+</td>
+<td>
+<p>N/A</p>
+</td>
+</tr>
+</tbody></table>
+<div class="note"><p class="header"><span class="name">Footnotes for Table 6-1:</span></p>
+
+
+</div>
+<div class="note" id="19.06.010__1)"><p><span class="header num-only"><span class="num">(1)</span></span>See EMC <a class="cite" href="19.06.070" title="19.06.070&#x2002;Minimum lot area&#x2014;Averaging in land divisions">19.06.070</a> and <a class="cite" href="19.06.080" title="19.06.080&#x2002;Land divisions&#x2014;Exceptions to minimum lot area, width, depth, frontage and lot coverage">19.06.080</a> for exceptions to minimum <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> requirements.</p>
+
+
+
+</div>
+<div class="note" id="19.06.010__2)"><p><span class="header num-only"><span class="num">(2)</span></span><a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">Lots</a> with two <a class="def" href="19.04.050__966fc300b19a16ac907029d697d780b0">dwelling units</a> allow additional five percent <a class="def" href="19.04.040__4ad8896f691fe154ff6eea944fc33673">lot coverage by building</a>; <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> with three or more <a class="def" href="19.04.050__966fc300b19a16ac907029d697d780b0">dwelling units</a> allow additional ten percent <a class="def" href="19.04.040__4ad8896f691fe154ff6eea944fc33673">lot coverage by building</a>.</p>
+
+
+
+</div>
+</figure>
+
+<div class="note history history--linked" data-action="click-&gt;levelnodes#openHistory"><p>(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3845-21 &#xA7;&#xA0;1, 2021; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</p></div>
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.020" data-cite="EMC 19.06.020" data-short-cite="19.06.020" data-history="/EMC/19.06.020/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.020/search" data-share="/EMC/19.06.020/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.020</span> <span class="name">Building setbacks/building placement standards.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.020(A)" data-cite="EMC 19.06.020(A)" data-short-cite="19.06.020(A)"><p><span class="header"><span class="num">A.&#x2002;</span><span class="name">Minimum Building Setbacks for Principal Structures.</span> </span>The standards set forth in Table 6-2 below apply to all new <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">development</a>. Also refer to Chapter <a class="cite" href="19.22" title="Ch. 19.22&#x2002;Building and Structure Heights">19.22</a> EMC, <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">Building</a> and <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">Structure</a> Heights.</p>
+
+
+
+
+<figure class="type-Table" data-cite="Table 6-2">
+<table class="role-medium table-ruled-outside-both table-ruled-inside-both"><caption><p class="header"><span class="num">Table 6-2:&#x2002;</span><span class="name">Minimum Building Setbacks for Principal Structures</span></p>
+
+
+
+</caption><colgroup><col style="width: 64.2pt;"/><col style="width: 31.8pt;"/><col style="width: 31.8pt;"/><col style="width: 31.8pt;"/><col style="width: 34.1pt;"/><col style="width: 31.8pt;"/><col style="width: 32.6pt;"/><col style="width: 32.6pt;"/><col style="width: 33.9pt;"/><col style="width: 33.9pt;"/><col style="width: 33.9pt;"/><col style="width: 33.9pt;"/><col style="width: 33.9pt;"/>
+</colgroup><thead>
+<tr>
+<th>
+<p><b>ZONE</b></p>
+</th>
+<th>
+<p><b>NR-C</b></p>
+</th>
+<th>
+<p><b>NR</b></p>
+</th>
+<th>
+<p><b>UR4</b></p>
+</th>
+<th>
+<p><b>UR7</b></p>
+</th>
+<th>
+<p><b>MU4</b></p>
+</th>
+<th>
+<p><b>MU7</b></p>
+</th>
+<th>
+<p><b>MU15</b></p>
+</th>
+<th>
+<p><b>MU25</b></p>
+</th>
+<th>
+<p><b>LI-MU</b></p>
+</th>
+<th>
+<p><b>LI</b></p>
+</th>
+<th>
+<p><b>HI</b></p>
+</th>
+<th>
+<p><b>AG</b></p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>
+<p class="heading">Minimum <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">Setback</a>:</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>
+<p>Front</p>
+</td>
+<td class="center">
+<p>20'</p>
+</td>
+<td class="center">
+<p>10'</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>20'</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>25'</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Rear (with <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a>)</p>
+</td>
+<td class="center">
+<p>20'<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__5)" title="(5)">(5)</a></sup></p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__1)" title="(1)">(1)</a></sup></p>
+</td>
+<td class="center">
+<p>10'<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__1)" title="(1)">(1)</a></sup></p>
+</td>
+<td class="center">
+<p>25'</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Rear (no <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a>)</p>
+</td>
+<td class="center">
+<p>20'</p>
+</td>
+<td class="center">
+<p>5'</p>
+</td>
+<td class="center">
+<p>5'</p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>15'<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__1)" title="(1)">(1)</a></sup></p>
+</td>
+<td class="center">
+<p>10'<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__1)" title="(1)">(1)</a></sup></p>
+</td>
+<td>
+<p>25'</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Side, <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">Street</a></p>
+</td>
+<td class="center">
+<p>10'</p>
+</td>
+<td class="center">
+<p>5'</p>
+</td>
+<td class="center">
+<p>5'</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td>
+<p>None</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>20'</p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>10'</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Side, Interior</p>
+</td>
+<td class="center">
+<p>5'<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__5)" title="(5)">(5)</a></sup></p>
+</td>
+<td class="center">
+<p>5'<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__5)" title="(5)">(5)</a></sup></p>
+</td>
+<td class="center">
+<p>5'<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__3)" title="(3)">(3)</a></sup></p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__3)" title="(3)">(3)</a></sup></p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>None</p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__2)" title="(2)">(2)</a></sup></p>
+</td>
+<td class="center">
+<p>15'<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__1)" title="(1)">(1)</a></sup></p>
+</td>
+<td class="center">
+<p>None<sup><a class="fn" href="19.06.020(A)#19.06.020(A)__1)" title="(1)">(1)</a></sup></p>
+</td>
+<td class="center">
+<p>10'</p>
+</td>
+</tr>
+</tbody></table>
+<div class="note"><p class="header"><span class="name">Footnotes:</span></p>
+
+
+</div>
+<div class="note" id="19.06.020(A)__1)"><p><span class="header num-only"><span class="num">(1)</span></span>Twenty-five feet when abutting <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> located in residential <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zones</a>.</p>
+
+
+
+</div>
+<div class="note" id="19.06.020(A)__2)"><p><span class="header num-only"><span class="num">(2)</span></span>Ten feet when abutting <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> located in residential <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zones</a>, except within centers.</p>
+
+
+
+</div>
+<div class="note" id="19.06.020(A)__3)"><p><span class="header num-only"><span class="num">(3)</span></span>Ten feet when abutting <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> located in the NR <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a>.</p>
+
+
+
+</div>
+<div class="note" id="19.06.020(A)__4)"><p><span class="header num-only"><span class="num">(4)</span></span>No side, <a class="def" href="19.04.040__910539449fa5239f21d1809932d575ec">interior setback</a> is required within centers.</p>
+
+
+
+</div>
+<div class="note" id="19.06.020(A)__5)"><p><span class="header num-only"><span class="num">(5)</span></span>No side, <a class="def" href="19.04.040__910539449fa5239f21d1809932d575ec">interior setback</a> required when the <a class="def" href="19.04.030__37a4bcf6ab3a2d13d7e2c6237d6fa377">side lot line</a> abuts an <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a>.</p>
+
+
+
+</div>
+</figure>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.020(B)" data-cite="EMC 19.06.020(B)" data-short-cite="19.06.020(B)"><p><span class="header"><span class="num">B.&#x2002;</span><span class="name">Average Front Setback&#x2014;Residential Structures in Residential Zones.</span> </span>In certain instances, existing residential dwellings do not meet the current front <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> standard for the applicable <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a> district. In such cases, the <a class="def" href="19.04.020__d30e5176357e29420736c4872099fbc5">applicant</a> <a class="def" href="19.04.010">may</a> <a class="def" href="19.04.010">use</a> the average of the existing front <a class="def" href="19.04.030__d84a9cefcef12b0be99c98cdd1295a1a">facade</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> of the two nearest and adjacent existing residential <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">buildings</a> on the same side of the <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> as the minimum required front <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> for the <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a>. For <a class="def" href="19.04.030__12d1fd17d08427275300697a0abf5be9">corner lots</a>, the <a class="def" href="19.04.020__d30e5176357e29420736c4872099fbc5">applicant</a> <a class="def" href="19.04.010">may</a> <a class="def" href="19.04.010">use</a> the same <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> as the adjacent <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> on the same side of the <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a>. This provision <a class="def" href="19.04.010">shall</a> apply to principal dwellings only. The resulting <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> <a class="def" href="19.04.010">shall</a> not be less than fifty percent of the required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> standard.</p>
+
+
+
+
+<figure class="type-Figure" data-cite="Figure 6-1" data-short-cite="Fig. 6-1">
+<figcaption><p class="header"><span class="num">Figure 6-1:&#x2002;</span><span class="name">Building Placement</span></p>
+
+
+
+</figcaption>
+<picture class="role-medium">
+<img class="role-medium web-winner" src="media/19.06.020.png" data-rank="62" style="width: 327pt;height: 156pt;"/>
+</picture>
+</figure>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.020(C)" data-cite="EMC 19.06.020(C)" data-short-cite="19.06.020(C)"><p><span class="header"><span class="num">C.&#x2002;</span><span class="name">Additional Building Placement Requirements (Applicable Within Metro Everett Only).</span> </span>Front or side <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> (corner) <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a> ten feet or more. Any <a class="def" href="19.04.020__8318d00ccb739d30ae2eda1d752df87a">principal building</a> set back ten feet or more from the minimum front or side <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> (corner) <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> line <a class="def" href="19.04.010">shall</a> include design features, such as a plaza or forecourt (see EMC <a class="cite" href="19.09.260(C)" title="19.09.260(C)&#x2002;Plazas and Forecourts">19.09.260(C)</a>), along the front or side <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> (corner) <a class="def" href="19.04.030__cd3945f06e40f28386a61ffd62a0a222">lot line</a> in order to provide an impression of a continuous <a class="def" href="19.04.030__d84a9cefcef12b0be99c98cdd1295a1a">facade</a> line at the front <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a>.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.020(D)" data-cite="EMC 19.06.020(D)" data-short-cite="19.06.020(D)"><p class="header"><span class="num">D.&#x2002;</span><span class="name">Reduced Setback for Neighborhood Commercial Uses Under EMC 19.05.045.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.020(D)(a)" data-cite="EMC 19.06.020(D)(a)" data-short-cite="19.06.020(D)(a)"><p><span class="header num-only"><span class="num">a.&#x2002;</span></span>Minimum front and side <a class="def" href="19.04.040__5600814787b526f6a2d3bef2d05ea9a6">street setback</a>: two feet.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.020(D)(b)" data-cite="EMC 19.06.020(D)(b)" data-short-cite="19.06.020(D)(b)"><p><span class="header num-only"><span class="num">b.&#x2002;</span></span>Maximum <a class="def" href="19.04.040__818a306ac7a4b7585e6db25f0a65a2ef">front setback</a>: twenty feet, upper stories <a class="def" href="19.04.010">may</a> be set back for residential <a class="def" href="19.04.010">uses</a>.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.020(E)" data-cite="EMC 19.06.020(E)" data-short-cite="19.06.020(E)"><p class="heading"><span class="header"><span class="num">E.&#x2002;</span><span class="name">Building Setbacks for Residential Accessory Buildings and Accessory Structures in Residential Zones.</span> </span>The following <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> requirements apply to all <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">buildings</a> and <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structures</a> which are accessory to residential <a class="def" href="19.04.010">uses</a> in all residential <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zones</a>:</p>
+
+
+
+
+<figure class="type-Table" data-cite="Table 6-3">
+<table class="role-medium table-ruled-outside-both table-ruled-inside-both"><caption><p class="header"><span class="num">Table 6-3:&#x2002;</span><span class="name">Setbacks for Accessory Buildings and Accessory Structures (Attached and Detached) in Residential Zones</span></p>
+
+
+
+</caption><colgroup><col style="width: 100pt;"/><col style="width: 380pt;"/>
+</colgroup><thead>
+<tr>
+<th>
+<p class="heading"><b>MINIMUM SETBACK:</b></p>
+</th>
+<th>
+<p class="heading"><b>STANDARD:</b></p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>
+<p>Front and side, <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a></p>
+</td>
+<td>
+<p>a)&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.020__51a9701e64e4c3a0bf91db1aa7397597">Accessory buildings</a> and <a class="def" href="19.04.020__dd05aeb3f908a7a6e67c928c71e5476b">accessory structures</a> <a class="def" href="19.04.010">shall</a> not be located in front <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> areas or <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> side <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> areas for <a class="def" href="19.04.030__12d1fd17d08427275300697a0abf5be9">corner lots</a>, except as provided by b) below.</p>
+<p>b)&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.020__51a9701e64e4c3a0bf91db1aa7397597">Accessory buildings</a> and <a class="def" href="19.04.020__dd05aeb3f908a7a6e67c928c71e5476b">accessory structures</a> on a <a class="def" href="19.04.030__12d1fd17d08427275300697a0abf5be9">corner lot</a> with doors or openings for vehicles facing and accessing the side <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> <a class="def" href="19.04.010">shall</a> be set back a minimum of 10 feet from the side <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> <a class="def" href="19.04.030__cd3945f06e40f28386a61ffd62a0a222">lot line</a> or a minimum of 20 feet from the public sidewalk, whichever is greater. If there is no public sidewalk, the <a class="def" href="19.04.020__bd211164397850d5e1613208425d0efd">planning director</a>, with input from the <a class="def" href="19.04.020__a7ab84800f678f74eca124169725e7ee">city engineer</a> <a class="def" href="19.04.010">shall</a> determine if there <a class="def" href="19.04.010">shall</a> be a <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> greater than 10 feet from the side <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> <a class="def" href="19.04.030__cd3945f06e40f28386a61ffd62a0a222">lot line</a>. This determination <a class="def" href="19.04.010">shall</a> be based on future planned improvements within the <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Side, interior</p>
+</td>
+<td>
+<p>a)&#xA0;&#xA0;&#xA0;&#xA0;See Table 6-2.</p>
+<p>b)&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.020__51a9701e64e4c3a0bf91db1aa7397597">Accessory buildings</a> and <a class="def" href="19.04.020__dd05aeb3f908a7a6e67c928c71e5476b">accessory structures</a> <a class="def" href="19.04.010">shall</a> not be located within the interior side <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> area, unless the <a class="def" href="19.04.030__37a4bcf6ab3a2d13d7e2c6237d6fa377">side lot line</a> abuts an <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a>, in which case there <a class="def" href="19.04.010">shall</a> be no required side <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> from the <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Rear</p>
+</td>
+<td>
+<p>a)&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">Alley</a> <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">Lots</a>. No minimum rear <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a>.</p>
+<p>b)&#xA0;&#xA0;&#xA0;&#xA0;Nonalley <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a>: 5 feet.</p>
+<p>c)&#xA0;&#xA0;&#xA0;&#xA0;The <a class="def" href="19.04.020__a7ab84800f678f74eca124169725e7ee">city engineer</a> and <a class="def" href="19.04.020__bd211164397850d5e1613208425d0efd">planning director</a> <a class="def" href="19.04.010">shall</a> determine the rear <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> for <a class="def" href="19.04.020__51a9701e64e4c3a0bf91db1aa7397597">accessory buildings</a> and <a class="def" href="19.04.020__dd05aeb3f908a7a6e67c928c71e5476b">accessory structures</a> on double fronting <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> (<a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> with <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontages</a> along the front and rear property lines).</p>
+</td>
+</tr>
+</tbody></table>
+</figure>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.020(F)" data-cite="EMC 19.06.020(F)" data-short-cite="19.06.020(F)"><p><span class="header num-only"><span class="num">F.&#x2002;</span></span><a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">Building</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a> for <a class="def" href="19.04.030__8f2bddf33ee2f448c9ddbefdc2af58d2">accessory dwelling units</a> (<a class="def" href="19.04.030__8f2bddf33ee2f448c9ddbefdc2af58d2">ADU</a>) are the same as for <a class="def" href="19.04.020__8318d00ccb739d30ae2eda1d752df87a">principal buildings</a>. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3963-23 &#xA7;&#xA0;4, 2023; Ord. 3845-21 &#xA7;&#xA0;2, 2021; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</span></p>
+
+
+
+</section>
+
+
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.030" data-cite="EMC 19.06.030" data-short-cite="19.06.030" data-history="/EMC/19.06.030/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.030/search" data-share="/EMC/19.06.030/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.030</span> <span class="name">Exceptions to building or structure placement requirements.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.030(A)" data-cite="EMC 19.06.030(A)" data-short-cite="19.06.030(A)"><p><span class="header"><span class="num">A.&#x2002;</span><span class="name">Lot Setback Exceptions.</span> </span>The exceptions to <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> or <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structure</a> placement apply as outlined in Table 6-4, or as otherwise authorized by this title.</p>
+
+
+
+
+<figure class="type-Table" data-cite="Table 6-4">
+<table class="role-medium table-ruled-outside-both table-ruled-inside-both"><caption><p class="header"><span class="num">Table 6-4:&#x2002;</span><span class="name">Exception to Setback Standards</span></p>
+
+
+
+</caption><colgroup><col style="width: 130pt;"/><col style="width: 30pt;"/><col style="width: 30pt;"/><col style="width: 30pt;"/><col style="width: 40pt;"/><col style="width: 220pt;"/>
+</colgroup><thead>
+<tr>
+<th>
+<p><b>Exception</b></p>
+</th>
+<th>
+<p><b>Front</b></p>
+</th>
+<th>
+<p><b>Rear</b></p>
+</th>
+<th>
+<p><b>Side</b></p>
+</th>
+<th>
+<p><b>Side (Street)</b></p>
+</th>
+<th>
+<p><b>Standard</b></p>
+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>
+<p>1)&#xA0;&#xA0;&#xA0;&#xA0;Chimneys with or without foundations; bay windows, eaves, <a class="def" href="19.04.090__4b36aaa65f36b87db2f4423158456837">greenhouse</a> windows and other elements of a <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structure</a> that customarily extend beyond the exterior walls of a <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structure</a> and do not require a foundation; <a class="def" href="19.04.030__f0f6fd8a72b2985f31425bd8ed440a2e">dish antennas</a> under 36-inch diameter</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;Chimneys <a class="def" href="19.04.010">may</a> encroach up to 18 inches; other listed elements <a class="def" href="19.04.010">may</a> encroach up to 24 inches. The total horizontal dimension of the elements that extend into a required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a>, excluding eaves, <a class="def" href="19.04.010">may</a> not exceed 25 percent of the length of the <a class="def" href="19.04.030__d84a9cefcef12b0be99c98cdd1295a1a">facade</a> upon which the architectural element is located.</p>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">Setback</a> standards for cell <a class="def" href="19.04.030__8c608ada2456ddfbf136e330a7bd80b4">towers</a> and other <a class="def" href="19.04.030__e61e9702e4a09f357f03785fdc879573">antennas</a>: see Chapter <a class="cite" href="19.13" title="Ch. 19.13&#x2002;Specific Use Standards">19.13</a> EMC.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>2)&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.030__295abbe00efd66a5759f5d2cbdd66394">Fences</a></p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>Subject to the <a class="def" href="19.04.030__295abbe00efd66a5759f5d2cbdd66394">fence</a> regulations contained within Chapter <a class="cite" href="19.40" title="Ch. 19.40&#x2002;Fences">19.40</a> EMC.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>3)&#xA0;&#xA0;&#xA0;&#xA0;Flagpoles</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>Must not exceed 35 feet in height.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>4)&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.030__da5decaeffc91712a82da8b2d41734e7">Garages</a>/<a class="def" href="19.04.030__5f54f1785d7ac98b4b323654571c536b">carports</a> on slopes</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;If the topography of a <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> is such that the front <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> line is 8 feet or more above or below <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> <a class="def" href="19.04.020__37ea3662ae1fd11adaf24072285ec360">grade</a>, and there is no reasonable way to construct a <a class="def" href="19.04.030__6129d538b39455ef86065aa65618e33e">driveway</a> up to the dwelling level, a <a class="def" href="19.04.030__da5decaeffc91712a82da8b2d41734e7">garage</a>/<a class="def" href="19.04.030__5f54f1785d7ac98b4b323654571c536b">carport</a> is allowed within the front <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a>, provided it is set back at least 5 feet from the <a class="def" href="19.04.030__3cf6d1ff4c0dc40fdee71cd4e674ebc8">front lot line</a> and complies with the <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> intersection sight-obstruction requirements of the <a class="def" href="19.04.020__a7ab84800f678f74eca124169725e7ee">city engineer</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>5)&#xA0;&#xA0;&#xA0;&#xA0;Heat pumps, air conditioning, swimming pool pumps, and other similar mechanical equipment, and propane tanks</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.010">May</a> be located in any required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> provided that any such equipment <a class="def" href="19.04.010">shall</a> not be located within 3 feet of any <a class="def" href="19.04.030__37a4bcf6ab3a2d13d7e2c6237d6fa377">side lot line</a> or <a class="def" href="19.04.030__e77b955ffcc59cf3ca6eae8035ade6a6">rear lot line</a> where there is no <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a>; provided, further that any location in a front or side <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> (corner) <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> <a class="def" href="19.04.010">may</a> be allowed through a modification of <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">development</a> standards process.</p>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;Any such equipment <a class="def" href="19.04.010">shall</a> be visually screened from surrounding properties and <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">streets</a>.</p>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;Any such equipment <a class="def" href="19.04.010">may</a> not exceed the maximum permissible noise levels set forth in Chapter <a class="cite" href="20.08" title="Ch. 20.08&#x2002;Noise Control">20.08</a> EMC, Noise Control.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>6)&#xA0;&#xA0;&#xA0;&#xA0;Rockeries and retaining walls</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;Any <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structure</a> retaining fill material, which is less than 4 feet in height above <a class="def" href="19.04.040__b428761c488e27911294afa31862d3b2">finished grade</a>, <a class="def" href="19.04.010">may</a> be located in any required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a>.</p>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;Any <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structure</a> retaining fill material, which is 4 feet or greater, but less than 6 feet in height above <a class="def" href="19.04.040__b428761c488e27911294afa31862d3b2">finished grade</a>, <a class="def" href="19.04.010">may</a> be located in any required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> but, if visible from a public <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a> or residentially zoned property, <a class="def" href="19.04.010">shall</a> be constructed of or faced with brick, stone, split-face or fluted concrete block, textured poured-in-place concrete, or other materials with texture to reduce the apparent mass of the wall.</p>
+<p>&#x2022;&#xA0;&#xA0;&#xA0;&#xA0;Any <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structure</a> retaining fill material that is greater than 6 feet in height above <a class="def" href="19.04.040__b428761c488e27911294afa31862d3b2">finished grade</a> <a class="def" href="19.04.010">shall</a> comply with <a class="def" href="19.04.020__51a9701e64e4c3a0bf91db1aa7397597">accessory building</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> requirements, unless otherwise approved by the <a class="def" href="19.04.020__bd211164397850d5e1613208425d0efd">planning director</a> as a REV II process.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>7)&#xA0;&#xA0;&#xA0;&#xA0;Shoreline <a class="def" href="19.04.010">use</a> and access areas, associated improvements</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p><a class="def" href="19.04.010">May</a> be located in any required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> area. The landward end of a pier <a class="def" href="19.04.010">may</a> be located in the required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> area.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>8)&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.120__2e968acce34948e9f720afb1969e30d1">Signs</a>, <a class="def" href="19.04.030__3a70a7b55c639e91a7d443ceb5e6beb2">marquees</a> and <a class="def" href="19.04.120__5fdd15bd8e682855e4971faad80ee885">awning signs</a></p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>Subject to the requirements of Chapter <a class="cite" href="19.36" title="Ch. 19.36&#x2002;Signs">19.36</a> EMC or other specific regulations of this title.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>9)&#xA0;&#xA0;&#xA0;&#xA0;Transit shelters</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>Transit stops, transit shelters and <a class="def" href="19.04.080__9e2d62f851ce06fe7526e38aa7468eeb">bicycle facilities</a> serving the public <a class="def" href="19.04.010">may</a> be placed within required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>10)&#xA0;&#xA0;&#xA0;&#xA0;<a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">Setback</a> reductions (including zero <a class="def" href="19.04.030__cd3945f06e40f28386a61ffd62a0a222">lot lines</a>) approved as part of a formal unit <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> land division application</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p><a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">Buildings</a> <a class="def" href="19.04.010">may</a> encroach into what would otherwise be considered a required <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> area for internal <a class="def" href="19.04.030__cd3945f06e40f28386a61ffd62a0a222">lot lines</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>11)&#xA0;&#xA0;&#xA0;&#xA0;Required pathways</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>Must meet minimum dimension of four feet for emergency response.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>12)&#xA0;&#xA0;&#xA0;&#xA0;Subterranean <a class="def" href="19.04.030__da5decaeffc91712a82da8b2d41734e7">garages</a></p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td class="center">
+<p>P</p>
+</td>
+<td>
+<p>Fully subterranean <a class="def" href="19.04.030__da5decaeffc91712a82da8b2d41734e7">garages</a> are exempt from the required parking <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a>.</p>
+</td>
+</tr>
+</tbody></table>
+<div class="note">
+<p>Legend: &#x201C;P&#x201D; means permitted.</p>
+</div>
+</figure>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.030(B)" data-cite="EMC 19.06.030(B)" data-short-cite="19.06.030(B)"><p class="header"><span class="num">B.&#x2002;</span><span class="name">Decks and Steps.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.030(B)(1)" data-cite="EMC 19.06.030(B)(1)" data-short-cite="19.06.030(B)(1)"><p><span class="header"><span class="num">1.&#x2002;</span><span class="name">Rear or Side Setback.</span> </span>No <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> from rear or <a class="def" href="19.04.030__37a4bcf6ab3a2d13d7e2c6237d6fa377">side lot lines</a> if no higher than forty-two inches above the existing <a class="def" href="19.04.020__37ea3662ae1fd11adaf24072285ec360">grade</a>.</p>
+
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.030(B)(2)" data-cite="EMC 19.06.030(B)(2)" data-short-cite="19.06.030(B)(2)"><p class="header"><span class="num">2.&#x2002;</span><span class="name">Front and Side Street Setback.</span> </p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.030(B)(2)(a)" data-cite="EMC 19.06.030(B)(2)(a)" data-short-cite="19.06.030(B)(2)(a)"><p><span class="header num-only"><span class="num">a.&#x2002;</span></span><a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">Setback</a> in front or side (<a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a>) <a class="def" href="19.04.010">may</a> be reduced by six feet if the finished <a class="def" href="19.04.040__bb47723b09e4818be0378c67de9b5fe1">floor</a> is no higher than forty-eight inches above existing <a class="def" href="19.04.020__37ea3662ae1fd11adaf24072285ec360">grade</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.030(B)(2)(b)" data-cite="EMC 19.06.030(B)(2)(b)" data-short-cite="19.06.030(B)(2)(b)"><p><span class="header num-only"><span class="num">b.&#x2002;</span></span>Steps and accessibility ramps <a class="def" href="19.04.010">may</a> encroach into <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> if no higher than forty-eight inches above existing <a class="def" href="19.04.020__37ea3662ae1fd11adaf24072285ec360">grade</a> in the area of encroachment.</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.030(B)(2)(c)" data-cite="EMC 19.06.030(B)(2)(c)" data-short-cite="19.06.030(B)(2)(c)"><p><span class="header num-only"><span class="num">c.&#x2002;</span></span>See Chapter <a class="cite" href="19.08" title="Ch. 19.08&#x2002;Neighborhood Residential Development Standards">19.08</a> EMC for front porch design standards.</p>
+
+
+
+</section>
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.030(C)" data-cite="EMC 19.06.030(C)" data-short-cite="19.06.030(C)"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>Front porch and entrances as indicated in EMC <a class="cite" href="19.08.050" title="19.08.050&#x2002;Front porch and entrance requirements">19.08.050</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.030(D)" data-cite="EMC 19.06.030(D)" data-short-cite="19.06.030(D)"><p class="heading"><span class="header"><span class="num">D.&#x2002;</span><span class="name">Encroachment Into Public Right-of-Way.</span> </span>The following <a class="def" href="19.04.010">may</a> be authorized by the <a class="def" href="19.04.020__a7ab84800f678f74eca124169725e7ee">city engineer</a> within the public <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a>:</p>
+
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.030(D)(1)" data-cite="EMC 19.06.030(D)(1)" data-short-cite="19.06.030(D)(1)"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span><a class="def" href="19.04.120__2e968acce34948e9f720afb1969e30d1">Signs</a>, <a class="def" href="19.04.030__3a70a7b55c639e91a7d443ceb5e6beb2">marquees</a> and <a class="def" href="19.04.120__5fdd15bd8e682855e4971faad80ee885">awning signs</a> <a class="def" href="19.04.010">may</a> project into (over) the public <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.030(D)(2)" data-cite="EMC 19.06.030(D)(2)" data-short-cite="19.06.030(D)(2)"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span><a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">Street</a> furniture and <a class="def" href="19.04.020__ba0b621c8a657fa899456385405a6a7b">landscaping</a> <a class="def" href="19.04.010">may</a> be placed in the public <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a> when consistent with the sidewalk standards set forth in EMC <a class="cite" href="19.33.030" title="19.33.030&#x2002;Public sidewalk requirements">19.33.030</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.030(D)(3)" data-cite="EMC 19.06.030(D)(3)" data-short-cite="19.06.030(D)(3)"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>Transit stops, transit shelters and <a class="def" href="19.04.080__9e2d62f851ce06fe7526e38aa7468eeb">bicycle facilities</a> <a class="def" href="19.04.010">may</a> be placed in the public <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a> when consistent with the sidewalk standards set forth in EMC <a class="cite" href="19.33.030" title="19.33.030&#x2002;Public sidewalk requirements">19.33.030</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.030(D)(4)" data-cite="EMC 19.06.030(D)(4)" data-short-cite="19.06.030(D)(4)"><p><span class="header num-only"><span class="num">4.&#x2002;</span></span>Any other encroachment.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.030(E)" data-cite="EMC 19.06.030(E)" data-short-cite="19.06.030(E)"><p><span class="header"><span class="num">E.&#x2002;</span><span class="name">West Marine View Drive at 23rd and 24th.</span> </span>No <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">buildings</a> <a class="def" href="19.04.010">shall</a> be constructed on property located within the westerly extension of the <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a> lines for 23rd <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">Street</a> and 24th <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">Street</a> in Blocks 483, 486 and 556, immediately east of West Marine View Drive (see Map 6-1). All <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">buildings</a> to be constructed north or south of these extended <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a> lines <a class="def" href="19.04.010">shall</a> meet the <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a> that would be required if the property lines coincided with the extension of the <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a> lines.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.030(F)" data-cite="EMC 19.06.030(F)" data-short-cite="19.06.030(F)"><p><span class="header num-only"><span class="num">F.&#x2002;</span></span>See EMC <a class="cite" href="19.06.090(A)" title="19.06.090(A)&#x2002;Building Setback Modifications on Lots Without Frontage on a Public Street">19.06.090(A)</a> for <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> modifications for single-family and two-family (duplex) <a class="def" href="19.04.010">uses</a> on <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> without <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontage</a> on a public <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a>.</p>
+
+
+
+<figure class="type-Figure">
+<figcaption><p class="header"><span class="name">Map 6-1: 23rd and 24th Street Setback Required</span></p>
+
+
+</figcaption>
+<picture class="role-medium">
+<img class="role-medium web-winner" src="media/19.06.030.jpg" data-rank="61" style="width: 480pt;"/>
+</picture>
+</figure>
+</section>
+
+<div class="note history history--linked" data-action="click-&gt;levelnodes#openHistory"><p>(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</p></div>
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.040" data-cite="EMC 19.06.040" data-short-cite="19.06.040" data-history="/EMC/19.06.040/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.040/search" data-share="/EMC/19.06.040/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.040</span> <span class="name">Calculation of lot area.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p class="heading">All of the following are deleted from the net square footage of a <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> for the purpose of determining minimum <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a>:</p>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.040(A)" data-cite="EMC 19.06.040(A)" data-short-cite="19.06.040(A)"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span>The driving surface, including curbs and gutters, of all private roads serving more than one principal <a class="def" href="19.04.050__966fc300b19a16ac907029d697d780b0">dwelling unit</a> and private primary access easement drives. The area of any other type of easement is not subtracted from the net square footage of a <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.040(B)" data-cite="EMC 19.06.040(B)" data-short-cite="19.06.040(B)"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>The panhandle portion of <a class="def" href="19.04.030__b1c08cf43301ff218de5e1d7171be7ef">panhandle lots</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.040(C)" data-cite="EMC 19.06.040(C)" data-short-cite="19.06.040(C)"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>Drainage tracts;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.040(D)" data-cite="EMC 19.06.040(D)" data-short-cite="19.06.040(D)"><p><span class="header num-only"><span class="num">D.&#x2002;</span></span>Common recreation facilities;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.040(E)" data-cite="EMC 19.06.040(E)" data-short-cite="19.06.040(E)"><p><span class="header num-only"><span class="num">E.&#x2002;</span></span>Public <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a>, except dedications of additional <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a> required as part of a land division approval for <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> improvements or widening;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.040(F)" data-cite="EMC 19.06.040(F)" data-short-cite="19.06.040(F)"><p><span class="header num-only"><span class="num">F.&#x2002;</span></span><a class="def" href="19.04.110__805c64110dee351ec18268f4e210f365">Critical areas</a> and their <a class="def" href="19.04.110__4b09ea348bb9d6427cd5fdfbfce679ad">buffers</a>, except geologically hazardous slopes not associated with another <a class="def" href="19.04.110__805c64110dee351ec18268f4e210f365">critical area</a>. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</span></p>
+
+
+
+</section>
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.050" data-cite="EMC 19.06.050" data-short-cite="19.06.050" data-history="/EMC/19.06.050/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.050/search" data-share="/EMC/19.06.050/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.050</span> <span class="name">Lot type and lot line identification.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p><a class="def" href="19.04.010">Using</a> the definitions in this title, <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> types and <a class="def" href="19.04.030__cd3945f06e40f28386a61ffd62a0a222">lot lines</a> are to be identified as depicted in Figure 6-2 (<a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">Lot</a> Type and <a class="def" href="19.04.030__cd3945f06e40f28386a61ffd62a0a222">Lot Line</a> Identification).</p>
+<figure class="type-Figure" data-cite="Figure 6-2" data-short-cite="Fig. 6-2">
+<figcaption><p class="header"><span class="num">Figure 6-2:&#x2002;</span><span class="name">(Lot Type and Lot Line Identification)</span></p>
+
+
+
+</figcaption>
+<picture class="role-medium">
+<img class="role-medium web-winner" src="media/19.06.050_001.png" data-rank="62" style="width: 400pt;"/>
+</picture>
+</figure>
+<figure class="type-Figure">
+<picture class="role-medium">
+<img class="role-medium web-winner" src="media/19.06.050_002.png" data-rank="62" style="width: 450pt;"/>
+</picture>
+</figure>
+
+<div class="note history history--linked" data-action="click-&gt;levelnodes#openHistory"><p>(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</p></div>
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.060" data-cite="EMC 19.06.060" data-short-cite="19.06.060" data-history="/EMC/19.06.060/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.060/search" data-share="/EMC/19.06.060/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.060</span> <span class="name">Lot requirements for lots created or modified through land division.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.060(A)" data-cite="EMC 19.06.060(A)" data-short-cite="19.06.060(A)"><p><span class="header"><span class="num">A.&#x2002;</span><span class="name">Minimum Lot Dimensions.</span> </span>Except as provided in this title, every <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> <a class="def" href="19.04.010">shall</a> be of a shape such that two lines, one equal to the required width and one equal to the required depth for the land <a class="def" href="19.04.010">use</a> district, <a class="def" href="19.04.010">may</a> be placed at right angles to each other entirely within the <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> boundaries. The panhandle portion of a <a class="def" href="19.04.030__b1c08cf43301ff218de5e1d7171be7ef">panhandle lot</a> <a class="def" href="19.04.010">may</a> not be <a class="def" href="19.04.010">used</a> for purposes of meeting this requirement. For <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> with vehicular access from a private access drive, the access drive and associated easement are excluded from the calculation of <a class="def" href="19.04.040__bd500533e607804a9274837e5cd04c6f">lot width</a>.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.060(B)" data-cite="EMC 19.06.060(B)" data-short-cite="19.06.060(B)"><p><span class="header"><span class="num">B.&#x2002;</span><span class="name">Lot Shape.</span> </span>Irregularly shaped <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> <a class="def" href="19.04.010">shall</a> be prohibited unless approved by the director or through a unit <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> land division. In general, all <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> <a class="def" href="19.04.010">shall</a> be composed of straight lines which provide adequate <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a> and yard area, except as permitted in unit <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> land divisions and <a class="def" href="19.04.030__4bdf900af8dc45746c2bfc12e357cec2">binding site plans</a> through review and approval of a <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a> plan.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.060(C)" data-cite="EMC 19.06.060(C)" data-short-cite="19.06.060(C)"><p class="header"><span class="num">C.&#x2002;</span><span class="name">Other Lot Requirements.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(C)(1)" data-cite="EMC 19.06.060(C)(1)" data-short-cite="19.06.060(C)(1)"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span><a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">Lot</a> arrangement and design <a class="def" href="19.04.010">shall</a> take into consideration, to the maximum extent possible, the natural features of the <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a> such as <a class="def" href="19.04.110__805c64110dee351ec18268f4e210f365">critical areas</a>, <a class="def" href="19.04.020__af1be713869b9ba6ac601c4d5916dabe">parks</a>, <a class="def" href="19.04.030__3eb62a3a6a41aad96341caaf2c0e5689">open space</a>, and views. Each <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> <a class="def" href="19.04.010">shall</a> provide a suitable <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a> and <a class="def" href="19.04.030__6129d538b39455ef86065aa65618e33e">driveway</a> access from existing or proposed <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">streets</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(C)(2)" data-cite="EMC 19.06.060(C)(2)" data-short-cite="19.06.060(C)(2)"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>Double <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontage</a> <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> <a class="def" href="19.04.010">shall</a> be avoided whenever possible.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(C)(3)" data-cite="EMC 19.06.060(C)(3)" data-short-cite="19.06.060(C)(3)"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span><a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">Lots</a> <a class="def" href="19.04.010">shall</a> not, in general, access from arterial <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">streets</a>. Where <a class="def" href="19.04.030__6129d538b39455ef86065aa65618e33e">driveway</a> access from a <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> <a class="def" href="19.04.010">may</a> be necessary for several adjoining <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a>, the city <a class="def" href="19.04.010">may</a> require that such <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> be served by combined access points and <a class="def" href="19.04.030__6129d538b39455ef86065aa65618e33e">driveways</a> designed or arranged so as to avoid requiring vehicles to back into traffic.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(C)(4)" data-cite="EMC 19.06.060(C)(4)" data-short-cite="19.06.060(C)(4)"><p><span class="header num-only"><span class="num">4.&#x2002;</span></span>Through the unit <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> land division or <a class="def" href="19.04.030__4bdf900af8dc45746c2bfc12e357cec2">binding site plan</a> process, the director <a class="def" href="19.04.010">may</a> modify the Everett Unified <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">Development</a> Code requirements for individual <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> for width, depth, area, <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontage</a>, <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a> and minimum <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a>; provided, that Everett Unified <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">Development</a> Code <a class="def" href="19.04.040__956f3cfcf437bd5974e62de0bf3136d1">density</a> standards are met for the total <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(C)(5)" data-cite="EMC 19.06.060(C)(5)" data-short-cite="19.06.060(C)(5)"><p><span class="header num-only"><span class="num">5.&#x2002;</span></span>Individual <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> that take access from a cul-de-sac <a class="def" href="19.04.010">may</a> be allowed a reduced <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontage</a>, but not less than a minimum of twenty feet if the front <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> is increased to thirty feet.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(C)(6)" data-cite="EMC 19.06.060(C)(6)" data-short-cite="19.06.060(C)(6)"><p><span class="header num-only"><span class="num">6.&#x2002;</span></span>Minimum <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">Building</a> <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">Site</a> Requirements. All new <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> <a class="def" href="19.04.010">shall</a> contain suitable area for a <a class="def" href="19.04.040__19177ccb69b4cb8fb1d262da13ba5e70">building footprint</a>, <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a>, access and off-<a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> parking in accordance with the standards in this section. Additional <a class="def" href="19.04.030__3eb62a3a6a41aad96341caaf2c0e5689">open space</a> and design requirements <a class="def" href="19.04.010">may</a> apply under Chapter <a class="cite" href="19.08" title="Ch. 19.08&#x2002;Neighborhood Residential Development Standards">19.08</a> EMC.</p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.060(C)(6)(a)" data-cite="EMC 19.06.060(C)(6)(a)" data-short-cite="19.06.060(C)(6)(a)"><p><span class="header num-only"><span class="num">a.&#x2002;</span></span>Minimum <a class="def" href="19.04.040__19177ccb69b4cb8fb1d262da13ba5e70">Building Footprint</a> Area. One thousand two hundred square feet, with a minimum dimension of twenty-five feet.</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.060(C)(6)(b)" data-cite="EMC 19.06.060(C)(6)(b)" data-short-cite="19.06.060(C)(6)(b)"><p><span class="header"><span class="num">b.&#x2002;</span><span class="name">Setbacks.</span> </span>Per underlying <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a> and Table 6-2.</p>
+
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.060(C)(6)(c)" data-cite="EMC 19.06.060(C)(6)(c)" data-short-cite="19.06.060(C)(6)(c)"><p><span class="header num-only"><span class="num">c.&#x2002;</span></span>Access and Parking. <a class="def" href="19.04.030__6129d538b39455ef86065aa65618e33e">Driveways</a> and off-<a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> parking <a class="def" href="19.04.010">shall</a> be provided in accordance with Chapter <a class="cite" href="19.34" title="Ch. 19.34&#x2002;Parking, Loading and Access Requirements">19.34</a> EMC.</p>
+
+
+
+</section>
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.060(D)" data-cite="EMC 19.06.060(D)" data-short-cite="19.06.060(D)"><p><span class="header"><span class="num">D.&#x2002;</span><span class="name">Block Length.</span> </span>Blocks within a land division greater than four hundred feet <a class="def" href="19.04.010">shall</a> be avoided wherever possible, nor <a class="def" href="19.04.010">shall</a> <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> be combined, assembled, or developed to create functional block lengths greater than four hundred fifty feet. Pedestrian and/or other active mobility pathways <a class="def" href="19.04.010">shall</a> be provided through <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">developments</a>; such pathways connecting public or semi-public <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">rights-of-way</a> <a class="def" href="19.04.010">shall</a> be provided no farther than two hundred fifty feet from the nearest alternative route of travel.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.060(E)" data-cite="EMC 19.06.060(E)" data-short-cite="19.06.060(E)"><p class="heading"><span class="header"><span class="num">E.&#x2002;</span><span class="name">Panhandle Lots.</span> </span>The <a class="def" href="19.04.020__bd211164397850d5e1613208425d0efd">planning director</a> and <a class="def" href="19.04.020__a7ab84800f678f74eca124169725e7ee">city engineer</a> <a class="def" href="19.04.010">shall</a> have the authority to allow <a class="def" href="19.04.030__b1c08cf43301ff218de5e1d7171be7ef">panhandle lots</a> and <a class="def" href="19.04.010">may</a> require an easement rather than a panhandle configuration based on the maximum <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">development</a> potential of a <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a>. In <a class="def" href="19.04.030__0676904c10c07971604226e54829b6fe">subdivisions</a>, panhandle shaped <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> are restricted to <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">sites</a> that contain natural constraints such as topography greater than fifteen percent or <a class="def" href="19.04.110__805c64110dee351ec18268f4e210f365">critical areas</a>. In <a class="def" href="19.04.030__e50bc65a9861ced63f4785def4d0e40b">short subdivisions</a>, panhandle shaped <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> are permitted without the above restrictions, provided all <a class="def" href="19.04.030__b1c08cf43301ff218de5e1d7171be7ef">panhandle lots</a> meet the following standards:</p>
+
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(E)(1)" data-cite="EMC 19.06.060(E)(1)" data-short-cite="19.06.060(E)(1)"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>No panhandle shaped <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> <a class="def" href="19.04.010">shall</a> be permitted in <a class="def" href="19.04.030__e50bc65a9861ced63f4785def4d0e40b">short subdivisions</a> where the ownership is common with a contiguous property;</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(E)(2)" data-cite="EMC 19.06.060(E)(2)" data-short-cite="19.06.060(E)(2)"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>Side-by-side panhandle access drives in <a class="def" href="19.04.030__0676904c10c07971604226e54829b6fe">subdivisions</a> or <a class="def" href="19.04.030__e50bc65a9861ced63f4785def4d0e40b">short subdivisions</a> are not permitted;</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.060(E)(3)" data-cite="EMC 19.06.060(E)(3)" data-short-cite="19.06.060(E)(3)"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span><a class="def" href="19.04.030__b1c08cf43301ff218de5e1d7171be7ef">Panhandle lot</a> access drives are required to comply with the same standards applied to easement access <a class="def" href="19.04.030__e50bc65a9861ced63f4785def4d0e40b">short subdivisions</a>, including, but not limited to, road width and <a class="def" href="19.04.020__ba0b621c8a657fa899456385405a6a7b">landscaping</a> standards. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</span></p>
+
+
+
+</section>
+</section>
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.070" data-cite="EMC 19.06.070" data-short-cite="19.06.070" data-history="/EMC/19.06.070/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.070/search" data-share="/EMC/19.06.070/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.070</span> <span class="name">Minimum lot area&#x2014;Averaging in land divisions.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p class="heading">In any formal <a class="def" href="19.04.030__0676904c10c07971604226e54829b6fe">subdivision</a> within the NR and NR-C <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zones</a> and in <a class="def" href="19.04.030__e50bc65a9861ced63f4785def4d0e40b">short subdivisions</a> the individual <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> <a class="def" href="19.04.010">shall</a> be considered legal <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> if the average of the areas of all <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> meets the minimum requirement for the district in which the land division is located, and further provided:</p>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.070(A)" data-cite="EMC 19.06.070(A)" data-short-cite="19.06.070(A)"><p><span class="header num-only"><span class="num">A.&#x2002;</span></span>That no <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> <a class="def" href="19.04.010">shall</a> be less than four thousand square feet with a minimum of fifty feet of width and eighty feet of depth unless in the NR <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a> where the <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> abuts and takes vehicular access from a public <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.070(B)" data-cite="EMC 19.06.070(B)" data-short-cite="19.06.070(B)"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>On <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> with <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a> access, no individual <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> therein <a class="def" href="19.04.010">shall</a> have an area less than three thousand square feet, be less than thirty feet in width, or less than eighty feet in <a class="def" href="19.04.040__440deb2c1cf84ef9ad058c059c72a709">lot depth</a>. On such <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a>, the minimum <a class="def" href="19.04.040__9cde7eb4c4dc91ef1d1edaec48c3ba1f">lot frontage</a> requirement <a class="def" href="19.04.010">shall</a> be not less than thirty feet, and the <a class="def" href="19.04.040__9cde7eb4c4dc91ef1d1edaec48c3ba1f">lot frontage</a> requirements listed elsewhere in this chapter <a class="def" href="19.04.010">shall</a> not apply;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.070(C)" data-cite="EMC 19.06.070(C)" data-short-cite="19.06.070(C)"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>That <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a> averaging <a class="def" href="19.04.010">may</a> not be <a class="def" href="19.04.010">used</a> to create <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> for duplexes or multiple-family dwellings with less <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a> than otherwise required by this title for the <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a> in which the property is located;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.070(D)" data-cite="EMC 19.06.070(D)" data-short-cite="19.06.070(D)"><p><span class="header num-only"><span class="num">D.&#x2002;</span></span>Not more than a thirty-five percent increase over the required minimum <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a> for any single <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> <a class="def" href="19.04.010">shall</a> be credited in computing average <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.070(E)" data-cite="EMC 19.06.070(E)" data-short-cite="19.06.070(E)"><p><span class="header num-only"><span class="num">E.&#x2002;</span></span><a class="def" href="19.04.110__805c64110dee351ec18268f4e210f365">Critical areas</a> and <a class="def" href="19.04.110__4b09ea348bb9d6427cd5fdfbfce679ad">buffers</a> <a class="def" href="19.04.010">may</a> not be <a class="def" href="19.04.010">used</a> as credit for <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> utilizing <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> size averaging. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4156-26 &#xA7;&#xA0;7, 2026; Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</span></p>
+
+
+
+</section>
+
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.080" data-cite="EMC 19.06.080" data-short-cite="19.06.080" data-history="/EMC/19.06.080/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.080/search" data-share="/EMC/19.06.080/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.080</span> <span class="name">Land divisions&#x2014;Exceptions to minimum lot area, width, depth, frontage and lot coverage.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<p class="heading"><a class="def" href="19.04.010">Using</a> the land division process in this title (Chapters <a class="cite" href="19.24" title="Ch. 19.24&#x2002;Land Division Administration">19.24</a> through <a class="cite" href="19.27" title="Ch. 19.27&#x2002;Unit Lot Land Divisions">19.27</a> EMC), certain types of applications <a class="def" href="19.04.010">may</a> be granted an exception to the <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> standards in this chapter. The criteria for an exception depend on the type of land division proposed, as follows:</p>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.080(A)" data-cite="EMC 19.06.080(A)" data-short-cite="19.06.080(A)"><p><span class="header"><span class="num">A.&#x2002;</span><span class="name">Binding Site Plans Involving Nonresidential Uses (or in Commercial or Industrial Zones).</span> </span><a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">Lots</a> created through a <a class="def" href="19.04.030__4bdf900af8dc45746c2bfc12e357cec2">binding site plan</a> are not required to comply with minimum requirements for <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a>, width, depth or <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontage</a>. Other zoning standards for <a class="def" href="19.04.030__3eb62a3a6a41aad96341caaf2c0e5689">open space</a> and <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> perimeter <a class="def" href="19.04.020__ba0b621c8a657fa899456385405a6a7b">landscaping</a>, when required, <a class="def" href="19.04.010">shall</a> not be reduced under this exception and <a class="def" href="19.04.010">shall</a> be based on the size of the originating parcel.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.080(B)" data-cite="EMC 19.06.080(B)" data-short-cite="19.06.080(B)"><p class="header"><span class="num">B.&#x2002;</span><span class="name">Unit Lot Developments Involving a Division of Land.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(B)(1)" data-cite="EMC 19.06.080(B)(1)" data-short-cite="19.06.080(B)(1)"><p class="heading"><span class="header num-only"><span class="num">1.&#x2002;</span></span><a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">Lots</a> created through a unit <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> land division process, including <a class="def" href="19.04.030__e50bc65a9861ced63f4785def4d0e40b">short subdivision</a>, <a class="def" href="19.04.030__0676904c10c07971604226e54829b6fe">subdivision</a>, or cottage housing, <a class="def" href="19.04.010">may</a> be granted an exception from the following requirements of this chapter:</p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(1)(a)" data-cite="EMC 19.06.080(B)(1)(a)" data-short-cite="19.06.080(B)(1)(a)"><p><span class="header num-only"><span class="num">a.&#x2002;</span></span><a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">Lot area</a>; provided the overall <a class="def" href="19.04.040__956f3cfcf437bd5974e62de0bf3136d1">density</a> of the project complies with the underlying zoning requirements (this chapter) and Chapter <a class="cite" href="19.08" title="Ch. 19.08&#x2002;Neighborhood Residential Development Standards">19.08</a> EMC.</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(1)(b)" data-cite="EMC 19.06.080(B)(1)(b)" data-short-cite="19.06.080(B)(1)(b)"><p><span class="header num-only"><span class="num">b.&#x2002;</span></span><a class="def" href="19.04.040__bd500533e607804a9274837e5cd04c6f">Lot width</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(1)(c)" data-cite="EMC 19.06.080(B)(1)(c)" data-short-cite="19.06.080(B)(1)(c)"><p><span class="header num-only"><span class="num">c.&#x2002;</span></span><a class="def" href="19.04.040__440deb2c1cf84ef9ad058c059c72a709">Lot depth</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(1)(d)" data-cite="EMC 19.06.080(B)(1)(d)" data-short-cite="19.06.080(B)(1)(d)"><p><span class="header num-only"><span class="num">d.&#x2002;</span></span>Interior side <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a>, including zero <a class="def" href="19.04.030__cd3945f06e40f28386a61ffd62a0a222">lot line</a>; provided, that <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> construction <a class="def" href="19.04.010">shall</a> comply with all <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> and fire code requirements. <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">Setback</a> reductions along the exterior boundary of the parent <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> <a class="def" href="19.04.010">may</a> not be granted;</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(1)(e)" data-cite="EMC 19.06.080(B)(1)(e)" data-short-cite="19.06.080(B)(1)(e)"><p><span class="header num-only"><span class="num">e.&#x2002;</span></span><a class="def" href="19.04.040__9cde7eb4c4dc91ef1d1edaec48c3ba1f">Lot frontage</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(1)(f)" data-cite="EMC 19.06.080(B)(1)(f)" data-short-cite="19.06.080(B)(1)(f)"><p><span class="header num-only"><span class="num">f.&#x2002;</span></span><a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">Lot</a> coverage; and</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(1)(g)" data-cite="EMC 19.06.080(B)(1)(g)" data-short-cite="19.06.080(B)(1)(g)"><p><span class="header num-only"><span class="num">g.&#x2002;</span></span>Minimum <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a> standards in this chapter.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(B)(2)" data-cite="EMC 19.06.080(B)(2)" data-short-cite="19.06.080(B)(2)"><p class="header"><span class="num">2.&#x2002;</span><span class="name">Evaluation Criteria for Modification of Development Standards.</span> </p>
+
+
+
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(2)(a)" data-cite="EMC 19.06.080(B)(2)(a)" data-short-cite="19.06.080(B)(2)(a)"><p><span class="header num-only"><span class="num">a.&#x2002;</span></span>The director determines through review of a <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a> plan the proposed project design will provide adequate <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">sites</a>, <a class="def" href="19.04.030__3eb62a3a6a41aad96341caaf2c0e5689">open space</a>, parking and <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec3 chunking-none type-Subsec3" id="19.06.080(B)(2)(b)" data-cite="EMC 19.06.080(B)(2)(b)" data-short-cite="19.06.080(B)(2)(b)"><p><span class="header num-only"><span class="num">b.&#x2002;</span></span>The proposed unit design complies with the requirements of EMC <a class="cite" href="19.08.020" title="19.08.020&#x2002;Neighborhood residential general standards">19.08.020</a>, small <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> single-family <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">development</a>.</p>
+
+
+
+</section>
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.080(C)" data-cite="EMC 19.06.080(C)" data-short-cite="19.06.080(C)"><p class="heading"><span class="header"><span class="num">C.&#x2002;</span><span class="name">Subdivisions and Short Subdivisions&#x2014;Lot Depth.</span> </span><a class="def" href="19.04.030__0676904c10c07971604226e54829b6fe">Subdivisions</a> and <a class="def" href="19.04.030__e50bc65a9861ced63f4785def4d0e40b">short subdivisions</a> <a class="def" href="19.04.010">may</a> request (REV II) a reduction in <a class="def" href="19.04.040__440deb2c1cf84ef9ad058c059c72a709">lot depth</a>. Such a reduction <a class="def" href="19.04.010">shall</a> be limited to the following:</p>
+
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(C)(1)" data-cite="EMC 19.06.080(C)(1)" data-short-cite="19.06.080(C)(1)"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>When the originating parcel meets the <a class="def" href="19.04.040__9cde7eb4c4dc91ef1d1edaec48c3ba1f">lot frontage</a> and <a class="def" href="19.04.040__bd500533e607804a9274837e5cd04c6f">lot width</a> standards of this chapter;</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(C)(2)" data-cite="EMC 19.06.080(C)(2)" data-short-cite="19.06.080(C)(2)"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>Exceptions that would allow any <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> to be less than seventy feet <a class="def" href="19.04.010">shall</a> not be granted;</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(C)(3)" data-cite="EMC 19.06.080(C)(3)" data-short-cite="19.06.080(C)(3)"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>The <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> or <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> <a class="def" href="19.04.010">shall</a> meet all other requirements of this chapter and <a class="def" href="19.04.010">shall</a> provide a suitable <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.130__891ecc24c22755b1a631e08d7bcbc0e1">site</a>, <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a> and off-<a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> parking.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.080(D)" data-cite="EMC 19.06.080(D)" data-short-cite="19.06.080(D)"><p class="heading"><span class="header"><span class="num">D.&#x2002;</span><span class="name">Division of Land With More Than One Existing Single-Family Dwelling on One Lot.</span> </span>An exception to the <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a>, <a class="def" href="19.04.040__bd500533e607804a9274837e5cd04c6f">lot width</a>, <a class="def" href="19.04.040__440deb2c1cf84ef9ad058c059c72a709">lot depth</a> and <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> standards <a class="def" href="19.04.010">may</a> be granted (REV II) subject to the following minimum standards:</p>
+
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(D)(1)" data-cite="EMC 19.06.080(D)(1)" data-short-cite="19.06.080(D)(1)"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>The existing <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structures</a> <a class="def" href="19.04.010">shall</a> be single-family dwellings in a single-family <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a>;</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(D)(2)" data-cite="EMC 19.06.080(D)(2)" data-short-cite="19.06.080(D)(2)"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>All <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> and existing <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structures</a> <a class="def" href="19.04.010">shall</a> meet minimum fire safety and public utility standards, and minimum <a class="def" href="19.04.020__d90b8fbdf8f3d009370dfbad0168dfce">maintenance</a> standards as defined by the city;</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(D)(3)" data-cite="EMC 19.06.080(D)(3)" data-short-cite="19.06.080(D)(3)"><p><span class="header num-only"><span class="num">3.&#x2002;</span></span>All <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> and existing <a class="def" href="19.04.030__e8e5464a944d8085f5b4f8d9419cf73a">structures</a> <a class="def" href="19.04.010">shall</a> provide for adequate off-<a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> parking. When existing parking is nonconforming, the division of land <a class="def" href="19.04.010">shall</a> not result in off-<a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> parking becoming more nonconforming; and</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.080(D)(4)" data-cite="EMC 19.06.080(D)(4)" data-short-cite="19.06.080(D)(4)"><p><span class="header num-only"><span class="num">4.&#x2002;</span></span>All <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> must have full <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontage</a> on a public <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a>. The <a class="def" href="19.04.010">use</a> of easement access, <a class="def" href="19.04.030__b1c08cf43301ff218de5e1d7171be7ef">panhandle lot</a> or <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a> <a class="def" href="19.04.030__13cee65e6fcc1bb3d62f6e0f3a5e9024">frontage</a> is not permitted.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.080(E)" data-cite="EMC 19.06.080(E)" data-short-cite="19.06.080(E)"><p><span class="header"><span class="num">E.&#x2002;</span><span class="name">Dedication of Public Right-of-Way.</span> </span>If a proposed land division requires a dedication of <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a> for an existing public <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a>, one hundred percent of the dedicated area <a class="def" href="19.04.010">may</a> be credited toward meeting the minimum <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a> of the proposed project. The <a class="def" href="19.04.020__d30e5176357e29420736c4872099fbc5">applicant</a> <a class="def" href="19.04.010">may</a> be required to distribute the credit evenly among all of the <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a>, rather than to apply all credit toward one <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a>. The <a class="def" href="19.04.020__bd211164397850d5e1613208425d0efd">planning director</a> <a class="def" href="19.04.010">shall</a> have the authority to modify <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a>, dimensional requirements and <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setbacks</a> in applying this requirement through the land division process. For single-family <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a>, no individual <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> <a class="def" href="19.04.010">shall</a> contain less than four thousand five hundred square feet after the dedication, excluding access easements.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.080(F)" data-cite="EMC 19.06.080(F)" data-short-cite="19.06.080(F)"><p><span class="header"><span class="num">F.&#x2002;</span><span class="name">Transfer of Development Rights (TDR).</span> </span>Reductions in minimum <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> size, <a class="def" href="19.04.040__bd500533e607804a9274837e5cd04c6f">lot width</a> and <a class="def" href="19.04.040__440deb2c1cf84ef9ad058c059c72a709">lot depth</a> <a class="def" href="19.04.010">may</a> be granted as part of a TDR in accordance with Chapter <a class="cite" href="19.37" title="Ch. 19.37&#x2002;Critical Areas">19.37</a> EMC. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</span></p>
+
+
+
+
+</section>
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.090" data-cite="EMC 19.06.090" data-short-cite="19.06.090" data-history="/EMC/19.06.090/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.090/search" data-share="/EMC/19.06.090/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.090</span> <span class="name">Other administrative modifications of development standards.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.090(A)" data-cite="EMC 19.06.090(A)" data-short-cite="19.06.090(A)"><p class="header"><span class="num">A.&#x2002;</span><span class="name">Building Setback Modifications on Lots Without Frontage on a Public Street.</span> </p>
+
+
+
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.090(A)(1)" data-cite="EMC 19.06.090(A)(1)" data-short-cite="19.06.090(A)(1)"><p><span class="header num-only"><span class="num">1.&#x2002;</span></span>An <a class="def" href="19.04.020__d30e5176357e29420736c4872099fbc5">applicant</a> <a class="def" href="19.04.010">may</a> propose and the <a class="def" href="19.04.020__bd211164397850d5e1613208425d0efd">planning director</a>, <a class="def" href="19.04.010">using</a> the <a class="def" href="19.04.020__9629a979496656df0518dd142b01f6e0">Review Process</a> II described in EMC Title <a class="cite" href="15" title="Title 15&#x2002;Local Project Review Procedures">15</a>, <a class="def" href="19.04.010">may</a> allow an <a class="def" href="19.04.020__d30e5176357e29420736c4872099fbc5">applicant</a> to deviate from the <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> standards in Table 6-2 in EMC <a class="cite" href="19.06.020" title="19.06.020&#x2002;Building setbacks/building placement standards">19.06.020</a>, provided the proposal satisfies the evaluation criteria in Chapter <a class="cite" href="15.03" title="Ch. 15.03&#x2002;Land Use Decisions, Criteria and Authority">15.03</a> EMC.</p>
+
+
+
+</section>
+<section class="subsec subsec2 chunking-none type-Subsec2" id="19.06.090(A)(2)" data-cite="EMC 19.06.090(A)(2)" data-short-cite="19.06.090(A)(2)"><p><span class="header num-only"><span class="num">2.&#x2002;</span></span>In evaluating such a proposal, the <a class="def" href="19.04.020__bd211164397850d5e1613208425d0efd">planning director</a>, <a class="def" href="19.04.010">using</a> the criteria, <a class="def" href="19.04.010">shall</a> determine if the alternative design or plan provides equivalent or superior results to that which would be required by compliance with the <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">development</a> <a class="def" href="19.04.030__6875b3c9ced67b7881a1af1c98efabd1">building</a> <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> requirements of this chapter.</p>
+
+
+
+</section>
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.090(B)" data-cite="EMC 19.06.090(B)" data-short-cite="19.06.090(B)"><p><span class="header"><span class="num">B.&#x2002;</span><span class="name">Front and Street (Side) Setback Reduction on Lots With Excess Right-of-Way.</span> </span>An <a class="def" href="19.04.020__d30e5176357e29420736c4872099fbc5">applicant</a> <a class="def" href="19.04.010">may</a> propose, and the <a class="def" href="19.04.020__bd211164397850d5e1613208425d0efd">planning director</a> <a class="def" href="19.04.010">may</a> allow, <a class="def" href="19.04.010">using</a> the <a class="def" href="19.04.020__9629a979496656df0518dd142b01f6e0">review process</a> in EMC Title <a class="cite" href="15" title="Title 15&#x2002;Local Project Review Procedures">15</a>, a reduced front or <a class="def" href="19.04.020__4464a81a1583b427705846c35c5123bd">street</a> (side) <a class="def" href="19.04.040__7cf5df3b7cffebbad7be2b619ad6964f">setback</a> on <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> determined by the <a class="def" href="19.04.020__a7ab84800f678f74eca124169725e7ee">city engineer</a> to have excess <a class="def" href="19.04.020__96257e78a1310dbb0e62fa2af8398789">right-of-way</a>.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.090(C)" data-cite="EMC 19.06.090(C)" data-short-cite="19.06.090(C)"><p><span class="header"><span class="num">C.&#x2002;</span><span class="name">Development Standards That Cannot Be Modified.</span> </span>Any standard that is not specifically listed in this section for modification requests, or in EMC <a class="cite" href="19.06.080" title="19.06.080&#x2002;Land divisions&#x2014;Exceptions to minimum lot area, width, depth, frontage and lot coverage">19.06.080</a>, cannot be modified except as permitted in EMC <a class="cite" href="19.41.010" title="19.41.010&#x2002;Variances">19.41.010</a> for variances. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</span></p>
+
+
+
+
+</section>
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.100" data-cite="EMC 19.06.100" data-short-cite="19.06.100" data-history="/EMC/19.06.100/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.100/search" data-share="/EMC/19.06.100/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.100</span> <span class="name">Residential densities.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.100(A)" data-cite="EMC 19.06.100(A)" data-short-cite="19.06.100(A)"><p><span class="header"><span class="num">A.&#x2002;</span><span class="name">Minimum Residential Development.</span> </span>Except within historic overlay <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zones</a>, residential <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">development</a> in the UR7, MU7, MU15, or LI-MU <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zones</a> must result in at least three attached <a class="def" href="19.04.050__966fc300b19a16ac907029d697d780b0">dwelling units</a>.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.100(B)" data-cite="EMC 19.06.100(B)" data-short-cite="19.06.100(B)"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>Repealed by Ord. 4102-25</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.100(C)" data-cite="EMC 19.06.100(C)" data-short-cite="19.06.100(C)"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>Repealed by Ord. 4102-25</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.100(D)" data-cite="EMC 19.06.100(D)" data-short-cite="19.06.100(D)"><p><span class="header"><span class="num">D.&#x2002;</span><span class="name">Density Limits in an Historic Overlay Zone.</span> </span>Residential <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">development</a> within a UR4 <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a> with an historic overlay (see Chapter <a class="cite" href="19.28" title="Ch. 19.28&#x2002;Historic Resources">19.28</a> EMC) <a class="def" href="19.04.010">shall</a> not exceed one <a class="def" href="19.04.050__966fc300b19a16ac907029d697d780b0">dwelling unit</a> per one thousand five hundred square feet of <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a> (up to twenty-nine <a class="def" href="19.04.050__966fc300b19a16ac907029d697d780b0">dwelling units</a> per acre). <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</span></p>
+
+
+
+
+</section>
+
+
+
+
+</article>
+<article class="level6 chunking-small type-Section has-history" id="19.06.110" data-cite="EMC 19.06.110" data-short-cite="19.06.110" data-history="/EMC/19.06.110/history"><header class=" full-header" data-type="Section" data-search="/EMC/19.06.110/search" data-share="/EMC/19.06.110/share" data-levelnodes-target="header"><h6 class=" inner-header"><span class="num">19.06.110</span> <span class="name">Density and lot size&#x2014;Neighborhood residential-constrained zone.</span></h6></header><div class="track-indicator selected d-none">
+	<span class="glyphicons glyphicons-check" aria-hidden="true"></span><span class="text">This section is included in your selections.</span>
+</div>
+
+
+
+
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.110(A)" data-cite="EMC 19.06.110(A)" data-short-cite="19.06.110(A)"><p><span class="header"><span class="num">A.&#x2002;</span><span class="name">Overview and Applicability.</span> </span>Attached dwellings <a class="def" href="19.04.010">may</a> be allowed in the NR-C <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a>, subject to <a class="def" href="19.04.020__9629a979496656df0518dd142b01f6e0">review processes</a> set forth in Chapter <a class="cite" href="19.05" title="Ch. 19.05&#x2002;Uses">19.05</a> EMC, review criteria in Chapter <a class="cite" href="15.03" title="Ch. 15.03&#x2002;Land Use Decisions, Criteria and Authority">15.03</a> EMC, <a class="def" href="19.04.020__c9b78e17817e2e9155021f0c78fc6ed2">development</a> standards found in Chapter <a class="cite" href="19.08" title="Ch. 19.08&#x2002;Neighborhood Residential Development Standards">19.08</a> EMC, and this section.</p>
+
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.110(B)" data-cite="EMC 19.06.110(B)" data-short-cite="19.06.110(B)"><p><span class="header num-only"><span class="num">B.&#x2002;</span></span>The maximum <a class="def" href="19.04.040__956f3cfcf437bd5974e62de0bf3136d1">density</a> for dwellings in the NR-C <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a> is one <a class="def" href="19.04.050__966fc300b19a16ac907029d697d780b0">dwelling unit</a> per nine thousand square feet of <a class="def" href="19.04.040__3fdc51a2f7059b3e5cd66ebb94977832">lot area</a>, except as provided in subsection <a class="cite" href="19.06.110(C)" title="19.06.110(C)">(C)</a> of this section. No <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> <a class="def" href="19.04.010">shall</a> have an area less than four thousand square feet except that <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a> with <a class="def" href="19.04.020__f3179e1d20b9236beb6f538f85ea3f8a">alley</a> access <a class="def" href="19.04.010">may</a> have three-thousand-square-foot <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lots</a>.</p>
+
+
+
+</section>
+<section class="subsec subsec1 chunking-none type-Subsec1" id="19.06.110(C)" data-cite="EMC 19.06.110(C)" data-short-cite="19.06.110(C)"><p><span class="header num-only"><span class="num">C.&#x2002;</span></span>Each <a class="def" href="19.04.030__e2888caa81e44b167d7b8b393589ee06">lot</a> in the NR-C <a class="def" href="19.04.020__31c187ca97c063b0f892fe1257387f79">zone</a> is permitted up to two <a class="def" href="19.04.030__8f2bddf33ee2f448c9ddbefdc2af58d2">accessory dwelling units</a>; such <a class="def" href="19.04.030__8f2bddf33ee2f448c9ddbefdc2af58d2">accessory dwelling units</a> are exempt from the maximum <a class="def" href="19.04.040__956f3cfcf437bd5974e62de0bf3136d1">density</a> in subsection <a class="cite" href="19.06.110(B)" title="19.06.110(B)">(B)</a> of this section. <span class="note history history--linked" data-action="click-&gt;levelnodes#openHistory">(Ord. 4102-25 &#xA7;&#xA0;1 (Exh. 1), 2025; Ord. 3774-20 &#xA7;&#xA0;5(F) (Exh. 3), 2020.)</span></p>
+
+
+
+</section>
+
+
+
+
+</article>
+</article>
+</div>
+
+</main>
+		
+
+		</div>
+	</div>
+		<aside id="sidebar-right" class="container-sidebar d-print-none d-none d-md-flex" data-container-target="sidebar">
+					<a
+	id="selections"
+	class="selectionsbutton btn btn-secondary d-none"
+	href="/selections"
+	data-toggle="tooltip"
+	title="Work with the parts of the publication that you have selected."
+	data-action="click->selectionsbutton#showSelections"
+	data-controller="selectionsbutton"
+>
+	Your Selections
+	<span class="badge badge-pill selections-count">
+		
+	</span>
+</a>
+
+		<nav class="nearby card" data-controller="nearby">
+	<div class="nearby-header card-header">What’s Nearby</div>
+			<div class="nearby-depth">Title</div>
+		<div class="nearby-buttons" role="group" aria-label="Title">
+				<a
+					class="nearby-previous btn"
+					href="/EMC/18"
+					data-toggle="tooltip"
+					title="EMC Title 18, Land Division"
+				>
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span
+					><span class="text">18</span>
+				</a>
+				<a
+					class="nearby-current btn"
+					href="/EMC/19"
+					data-toggle="tooltip"
+					title="EMC Title 19, Unified Development Code"
+				>
+					<span class="text">19</span>
+				</a>
+				<a
+					class="nearby-next btn"
+					href="/EMC/20"
+					data-toggle="tooltip"
+					title="EMC Title 20, Environment"
+				>
+					<span class="text">20</span
+					><span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span>
+				</a>
+		</div>
+			<div class="nearby-depth">Chapter</div>
+		<div class="nearby-buttons" role="group" aria-label="Chapter">
+				<a
+					class="nearby-previous btn"
+					href="/EMC/19.05"
+					data-toggle="tooltip"
+					title="Chapter 19.05 EMC, Uses"
+				>
+					<span class="glyphicons glyphicons-arrow-left" aria-hidden="true"></span
+					><span class="text">19.05</span>
+				</a>
+				<a
+					class="nearby-current btn"
+					href="/EMC/19.06"
+					data-toggle="tooltip"
+					title="Chapter 19.06 EMC, Lots, Setbacks and Residential Densities"
+				>
+					<span class="text">19.06</span>
+				</a>
+				<a
+					class="nearby-next btn"
+					href="/EMC/19.07"
+					data-toggle="tooltip"
+					title="Chapter 19.07 EMC, Small Lots, Duplexes, Accessory Buildings"
+				>
+					<span class="text">19.07</span
+					><span class="glyphicons glyphicons-arrow-right" aria-hidden="true"></span>
+				</a>
+		</div>
+</nav>
+
+		<nav class="onthispage card" data-controller="onthispage">
+	<div class="onthispage-header card-header">
+		On This Page
+	</div>
+	<button
+		class="onthispage-previous disabled"
+		type="button"
+		data-onthispage-target="previous"
+		data-action="click->onthispage#previous"
+		aria-label="Previous Items"
+	>
+		<span class="glyphicons glyphicons-chevron-up" aria-hidden="true"></span>
+	</button>
+	<div
+		class="onthispage-list list-group list-group-flush"
+		role="list"
+		data-onthispage-target="list"
+	>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.010"
+				data-onthispage-target="item"
+				data-node="19.06.010"
+				title="EMC 19.06.010, Minimum lot area, width, depth, frontage"
+			>
+				19.06.010 Minimum lot area, width, depth, frontage
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.020"
+				data-onthispage-target="item"
+				data-node="19.06.020"
+				title="EMC 19.06.020, Building setbacks/building placement standards"
+			>
+				19.06.020 Building setbacks/building placement standards
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.030"
+				data-onthispage-target="item"
+				data-node="19.06.030"
+				title="EMC 19.06.030, Exceptions to building or structure placement requirements"
+			>
+				19.06.030 Exceptions to building or structure placement requirements
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.040"
+				data-onthispage-target="item"
+				data-node="19.06.040"
+				title="EMC 19.06.040, Calculation of lot area"
+			>
+				19.06.040 Calculation of lot area
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.050"
+				data-onthispage-target="item"
+				data-node="19.06.050"
+				title="EMC 19.06.050, Lot type and lot line identification"
+			>
+				19.06.050 Lot type and lot line identification
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.060"
+				data-onthispage-target="item"
+				data-node="19.06.060"
+				title="EMC 19.06.060, Lot requirements for lots created or modified through land division"
+			>
+				19.06.060 Lot requirements for lots created or modified through land division
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.070"
+				data-onthispage-target="item"
+				data-node="19.06.070"
+				title="EMC 19.06.070, Minimum lot area—Averaging in land divisions"
+			>
+				19.06.070 Minimum lot area—Averaging in land divisions
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.080"
+				data-onthispage-target="item"
+				data-node="19.06.080"
+				title="EMC 19.06.080, Land divisions—Exceptions to minimum lot area, width, depth, frontage and lot coverage"
+			>
+				19.06.080 Land divisions—Exceptions to minimum lot area, width, depth, frontage and lot coverage
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.090"
+				data-onthispage-target="item"
+				data-node="19.06.090"
+				title="EMC 19.06.090, Other administrative modifications of development standards"
+			>
+				19.06.090 Other administrative modifications of development standards
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.100"
+				data-onthispage-target="item"
+				data-node="19.06.100"
+				title="EMC 19.06.100, Residential densities"
+			>
+				19.06.100 Residential densities
+			</a>
+			<a
+				class="onthispage-item list-group-item list-group-item-action"
+				role="listitem"
+				href="/EMC/19.06.110"
+				data-onthispage-target="item"
+				data-node="19.06.110"
+				title="EMC 19.06.110, Density and lot size—Neighborhood residential-constrained zone"
+			>
+				19.06.110 Density and lot size—Neighborhood residential-constrained zone
+			</a>
+	</div>
+	<button
+		class="onthispage-next disabled"
+		type="button"
+		data-onthispage-target="next"
+		data-action="click->onthispage#next"
+		aria-label="Next Items"
+	>
+		<span class="glyphicons glyphicons-chevron-down" aria-hidden="true"></span>
+	</button>
+</nav>
+
+
+		</aside>
+</div>
+
+<footer id="site-footer" class="sitefooter" data-controller="sitefooter">
+<div class="inner">
+
+		
+
+		<div class="sitefooter-message sitefooter-internet-explorer-message no-custom-style" role="alert">
+			<p>This site does not support Internet Explorer. To view this site, consider using one of the following browsers: Google Chrome, Mozilla Firefox, or Apple Safari.</p>
+		</div>
+
+
+
+
+
+		<div class="sitefooter-disclaimer">
+			
+<p><b>The Everett Municipal Code is current through Ordinance 4159-26, passed February 11, 2026.</b></p>
+<p>Disclaimer: The City Clerk&#x2019;s Office has the official version of the Everett Municipal Code. Users should contact the City Clerk&#x2019;s Office for ordinances passed subsequent to the ordinance cited above.</p>
+
+		</div>
+
+		<div class="sitefooter-links">
+				<a
+					class="sitefooter-link url"
+					href="https://www.everettwa.gov/"
+				>City Website: www.everettwa.gov</a>
+		</div>
+
+	<a
+		class="sitefooter-brand"
+		href="https://www.generalcode.com/"
+		target="_blank"
+		rel="external noopener"
+	><span class="sitefooter-logo">Hosted by General Code.</span></a>
+
+		<div class="sitefooter-links">
+			<a
+				class="btn btn-link"
+				href="https://www.iccsafe.org/about/icc-online-privacy-policy/"
+				target="_blank"
+				rel="external noopener"
+			>Privacy Policy</a>
+			|
+			<a
+				class="btn btn-link"
+				href="https://ecode360.com/docs/TOS.html"
+				target="_blank"
+				rel="external noopener"
+			>Terms of Use</a>
+			|
+			<button
+				class="sitefooter-cookie-preferences btn btn-link"
+				data-cc="c-settings"
+			>Cookie Preferences</button>
+		</div>
+
+</div>
+</footer>
+
+
+<nav
+	id="contents"
+	class="contents contents-modal modal fade d-print-none"
+	role="dialog"
+	tabindex="-1"
+	data-controller="contents"
+>
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content modal-tabbed">
+
+			<header class="modal-header">
+				<h1 class="modal-title">Contents</h1>
+				<button type="button" class="close" aria-label="Close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</header>
+
+			<ul
+	class="nav nav-tabs"
+	role="tablist"
+>
+		<li class="nav-item ">
+			<a
+				href="#contents-products"
+				id="contents-products-tab"
+				class="nav-link "
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-products"
+				aria-selected="false"
+			>
+					<span class="text">All Publications</span>
+			</a>
+		</li>
+
+		<li
+			class="nav-item contents-product-tab primary really-current current"
+			data-contents-target="productTab"
+		>
+			<a
+				href="#contents-product-EMC"
+				id="contents-product-EMC-tab"
+				class="nav-link active"
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-product-EMC"
+				aria-selected="true"
+			>
+				<span class="text">
+					Municipal Code
+					
+				</span>
+			</a>
+		</li>
+		<li
+			class="nav-item contents-product-tab  "
+			data-contents-target="productTab"
+		>
+			<a
+				href="#contents-product-Charter"
+				id="contents-product-Charter-tab"
+				class="nav-link "
+				data-toggle="tab"
+				data-contents-target="navTab"
+				role="tab"
+				aria-controls="contents-product-Charter"
+				aria-selected="false"
+			>
+				<span class="text">
+					City Charter
+					
+				</span>
+			</a>
+		</li>
+
+	<li class="nav-item selections">
+		<a
+			href="#contents-selections"
+			id="contents-selections-tab"
+			class="nav-link"
+			data-toggle="tab"
+			data-contents-target="navTab"
+			role="tab"
+			aria-controls="contents-selections"
+			aria-selected="false"
+		>
+			<span class="glyphicons glyphicons-check" aria-hidden="true"></span
+			><span class="text">Your Selections</span>
+			<span class="badge badge-pill selections-count"></span>
+		</a>
+	</li>
+</ul>
+
+
+			<div class="modal-body" data-contents-target="modalBody">
+				<div class="tab-content">
+					<div
+	id="contents-products"
+	class="contents-products tab-pane"
+	role="tabpanel"
+	data-contents-target="tabPane"
+	data-scope="all"
+	aria-labelledby="contents-products-tab"
+>
+
+	<div class="list-group">
+			<a
+				href="#contents-product-EMC"
+				class="contents-products-link list-group-item current"
+					data-action="contents#switchProduct"
+					role="button"
+			>
+				<span class="text">
+					Everett Municipal Code
+					
+					
+					
+				</span>
+			</a>
+			<a
+				href="#contents-product-Charter"
+				class="contents-products-link list-group-item"
+					data-action="contents#switchProduct"
+					role="button"
+			>
+				<span class="text">
+					Everett Charter
+					
+					
+					
+				</span>
+			</a>
+	</div>
+
+</div>
+
+
+						<div id="contents-product-EMC"
+	class="tab-pane contents-product really-current current active show"
+	role="tabpanel"
+	data-contents-target="tabPane currentTabPane"
+	data-source="/EMC/contents?current=19.06.020&amp;interactive=true"
+	data-scope="EMC"
+	aria-labelledby="contents-product-EMC-tab">
+</div>
+
+						<div id="contents-product-Charter"
+	class="tab-pane contents-product"
+	role="tabpanel"
+	data-contents-target="tabPane"
+	data-source="/Charter/contents?interactive=true"
+	data-scope="Charter"
+	aria-labelledby="contents-product-Charter-tab">
+</div>
+
+
+					<div id="contents-selections"
+	class="tab-pane"
+	role="tabpanel"
+	data-source="/selections"
+	data-scope="selections"
+	data-contents-target="tabPane"
+	aria-labelledby="contents-selections-tab">
+</div>
+
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<div data-contents-target="tocControls" class="contents-controls">
+	<button
+		class="contents-expand btn btn-light d-none d-sm-block"
+		type="button"
+		data-action="contents#expandAll"
+	>
+		<span class="glyphicons glyphicons-plus" aria-hidden="true"></span
+		><span class="text">Expand All</span>
+	</button>
+	<button
+		class="contents-collapse btn btn-light d-none d-sm-block"
+		type="button"
+		data-action="contents#collapseAll"
+	>
+		<span class="glyphicons glyphicons-minus" aria-hidden="true"></span
+		><span class="text">Collapse All</span>
+	</button>
+</div>
+
+<div data-contents-target="selectControls" class="contents-controls">
+	<a
+		id="contents-share-selections"
+		class="btn btn-primary  disabled"
+		href="/selections/share"
+		data-controller="dynamodal"
+		data-dynamodal-selections-value="true"
+		data-remote="false"
+		data-action="contents#shareSelections"
+		rel="nofollow"
+	>
+		<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span
+		><span class="text" aria-label="Share Your Selections">Share</span>
+	</a>
+	<button
+		id="contents-clear-selections"
+		class="btn btn-warning  disabled"
+		data-action="contents#clearSelections"
+	>
+		<span class="glyphicons glyphicons-erase" aria-hidden="true"></span
+		><span class="text d-none d-sm-inline">Clear</span>
+	</button>
+</div>
+
+				<button
+					class="btn btn-light"
+					type="button"
+					title="Close"
+					data-dismiss="modal"
+				>
+					<span class="glyphicons glyphicons-remove d-sm-none" aria-hidden="true"></span
+					><span class="text d-none d-sm-inline">Close</span>
+				</button>
+			</div>
+
+		</div>
+	</div>
+</nav>
+
+<aside
+	id="large-view"
+	class="largeviewmodal modal fade"
+	role="dialog"
+	tabindex="-1"
+	data-controller="largeviewmodal"
+>
+<div class="largeviewmodal-dialog modal-dialog modal-xl" role="document">
+<div class="largeviewmodal-content modal-content" data-largeviewmodal-target="modalContent">
+
+	<div class="largeviewmodal-header modal-header">
+		<h1 class="modal-title for-tables">View Full Table</h1>
+		<h1 class="modal-title for-pictures">View Full Image</h1>
+		<h1 class="modal-title for-files">View Full File</h1>
+		<button
+			type="button"
+			class="close"
+			aria-label="Close"
+			data-dismiss="modal"
+		><span aria-hidden="true">&times;</span></button>
+	</div>
+
+	<div class="largeviewmodal-body modal-body main" data-largeviewmodal-target="modalBody">
+	</div>
+
+	<div class="largeviewmodal-footer modal-footer">
+		<button
+			type="button"
+			class="btn btn-default pull-left large-view-scroll-top"
+			title="Go to Top"
+			data-action="largeviewmodal#scrollModal"
+		>
+			<span class="glyphicons glyphicons-arrow-up" aria-hidden="true"></span> <span class="d-none d-sm-inline">Go to Top</span>
+		</button>
+		<button
+			type="button"
+			class="btn btn-default pull-left large-view-scroll-bottom"
+			title="Go to Bottom"
+			data-action="largeviewmodal#scrollModal"
+		>
+			<span class="glyphicons glyphicons-arrow-down" aria-hidden="true"></span> <span class="d-none d-sm-inline">Go to Bottom</span>
+		</button>
+		<a
+			href
+			class="btn btn-default share"
+			role="button"
+			title="Share/Save"
+			data-action="largeviewmodal#shareContent"
+			data-largeviewmodal-target="share"
+		>
+			<span class="glyphicons glyphicons-disk-export" aria-hidden="true"></span> <span>Share/Save</span>
+		</a>
+		<button
+			type="button"
+			class="btn btn-default"
+			title="Close"
+			data-dismiss="modal"
+		>
+			<span class="glyphicons glyphicons-remove d-inline d-sm-none" aria-hidden="true"></span>
+			<span class="d-none d-sm-inline">Close</span>
+		</button>
+	</div>
+
+</div>
+</div>
+</aside>
+
+
+<aside
+	class="subsecnodeactions subsec-actions d-print-none d-none d-sm-block invisible"
+	data-controller="subsecnodeactions"
+>
+	<div
+		class="dropdown"
+		data-subsecnodeactions-target="dropdown"
+	>
+		<button
+			class="btn dropdown-toggle"
+			data-toggle="dropdown"
+			type="button"
+			aria-haspopup="true"
+			aria-expanded="false"
+			aria-label="Subsection Tools"
+			title="Subsection Tools"
+		>
+			<span class="glyphicons glyphicons-info-sign" aria-hidden="true"></span>
+		</button>
+		<div
+			class="dropdown-menu"
+			data-subsecnodeactions-target="menu"
+		>
+			<span
+				class="dropdown-header"
+				data-subsecnodeactions-target="header"
+			></span>
+			<a
+				class="dropdown-item"
+				data-template="/EMC/Xyzzy/share"
+				data-controller="dynamodal"
+				data-subsecnodeactions-target="link"
+				rel="nofollow"
+			>
+				Save, Share, Bookmark or Print
+			</a>
+			<a
+				class="dropdown-item disabled history"
+				data-template="/EMC/Xyzzy/history"
+				data-controller="dynamodal"
+				data-subsecnodeactions-target="link history"
+				rel="nofollow"
+			>
+				History of This Subsection
+			</a>
+		</div>
+	</div>
+</aside>
+
+
+</div>
+</body>
+
+</html>

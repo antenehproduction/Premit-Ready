@@ -73,7 +73,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
 #rp-addr{font-size:9px;color:var(--txt2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bbtn{font-size:9px;color:var(--txt3);background:none;border:none;cursor:pointer;padding:2px 5px;border-radius:3px;transition:color .12s;flex-shrink:0}.bbtn:hover{color:var(--txt)}
 #phases{flex-shrink:0;padding:7px}
-.ph{display:flex;gap:7px;margin-bottom:3px;align-items:flex-start;padding:5px 7px;border-radius:4px;border:1px solid transparent;transition:all .2s}
+.ph{display:flex;gap:7px;margin-bottom:3px;align-items:flex-start;padding:5px 7px;border-radius:4px;border:1px solid transparent;transition:all .2s;cursor:pointer}
+.ph.done:hover{background:rgba(34,224,138,.06);border-color:rgba(34,224,138,.25)}
+.ph.active:hover{background:var(--ink2)}
 .ph.active{background:var(--ink2);border-color:var(--brd2)}.ph.pending{opacity:.28}
 .pdot{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--txt3);display:flex;align-items:center;justify-content:center;font-size:7px;flex-shrink:0;margin-top:1px;transition:all .2s;font-weight:700}
 .ph.done .pdot{background:var(--green);border-color:var(--green);color:#0b0e15}
@@ -227,18 +229,184 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
   .brand-title{font-size:22px}
   .acard,.ov-grid{padding:12px}
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   VAULT — secret-organization landing UI
+   Toggle off with ?legacy=1 in the URL.
+   ═════════════════════════════════════════════════════════════════════ */
+#landing.vault{
+  background:
+    radial-gradient(ellipse at 50% 22%, rgba(38,90,180,.22) 0%, rgba(0,0,0,0) 55%),
+    repeating-linear-gradient(0deg,rgba(122,162,255,.07) 0 1px,transparent 1px 80px),
+    repeating-linear-gradient(90deg,rgba(122,162,255,.07) 0 1px,transparent 1px 80px),
+    repeating-linear-gradient(0deg,rgba(122,162,255,.025) 0 1px,transparent 1px 16px),
+    repeating-linear-gradient(90deg,rgba(122,162,255,.025) 0 1px,transparent 1px 16px),
+    linear-gradient(180deg,#061025 0%,#0a1929 100%);
+  position:relative;
+}
+/* Vault flash + brand fade-in choreography (only on first paint) */
+@keyframes vault-flash{
+  0%{opacity:0;transform:translateX(-50%) scale(.7);letter-spacing:1px}
+  18%{opacity:1;transform:translateX(-50%) scale(1.02);letter-spacing:6px}
+  78%{opacity:1;transform:translateX(-50%) scale(1.02);letter-spacing:6px}
+  100%{opacity:0;transform:translateX(-50%) scale(1.18);letter-spacing:9px}
+}
+#landing.vault .vault-flash{
+  position:fixed;top:32%;left:50%;transform:translateX(-50%);
+  font:600 11px/1 'JetBrains Mono',monospace;letter-spacing:6px;
+  color:rgba(180,210,255,.92);
+  border:1px solid rgba(122,162,255,.4);
+  background:rgba(6,16,37,.55);backdrop-filter:blur(2px);
+  padding:14px 32px;pointer-events:none;z-index:60;text-transform:uppercase;
+  animation:vault-flash 1.6s ease-out forwards;
+  box-shadow:0 0 32px rgba(122,162,255,.25),inset 0 0 0 1px rgba(255,255,255,.05);
+}
+@keyframes brand-rise{
+  0%{opacity:0;transform:translateY(-14px) scale(.96);filter:blur(3px)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+#landing.vault .brand{animation:brand-rise 1.1s cubic-bezier(.2,.7,.3,1) backwards;animation-delay:.5s}
+/* Unrolling paper that wraps the form cards */
+@keyframes unroll-paper{
+  0%{
+    clip-path:inset(0 0 100% 0);
+    transform:perspective(1200px) rotateX(8deg) scaleY(.78);
+    box-shadow:0 4px 24px rgba(0,0,0,.7);
+  }
+  55%{
+    clip-path:inset(0 0 0 0);
+    transform:perspective(1200px) rotateX(0) scaleY(1.02);
+  }
+  100%{
+    clip-path:inset(0 0 0 0);
+    transform:perspective(1200px) rotateX(0) scaleY(1);
+    box-shadow:0 0 0 1px rgba(0,0,0,.05),0 30px 60px -20px rgba(0,0,0,.55),0 12px 28px -10px rgba(0,0,0,.4);
+  }
+}
+#landing.vault .scroll-paper{
+  position:relative;width:100%;max-width:780px;margin:0 auto;
+  background:
+    radial-gradient(circle at 18% 12%,rgba(0,0,0,.04) 0%,transparent 35%),
+    radial-gradient(circle at 82% 88%,rgba(0,0,0,.03) 0%,transparent 40%),
+    repeating-linear-gradient(0deg,rgba(20,33,61,.025) 0 1px,transparent 1px 22px),
+    repeating-linear-gradient(90deg,rgba(20,33,61,.025) 0 1px,transparent 1px 22px),
+    linear-gradient(180deg,#f6f1e2 0%,#ece5d0 100%);
+  color:#14213d;border-radius:3px;padding:38px 38px 28px;
+  outline:1px dashed rgba(20,33,61,.22);outline-offset:-10px;
+  transform-origin:top center;
+  animation:unroll-paper 1.5s cubic-bezier(.2,.7,.25,1) backwards;
+  animation-delay:1.05s;
+}
+/* Top-edge "rolled top" highlight */
+#landing.vault .scroll-paper::before{
+  content:'';position:absolute;left:0;right:0;top:-8px;height:14px;
+  background:linear-gradient(180deg,#c8b98e 0%,#a8956a 50%,rgba(168,149,106,0) 100%);
+  border-radius:3px 3px 0 0;
+  box-shadow:0 -2px 4px rgba(0,0,0,.3);
+}
+/* Stamped seal in top-right */
+#landing.vault .scroll-paper::after{
+  content:'CONFIDENTIAL · LICENSED MEMBER · ORDER ADI-#';
+  position:absolute;top:18px;right:18px;
+  font:7.5px/1.2 'JetBrains Mono',monospace;letter-spacing:1.3px;
+  color:rgba(160,30,30,.7);border:1.5px solid rgba(160,30,30,.55);
+  padding:5px 9px;border-radius:2px;background:rgba(255,250,240,.5);
+  transform:rotate(2.5deg);
+  box-shadow:inset 0 0 0 1px rgba(160,30,30,.15);
+}
+/* Re-skin the existing form cards inside the scroll */
+#landing.vault .scroll-paper #api-card,
+#landing.vault .scroll-paper .acard{
+  background:transparent;border:none;padding:0;margin:0 0 22px 0;box-shadow:none;
+}
+#landing.vault .scroll-paper .acard:last-child{margin-bottom:0}
+#landing.vault .scroll-paper .clbl,
+#landing.vault .scroll-paper .ov-lbl,
+#landing.vault .scroll-paper .fc-t{color:#14213d;font-weight:600}
+#landing.vault .scroll-paper .ov-desc,
+#landing.vault .scroll-paper .fc-d,
+#landing.vault .scroll-paper .key-note{color:rgba(20,33,61,.65)}
+#landing.vault .scroll-paper .ov-item,
+#landing.vault .scroll-paper .fc{
+  background:rgba(255,255,255,.35);
+  border:1px solid rgba(20,33,61,.18);
+}
+#landing.vault .scroll-paper .ov-item:hover{background:rgba(255,255,255,.55)}
+#landing.vault .scroll-paper .ov-item.active{
+  background:rgba(0,80,160,.12);border-color:rgba(0,80,160,.5);
+}
+#landing.vault .scroll-paper input[type="text"],
+#landing.vault .scroll-paper input[type="password"]{
+  background:rgba(255,253,247,.85);
+  border:1px solid rgba(20,33,61,.32);
+  color:#14213d;
+  font-family:'JetBrains Mono',monospace;
+}
+#landing.vault .scroll-paper input::placeholder{color:rgba(20,33,61,.42)}
+#landing.vault .scroll-paper .rbtn{
+  background:linear-gradient(180deg,#1d3a72 0%,#0e1f3f 100%);
+  border:1px solid rgba(160,30,30,.5);
+  color:#f0e8d0;letter-spacing:2px;font-weight:600;
+}
+#landing.vault .scroll-paper .rbtn:not(:disabled):hover{
+  background:linear-gradient(180deg,#2952a3 0%,#15295a 100%);
+  box-shadow:0 0 12px rgba(122,162,255,.4);
+}
+#landing.vault .scroll-paper .key-btn{background:rgba(255,253,247,.7);color:#14213d;border:1px solid rgba(20,33,61,.32)}
+#landing.vault .scroll-paper #conn-banner{background:rgba(255,255,255,.45);border:1px solid rgba(20,33,61,.2);color:#14213d}
+#landing.vault .scroll-paper #conn-msg strong{color:#14213d}
+#landing.vault .scroll-paper #conn-body{color:rgba(20,33,61,.7)}
+#landing.vault .scroll-paper a{color:#0e3d8a;font-weight:500}
+#landing.vault .brand-icon{
+  background:linear-gradient(180deg,#1d3a72 0%,#0e1f3f 100%);
+  color:#f0e8d0;border:1px solid rgba(160,30,30,.5);
+  box-shadow:0 0 18px rgba(122,162,255,.3);
+}
+#landing.vault .brand-title{color:#e8efff;text-shadow:0 0 24px rgba(122,162,255,.4)}
+#landing.vault .brand-title em{color:#a0c4ff !important}
+#landing.vault .brand-sub{color:rgba(180,200,230,.85)}
+/* Reduce-motion safety: skip the dramatic animations */
+@media (prefers-reduced-motion: reduce){
+  #landing.vault .vault-flash{animation:none;display:none}
+  #landing.vault .brand,
+  #landing.vault .scroll-paper{animation:none}
+}
+
+/* ═══ P0-1 hosted-key auth modal ═══ */
+#auth-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,12,20,.78);backdrop-filter:blur(6px);z-index:10000}
+#auth-modal .auth-card{width:380px;max-width:92vw;background:#fffdf3;color:#14213d;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5);padding:28px 30px;font-family:var(--serif,Crimson Pro,serif)}
+#auth-modal .auth-title{font-size:18px;font-weight:600;letter-spacing:.5px;margin:0 0 4px}
+#auth-modal .auth-sub{font-size:11px;color:rgba(20,33,61,.65);margin:0 0 18px}
+#auth-modal .auth-tabs{display:flex;gap:0;border-bottom:1px solid rgba(20,33,61,.18);margin-bottom:14px}
+#auth-modal .auth-tab{flex:1;padding:9px 10px;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;cursor:pointer;color:rgba(20,33,61,.55);border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--mono,monospace)}
+#auth-modal .auth-tab.active{color:#14213d;border-bottom-color:#0e3d8a}
+#auth-modal label{display:block;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:rgba(20,33,61,.65);margin:10px 0 4px;font-family:var(--mono,monospace)}
+#auth-modal input{width:100%;padding:9px 10px;background:#fff;border:1px solid rgba(20,33,61,.25);border-radius:5px;color:#14213d;font-size:13px;font-family:inherit;box-sizing:border-box}
+#auth-modal input:focus{outline:none;border-color:#0e3d8a;box-shadow:0 0 0 2px rgba(14,61,138,.15)}
+#auth-modal .auth-btn{display:block;width:100%;margin-top:14px;padding:11px;background:#0e3d8a;color:#fffdf3;border:none;border-radius:5px;font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;cursor:pointer;font-family:var(--mono,monospace)}
+#auth-modal .auth-btn:hover{background:#0a2d6a}
+#auth-modal .auth-btn.alt{background:#fff;color:#14213d;border:1px solid rgba(20,33,61,.3);margin-top:8px}
+#auth-modal .auth-btn.alt:hover{background:#f5f1e3}
+#auth-modal .auth-msg{margin:10px 0 0;font-size:11px;min-height:14px;color:#14213d}
+#auth-modal .auth-foot{margin-top:14px;font-size:10px;color:rgba(20,33,61,.55);display:flex;justify-content:space-between;align-items:center}
+#auth-modal .auth-foot a{color:#0e3d8a;cursor:pointer;text-decoration:none}
+#auth-modal .auth-foot a:hover{text-decoration:underline}
+#auth-modal .auth-divider{text-align:center;font-size:9px;letter-spacing:1px;color:rgba(20,33,61,.45);margin:10px 0;text-transform:uppercase;font-family:var(--mono,monospace)}
+#auth-modal .auth-disclosure{margin-top:14px;padding-top:12px;border-top:1px solid rgba(20,33,61,.12);font-size:9px;line-height:1.45;color:rgba(20,33,61,.6)}
 </style>
 </head>
 <body>
 
 <!-- ═══ LANDING ═══ -->
 <div class="screen" id="landing">
+  <div class="vault-flash" aria-hidden="true">CREDENTIALS VERIFIED</div>
   <div class="brand">
     <div class="brand-icon">AI</div>
     <div class="brand-title">ArchDraw <em style="color:var(--blue)">Intel</em> v14</div>
     <div class="brand-sub">Real satellite imagery · OSM parcel data · Complete printable 24"×36" permit drawing set</div>
   </div>
 
+  <div class="scroll-paper">
   <div id="api-card">
     <div id="conn-banner" class="probing cb-probing">
       <div class="cbdot"></div>
@@ -301,6 +469,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
       <div class="fc"><div class="fc-t">✏️ Elevations + Sections</div><div class="fc-d">Auto-generated 4-side elevations and 2 building sections</div></div>
     </div>
   </div>
+  </div><!-- /scroll-paper -->
 </div>
 
 <!-- ═══ WORKSPACE ═══ -->
@@ -376,6 +545,48 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
   </div>
 </div>
 
+<!-- ═══ P0-1 auth modal (hosted-key path only) ═══ -->
+<div id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+  <div class="auth-card">
+    <h2 id="auth-title" class="auth-title">ArchDraw Intel</h2>
+    <p class="auth-sub">Sign in to run a new permit analysis. Your free trial covers 1 analysis.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="auth-tab-signin" onclick="adiSwitchAuthTab('signin')">Sign in</button>
+      <button class="auth-tab" id="auth-tab-signup" onclick="adiSwitchAuthTab('signup')">Create account</button>
+    </div>
+    <div id="auth-pane-signin">
+      <label for="auth-email-in">Email</label>
+      <input id="auth-email-in" type="email" autocomplete="email" placeholder="you@example.com">
+      <label for="auth-pw-in">Password</label>
+      <input id="auth-pw-in" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')adiSubmitSignIn()">
+      <button class="auth-btn" onclick="adiSubmitSignIn()">Sign in</button>
+      <div class="auth-divider">or</div>
+      <button class="auth-btn alt" onclick="adiSignInGoogle()">Continue with Google</button>
+      <div class="auth-foot">
+        <a onclick="adiPasswordReset()">Forgot password?</a>
+        <a onclick="adiSwitchAuthTab('signup')">Create account →</a>
+      </div>
+    </div>
+    <div id="auth-pane-signup" style="display:none">
+      <label for="auth-email-up">Email</label>
+      <input id="auth-email-up" type="email" autocomplete="email" placeholder="you@example.com">
+      <label for="auth-pw-up">Password (≥ 8 characters)</label>
+      <input id="auth-pw-up" type="password" autocomplete="new-password" onkeydown="if(event.key==='Enter')adiSubmitSignUp()">
+      <button class="auth-btn" onclick="adiSubmitSignUp()">Create account</button>
+      <div class="auth-divider">or</div>
+      <button class="auth-btn alt" onclick="adiSignInGoogle()">Continue with Google</button>
+      <div class="auth-foot">
+        <span>Already have an account?</span>
+        <a onclick="adiSwitchAuthTab('signin')">Sign in →</a>
+      </div>
+    </div>
+    <div id="auth-msg" class="auth-msg"></div>
+    <div class="auth-disclosure">
+      ArchDraw output is generated for design study and pre-application review only. Drawings and analysis must be reviewed and stamped by a registered design professional before any permit submission. By signing in you accept these terms.
+    </div>
+  </div>
+</div>
+
 <div id="log-panel"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -384,33 +595,67 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
 <!-- ArchDraw Intel data registries (hand-curated) — populate window.COUNTY_REGISTRY etc. -->
 <script src="data/county-registry.js"></script>
 <script src="data/zoning-matrix.js"></script>
+<script src="data/middle-housing.js"></script>
+<script src="data/wa-statewide.js"></script>
+<script src="data/cost-index.js"></script>
 <script src="data/permit-registry.js"></script>
+<script src="data/overlay-registry.js"></script>
+<!-- P0-1 hosted-key auth (additive; legacy BYOK path remains the default) -->
+<script src="data/auth-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="lib/auth.js"></script>
+<script src="lib/proxy.js"></script>
 <script>
 // ═══ STATE ═══
 // ═══ ADI_PROXY configuration ═══
-// The ArchDraw Intel proxy (workers/proxy.js) unlocks CORS-blocked data sources:
+// The ArchDraw Intel proxy (api/[...path].js Vercel Edge Function or
+// workers/proxy.js Cloudflare Worker) unlocks CORS-blocked data sources:
 // FEMA, county ArcGIS, municipal codes, Socrata permit portals.
-// To enable: deploy the worker (see workers/README.md) then either:
-//   (a) set window.ADI_PROXY_DEFAULT=<url> below, or
-//   (b) run localStorage.setItem('ADI_PROXY', <url>) in the browser console.
-// When unset, the app falls back to direct fetch + public corsproxy.io.
+//
+// Resolution chain:
+//   1. localStorage.ADI_PROXY                 (user override)
+//   2. window.ADI_PROXY_DEFAULT               (build-time default)
+//   3. /api  (relative)                       (auto-used on *.vercel.app /
+//                                              localhost / 127.0.0.1 — same-
+//                                              origin so no CORS needed)
+//   4. null → direct fetch only, NO third-party hop
+//
+// P1-2 (2026-04-25): the legacy `corsproxy.io` fallback was removed. All
+// production data routes through ArchDraw-controlled infra (Vercel Edge
+// or Cloudflare Worker). Standalone users (e.g., GitHub Pages with no
+// proxy configured) see a clear error and must set localStorage.ADI_PROXY
+// to a deployed proxy URL — no silent third-party network hop.
 window.ADI_PROXY_DEFAULT=window.ADI_PROXY_DEFAULT||null;
 function getProxyBase(){
-  try{return localStorage.getItem('ADI_PROXY')||window.ADI_PROXY_DEFAULT||null}
-  catch(_){return window.ADI_PROXY_DEFAULT||null}
+  try{
+    const explicit=localStorage.getItem('ADI_PROXY')||window.ADI_PROXY_DEFAULT;
+    if(explicit)return explicit;
+    if(typeof location!=='undefined'&&(/\.vercel\.app$/.test(location.hostname)||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
+      return '/api';
+    }
+    return null;
+  }catch(_){return window.ADI_PROXY_DEFAULT||null}
 }
-// Proxy-aware fetch: when ADI_PROXY is set, routes through our worker;
-// otherwise uses direct fetch with corsproxy.io fallback on failure.
+// Proxy-aware fetch:
+//   - When ADI_PROXY base is resolvable, route through it (no CORS needed
+//     because the proxy returns Access-Control-Allow-Origin: *).
+//   - When no proxy is configured, try direct fetch — succeeds for the
+//     small set of upstream services that are publicly CORS-permissive
+//     (Nominatim, Esri World Imagery, OSM Overpass).
+//   - Direct-fetch failures are NOT silently routed through a third-party
+//     proxy. Caller sees a real error and can set ADI_PROXY to recover.
 async function proxyFetch(route,upstreamUrl){
   const base=getProxyBase();
   if(base){
-    // Route through our worker. "route" is like '/fema?lat=X&lon=Y' or '/arcgis?url=...'
+    // Route through our proxy. "route" is like '/fema?lat=X&lon=Y'.
     return fetch(`${base}${route}`);
   }
   if(upstreamUrl){
-    // No proxy configured — try direct, fall back to corsproxy.io
-    try{const r=await fetch(upstreamUrl);if(r.ok)return r;throw new Error('direct failed')}
-    catch(_){return fetch(`https://corsproxy.io/?${encodeURIComponent(upstreamUrl)}`)}
+    // No proxy configured — try direct. Fail loudly on CORS / network
+    // errors rather than introducing a silent third-party data hop.
+    const r=await fetch(upstreamUrl);
+    if(r.ok)return r;
+    throw new Error(`proxyFetch direct fetch failed (status ${r.status}). Set localStorage.ADI_PROXY to a deployed Vercel/Worker proxy URL to enable CORS-blocked endpoints.`);
   }
   throw new Error('proxyFetch: no route and no upstreamUrl');
 }
@@ -442,6 +687,8 @@ const phaseRunners={};
 const LOG=[];let logPanel=null;
 function log(level,...args){const msg=args.map(a=>typeof a==='object'?JSON.stringify(a).substring(0,200):String(a)).join(' ');LOG.push({t:Date.now(),level,msg});console[level]?.('[ADI]',...args);renderLog()}
 const L={info:(...a)=>log('info',...a),warn:(...a)=>log('warn',...a),error:(...a)=>log('error',...a)};
+// Expose under a non-colliding name so lib/* can log too. window.L belongs to Leaflet.
+window.ADILog=L;
 window.onerror=(m,s,l)=>L.error(`Uncaught: ${m} (${s}:${l})`);
 window.onunhandledrejection=e=>L.error('UnhandledPromise:',e.reason?.message||e.reason);
 function renderLog(){if(!logPanel)return;const tb=logPanel.querySelector('#lb');if(!tb)return;tb.innerHTML=LOG.slice(-80).map(e=>{const ts=((e.t-LOG[0]?.t)/1000).toFixed(1)+'s';const col=e.level==='error'?'var(--coral)':e.level==='warn'?'var(--amber)':'var(--txt2)';return`<tr><td style="color:var(--txt3);padding:1px 6px;white-space:nowrap">${ts}</td><td style="color:${col};padding:1px 4px;word-break:break-all">${e.msg.replace(/</g,'&lt;')}</td></tr>`}).join('');tb.scrollTop=1e9}
@@ -456,6 +703,13 @@ function repairJSON(s){return s.replace(/,(\s*[}\]])/g,'$1').replace(/\/\/[^\n]*
 function delay(ms){return new Promise(r=>setTimeout(r,ms))}
 
 // ═══ 50-STATE DB ═══
+// ═══ State-name normalization (fixes round 5n / issue #2) ═══
+// Site-intel often returns full state names ("Washington") while STATE_DB
+// and county/permit registries key on 2-letter abbreviations ("WA").
+// Centralize the conversion so every consumer reads the same code-stack.
+const STATE_NAME_TO_ABBR={alabama:'AL',alaska:'AK',arizona:'AZ',arkansas:'AR',california:'CA',colorado:'CO',connecticut:'CT',delaware:'DE','district of columbia':'DC',florida:'FL',georgia:'GA',hawaii:'HI',idaho:'ID',illinois:'IL',indiana:'IN',iowa:'IA',kansas:'KS',kentucky:'KY',louisiana:'LA',maine:'ME',maryland:'MD',massachusetts:'MA',michigan:'MI',minnesota:'MN',mississippi:'MS',missouri:'MO',montana:'MT',nebraska:'NE',nevada:'NV','new hampshire':'NH','new jersey':'NJ','new mexico':'NM','new york':'NY','north carolina':'NC','north dakota':'ND',ohio:'OH',oklahoma:'OK',oregon:'OR',pennsylvania:'PA','rhode island':'RI','south carolina':'SC','south dakota':'SD',tennessee:'TN',texas:'TX',utah:'UT',vermont:'VT',virginia:'VA',washington:'WA','west virginia':'WV',wisconsin:'WI',wyoming:'WY'};
+function normalizeState(s){if(!s)return '';const t=String(s).trim();if(t.length===2)return t.toUpperCase();return STATE_NAME_TO_ABBR[t.toLowerCase()]||t.toUpperCase().substring(0,2);}
+
 const STATE_DB={AL:{bc:'IBC 2018',ec:'IECC 2015',seismic:'C',wind:'130',note:'No statewide residential code; municipal adoption'},AK:{bc:'IBC 2018',ec:'IECC 2018',seismic:'D-F',wind:'150',note:'Extreme seismic + wind — special engineering required'},AZ:{bc:'IBC 2018',ec:'IECC 2015',seismic:'C',wind:'105',note:'Check city/county amendments'},AR:{bc:'IBC 2018',ec:'IECC 2015',seismic:'C',wind:'115',note:'Arkansas Fire Prevention Code'},CA:{bc:'CBC 2022',ec:'Title 24 2022',seismic:'D-E',wind:'110',note:'CALGreen required. Title 24 CF1R. SB9 ADU rights'},CO:{bc:'IBC 2021',ec:'IECC 2021',seismic:'B',wind:'115',note:'Denver has own code'},CT:{bc:'IBC 2018',ec:'IECC 2021',seismic:'B',wind:'120',note:'CT State Building Code (IBC amendments)'},DE:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'130',note:'DE State Fire Prevention Regulations'},FL:{bc:'FBC 2023',ec:'FBC Energy 2023',seismic:'A',wind:'175',note:'Product Approvals required. NOA for HVHZ'},GA:{bc:'IBC 2018',ec:'IECC 2015',seismic:'B',wind:'130',note:'Local amendments common'},HI:{bc:'IBC 2018',ec:'ASHRAE 90.1-2019',seismic:'D',wind:'150',note:'County codes vary. Hurricane requirements'},ID:{bc:'IBC 2018',ec:'IECC 2015',seismic:'C',wind:'115',note:'Small jurisdictions may use county regs'},IL:{bc:'IBC 2021',ec:'IECC 2021',seismic:'B',wind:'115',note:'Chicago Municipal Code — significantly different'},IN:{bc:'IBC 2020',ec:'IECC 2018',seismic:'B',wind:'105',note:'IDOI inspection required'},IA:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Local adoption required'},KS:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115+',note:'Tornado shelter recommended in tornado alley'},KY:{bc:'IBC 2019',ec:'IECC 2018',seismic:'C',wind:'115',note:'Kentucky Building Code (KBC)'},LA:{bc:'IBC 2018',ec:'IECC 2015',seismic:'B',wind:'150',note:'Post-Katrina coastal requirements strict'},ME:{bc:'IBC 2015',ec:'IECC 2015',seismic:'B',wind:'120',note:'Maine Uniform Building & Energy Code (MUBEC)'},MD:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'130',note:'Green Building Council active'},MA:{bc:'MSBC 2022',ec:'IECC 2021',seismic:'B',wind:'130',note:'Stretch Code required in 300+ municipalities'},MI:{bc:'MBC 2015',ec:'IECC 2015',seismic:'B',wind:'115',note:'BCC oversight'},MN:{bc:'IBC 2020',ec:'IECC 2020',seismic:'A',wind:'115',note:'MNGBC green building programs'},MS:{bc:'IBC 2015',ec:'IECC 2015',seismic:'B',wind:'140',note:'Gulf Coast wind zone enforcement'},MO:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'115',note:'KC/STL local amendments'},MT:{bc:'IBC 2018',ec:'IECC 2021',seismic:'C',wind:'115',note:'Small jurisdictions may use county regs'},NE:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Tornado shelter in some areas'},NV:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'105',note:'Clark County has own amendments'},NH:{bc:'IBC 2009',ec:'IECC 2018',seismic:'B',wind:'130',note:'Older base code — check local ordinances'},NJ:{bc:'IBC 2021',ec:'IECC 2021',seismic:'B',wind:'130',note:'NJ Uniform Construction Code (UCC). DCA oversight'},NM:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'115',note:'Construction Industries Division'},NY:{bc:'NYBC 2022',ec:'NYCECC 2022',seismic:'B',wind:'130',note:'NYC has separate code from NY State'},NC:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'140',note:'Hurricane straps required coastal counties'},ND:{bc:'IBC 2018',ec:'IECC 2018',seismic:'A',wind:'115',note:'State guides but not mandates'},OH:{bc:'OBC 2019',ec:'OEBC 2017',seismic:'B',wind:'115',note:'Ohio Building Code'},OK:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'130+',note:'Tornado shelter ICC 500 recommended'},OR:{bc:'OSSC 2021',ec:'OEESC 2021',seismic:'D',wind:'115',note:'Portland has own amendments + green reqs'},PA:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'PA Uniform Construction Code (UCC)'},RI:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'130',note:'CRMC coastal management'},SC:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'150',note:'Coastal resilience requirements'},SD:{bc:'IBC 2018',ec:'IECC 2018',seismic:'A',wind:'115',note:'No statewide mandate — local adoption'},TN:{bc:'IBC 2018',ec:'IECC 2018',seismic:'C',wind:'115',note:'Commerce & Insurance oversight'},TX:{bc:'IBC 2015',ec:'IECC 2015',seismic:'A',wind:'150',note:'No statewide residential code. TDLR commercial'},UT:{bc:'IBC 2021',ec:'IECC 2021',seismic:'D',wind:'115',note:'High seismic Wasatch Front'},VT:{bc:'IBC 2015',ec:'IECC 2015',seismic:'B',wind:'115',note:'Act 250 land use review for large projects'},VA:{bc:'USBC 2021',ec:'IECC 2018',seismic:'B',wind:'130',note:'USBC — DHCD oversight'},WA:{bc:'IBC 2021',ec:'WSEC 2021',seismic:'D',wind:'115',note:'SEPA review required. High seismic + liquefaction'},WV:{bc:'IBC 2018',ec:'IECC 2015',seismic:'B',wind:'115',note:'WVDOL enforcement'},WI:{bc:'IBC 2015',ec:'IECC 2015',seismic:'A',wind:'115',note:'DSPS oversight'},WY:{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Local ordinances vary widely'},DC:{bc:'DCBC 2020',ec:'IECC 2018',seismic:'B',wind:'115',note:'LEED Silver required >10K SF. HPO review historic'}};
 
 // ═══ OVERLAY FUNCTIONS ═══
@@ -480,9 +734,10 @@ async function detectFEMA(){
     // through ADI_PROXY if set, else a public CORS proxy, so flood zone resolves without a backend.
     const femaBase=`hazards.fema.gov/gis/nfhl/rest/services/public/NFHL/MapServer/28/query?geometry=${lon},${lat}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&outFields=FLD_ZONE,SFHA_TF&returnGeometry=false&f=json`;
     const femaUrl=`https://${femaBase}`;
-    const femaFetch=(async()=>{const r=await proxyFetch(`/fema?lat=${lat}&lon=${lon}`,femaUrl);return r.json()})();
+    const femaFetch=(async()=>{const r=await proxyFetch(`/fema?lat=${lat}&lon=${lon}`,femaUrl);const t=await r.text();try{return JSON.parse(t)}catch(_){throw new Error('Non-JSON response from FEMA proxy: '+t.substring(0,120))}})();
     const femaTimeout=new Promise((_,r)=>setTimeout(()=>r(new Error('fema_timeout')),12000));
     const fd=await Promise.race([femaFetch,femaTimeout]);
+    if(fd?.error==='upstream_non_json'){throw new Error(`Proxy reports upstream failure (${fd.label} @ status ${fd.upstreamStatus}): ${(fd.preview||'').substring(0,80)}`)}
     const feats=fd?.features||[];
     if(!feats.length){S.femaZone='X';st.innerHTML='<span style="color:var(--green)">✓ FEMA Zone X — minimal flood risk</span>'}
     else{const z=feats[0].attributes.FLD_ZONE||'X';S.femaZone=z;const sfha=['A','AE','AO','AH','V','VE','A99'].includes(z);if(sfha){S.overlays.flood=true;toggleOv('flood');st.innerHTML=`<span style="color:var(--coral)">⚠ FEMA Zone ${z} — SFHA. Flood items added to checklist.</span>`;L.warn(`FEMA Zone ${z} — SFHA`)}else{st.innerHTML=`<span style="color:var(--green)">✓ FEMA Zone ${z} — not SFHA</span>`}}
@@ -499,6 +754,8 @@ async function detectFEMA(){
 // Expert PhD Architect System Prompt — 50yrs, Green Dev, Passive House, LEED Fellow
 const SYS=`You are Dr. Alexandra Chen, FAIA, LEED Fellow, Passive House Certified, PhD in Sustainable Architecture (MIT), 50 years of award-winning urban infill practice. You have designed 650+ projects achieving LEED Platinum, Living Building Challenge, and Passive House certifications.
 
+DATA PIPELINE CONTEXT: You work INSIDE an application called ArchDraw Intel. The app separately queries verified public GIS data before your drawings are produced — county assessor ArcGIS for APN + lot polygon + use class, FEMA NFHL for flood zone, CAL FIRE / NPS / USGS / NOAA for hazard and historic overlays, municipal codes for zoning standards, and Socrata for permit history. Do NOT write disclaimers like "I cannot access real-time databases" or "you must verify all parcel data elsewhere" — the app IS doing that verification in parallel, and those messages are misleading to users who will see the verified data in other findings cards. Focus your narrative on interpretation, jurisdictional framework, and synthesis of what an expert would do with the address. When you don't know something specific (a parcel's exact APN, the lot's exact dimensions), say "The app will resolve this from county GIS" rather than refusing to help.
+
 CODES: Cite exact sections — IBC §1204.1, CBC §420, WSEC R402.1, NFPA 13R, ADA §404. Always reference current adopted version for the jurisdiction.
 
 STRUCTURAL: 20'-0" structural bay spacing. Wood frame: 2×6 @ 16" o.c. exterior, 2×4 @ 16" o.c. interior. Specify: W12×26 steel girders where needed, (2)1-3/4"×11-7/8" LVL beams, 5-1/4"×5-1/4" PSL posts, 24"×12" continuous concrete footing.
@@ -513,6 +770,10 @@ Always give your most experienced professional opinion. Specific, bold, code-ref
 
 
 async function callAI(msgs,sys,maxTok=2200,timeoutMs=90000){
+  // P0-1 hosted-key path: when the user is signed in via Supabase, all AI
+  // calls go through /api/ai/messages with a Bearer JWT. The browser never
+  // sees an Anthropic key. Falls through to BYOK if hosted mode is off.
+  if(S.mode==='hosted'&&window.ADIProxy){return ADIProxy.callAI(msgs,sys,maxTok,timeoutMs)}
   const headers={'Content-Type':'application/json'};
   if(S.mode==='standalone'&&S.apiKey){headers['x-api-key']=S.apiKey;headers['anthropic-version']='2023-06-01';headers['anthropic-dangerous-direct-browser-access']='true'}
   const body={model:'claude-sonnet-4-6',max_tokens:maxTok,messages:msgs};
@@ -566,6 +827,7 @@ async function callJSON(msgs,sys,maxTok=2200,timeoutMs=90000){
 }
 
 async function callAIWithImg(prompt,b64,mime,sys,maxTok=1000){
+  if(S.mode==='hosted'&&window.ADIProxy){return ADIProxy.callAIWithImg(prompt,b64,mime,sys,maxTok)}
   const headers={'Content-Type':'application/json'};
   if(S.mode==='standalone'&&S.apiKey){headers['x-api-key']=S.apiKey;headers['anthropic-version']='2023-06-01';headers['anthropic-dangerous-direct-browser-access']='true'}
   const body={model:'claude-sonnet-4-6',max_tokens:maxTok,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:mime,data:b64}},{type:'text',text:prompt}]}]};
@@ -629,8 +891,39 @@ async function saveKey(){
   L.info('saveKey: testing...');S.apiKey=key;S.mode='standalone';
   const btn=document.getElementById('save-btn');btn.textContent='Testing...';btn.disabled=true;
   showKS('Verifying<span class="df"></span>',false);
-  try{const r=await callAI([{role:'user',content:'KEY_OK'}],null,5,12000);if(r.length>0){setBanner('ok','✓ API Key Verified',`Key ${key.substring(0,16)}... active. Enter address to analyze.`);showKS('✓ Key verified',false,true);S.apiReady=true;document.getElementById('run-btn').disabled=false;btn.textContent='✓ Connected';btn.className='key-btn ok'}}
+  try{const r=await callAI([{role:'user',content:'KEY_OK'}],null,5,12000);if(r.length>0){setBanner('ok','✓ API Key Verified',`Key ${key.substring(0,16)}... active. Enter address to analyze. <a href="#" onclick="forgetStoredKey();return false" style="color:var(--txt3);font-size:8px;margin-left:6px">forget key</a>`);showKS('✓ Key verified — saved for future sessions',false,true);S.apiReady=true;document.getElementById('run-btn').disabled=false;btn.textContent='✓ Connected';btn.className='key-btn ok';try{localStorage.setItem('ADI_ANTHROPIC_KEY',key);L.info('API key persisted to localStorage for future sessions')}catch(_){}}}
   catch(e){S.apiKey='';S.mode='embedded';S.apiReady=false;const m=e.message.includes('401')?'Invalid key':e.message.includes('403')?'No permissions':e.message.substring(0,80);showKS('✗ '+m,true);btn.textContent='Retry';btn.disabled=false}
+}
+
+// ── Bootstrap a saved key from localStorage before probing ──
+// If a valid sk-ant-* key exists, verify it quickly and skip the 15s embedded probe.
+// Respects probeConnection's contract — doesn't modify its body; just avoids calling it when unnecessary.
+async function bootstrapStoredKey(){
+  let stored=null;try{stored=localStorage.getItem('ADI_ANTHROPIC_KEY')}catch(_){}
+  if(!stored||!stored.startsWith('sk-ant-'))return false;
+  setBanner('probing','Restoring saved key<span class="df"></span>','Testing saved Anthropic API key...');
+  document.getElementById('run-btn').disabled=true;
+  S.apiKey=stored;S.mode='standalone';
+  try{
+    const r=await callAI([{role:'user',content:'KEY_OK'}],null,5,12000);
+    if(r.length>0){
+      setBanner('ok','✓ API Key Restored',`Saved key ${stored.substring(0,16)}... active. <a href="#" onclick="forgetStoredKey();return false" style="color:var(--txt3);font-size:8px;margin-left:6px">forget key</a>`);
+      S.apiReady=true;document.getElementById('run-btn').disabled=false;
+      L.info('Restored Anthropic API key from localStorage (skipped probe)');
+      return true;
+    }
+  }catch(e){
+    L.warn('Stored key failed to verify:',e.message.substring(0,60));
+    try{localStorage.removeItem('ADI_ANTHROPIC_KEY')}catch(_){}
+    S.apiKey='';S.mode='embedded';S.apiReady=false;
+  }
+  return false;
+}
+function forgetStoredKey(){
+  try{localStorage.removeItem('ADI_ANTHROPIC_KEY')}catch(_){}
+  S.apiKey='';S.mode='embedded';S.apiReady=false;
+  L.info('Stored API key removed from localStorage');
+  location.reload();
 }
 function showKS(html,isErr,isOk=false){const el=document.getElementById('key-st');el.style.display='block';el.className=isErr?'err-msg':isOk?'ok-msg':'';el.innerHTML=html}
 function toggleKey(){const i=document.getElementById('key-inp');i.type=i.type==='password'?'text':'password'}
@@ -640,7 +933,24 @@ function handleImage(inp){const f=inp.files[0];if(!f)return;const r=new FileRead
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('hidden',s.id!==id))}
 function setOvl(ph,tx){document.getElementById('ovl').style.display='flex';document.getElementById('ophs').textContent=ph;document.getElementById('otxt').innerHTML=tx+'<span class="df"></span>'}
 function hideOvl(){document.getElementById('ovl').style.display='none'}
-function buildPhases(){document.getElementById('phases').innerHTML=PHASES.map((p,i)=>`<div class="ph pending" id="ph-${p.id}"><div class="pdot" id="pd-${p.id}">${i+1}</div><div style="flex:1;min-width:0"><div class="ph-name">${p.lbl}</div><div class="ph-st" id="ps-${p.id}">Waiting</div></div><div class="ph-t" id="pt-${p.id}"></div><button class="ph-retry" onclick="retryPhase('${p.id}')">↺</button></div>`).join('')}
+function buildPhases(){document.getElementById('phases').innerHTML=PHASES.map((p,i)=>`<div class="ph pending" id="ph-${p.id}" onclick="scrollToFinding('${p.id}')" title="Click to view ${p.lbl} results"><div class="pdot" id="pd-${p.id}">${i+1}</div><div style="flex:1;min-width:0"><div class="ph-name">${p.lbl}</div><div class="ph-st" id="ps-${p.id}">Waiting</div></div><div class="ph-t" id="pt-${p.id}"></div><button class="ph-retry" onclick="event.stopPropagation();retryPhase('${p.id}')" title="Re-run this phase">↺</button></div>`).join('')}
+// Click a phase row → scroll its finding card into view + briefly highlight it.
+// Falls through to a no-op alert when the phase hasn't produced findings yet
+// (e.g. user clicks while the pipeline is still running phases earlier in the chain).
+function scrollToFinding(id){
+  const el=document.getElementById(`f-${id}`);
+  if(!el){
+    const ph=document.getElementById(`ph-${id}`);
+    const isPending=ph?.classList.contains('pending')||ph?.classList.contains('active');
+    if(isPending)L.info(`scrollToFinding: phase '${id}' has not produced findings yet`);
+    return;
+  }
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  // Brief flash to draw the eye
+  el.style.transition='box-shadow .25s';
+  el.style.boxShadow='0 0 0 2px var(--blue)';
+  setTimeout(()=>{el.style.boxShadow=''},700);
+}
 function phSet(id,state,time=''){const el=document.getElementById(`ph-${id}`);const dot=document.getElementById(`pd-${id}`);const st=document.getElementById(`ps-${id}`);const tm=document.getElementById(`pt-${id}`);if(!el)return;el.className=`ph ${state}`;dot.textContent=state==='done'?'✓':state==='error'?'✗':PHASES.findIndex(p=>p.id===id)+1;st.className=`ph-st ${state==='active'?'run':state}`;if(state==='active')st.innerHTML='Running<span class="df"></span>';else if(state==='done')st.textContent='Done';else if(state==='error')st.textContent='Error — ↺ retry';if(time)tm.textContent=time}
 function addFind(id,lbl,html){const ex=document.getElementById(`f-${id}`);if(ex)ex.remove();const el=document.createElement('div');el.className='fb';el.id=`f-${id}`;el.innerHTML=`<div class="fblbl">${lbl}</div><div class="fbbody">${html}</div>`;document.getElementById('findings').appendChild(el);el.scrollIntoView({behavior:'smooth',block:'start'})}
 function fmt(t){return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}
@@ -722,7 +1032,11 @@ function drawMapOverlay(lat,lon,z){
 async function fetchOSMBuildings(lat,lon){
   try{
     const q=`[out:json][timeout:12];(way["building"](around:150,${lat},${lon}););out geom;`;
-    const r=await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);
+    // Route via /api/overpass when a proxy is reachable — overpass-api.de
+    // intermittently returns 406 + missing CORS headers from non-localhost
+    // browser origins. Falls through to direct fetch in standalone (Claude.ai
+    // iframe / file:// where no proxy is configured).
+    const r=await proxyFetch(`/overpass?data=${encodeURIComponent(q)}`,`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);
     const d=await r.json();
     S.osmBuildings=d.elements||[];
     L.info(`OSM: ${S.osmBuildings.length} existing buildings`);
@@ -815,12 +1129,28 @@ function localFloorPlan(z, selectedOption){
 function valPlan(plan,z){
   const minX=z.leftSetback,maxX=z.lotWidth-z.rightSetback,minY=z.frontSetback,maxY=z.lotDepth-z.rearSetback;
   if(!plan.floors)return;
-  plan.floors.forEach(fl=>{if(!fl.rooms)fl.rooms=[];fl.rooms=fl.rooms.filter(r=>{
+  const EXEMPT=new Set(['corridor','stair','storage','balcony','entry','laundry']);
+  const minD=t=>EXEMPT.has(t||'')?3:7; // IBC §1208.1 min 7ft habitable
+  plan.floors.forEach(fl=>{if(!fl.rooms)fl.rooms=[];
+    fl.rooms=fl.rooms.filter(r=>{
       if(typeof r.w!=='number'||typeof r.h!=='number')return false;
-      const EXEMPT=new Set(['corridor','stair','storage','balcony','entry','laundry']);
-      const minD=EXEMPT.has(r.type||'')?3:7; // GEOM-3: IBC §1208.1 min 7ft habitable
-      return r.w>=minD&&r.h>=minD;
-    });fl.rooms.forEach(r=>{r.x=Math.max(minX,r.x||minX);r.y=Math.max(minY,r.y||minY);if(r.x+r.w>maxX)r.w=maxX-r.x;if(r.y+r.h>maxY)r.h=maxY-r.y;if(r.w<2)r.w=2;if(r.h<2)r.h=2})});
+      // GEOM-2: drop rooms whose origin already crosses the rear or right
+      // setback line (no clip can save them) — main-building rooms like
+      // DINING, BATH, and LAUNDRY can land past the rear setback when
+      // buildable depth is shallow because their y-coords are computed
+      // from min-size constants (max(13,...)) without checking mainD.
+      if(r.x>=maxX||r.y>=maxY)return false;
+      if(r.x<minX){r.w-=(minX-r.x);r.x=minX;}
+      if(r.y<minY){r.h-=(minY-r.y);r.y=minY;}
+      // Clip overhang to the setback envelope (parcel-level rear/right).
+      if(r.x+r.w>maxX)r.w=maxX-r.x;
+      if(r.y+r.h>maxY)r.h=maxY-r.y;
+      // After clipping, drop rooms below per-type minimum dimension.
+      // GEOM-3 retained: 7ft min for habitable, 3ft for utility/circulation.
+      const md=minD(r.type);
+      return r.w>=md&&r.h>=md;
+    });
+  });
 }
 
 // ═══ PIPELINE ═══
@@ -835,9 +1165,13 @@ async function startAnalysis(){
   if(MAP_INSTANCE){MAP_INSTANCE.eachLayer(l=>{if(l._isArchDraw||l._isOSM)MAP_INSTANCE.removeLayer(l)})}
   LOG.length=0;
   L.info(`=== v12 ANALYSIS START: ${S.addr} ===`);
+  // P0-1: open an analyses row in Supabase when running in hosted mode
+  S._adiAnalysisId=null;
+  if(S.mode==='hosted'&&window.ADIProxy){try{S._adiAnalysisId=await ADIProxy.startAnalysis({address:S.addr})}catch(e){L.warn('analyses insert failed:',e?.message)}}
   showScreen('workspace');document.getElementById('rp-addr').textContent=S.addr;
   document.getElementById('findings').innerHTML='';buildPhases();
   PHASES.forEach(p=>phSet(p.id,'pending'));setOvl('STARTING','Initializing');
+  let _failure=null;
   try{
     // Phase 1: Site Research + geocode
     await runPhase_site(); await delay(400);
@@ -855,14 +1189,21 @@ async function startAnalysis(){
     // Phase 7: Permit Checklist
     await runPhase_chk();
     L.info('=== ANALYSIS COMPLETE ===');
-  }catch(e){L.error('Pipeline stopped:',e.message);console.error('Pipeline:',e)}
-  finally{S.analyzing=false;document.getElementById('run-btn').disabled=!S.apiReady;document.getElementById('run-btn').textContent='ANALYZE →';hideOvl()}
+  }catch(e){_failure=e;L.error('Pipeline stopped:',e.message);console.error('Pipeline:',e);
+    // P0-1: surface paywall when an AI call rejected for quota
+    if(e.quotaExceeded&&S.mode==='hosted'){try{const u=await window.ADIAuth.usage();adiShowPaywall(u)}catch(_){}}}
+  finally{
+    if(S._adiAnalysisId&&window.ADIProxy){try{await ADIProxy.completeAnalysis(S._adiAnalysisId,_failure?'errored':'completed',_failure?.message||null)}catch(_){}}
+    // Refresh usage counter in the banner after a successful run
+    if(!_failure&&S.mode==='hosted'&&window.ADIAuth){try{const sess=await window.ADIAuth.getSession();if(sess)adiOnSignedIn(sess)}catch(_){}}
+    S.analyzing=false;document.getElementById('run-btn').disabled=!S.apiReady;document.getElementById('run-btn').textContent='ANALYZE →';hideOvl();
+  }
 }
 
 async function runPhase_site(){
   L.info('--- Phase 1: Site ---');phSet('site','active');setOvl('SITE RESEARCH','Identifying parcel, jurisdiction & conditions');const t=Date.now();
   try{
-    let prompt=`Research property: "${S.addr}"\n1. Governing jurisdiction (city/county + building dept)\n2. Typical lot dimensions for this block\n3. Current land use and existing structure type\n4. Neighborhood context (urban density, adjacent uses)\n5. Topography, slope, aspect (north-facing?)\n6. Infrastructure (sewer, water, gas, fiber)\n7. Transit proximity (walk score, nearest transit)\n8. Key redevelopment opportunity in one sentence`;
+    let prompt=`Research property: "${S.addr}"\n1. Governing jurisdiction (city/county + building dept)\n2. Current land use and existing structure type\n3. Neighborhood context (urban density, adjacent uses)\n4. Topography, slope, aspect (north-facing?)\n5. Infrastructure (sewer, water, gas, fiber)\n6. Transit proximity (walk score, nearest transit)\n7. Key redevelopment opportunity in one sentence\n\nIMPORTANT: Do NOT speculate on lot dimensions, setbacks, FAR, height, or zone codes — those come from the GIS + zoning research phase that follows. Stay on context items 1–7.`;
     if(S.img64){const imgA=await callAIWithImg(`Analyze site for: ${S.addr}. Describe: existing structure condition, lot coverage, setback violations, orientation, neighboring scale, opportunities for passive solar.`,S.img64,S.imgType,SYS,600);prompt+=`\n\nSite photo analysis:\n${imgA}`;addFind('img','📷 Site Photo',fmt(imgA))}
     const res=await callAIWithRetry([{role:'user',content:prompt}],SYS,1500);
     // Geocode
@@ -898,16 +1239,81 @@ async function runPhase_zone(){
         if(verified.notes)z.notes=(z.notes?z.notes+' · ':'')+verified.notes;
       }
     }
+    // ── MIDDLE_HOUSING_DB overlay (P0-4: WA HB 1110 / RCW 36.70A.635) ──
+    // Computes the effective unit envelope for the citywide and transit-bonus
+    // cases. Surfaces both so the Options panel can offer a transit selection
+    // downstream. Dimensional overrides (e.g. Bellevue 32ft middle-housing
+    // height cap from LUC 20.20.538) apply to the rendered z values.
+    if(window.effectiveZoning&&z.jurisdiction&&z.zoningDistrict){
+      const jKey=`${String(z.jurisdiction).toLowerCase()},${String(z.state||'').toLowerCase()}`;
+      try{
+        const eBase=window.effectiveZoning(jKey,z.zoningDistrict,{enableMiddleHousing:false});
+        const eMH=window.effectiveZoning(jKey,z.zoningDistrict,{enableMiddleHousing:true,nearMajorTransit:false});
+        const eMHTransit=window.effectiveZoning(jKey,z.zoningDistrict,{enableMiddleHousing:true,nearMajorTransit:true});
+        if(eMH.middleHousing){
+          z._effectiveBase=eBase.effective;
+          z._effectiveMH=eMH.effective;
+          z._effectiveMHTransit=eMHTransit.effective;
+          z._middleHousing=eMH.middleHousing;
+          z._middleHousingWarnings=(eMH.warnings||[]).concat(eMHTransit.warnings||[]).filter((w,i,a)=>a.indexOf(w)===i);
+          if(eMH.middleHousing.dimensionalOverrides){
+            const d=eMH.middleHousing.dimensionalOverrides;
+            if(d.maxHeightFt!=null){z._maxHeightFtBase=z.maxHeightFt;z.maxHeightFt=d.maxHeightFt;}
+          }
+          L.info(`HB 1110 (${eMH.middleHousing.populationTier}): base=${eBase.effective.maxUnits} citywide=${eMH.effective.maxUnits} transit=${eMHTransit.effective.maxUnits}`);
+          if(z._middleHousingWarnings.length)z._middleHousingWarnings.forEach(w=>L.warn('HB 1110 warning: '+w));
+        }
+      }catch(e){L.warn('effectiveZoning failed: '+e.message);}
+    }
+    // ── WA statewide overlay (HB 1337 + SB 5184) ──
+    if(window.applyWaStatewide&&z._effectiveMH){
+      try{
+        const envBase={jurisdiction:z.jurisdiction,district:z.zoningDistrict,baseZoning:{jurisdiction:z.jurisdiction,state:z.state,district:z.zoningDistrict,aduMaxSqFt:z.aduMaxSqFt,aduAllowed:z.aduAllowed,parkingPerUnit:z.parkingPerUnit},middleHousing:z._middleHousing,effective:Object.assign({},z._effectiveMH,{aduMaxSqFt:z.aduMaxSqFt,aduAllowed:z.aduAllowed,parkingPerUnit:z.parkingPerUnit}),warnings:[]};
+        const envSW=window.applyWaStatewide(envBase,{parcelNearMajorTransit:false,isMultifamily:false});
+        if(envSW&&envSW.effective){
+          z._statewide=envSW.appliedStatewide;
+          z._statewideWarnings=envSW.warnings||[];
+          if(envSW.effective.aduMaxSqFt!=null&&envSW.effective.aduMaxSqFt!==z.aduMaxSqFt){z._aduMaxSqFtBase=z.aduMaxSqFt;z.aduMaxSqFt=envSW.effective.aduMaxSqFt;}
+          if(envSW.effective.parkingPerUnit!=null&&envSW.effective.parkingPerUnit!==z.parkingPerUnit){z._parkingPerUnitBase=z.parkingPerUnit;z.parkingPerUnit=envSW.effective.parkingPerUnit;}
+          z._minADUsPerLot=envSW.effective.minADUsPerLot;
+          if(z._statewideWarnings.length)z._statewideWarnings.forEach(w=>L.warn('Statewide overlay: '+w));
+          L.info(`Statewide overlay applied: ADU max ${z.aduMaxSqFt}sf, parking ${z.parkingPerUnit}/unit, min ${z._minADUsPerLot} ADUs/lot`);
+        }
+      }catch(e){L.warn('applyWaStatewide failed: '+e.message);}
+    }
     // Initial provenance tag — runPhase_record may recalibrate from OSM after fetch
     const looksDefault=(!z.lotWidth||!z.lotDepth||(z.lotWidth===60&&z.lotDepth===120));
     z._lotSource=looksDefault?'AI default (pending OSM calibration)':'AI research';
     z._lotConfidence=looksDefault?'unverified':'verify-with-plat';
     L.info(`Zone: ${z.zoningDistrict} ${z.jurisdiction} ${z.state} lot=${z.lotWidth}×${z.lotDepth} src=${z._lotSource}`);
-    const zt=await callAIWithRetry([{role:'user',content:`Expert zoning analysis for "${S.addr}" — ${z.zoningDistrict}, ${z.jurisdiction}, ${z.state}.\nCover: by-right vs conditional development options, setbacks front ${z.frontSetback}/rear ${z.rearSetback}/sides ${z.leftSetback}-${z.rightSetback}ft, FAR ${z.maxFAR}, ${z.maxLotCoverage}% coverage, ${z.maxStories} stories, ADU rights: ${z.aduAllowed}. Note any density bonus programs, SB9 rights, or form-based code options.`}],SYS,1000);
+    // Round 5o fix #3: when matrix override fired, anchor the AI prompt
+    // to the chart-verified codeURL + notes so it doesn't fabricate
+    // municipal-code section numbers (e.g. KZC §115.10.020 was made up).
+    const matrixAnchor=z._zoneMatrixVerified?`\n\nAUTHORITATIVE SOURCE — DO NOT CONTRADICT:\n  Verified municipal-code URL: ${z._zoneMatrixURL||'(see matrix entry)'}\n  Chart-confirmed dimensional standards: front ${z.frontSetback}ft / rear ${z.rearSetback}ft / sides ${z.leftSetback}-${z.rightSetback}ft / height ${z.maxHeightFt}ft / FAR ${z.maxFAR} / coverage ${z.maxLotCoverage}%\n  Verification date: ${z._zoneMatrixDate||'recent'}\n  Local rule notes: ${(z.notes||'').substring(0,800)}\n\nWhen you cite a code section, use ONLY the URL above. Do NOT invent municipal-code section numbers.`:'';
+    const zt=await callAIWithRetry([{role:'user',content:`Expert zoning analysis for "${S.addr}" — ${z.zoningDistrict}, ${z.jurisdiction}, ${z.state}.\nCover: by-right vs conditional development options, setbacks front ${z.frontSetback}/rear ${z.rearSetback}/sides ${z.leftSetback}-${z.rightSetback}ft, FAR ${z.maxFAR}, ${z.maxLotCoverage}% coverage, ${z.maxStories} stories, ADU rights: ${z.aduAllowed}. Note any density bonus programs, SB9 rights, or form-based code options.${matrixAnchor}`}],SYS,1000);
     phSet('zone','done',`${((Date.now()-t)/1000).toFixed(1)}s`);
     const lotNote=z._lotSource?`<div style="margin-top:6px;padding:5px 8px;border:1px dashed var(--brd);border-radius:3px;font-size:9px;color:var(--txt3)">\uD83D\uDCCE Lot dims source: <strong>${z._lotSource}</strong> \u00B7 confidence: <em>${z._lotConfidence}</em></div>`:'';
     const matrixNote=z._zoneMatrixVerified?`<div style="margin-top:4px;padding:5px 8px;border:1px solid rgba(34,224,138,.35);border-radius:3px;font-size:9px;color:var(--green)">\u2713 Zoning standards <strong>verified</strong> against ${z.jurisdiction} municipal code (${z._zoneMatrixDate}) \u00B7 <a href="${z._zoneMatrixURL}" target="_blank" style="color:var(--blue)">open code \u2192</a></div>`:'';
-    addFind('zone','📋 Zoning',fmt(zt)+buildZT(z)+lotNote+matrixNote);S._z=z;phaseRunners.zone=runPhase_zone;
+    const mhNote=(z._middleHousing&&z._effectiveMH)?(()=>{
+      const mh=z._middleHousing,b=z._effectiveBase,c=z._effectiveMH,t=z._effectiveMHTransit;
+      const ord=mh.localOrdinance||{};
+      const ordTxt=[ord.number,ord.effective?`eff. ${ord.effective}`:null].filter(Boolean).join(', ');
+      const overrideNote=(z._maxHeightFtBase!=null&&z._maxHeightFtBase!==z.maxHeightFt)?` <span style="color:var(--txt3)">(height ${z._maxHeightFtBase}→${z.maxHeightFt}ft middle-housing cap)</span>`:'';
+      const warn=(z._middleHousingWarnings&&z._middleHousingWarnings.length)?`<div style="margin-top:3px;font-size:9px;color:var(--amber)">⚠ ${z._middleHousingWarnings.join(' · ')}</div>`:'';
+      return `<div style="margin-top:4px;padding:6px 8px;border:1px solid rgba(122,162,255,.35);border-radius:3px;font-size:9px;color:var(--blue);background:rgba(122,162,255,.05)"><strong>WA HB 1110 (${mh.populationTier})</strong> · ${ordTxt}<br>Base zoning: <strong>${b.maxUnits} unit${b.maxUnits===1?'':'s'}</strong> · HB 1110 effective: up to <strong>${c.maxUnits}</strong> citywide / <strong>${t.maxUnits}</strong> near major transit${overrideNote}${warn}</div>`;
+    })():'';
+    const swNote=(z._statewide)?(()=>{
+      const parts=[];
+      if(z._aduMaxSqFtBase!=null&&z._aduMaxSqFtBase!==z.aduMaxSqFt)parts.push(`HB 1337 raises ADU max <strong>${z._aduMaxSqFtBase||0}→${z.aduMaxSqFt}sf</strong>`);
+      if(z._minADUsPerLot)parts.push(`<strong>${z._minADUsPerLot}</strong> ADUs/lot mandated`);
+      const sb=z._statewide.sb5184;
+      if(sb&&sb.mode==='statutoryCap'&&z._parkingPerUnitBase!=null&&z._parkingPerUnitBase!==z.parkingPerUnit)parts.push(`SB 5184 caps parking <strong>${z._parkingPerUnitBase}→${z.parkingPerUnit}/unit</strong> (city deadline ${sb.complianceDeadline})`);
+      else if(sb&&sb.mode==='cityCodified')parts.push(`SB 5184 already codified locally (parking ${sb.cap}/unit)`);
+      const warn=(z._statewideWarnings&&z._statewideWarnings.length)?`<div style="margin-top:3px;font-size:9px;color:var(--amber)">⚠ ${z._statewideWarnings.join(' · ')}</div>`:'';
+      if(!parts.length&&!warn)return '';
+      return `<div style="margin-top:4px;padding:6px 8px;border:1px solid rgba(180,140,255,.35);border-radius:3px;font-size:9px;color:var(--purple,#b48cff);background:rgba(180,140,255,.05)"><strong>WA statewide</strong> · ${parts.join(' · ')}${warn}</div>`;
+    })():'';
+    addFind('zone','📋 Zoning',fmt(zt)+buildZT(z)+lotNote+matrixNote+mhNote+swNote);S._z=z;phaseRunners.zone=runPhase_zone;
   }catch(e){phSet('zone','error',`${((Date.now()-t)/1000).toFixed(1)}s`);addFind('zone','📋 Zoning',`<div class="ebox">${e.message}</div>`);throw e}
 }
 
@@ -920,7 +1326,7 @@ async function runPhase_record(){
   if(S.lat&&S.lon){
     try{
       const q=`[out:json][timeout:15];(way["building"](around:80,${S.lat},${S.lon});way["landuse"](around:80,${S.lat},${S.lon});node["addr:housenumber"](around:30,${S.lat},${S.lon}););out geom tags;`;
-      const r=await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);
+      const r=await proxyFetch(`/overpass?data=${encodeURIComponent(q)}`,`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(q)}`);
       const d=await r.json();S.osmBuildings=d.elements||[];
       if(S.osmBuildings.length){
         osmFound=true;
@@ -935,16 +1341,23 @@ async function runPhase_record(){
         S.countyRecord={source:'OpenStreetMap',buildings:blds.length,data:blds};
         L.info(`OSM: ${blds.length} buildings found`);
       }else{findings.push('No existing buildings recorded in OpenStreetMap for this parcel.')}
-    }catch(e){L.warn('OSM record search failed:',e.message);findings.push('OSM query failed: '+e.message.substring(0,60))}
+    }catch(e){
+      L.warn('OSM record search failed:',e.message);
+      const corsLike=/fetch|cors|network/i.test(e.message);
+      findings.push(corsLike
+        ? '• OSM lookup blocked by browser CORS — set localStorage.ADI_PROXY to a deployed Vercel/Worker proxy URL, or run the app from a *.vercel.app deployment where /api auto-detects.'
+        : '• OSM query failed: '+e.message.substring(0,60));
+    }
 
     // Strategy 2: Try FEMA for flood zone (if not already done) — direct first, CORS proxy on failure
     if(!S.femaZone){
       try{
         const femaBase=`hazards.fema.gov/gis/nfhl/rest/services/public/NFHL/MapServer/28/query?geometry=${S.lon},${S.lat}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&outFields=FLD_ZONE,SFHA_TF&returnGeometry=false&f=json`;
         const direct=`https://${femaBase}`;
-        const fP=(async()=>{const r=await proxyFetch(`/fema?lat=${S.lat}&lon=${S.lon}`,direct);return r.json()})();
+        const fP=(async()=>{const r=await proxyFetch(`/fema?lat=${S.lat}&lon=${S.lon}`,direct);const t=await r.text();try{return JSON.parse(t)}catch(_){throw new Error('Non-JSON from FEMA proxy: '+t.substring(0,100))}})();
         const fT=new Promise((_,r)=>setTimeout(()=>r(new Error('fema_timeout')),10000));
         const fd=await Promise.race([fP,fT]);
+        if(fd?.error==='upstream_non_json')throw new Error(`FEMA upstream failed (status ${fd.upstreamStatus})`);
         const feats=fd?.features||[];
         if(feats.length){const fz=feats[0].attributes.FLD_ZONE||'X';S.femaZone=fz;const sfha=['A','AE','AO','AH','V','VE','A99'].includes(fz);if(sfha){S.overlays.flood=true;toggleOv('flood')};findings.push(`• **FEMA Flood Zone:** ${fz} — ${sfha?'SPECIAL FLOOD HAZARD AREA (affects design)':'Outside SFHA (minimal risk)'}`)}
         else{S.femaZone='X';findings.push('• FEMA: No mapped flood zone data at this location (Zone X assumed)')}
@@ -958,16 +1371,27 @@ async function runPhase_record(){
     // Strategy 3: COUNTY_REGISTRY lookup (verified ArcGIS parcel endpoints)
     if(z&&window.COUNTY_REGISTRY&&window.countyRegistryKey){
       try{
-        const key=window.countyRegistryKey(z.county,z.state);
+        const key=window.countyRegistryKey(z.county,normalizeState(z.state));
         const reg=window.COUNTY_REGISTRY[key];
         if(reg){
           L.info(`County registry hit: ${key}`);
-          // Build the query URL — include spatial filter for point lookup
-          const q=`?geometry=${S.lon},${S.lat}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&outFields=*&returnGeometry=true&f=geojson`;
+          // Build the query URL — request Esri JSON (more universally supported than
+          // f=geojson on older ArcGIS Server installations like King Co WA).
+          // Geometry comes back as Esri rings; we normalize to GeoJSON-style below.
+          // distance=20m buffer snaps geocoded street-centerline points (Nominatim
+          // typically returns ROW points) to the adjacent parcel polygon. 20m is
+          // wider than the typical street ROW (~12m to centerline) and tighter
+          // than residential lot widths so a single parcel matches, not two
+          // adjacent. Same pattern proven by scripts/smoke-snohomish-parcels.py.
+          const q=`?geometry=${S.lon},${S.lat}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=20&units=esriSRUnit_Meter&outFields=*&returnGeometry=true&f=json&inSR=4326&outSR=4326`;
           const url=reg.parcelQuery+(reg.parcelQuery.includes('?')?q.replace(/^\?/,'&'):q);
           try{
             const rr=await Promise.race([proxyFetch(`/arcgis?url=${encodeURIComponent(url)}`,url),new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),8000))]);
-            const dd=await rr.json();
+            // Read body as text first so we can give a useful error if it's not JSON
+            const txt=await rr.text();
+            let dd;try{dd=JSON.parse(txt)}catch(_){throw new Error(`non-JSON response (status ${rr.status}): ${txt.substring(0,80)}`)}
+            // Handle our proxy's structured upstream errors gracefully
+            if(dd?.error){throw new Error(`proxy_${dd.error}: ${dd.upstreamStatus||rr.status} ${(dd.preview||'').substring(0,60)}`)}
             const f=dd.features?.[0];
             if(f){
               const attrs=f.properties||f.attributes||{};
@@ -977,9 +1401,10 @@ async function runPhase_record(){
               const yr=attrs[fmap.yearBuilt]||attrs.YearBuilt;
               findings.push(`\u2705 **Verified County Assessor Record** (${reg.county} Co, ${reg.state}): APN ${apn||'—'}, Use: ${use||'—'}${yr?`, Year Built: ${yr}`:''}`);
               S.countyRecord={...(S.countyRecord||{}),esri:attrs,verified:true,source:`${reg.county} Co ArcGIS`,assessorURL:reg.assessorURL};
-              // If geometry returned, use it to compute exact lot dimensions
-              if(f.geometry?.coordinates&&S._z&&(S._z._lotConfidence==='unverified'||S._z._lotConfidence==='low')){
-                const ring=f.geometry.coordinates[0]||f.geometry.coordinates;
+              // Normalize geometry: Esri returns {rings:[[[x,y],...]]}, GeoJSON returns {coordinates:[[[x,y],...]]}
+              const rings=f.geometry?.rings||(f.geometry?.coordinates?[f.geometry.coordinates[0]||f.geometry.coordinates]:null);
+              if(rings&&S._z&&(S._z._lotConfidence==='unverified'||S._z._lotConfidence==='low')){
+                const ring=rings[0]||rings;
                 if(Array.isArray(ring)&&ring.length>=3){
                   const lats=ring.map(p=>p[1]),lons=ring.map(p=>p[0]);
                   const ftLat=364000,ftLon=364000*Math.cos(S.lat*Math.PI/180);
@@ -989,13 +1414,25 @@ async function runPhase_record(){
                     S._z.lotWidth=w;S._z.lotDepth=d;
                     S._z._lotSource=`County Assessor (${reg.county} Co ArcGIS) \u2014 verified parcel polygon`;
                     S._z._lotConfidence='verified';
+                    // MAP-6: store polygon in local feet-coords (origin
+                    // bbox min-lon / max-lat; Y flipped so canvas top-down
+                    // matches geographic north-up). drawSitePlanSheet uses
+                    // _lotPolygon instead of a rectangle when present.
+                    const minLon=Math.min(...lons),maxLat=Math.max(...lats);
+                    S._z._lotPolygon=ring.map(p=>[(p[0]-minLon)*ftLon,(maxLat-p[1])*ftLat]);
                     L.info(`Lot dims from county polygon: ${w}\u00D7${d}ft (VERIFIED)`);
                     findings.push(`\u2705 **Lot dimensions from county polygon:** ${w}' \u00D7 ${d}' (verified surveyed data)`);
                   }
                 }
               }
             }
-          }catch(e){L.warn(`County registry fetch failed for ${key}: ${e.message}`)}
+          }catch(e){
+            L.warn(`County registry fetch failed for ${key}: ${e.message.substring(0,100)}`);
+            // Surface distinct state for provenance — avoids the misleading
+            // 'NO_PUBLIC_ENDPOINT' message when an endpoint IS registered
+            // but couldn't be reached from the current client.
+            S.countyRecord={...(S.countyRecord||{}),esriStatus:'unreachable',esriEndpoint:reg.parcelQuery,esriError:e.message.substring(0,100)};
+          }
         }else{
           L.info(`County registry miss: ${key||'(no county)'} \u2014 generic ArcGIS fallback not attempted to avoid false positives`);
         }
@@ -1004,8 +1441,12 @@ async function runPhase_record(){
   }else{findings.push('Address geocoding required to query site records. Enter address with city/state.')}
 
   const summary=osmFound?`**Existing Site Survey — ${S.osmBuildings.filter(e=>e.tags?.building).length} structure(s) identified** via OpenStreetMap (community-maintained survey data). Use as reference; verify with licensed surveyor.\n\n`:`**No existing buildings found** in public OpenStreetMap records for this parcel — lot may be vacant or structures not yet mapped.\n\n`;
-  // ── Lot dimension calibration — re-run now that OSM data is fetched ──
+  // ── Lot dimension calibration — escalating fallback chain ──
+  // Tier 1 (best): county registry polygon — already attempted earlier in this phase
+  // Tier 2: OSM neighborhood building footprints
+  // Tier 3 (last resort): Claude-vision parcel tracing on Esri imagery
   if(S._z&&S.lat&&S.lon&&(S._z._lotConfidence==='unverified'||S._z._lotSource?.includes('pending'))){
+    // Tier 2: OSM
     const cal=calibrateLotFromOSM(S.lat,S.lon);
     if(cal){
       const oldW=S._z.lotWidth,oldD=S._z.lotDepth;
@@ -1013,8 +1454,31 @@ async function runPhase_record(){
       S._z._lotSource=cal.source;S._z._lotConfidence=cal.confidence;
       L.info(`Lot dims recalibrated from OSM: ${oldW}\u00D7${oldD}\u2192${cal.lotWidth}\u00D7${cal.lotDepth} (${cal.fromBuildings} buildings, ${cal.confidence} confidence)`);
       findings.push(`**Lot dimensions calibrated:** ${cal.lotWidth}'\u00D7${cal.lotDepth}' based on ${cal.fromBuildings} neighboring building footprints (was AI default ${oldW}'\u00D7${oldD}'). ${cal.confidence} confidence \u2014 verify with plat/survey.`);
-    }else if(S._z._lotSource?.includes('pending')){
-      S._z._lotSource='AI default (OSM insufficient \u2014 VERIFY with plat/survey before design)';
+    }else{
+      // Tier 3: vision trace (only if API key present and OSM had nothing)
+      L.info('OSM calibration unavailable \u2014 falling through to Claude-vision parcel trace');
+      const vision=await traceParcelFromImagery(S.lat,S.lon);
+      if(vision){
+        const oldW=S._z.lotWidth,oldD=S._z.lotDepth;
+        S._z.lotWidth=vision.lotWidth;S._z.lotDepth=vision.lotDepth;
+        S._z._lotSource=vision.source;S._z._lotConfidence=vision.confidence;
+        L.info(`Lot dims from vision: ${oldW}\u00D7${oldD}\u2192${vision.lotWidth}\u00D7${vision.lotDepth} (low confidence)`);
+        findings.push(`\uD83D\uDC41\uFE0F **Lot dimensions estimated from satellite imagery:** ${vision.lotWidth}'\u00D7${vision.lotDepth}' \u2014 ${vision.source}. Low confidence; verify with plat/survey before design.`);
+      }else if(S._z._lotSource?.includes('pending')){
+        S._z._lotSource='AI default (OSM + vision both unavailable \u2014 VERIFY with plat/survey before design)';
+      }
+    }
+  }
+  // ── Hazard + historic overlays — queried in parallel, feed architect-advisor ──
+  if(S.lat&&S.lon){
+    const state=S._z?.state||S._geoAddr?.state||'';
+    await fetchOverlays(S.lat,S.lon,state);
+    const hits=['wildfire','historic','coastal','hillside','liquefaction'].filter(t=>S['_'+t]);
+    if(hits.length){
+      const rows=hits.map(t=>`\u2022 **${t.toUpperCase()}:** ${S['_'+t].class} \u2014 <span style="color:var(--txt3);font-size:8.5px">${S['_'+t].source}</span>`).join('<br>');
+      findings.push(`\uD83D\uDEA9 **Verified overlay hits** (will trigger Expert Sign-Off):<br>${rows}`);
+    }else{
+      findings.push('\u2705 **No hazard/historic overlays detected** at this location (verified from public GIS).');
     }
   }
   // site-intel: record provenance trail for auditability
@@ -1074,6 +1538,92 @@ function calibrateLotFromOSM(lat,lon){
   };
 }
 
+// ── Claude-vision parcel tracing (last-resort fallback for lot dims) ──
+// Used when both county registry AND OSM calibration fail to yield lot dims.
+// Fetches an Esri satellite tile centered on lat/lon at zoom 19, base64-encodes
+// it, and asks the vision model to identify the property boundary visible at
+// the image center. Returns {lotWidth, lotDepth, source, confidence} or null.
+// Costs an API call (~$0.01) and ~5-10s; only invoke when other paths failed.
+const _visionLotCache=new Map();
+async function traceParcelFromImagery(lat,lon){
+  const cacheKey=`${lat.toFixed(5)},${lon.toFixed(5)}`;
+  if(_visionLotCache.has(cacheKey))return _visionLotCache.get(cacheKey);
+  if(!S.apiReady){L.info('Vision parcel trace skipped: no API key');return null}
+  // Convert lat/lon to Esri tile coordinates at zoom 19 (≈150m / tile).
+  const z=19;
+  const tileX=Math.floor((lon+180)/360*Math.pow(2,z));
+  const tileY=Math.floor((1-Math.log(Math.tan(lat*Math.PI/180)+1/Math.cos(lat*Math.PI/180))/Math.PI)/2*Math.pow(2,z));
+  const tileURL=`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${tileY}/${tileX}`;
+  L.info(`Vision parcel trace: fetching Esri tile z=${z} x=${tileX} y=${tileY}`);
+  let b64=null;
+  try{
+    const r=await fetch(tileURL);
+    if(!r.ok)throw new Error('tile_fetch_'+r.status);
+    const blob=await r.blob();
+    b64=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result.split(',')[1]);fr.onerror=rej;fr.readAsDataURL(blob)});
+  }catch(e){L.warn('Vision parcel trace: tile fetch failed:',e.message);return null}
+  // Ask Claude vision to estimate lot dimensions
+  const prompt=`This is a ~150m x 150m aerial satellite image (Esri World Imagery, zoom 19) of a US residential property. The center of the image is the target parcel.\n\nIdentify the boundary of the property at the image center. Look for: driveways, fence lines, vegetation transitions, neighboring building lines, sidewalks defining the lot frontage.\n\nReturn ONLY a JSON object with the parcel's estimated dimensions in feet:\n{\n  "widthFt": <number>,    // street-facing dimension (along the road)\n  "depthFt": <number>,    // perpendicular (away from the road)\n  "confidence": "low"|"medium"|"high",\n  "rationale": "<one sentence explaining what visual cues you used>"\n}\n\nIf you cannot identify the parcel boundary at the center, return {"widthFt":null,"depthFt":null,"confidence":"low","rationale":"unable to identify boundary"}.`;
+  try{
+    const res=await callAIWithImg(prompt,b64,'image/png',null,400);
+    const m=res.match(/\{[\s\S]*\}/);
+    if(!m){L.warn('Vision parcel trace: no JSON in response');return null}
+    const parsed=JSON.parse(m[0]);
+    if(!parsed.widthFt||!parsed.depthFt){L.info('Vision parcel trace: model could not identify boundary');return null}
+    const out={
+      lotWidth:Math.round(parsed.widthFt),
+      lotDepth:Math.round(parsed.depthFt),
+      source:`Claude vision parcel trace from Esri imagery (z19) — ${parsed.rationale||'visual estimate'}`,
+      confidence:'low (vision-traced — verify with plat/survey)',
+      method:'vision',
+    };
+    _visionLotCache.set(cacheKey,out);
+    L.info(`Vision parcel trace: ${out.lotWidth}'\u00D7${out.lotDepth}' (${parsed.confidence||'low'} per model)`);
+    return out;
+  }catch(e){L.warn('Vision parcel trace failed:',e.message.substring(0,80));return null}
+}
+
+// ── fetchOverlays: query OVERLAY_REGISTRY endpoints in parallel ──
+// Returns structured overlay data that the architect-advisor uses as Expert
+// Sign-Off triggers. Populates S._historic, S._wildfire, S._coastal,
+// S._hillside, S._liquefaction with { class, source, url } or null when the
+// site isn't in that overlay.
+async function fetchOverlays(lat,lon,state){
+  if(!window.OVERLAY_REGISTRY||!window.overlayEndpoint){L.info('Overlay registry not loaded \u2014 skipping');return}
+  const types=['wildfire','historic','coastal','hillside','liquefaction'];
+  const queryOne=async(type)=>{
+    const ep=window.overlayEndpoint(type,state);
+    if(!ep)return null;
+    const url=`${ep.url}${ep.url.includes('?')?'&':'?'}geometry=${lon},${lat}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&outFields=${encodeURIComponent(ep.field)}&returnGeometry=false&f=json`;
+    try{
+      const r=await Promise.race([proxyFetch(`/arcgis?url=${encodeURIComponent(url)}`,url),new Promise((_,x)=>setTimeout(()=>x(new Error('overlay_timeout')),6000))]);
+      const txt=await r.text();
+      let d;try{d=JSON.parse(txt)}catch(_){return null}
+      if(d?.error)return null;
+      const f=d.features?.[0];
+      if(!f)return null;
+      const val=(f.attributes||f.properties||{})[ep.field];
+      const klass=ep.classify(val);
+      if(!klass)return null;
+      return {class:klass,rawValue:val,source:`${type}:${state||'US'} via ${new URL(ep.url).hostname}`,url:ep.url};
+    }catch(e){L.info(`Overlay ${type}: ${e.message.substring(0,60)}`);return null}
+  };
+  const results=await Promise.all(types.map(queryOne));
+  types.forEach((t,i)=>{
+    const r=results[i];const key='_'+t;
+    S[key]=r;
+    if(r){
+      L.info(`Overlay ${t}: ${r.class} (${r.source})`);
+      if(t==='wildfire')S.overlays.fire=true;
+      if(t==='historic')S.overlays.historic=true;
+      if(t==='hillside')S.overlays.hillside=true;
+      if(t==='coastal')S.overlays.coastal=true;
+      if(t==='liquefaction')S.overlays.liquefaction=true;
+    }
+  });
+  return results;
+}
+
 // ── DEVELOPMENT OPTIONS GENERATION (local, instant) ──
 function generateOptions(z){
   const bW=Math.max(14,z.lotWidth-z.leftSetback-z.rightSetback);
@@ -1083,35 +1633,56 @@ function generateOptions(z){
   const adu=z.aduAllowed!==false;
   const isCA=z.state==='CA';const isWA=z.state==='WA';const isOR=z.state==='OR';
   const highSeismic=['CA','AK','WA','OR','NV','UT','HI'].includes(z.state||'');
-  const db=STATE_DB[z.state]||{bc:'IBC 2018',ec:'IECC 2018'};
+  const db=STATE_DB[normalizeState(z.state)]||{bc:'IBC 2018',ec:'IECC 2018'};
 
   const opts=[];
 
-  // Compute realistic costs and values
-  const costPerSF=(isCA||isWA)?380:220;
-  const valuePerUnit=(isCA)?720000:isWA?540000:320000;
+  // Compute realistic costs and values.
+  // DATA-2 fix (2026-04): apply a time-based inflation multiplier so the
+  // hard-coded $/SF baselines (anchored to 2024-Q1 publication) track
+  // current construction-cost inflation. ENR CCI is paywalled; BLS PPI for
+  // Residential Construction (series PCU236116, https://data.bls.gov/) is
+  // the closest free analog and is what the multiplier below tracks.
+  // Update procedure: every quarter, fetch the latest PPI value, divide by
+  // the baseline-quarter PPI value, set window.COST_INDEX.current to the
+  // ratio, and bump COST_INDEX.asOf. Auto-refresh script is a planned
+  // follow-up (parallel to fetch-socrata-schemas.py — workflow on cron).
+  const costIndex=(window.COST_INDEX&&window.COST_INDEX.current)||1.06;
+  const costPerSF=Math.round((isCA||isWA?380:220)*costIndex);
+  const valuePerUnit=Math.round(((isCA)?720000:isWA?540000:320000)*costIndex);
   const costMultiplier=(highSeismic)?1.18:1.0;// seismic premium
 
+  // Round 5p fix #8: clamp option SF to the buildable envelope.
+  // The naive bW*bD*storyMultiplier formula consistently overstated SF
+  // by ~70% on tight lots (e.g., 50×120 RSA-6 with FAR 0.5 → cap 3000sf,
+  // option-4 was claiming 5580sf). Cap by both FAR and (coverage × stories)
+  // so the option promise matches what localFloorPlan can actually emit.
+  function clampSF(rawSF, stories){
+    const farCap = (z.maxFAR || 1) * lotSF;
+    const covCap = ((z.maxLotCoverage || 100) / 100) * lotSF * stories;
+    return Math.round(Math.min(rawSF, farCap, covCap));
+  }
+
   // Option 1: Conservative — SFR + ADU
-  {const sf=Math.round(bW*bD*.65);const units=adu?2:1;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.8);
+  {const sf=clampSF(bW*bD*.65, 1);const units=adu?2:1;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.8);
   opts.push({id:1,icon:'🏡',name:'Conservative SFR + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 1-story`,badge:'Low Risk',badgeClass:'badge-green',units,sf,stories:1,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.2/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.15/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.1-cost)/cost*80)}%`,risk:'Low',timeline:'8–12 months',green:['Solar-ready','EV parking','Energy Star'],cert:`${db.ec} + LEED for Homes possible`,permits:'By-right, ministerial'})}
 
   // Option 2: Stacked Duplex + ADU (if 2+ stories)
-  if(maxSt>=2){const sf=Math.round(bW*bD*1.3);const units=adu?3:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.85);
+  if(maxSt>=2){const sf=clampSF(bW*bD*1.3, 2);const units=adu?3:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.85);
   opts.push({id:2,icon:'🏘️',name:'Stacked Duplex + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Cash Flow',badgeClass:'badge-blue',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.18/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.15-cost)/cost*80)}%`,risk:'Low-Medium',timeline:'14–18 months',green:['Passive solar orientation','Solar PV 8kW','Zehnder ERV','EV charging × 2'],cert:`LEED Silver achievable · ${db.ec}`,permits:'By-right in most R zones'})}
 
   // Option 3: Side-by-Side + ADUs (if wide enough)
-  if(bW>=40&&maxSt>=2){const sf=Math.round(bW*bD*1.55);const units=adu?4:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
+  if(bW>=40&&maxSt>=2){const sf=clampSF(bW*bD*1.55, 2);const units=adu?4:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
   opts.push({id:3,icon:'🌿',name:'Net-Zero Side-by-Side + 2 ADUs',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Sustainability',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.25/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.2/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'16–22 months',green:['Net-zero energy','Shared 16kW solar','Warmboard radiant','Greywater reuse','Green roof on ADU','EV fleet charging'],cert:`LEED Gold · Passive House EnerPHit possible`,permits:'By-right if <50% lot coverage',recommended:true})}
 
   // Option 4: Max Density Triplex/4-plex
-  if(maxSt>=2){const sf=Math.round(bW*bD*(maxSt>=3?1.9:1.65));const units=adu?maxSt*2+1:maxSt*2;const cost=Math.round(sf*costPerSF*1.05*costMultiplier);const val=Math.round(units*valuePerUnit*.92);
+  if(maxSt>=2){const sf=clampSF(bW*bD*(maxSt>=3?1.9:1.65), maxSt);const units=adu?maxSt*2+1:maxSt*2;const cost=Math.round(sf*costPerSF*1.05*costMultiplier);const val=Math.round(units*valuePerUnit*.92);
   opts.push({id:4,icon:'🏗️',name:`Maximum Density ${maxSt}-Story + ADUs`,type:`${units}-unit · ${sf.toLocaleString()} SF · ${maxSt}-story`,badge:'Highest Density',badgeClass:'badge-amber',units,sf,stories:maxSt,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.28/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.22/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium-High',timeline:'20–28 months',green:['LEED Platinum target','22kW solar array','Living roof','WUFI thermal bridge analysis','Triple-pane windows'],cert:`LEED Platinum · ${db.bc} Type V-A`,permits:'May require design review / DRB approval'})}
 
   // Option 5: CA SB9 or WA MFTE
-  if(isCA&&z.sb9Eligible!==false){const sf=Math.round(bW*bD*1.7);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.95);
+  if(isCA&&z.sb9Eligible!==false){const sf=clampSF(bW*bD*1.7, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.95);
   opts.push({id:5,icon:'🏙️',name:'SB9 Lot Split → 4 Units',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Max ROI (CA SB9)',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'18–26 months',green:['Solar required (T24)','CALGreen Tier 2','EV-ready × 4','Water-efficient landscaping'],cert:`CALGreen Tier 2 · Title 24 2022`,permits:'Ministerial under SB9 — city cannot deny'})
-  }else if(isWA){const sf=Math.round(bW*bD*1.6);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
+  }else if(isWA){const sf=clampSF(bW*bD*1.6, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
   opts.push({id:5,icon:'🏙️',name:'MFTE Affordable 4-Unit',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Tax Exemption (WA)',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'20–26 months',green:['WSEC 2021 enhanced','Solar-ready','EV × 2','Permeable paving'],cert:`WSEC 2021 · MFTE 12-yr tax exemption`,permits:'City MFTE approval + design review'})
   }
 
@@ -1212,6 +1783,8 @@ async function runPhase_comp(){
 
 We are designing a **${opt?.name||'multi-family'} project** (${opt?.units||2} units, ~${opt?.sf||2500} SF).
 
+JURISDICTION LOCK: All zoning, code, and ordinance references in your response MUST be specific to **${z.jurisdiction}, ${z.state}** (district: **${z.zoningDistrict}**). Do NOT cite zone codes from other cities (e.g., do not write "RS 7.2" or "KMC Title 21" if those belong to a different jurisdiction). When unsure of a specific section number, write "see ${z.jurisdiction} municipal code" instead of fabricating a citation.
+
 Prioritize sources in this order:
   1. Public permit data portals (data.<city>.gov / Socrata) filed under a recognizable project name within ${z.jurisdiction}
   2. Recently listed/sold properties visible on Zillow, Redfin, Realtor.com within the 2–5 mile radius
@@ -1220,7 +1793,7 @@ Prioritize sources in this order:
 
 For each comparable provide:
 1. Project name, specific street/neighborhood, developer, year completed, permit number if known
-2. Distance from ${S.addr} (miles) and WHY it's a relevant comparable (similar lot, use, density, typology)
+2. Distance from ${S.addr} (miles) and WHY it's a relevant comparable (similar lot, use, density, typology). For lot context use ${z.lotWidth}ft × ${z.lotDepth}ft = ${(z.lotWidth*z.lotDepth).toLocaleString()} SF — the canonical site dimensions; do not invent alternatives.
 3. Unit mix, stories, total SF, density achieved
 4. Notable green/sustainable innovations actually implemented
 5. Structural system and why it was chosen
@@ -1232,7 +1805,7 @@ Then recommend:
 **Optimal unit mix** for current market demand
 **2 structural improvements** over typical code minimum (with specific member sizes)
 **1 green technology** with proven market ROI in this market`
-    }],SYS,1000);
+    }],SYS,1000,120000); // 120s timeout — comp phase often hits 90s due to expanded prompt and source-citation requirement
     phSet('comp','done',`${((Date.now()-t)/1000).toFixed(1)}s`);
     if(S._compInterval){clearInterval(S._compInterval);S._compInterval=null;}addFind('comp','🏆 Competitor Analysis & Market Intelligence',fmt(res));S.competitors=res;phaseRunners.comp=runPhase_comp;
     // ── Cross-check with permit-portal registry (public permit data) ──
@@ -1290,14 +1863,17 @@ async function runPhase_chk(){
   const haveSheet=S.plan?.meta?`drawing-engine.A-${{cover:0,site:1,plans:2,elev:3,sect:4,sched:5}}.generated`:null;
   const havePlan=S.plan?`drawing-engine.localFloorPlan()`:null;
   const apn=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||null;
-  const st=z.state||'WA';const db=STATE_DB[st]||{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Confirm adopted code with local building dept'};
+  const st=normalizeState(z.state)||'WA';const db=STATE_DB[st]||{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115',note:'Confirm adopted code with local building dept'};
   const jur=z.jurisdiction||'Local Jurisdiction';const units=S.plan?.meta?.units||2;const stories=S.plan?.meta?.stories||2;
   const totalSF=S.plan?.meta?.totalSqFt||2000;const ov=S.overlays;
   const isCA=st==='CA',isWA=st==='WA',isOR=st==='OR',isNY=st==='NY',isTX=st==='TX',isFL=st==='FL',isMA=st==='MA',isDC=st==='DC';
   const highSeismic=['CA','AK','WA','OR','NV','UT','HI'].includes(st);
   const highWind=['FL','TX','LA','SC','NC','VA','MD','NJ','NY','MA','CT','HI'].includes(st);
   const isLargeMF=units>=5;const isMixedUse=(S.plan?.meta?.commercialSqFt||0)>0;
-  const costPerSF=(isCA||isNY||isDC||isMA||isWA)?380:(isFL||isTX)?200:260;
+  // DATA-2 fix: apply ENR-style inflation multiplier (BLS PPI proxy) —
+  // see options-panel cost calc above for full rationale and update path.
+  const costIndex=(window.COST_INDEX&&window.COST_INDEX.current)||1.06;
+  const costPerSF=Math.round(((isCA||isNY||isDC||isMA||isWA)?380:(isFL||isTX)?200:260)*costIndex);
   const valuation=Math.round(totalSF*costPerSF);const feeRate=(isCA||isNY)?.012:(isWA||isOR)?.01:.008;
   const feeEst=Math.round(valuation*feeRate/100)*100;
   const feeRange=`$${(feeEst*.8/1000).toFixed(0)}K–$${(feeEst*1.4/1000).toFixed(0)}K`;
@@ -1763,6 +2339,586 @@ function getComparableInsights(z){
   return out;
 }
 
+// ═══ LIB.d2 — expanded 2D library ═══
+// Each primitive takes (ctx, cx, cy, ft, ...opts). Width/depth in feet drawn
+// at the sheet's transform scale. Rotation 0 = default; opts.orient=0|90|180|270.
+// Naming convention: LIB.d2.<category>.<name>(ctx, cx, cy, ft, opts)
+
+// ── DOORS ──
+function _doorSwing(ctx,x,y,w,dir,ft){
+  // Base swing door primitive — x,y is hinge point; w in feet; dir = 'NE'|'NW'|'SE'|'SW'
+  const pw=ft(w);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.doorOpening;ctx.lineWidth=ARCH_STANDARDS.lineWeights.doorOpening;
+  ctx.fillStyle='rgba(210,225,244,.1)';
+  // Leaf rectangle (thin) — direction of leaf depends on hinge side
+  if(dir==='NE'){ctx.fillRect(x,y-pw,pw*.08,pw);ctx.strokeRect(x,y-pw,pw*.08,pw);ctx.strokeStyle='rgba(200,215,235,.3)';ctx.setLineDash([2,2]);ctx.beginPath();ctx.arc(x,y,pw,Math.PI*1.5,0);ctx.stroke()}
+  else if(dir==='NW'){ctx.fillRect(x-pw*.08,y-pw,pw*.08,pw);ctx.strokeRect(x-pw*.08,y-pw,pw*.08,pw);ctx.strokeStyle='rgba(200,215,235,.3)';ctx.setLineDash([2,2]);ctx.beginPath();ctx.arc(x,y,pw,Math.PI,Math.PI*1.5);ctx.stroke()}
+  else if(dir==='SE'){ctx.fillRect(x,y,pw*.08,pw);ctx.strokeRect(x,y,pw*.08,pw);ctx.strokeStyle='rgba(200,215,235,.3)';ctx.setLineDash([2,2]);ctx.beginPath();ctx.arc(x,y,pw,0,Math.PI/2);ctx.stroke()}
+  else{ctx.fillRect(x-pw*.08,y,pw*.08,pw);ctx.strokeRect(x-pw*.08,y,pw*.08,pw);ctx.strokeStyle='rgba(200,215,235,.3)';ctx.setLineDash([2,2]);ctx.beginPath();ctx.arc(x,y,pw,Math.PI/2,Math.PI);ctx.stroke()}
+  ctx.setLineDash([]);ctx.restore();
+}
+function drawDoorDouble(ctx,cx,cy,ft,opts={}){
+  // Double door (French style without glass) — two leaves meeting in middle
+  const w=opts.w||6;const pw=ft(w);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.doorOpening;ctx.lineWidth=ARCH_STANDARDS.lineWeights.doorOpening;
+  ctx.strokeRect(cx-pw/2,cy-pw*.04,pw,pw*.08);
+  // Two arcs swinging inward
+  ctx.strokeStyle='rgba(200,215,235,.3)';ctx.setLineDash([2,2]);
+  ctx.beginPath();ctx.arc(cx-pw/2,cy,pw/2,Math.PI*1.5,0);ctx.stroke();
+  ctx.beginPath();ctx.arc(cx+pw/2,cy,pw/2,Math.PI,Math.PI*1.5);ctx.stroke();
+  ctx.setLineDash([]);ctx.restore();
+}
+function drawDoorFrench(ctx,cx,cy,ft,opts={}){
+  // French door — double door with glazing lines on leaves
+  const w=opts.w||6;const pw=ft(w);
+  drawDoorDouble(ctx,cx,cy,ft,opts);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=0.5;
+  // Glazing muntins on each leaf (2 horizontal lines per leaf)
+  [cx-pw*.3,cx-pw*.15,cx+pw*.15,cx+pw*.3].forEach(lx=>{ctx.beginPath();ctx.moveTo(lx,cy-pw*.03);ctx.lineTo(lx,cy+pw*.03);ctx.stroke()});
+  ctx.restore();
+}
+function drawDoorPocket(ctx,cx,cy,ft,opts={}){
+  // Pocket door — slides into wall. Shown as a leaf tucked inside a wall pocket.
+  const w=opts.w||ARCH_STANDARDS.doors.interior.w;const pw=ft(w);
+  ctx.save();
+  // Pocket (dashed rectangle in wall)
+  ctx.strokeStyle='rgba(210,225,244,.4)';ctx.lineWidth=0.5;ctx.setLineDash([3,2]);
+  ctx.strokeRect(cx-pw/2,cy-pw*.05,pw,pw*.1);ctx.setLineDash([]);
+  // Leaf inside the pocket (solid)
+  ctx.fillStyle='rgba(210,225,244,.25)';ctx.strokeStyle=ARCH_STANDARDS.symbols.doorOpening;ctx.lineWidth=ARCH_STANDARDS.lineWeights.doorOpening;
+  ctx.fillRect(cx-pw/2+pw*.05,cy-pw*.035,pw*.45,pw*.07);
+  ctx.strokeRect(cx-pw/2+pw*.05,cy-pw*.035,pw*.45,pw*.07);
+  // Arrow showing slide direction
+  ctx.strokeStyle='rgba(245,200,66,.7)';ctx.lineWidth=0.6;
+  ctx.beginPath();ctx.moveTo(cx,cy+pw*.12);ctx.lineTo(cx+pw*.3,cy+pw*.12);ctx.lineTo(cx+pw*.25,cy+pw*.08);ctx.moveTo(cx+pw*.3,cy+pw*.12);ctx.lineTo(cx+pw*.25,cy+pw*.16);ctx.stroke();
+  // P tag
+  ctx.fillStyle='rgba(245,200,66,.8)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('P',cx,cy+pw*.25);
+  ctx.restore();
+}
+function drawDoorSliding(ctx,cx,cy,ft,opts={}){
+  // Sliding door (patio-style) — two panels, one fixed one sliding
+  const w=opts.w||6;const pw=ft(w);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=ARCH_STANDARDS.lineWeights.doorOpening;
+  // Two overlapping panels
+  ctx.strokeRect(cx-pw/2,cy-pw*.05,pw*.52,pw*.1);
+  ctx.strokeRect(cx-pw*.02,cy-pw*.05,pw*.52,pw*.1);
+  // Slide arrow
+  ctx.strokeStyle='rgba(245,200,66,.7)';ctx.lineWidth=0.6;
+  ctx.beginPath();ctx.moveTo(cx-pw*.3,cy+pw*.12);ctx.lineTo(cx+pw*.3,cy+pw*.12);ctx.moveTo(cx+pw*.25,cy+pw*.08);ctx.lineTo(cx+pw*.3,cy+pw*.12);ctx.lineTo(cx+pw*.25,cy+pw*.16);ctx.stroke();
+  ctx.restore();
+}
+function drawDoorBifold(ctx,cx,cy,ft,opts={}){
+  // Bifold closet door — two panels that fold
+  const w=opts.w||4;const pw=ft(w);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.doorOpening;ctx.lineWidth=ARCH_STANDARDS.lineWeights.doorOpening;
+  // V-shape indicating folded panels
+  ctx.beginPath();ctx.moveTo(cx-pw/2,cy);ctx.lineTo(cx,cy-pw*.3);ctx.lineTo(cx+pw/2,cy);ctx.stroke();
+  // Frame line
+  ctx.strokeStyle='rgba(210,225,244,.3)';ctx.beginPath();ctx.moveTo(cx-pw/2,cy);ctx.lineTo(cx+pw/2,cy);ctx.stroke();
+  ctx.restore();
+}
+function drawDoorGarage(ctx,cx,cy,ft,opts={}){
+  // Overhead garage door — shown as segmented panel along wall
+  const w=opts.w||9;const pw=ft(w);
+  ctx.save();ctx.strokeStyle='rgba(122,154,184,.7)';ctx.lineWidth=1.2;ctx.fillStyle='rgba(90,100,115,.25)';
+  ctx.fillRect(cx-pw/2,cy-pw*.03,pw,pw*.06);ctx.strokeRect(cx-pw/2,cy-pw*.03,pw,pw*.06);
+  // Panel segments (4 vertical lines)
+  ctx.lineWidth=0.5;
+  for(let i=1;i<5;i++){const px=cx-pw/2+pw*(i/5);ctx.beginPath();ctx.moveTo(px,cy-pw*.03);ctx.lineTo(px,cy+pw*.03);ctx.stroke()}
+  // Up arrow indicating overhead operation
+  ctx.strokeStyle='rgba(245,200,66,.7)';ctx.beginPath();ctx.moveTo(cx,cy+pw*.06);ctx.lineTo(cx,cy+pw*.15);ctx.moveTo(cx-pw*.03,cy+pw*.10);ctx.lineTo(cx,cy+pw*.06);ctx.lineTo(cx+pw*.03,cy+pw*.10);ctx.stroke();
+  ctx.restore();
+}
+
+// ── WINDOWS ──
+function drawWindowDoubleHung(ctx,cx,cy,ft,opts={}){
+  // Double-hung — two sashes stacked. In plan: simple gap with 3 parallel lines.
+  const w=opts.w||ARCH_STANDARDS.windows.standard.w;const pw=ft(w);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=ARCH_STANDARDS.lineWeights.windowFrame;
+  // Three parallel lines: outer frame, glass, outer frame
+  ctx.beginPath();ctx.moveTo(cx-pw/2,cy-1.5);ctx.lineTo(cx+pw/2,cy-1.5);
+  ctx.moveTo(cx-pw/2,cy);ctx.lineTo(cx+pw/2,cy);
+  ctx.moveTo(cx-pw/2,cy+1.5);ctx.lineTo(cx+pw/2,cy+1.5);ctx.stroke();
+  ctx.restore();
+}
+function drawWindowCasement(ctx,cx,cy,ft,opts={}){
+  // Casement — hinged on one side, swings outward. Drawn as gap with hinge indicator.
+  const w=opts.w||ARCH_STANDARDS.windows.standard.w;const pw=ft(w);const hinge=opts.hinge||'L';
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=ARCH_STANDARDS.lineWeights.windowFrame;
+  ctx.beginPath();ctx.moveTo(cx-pw/2,cy-1);ctx.lineTo(cx+pw/2,cy-1);ctx.moveTo(cx-pw/2,cy+1);ctx.lineTo(cx+pw/2,cy+1);ctx.stroke();
+  // Hinge marker (small triangle at hinge side)
+  ctx.fillStyle='rgba(100,170,255,.7)';
+  if(hinge==='L'){ctx.beginPath();ctx.moveTo(cx-pw/2,cy-2);ctx.lineTo(cx-pw/2,cy+2);ctx.lineTo(cx-pw/2+3,cy);ctx.closePath();ctx.fill()}
+  else{ctx.beginPath();ctx.moveTo(cx+pw/2,cy-2);ctx.lineTo(cx+pw/2,cy+2);ctx.lineTo(cx+pw/2-3,cy);ctx.closePath();ctx.fill()}
+  ctx.restore();
+}
+function drawWindowBay(ctx,cx,cy,ft,opts={}){
+  // Bay window — projecting 3-panel. Shown in plan as trapezoid.
+  const w=opts.w||6;const proj=opts.projection||2;const pw=ft(w);const pp=ft(proj);
+  ctx.save();ctx.fillStyle='rgba(100,170,255,.15)';ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=ARCH_STANDARDS.lineWeights.windowFrame;
+  // Trapezoid projecting from the wall
+  ctx.beginPath();
+  ctx.moveTo(cx-pw/2,cy);
+  ctx.lineTo(cx-pw*.3,cy-pp);
+  ctx.lineTo(cx+pw*.3,cy-pp);
+  ctx.lineTo(cx+pw/2,cy);
+  ctx.closePath();ctx.fill();ctx.stroke();
+  // Muntin at each panel junction
+  ctx.lineWidth=0.4;ctx.beginPath();
+  ctx.moveTo(cx-pw*.3,cy-pp);ctx.lineTo(cx-pw*.3,cy);
+  ctx.moveTo(cx+pw*.3,cy-pp);ctx.lineTo(cx+pw*.3,cy);ctx.stroke();
+  ctx.restore();
+}
+function drawWindowAwning(ctx,cx,cy,ft,opts={}){
+  // Awning — hinged at top, opens outward. Small rectangular gap in plan.
+  const w=opts.w||3;const pw=ft(w);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=ARCH_STANDARDS.lineWeights.windowFrame;
+  ctx.beginPath();ctx.moveTo(cx-pw/2,cy-.8);ctx.lineTo(cx+pw/2,cy-.8);ctx.moveTo(cx-pw/2,cy+.8);ctx.lineTo(cx+pw/2,cy+.8);ctx.stroke();
+  // Arrow pointing up indicating awning direction
+  ctx.strokeStyle='rgba(100,170,255,.55)';ctx.lineWidth=0.4;
+  ctx.beginPath();ctx.moveTo(cx,cy+3);ctx.lineTo(cx,cy-3);ctx.moveTo(cx-2,cy-1);ctx.lineTo(cx,cy-3);ctx.lineTo(cx+2,cy-1);ctx.stroke();
+  ctx.restore();
+}
+function drawWindowFixed(ctx,cx,cy,ft,opts={}){
+  // Fixed / picture window — one big panel, no operating sashes
+  const w=opts.w||4;const pw=ft(w);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=ARCH_STANDARDS.lineWeights.windowFrame;
+  ctx.beginPath();ctx.moveTo(cx-pw/2,cy-1);ctx.lineTo(cx+pw/2,cy-1);ctx.moveTo(cx-pw/2,cy+1);ctx.lineTo(cx+pw/2,cy+1);ctx.stroke();
+  // FIX tag
+  ctx.fillStyle='rgba(100,170,255,.4)';ctx.font='4px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('FIX',cx,cy);
+  ctx.restore();
+}
+function drawWindowSlider(ctx,cx,cy,ft,opts={}){
+  // Horizontal slider
+  const w=opts.w||5;const pw=ft(w);
+  ctx.save();ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=ARCH_STANDARDS.lineWeights.windowFrame;
+  ctx.beginPath();ctx.moveTo(cx-pw/2,cy-1);ctx.lineTo(cx+pw/2,cy-1);ctx.moveTo(cx-pw/2,cy+1);ctx.lineTo(cx+pw/2,cy+1);ctx.stroke();
+  // Two overlapping sash indicators
+  ctx.strokeRect(cx-pw/2,cy-.8,pw*.52,1.6);
+  ctx.strokeRect(cx-pw*.02,cy-.8,pw*.52,1.6);
+  ctx.restore();
+}
+
+// ── FURNITURE (adds programmatic intent to empty rooms) ──
+function drawBed(ctx,cx,cy,ft,opts={}){
+  // Bed with headboard + pillows + mattress outline. size = 'queen'|'king'|'full'|'twin'
+  const size=opts.size||'queen';
+  const sz={queen:{w:5,d:6.67},king:{w:6.33,d:6.67},full:{w:4.5,d:6.25},twin:{w:3.25,d:6.25}}[size];
+  const w=ft(sz.w),d=ft(sz.d);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  // Headboard (darker strip at top)
+  ctx.fillStyle='rgba(110,130,170,.55)';ctx.fillRect(-w/2,-d/2,w,d*.1);
+  // Mattress
+  ctx.fillStyle='rgba(210,225,244,.35)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  ctx.fillRect(-w/2,-d/2+d*.1,w,d*.9);ctx.strokeRect(-w/2,-d/2+d*.1,w,d*.9);
+  // Pillows (2 rectangles at head)
+  ctx.fillStyle='rgba(240,240,245,.6)';ctx.strokeStyle='rgba(200,215,235,.5)';ctx.lineWidth=.4;
+  ctx.fillRect(-w*.42,-d*.38,w*.35,d*.12);ctx.strokeRect(-w*.42,-d*.38,w*.35,d*.12);
+  ctx.fillRect(w*.07,-d*.38,w*.35,d*.12);ctx.strokeRect(w*.07,-d*.38,w*.35,d*.12);
+  // Size label
+  ctx.fillStyle='rgba(210,225,244,.55)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(size.toUpperCase(),0,d*.15);
+  ctx.restore();
+}
+function drawSofa(ctx,cx,cy,ft,opts={}){
+  // 3-seat sofa with back + armrests
+  const w=opts.w||7,d=opts.d||3;const pw=ft(w),pd=ft(d);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  // Base cushion
+  ctx.fillStyle='rgba(150,120,90,.4)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  const r=pd*.15;
+  ctx.beginPath();ctx.moveTo(-pw/2+r,-pd/2);ctx.lineTo(pw/2-r,-pd/2);ctx.arcTo(pw/2,-pd/2,pw/2,-pd/2+r,r);ctx.lineTo(pw/2,pd/2-r);ctx.arcTo(pw/2,pd/2,pw/2-r,pd/2,r);ctx.lineTo(-pw/2+r,pd/2);ctx.arcTo(-pw/2,pd/2,-pw/2,pd/2-r,r);ctx.lineTo(-pw/2,-pd/2+r);ctx.arcTo(-pw/2,-pd/2,-pw/2+r,-pd/2,r);ctx.closePath();ctx.fill();ctx.stroke();
+  // Back cushions divider lines
+  ctx.beginPath();ctx.moveTo(-pw*.16,-pd/2);ctx.lineTo(-pw*.16,-pd*.1);ctx.moveTo(pw*.16,-pd/2);ctx.lineTo(pw*.16,-pd*.1);ctx.stroke();
+  // Armrests (slightly darker)
+  ctx.fillStyle='rgba(110,90,70,.55)';
+  ctx.fillRect(-pw/2,-pd/2,pw*.08,pd);ctx.strokeRect(-pw/2,-pd/2,pw*.08,pd);
+  ctx.fillRect(pw/2-pw*.08,-pd/2,pw*.08,pd);ctx.strokeRect(pw/2-pw*.08,-pd/2,pw*.08,pd);
+  ctx.restore();
+}
+function drawDiningTable(ctx,cx,cy,ft,opts={}){
+  // Dining table (rectangular) with chairs. seats = 4|6|8
+  const seats=opts.seats||6;
+  const w=seats>=8?8:seats>=6?6:4,d=3;const pw=ft(w),pd=ft(d);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  // Table
+  ctx.fillStyle='rgba(140,110,80,.45)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  ctx.fillRect(-pw/2,-pd/2,pw,pd);ctx.strokeRect(-pw/2,-pd/2,pw,pd);
+  // Chairs (one per long side for 4-seat; two for 6; three for 8 + 1 each head)
+  const perLong=seats===4?1:seats===6?2:3;
+  const chW=ft(1.5),chD=ft(1.5);const chSpacing=pw/(perLong+1);
+  ctx.fillStyle='rgba(100,80,60,.5)';ctx.strokeStyle='rgba(200,215,235,.55)';ctx.lineWidth=0.4;
+  for(let i=1;i<=perLong;i++){
+    const xoff=-pw/2+i*chSpacing;
+    // Top chair
+    ctx.fillRect(xoff-chW/2,-pd/2-chD-2,chW,chD);ctx.strokeRect(xoff-chW/2,-pd/2-chD-2,chW,chD);
+    // Bottom chair
+    ctx.fillRect(xoff-chW/2,pd/2+2,chW,chD);ctx.strokeRect(xoff-chW/2,pd/2+2,chW,chD);
+  }
+  // Head chairs (for 6+)
+  if(seats>=6){
+    ctx.fillRect(-pw/2-chD-2,-chW/2,chD,chW);ctx.strokeRect(-pw/2-chD-2,-chW/2,chD,chW);
+    ctx.fillRect(pw/2+2,-chW/2,chD,chW);ctx.strokeRect(pw/2+2,-chW/2,chD,chW);
+  }
+  ctx.restore();
+}
+function drawDesk(ctx,cx,cy,ft,opts={}){
+  // Desk with chair
+  const w=opts.w||5,d=opts.d||2.5;const pw=ft(w),pd=ft(d);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  ctx.fillStyle='rgba(140,110,80,.4)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  ctx.fillRect(-pw/2,-pd/2,pw,pd);ctx.strokeRect(-pw/2,-pd/2,pw,pd);
+  // Chair (behind desk)
+  ctx.fillStyle='rgba(100,80,60,.5)';const chW=ft(1.8),chD=ft(1.8);
+  ctx.fillRect(-chW/2,pd/2+2,chW,chD);ctx.strokeRect(-chW/2,pd/2+2,chW,chD);
+  ctx.restore();
+}
+function drawTV(ctx,cx,cy,ft,opts={}){
+  // Wall-mounted TV + media console
+  const w=opts.w||5,d=opts.d||1.5;const pw=ft(w),pd=ft(d);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  // Console
+  ctx.fillStyle='rgba(70,80,95,.5)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  ctx.fillRect(-pw/2,0,pw,pd);ctx.strokeRect(-pw/2,0,pw,pd);
+  // TV screen (darker, above console)
+  ctx.fillStyle='rgba(20,30,50,.9)';ctx.strokeStyle='rgba(100,170,255,.5)';
+  ctx.fillRect(-pw*.4,-pd*.8,pw*.8,pd*.5);ctx.strokeRect(-pw*.4,-pd*.8,pw*.8,pd*.5);
+  ctx.fillStyle='rgba(100,170,255,.5)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('TV',0,-pd*.55);
+  ctx.restore();
+}
+function drawKitchenIsland(ctx,cx,cy,ft,opts={}){
+  // Kitchen island with optional bar-stool seating
+  const w=opts.w||6,d=opts.d||3;const pw=ft(w),pd=ft(d);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  ctx.fillStyle='rgba(200,170,80,.3)';ctx.strokeStyle=ARCH_STANDARDS.symbols.kitchenAppliance;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixtureHeavy;
+  ctx.fillRect(-pw/2,-pd/2,pw,pd);ctx.strokeRect(-pw/2,-pd/2,pw,pd);
+  // Sink cut-out (optional)
+  if(opts.sink){
+    ctx.strokeStyle=ARCH_STANDARDS.symbols.waterFixture;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+    ctx.strokeRect(-pw*.2,-pd*.35,pw*.4,pd*.35);
+  }
+  // Bar-stool indicators along one long side
+  if(opts.stools){
+    ctx.fillStyle='rgba(100,80,60,.5)';ctx.strokeStyle='rgba(200,215,235,.55)';ctx.lineWidth=0.4;
+    const stools=Math.min(4,Math.floor(w/2.5));
+    for(let i=0;i<stools;i++){const sx=-pw/2+(i+0.5)*(pw/stools);
+      ctx.beginPath();ctx.arc(sx,pd/2+ft(1),ft(.75),0,Math.PI*2);ctx.fill();ctx.stroke()}
+  }
+  ctx.fillStyle='rgba(245,200,66,.7)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('ISLAND',0,0);
+  ctx.restore();
+}
+function drawArmchair(ctx,cx,cy,ft,opts={}){
+  const w=opts.w||3,d=opts.d||3;const pw=ft(w),pd=ft(d);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  ctx.fillStyle='rgba(150,120,90,.45)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  const r=pd*.2;
+  ctx.beginPath();ctx.moveTo(-pw/2+r,-pd/2);ctx.lineTo(pw/2-r,-pd/2);ctx.arcTo(pw/2,-pd/2,pw/2,-pd/2+r,r);ctx.lineTo(pw/2,pd/2-r);ctx.arcTo(pw/2,pd/2,pw/2-r,pd/2,r);ctx.lineTo(-pw/2+r,pd/2);ctx.arcTo(-pw/2,pd/2,-pw/2,pd/2-r,r);ctx.lineTo(-pw/2,-pd/2+r);ctx.arcTo(-pw/2,-pd/2,-pw/2+r,-pd/2,r);ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.restore();
+}
+function drawCoffeeTable(ctx,cx,cy,ft,opts={}){
+  const w=opts.w||4,d=opts.d||2;const pw=ft(w),pd=ft(d);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  ctx.fillStyle='rgba(140,110,80,.35)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  ctx.fillRect(-pw/2,-pd/2,pw,pd);ctx.strokeRect(-pw/2,-pd/2,pw,pd);
+  ctx.restore();
+}
+
+// ── STAIR VARIANTS ──
+function drawStairLShape(ctx,x,y,w,d,ft,opts={}){
+  // L-shape with landing. x,y,w,d in pixel space; landing at bottom, run along right.
+  const landingSize=Math.min(w,d)/2.2;
+  ctx.save();
+  // Landing (square at corner)
+  ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixtureHeavy;
+  ctx.strokeRect(x,y,w,d);
+  // Tread lines in run 1 (bottom to landing) — horizontal treads
+  ctx.strokeStyle=ARCH_STANDARDS.symbols.stairTread;ctx.lineWidth=0.5;
+  const risersFlight1=7;const td1=(d-landingSize)/risersFlight1;
+  for(let i=1;i<risersFlight1;i++){ctx.beginPath();ctx.moveTo(x,y+landingSize+i*td1);ctx.lineTo(x+landingSize,y+landingSize+i*td1);ctx.stroke()}
+  // Tread lines in run 2 (landing to top) — vertical treads going right
+  const risersFlight2=7;const td2=(w-landingSize)/risersFlight2;
+  for(let i=1;i<risersFlight2;i++){ctx.beginPath();ctx.moveTo(x+landingSize+i*td2,y);ctx.lineTo(x+landingSize+i*td2,y+landingSize);ctx.stroke()}
+  // Landing outline (inside the L)
+  ctx.strokeStyle='rgba(210,225,244,.35)';ctx.lineWidth=0.6;
+  ctx.strokeRect(x,y,landingSize,landingSize);
+  // UP arrow along run 1
+  ctx.strokeStyle='rgba(245,200,66,.8)';ctx.fillStyle='rgba(245,200,66,.8)';ctx.lineWidth=1.2;
+  const ax=x+landingSize/2;ctx.beginPath();ctx.moveTo(ax,y+d-ft(1));ctx.lineTo(ax,y+landingSize+ft(1));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ax,y+landingSize+ft(1));ctx.lineTo(ax-landingSize*.2,y+landingSize+ft(2));ctx.lineTo(ax+landingSize*.2,y+landingSize+ft(2));ctx.closePath();ctx.fill();
+  ctx.fillStyle='rgba(245,200,66,.9)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('UP 14R',x+landingSize/2,y+landingSize/2);
+  ctx.restore();
+}
+// ── ANNOTATION SYMBOLS (sheet key marks) ──
+function drawDoorTag(ctx,cx,cy,num){
+  // Circle with number — door schedule reference. AIA standard 3/16" dia circle.
+  ctx.save();
+  const r=8;
+  ctx.fillStyle='rgba(11,14,21,.85)';ctx.strokeStyle='rgba(210,225,244,.8)';ctx.lineWidth=0.7;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();ctx.stroke();
+  ctx.fillStyle='rgba(210,225,244,.95)';ctx.font=ARCH_STANDARDS.typography.callout;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(String(num),cx,cy);
+  ctx.restore();
+}
+function drawWindowTag(ctx,cx,cy,letter){
+  // Hexagon with letter — window schedule reference.
+  ctx.save();
+  const r=8;
+  ctx.fillStyle='rgba(11,14,21,.85)';ctx.strokeStyle=ARCH_STANDARDS.symbols.windowGlazing;ctx.lineWidth=0.7;
+  ctx.beginPath();
+  for(let i=0;i<6;i++){const a=Math.PI/3*i+Math.PI/6;const x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}
+  ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.fillStyle='rgba(100,170,255,.95)';ctx.font=ARCH_STANDARDS.typography.callout;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(String(letter),cx,cy);
+  ctx.restore();
+}
+function drawRoomTag(ctx,cx,cy,name,areaSqFt){
+  // Room tag: name line + area SF line in a compact bordered block
+  ctx.save();
+  const text=name.toUpperCase();const area=areaSqFt?`${Math.round(areaSqFt)} SF`:'';
+  ctx.font='500 7px JetBrains Mono,monospace';
+  const w=Math.max(ctx.measureText(text).width,ctx.measureText(area).width)+10;const h=area?22:14;
+  ctx.fillStyle='rgba(11,14,21,.75)';ctx.strokeStyle='rgba(210,225,244,.4)';ctx.lineWidth=.5;
+  ctx.fillRect(cx-w/2,cy-h/2,w,h);ctx.strokeRect(cx-w/2,cy-h/2,w,h);
+  ctx.fillStyle='rgba(210,225,244,.95)';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(text,cx,cy-(area?4:0));
+  if(area){ctx.font='6px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.8)';ctx.fillText(area,cx,cy+6)}
+  ctx.restore();
+}
+function drawSectionCut(ctx,x1,y1,x2,y2,letter){
+  // Section cut line with arrows + lettered bubble at each end
+  ctx.save();
+  ctx.strokeStyle='rgba(245,200,66,.85)';ctx.fillStyle='rgba(245,200,66,.85)';ctx.lineWidth=1.4;
+  // Main dashed section line
+  ctx.setLineDash([8,4]);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.setLineDash([]);
+  // Arrow head at each end pointing across the section
+  const dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy);const nx=dx/len,ny=dy/len;const px=-ny,py=nx;// perpendicular
+  const al=12;// arrow length
+  [[x1,y1,-1],[x2,y2,1]].forEach(([ex,ey,dir])=>{
+    const ax=ex+px*al*dir,ay=ey+py*al*dir;
+    ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ax,ay);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ax-nx*4+px*3*dir,ay-ny*4+py*3*dir);ctx.lineTo(ax+nx*4+px*3*dir,ay+ny*4+py*3*dir);ctx.closePath();ctx.fill();
+  });
+  // Letter bubble at start
+  ctx.fillStyle='rgba(11,14,21,.9)';ctx.beginPath();ctx.arc(x1-nx*14,y1-ny*14,10,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='rgba(245,200,66,.85)';ctx.lineWidth=1;ctx.stroke();
+  ctx.fillStyle='rgba(245,200,66,.95)';ctx.font='500 9px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(letter,x1-nx*14,y1-ny*14);
+  ctx.restore();
+}
+function drawDetailCallout(ctx,cx,cy,detailNum,sheetNum){
+  // Circle bubble split horizontally: top = detail number, bottom = sheet number
+  ctx.save();
+  const r=11;
+  ctx.fillStyle='rgba(11,14,21,.9)';ctx.strokeStyle='rgba(167,139,250,.85)';ctx.lineWidth=0.8;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();ctx.stroke();
+  // Horizontal divider
+  ctx.beginPath();ctx.moveTo(cx-r,cy);ctx.lineTo(cx+r,cy);ctx.stroke();
+  ctx.fillStyle='rgba(210,225,244,.95)';ctx.font='500 7.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(String(detailNum),cx,cy-5);
+  ctx.font='6.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(167,139,250,.9)';
+  ctx.fillText(sheetNum,cx,cy+5);
+  ctx.restore();
+}
+function drawElevationKey(ctx,cx,cy,letter,rotation=0){
+  // Triangle with letter — points in elevation direction
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(rotation*Math.PI/180);
+  const r=10;
+  ctx.fillStyle='rgba(11,14,21,.9)';ctx.strokeStyle='rgba(34,224,138,.85)';ctx.lineWidth=0.8;
+  ctx.beginPath();ctx.moveTo(0,-r);ctx.lineTo(r*.9,r*.6);ctx.lineTo(-r*.9,r*.6);ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.fillStyle='rgba(34,224,138,.95)';ctx.font='500 8px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(letter,0,1);
+  ctx.restore();
+}
+function drawRevisionCloud(ctx,cx,cy,w,h){
+  // Cloud outline using connected arcs — marks changed areas
+  ctx.save();
+  ctx.strokeStyle='rgba(255,101,85,.85)';ctx.lineWidth=0.9;
+  const r=Math.min(w,h)*.12;const steps=Math.max(8,Math.round((w+h)/r/2));
+  ctx.beginPath();
+  const pts=[];const n=Math.max(6,Math.round((2*(w+h))/r));
+  for(let i=0;i<n;i++){
+    const t=i/n;const angle=t*Math.PI*2;
+    const px=cx+(w/2)*Math.cos(angle);const py=cy+(h/2)*Math.sin(angle);
+    pts.push([px,py]);
+  }
+  pts.forEach((p,i)=>{
+    if(i===0){ctx.moveTo(p[0],p[1])}
+    else{const prev=pts[i-1];const mx=(prev[0]+p[0])/2,my=(prev[1]+p[1])/2;
+      ctx.arc(mx,my,r,0,Math.PI*1.8)}
+  });
+  ctx.stroke();
+  ctx.restore();
+}
+function drawNoteLeader(ctx,fromX,fromY,toX,toY,text,textAlign='left'){
+  // Leader line from note text to feature. Small dot at target, text at origin.
+  ctx.save();
+  ctx.strokeStyle='rgba(210,225,244,.65)';ctx.fillStyle='rgba(210,225,244,.65)';ctx.lineWidth=0.5;
+  ctx.beginPath();ctx.moveTo(fromX,fromY);ctx.lineTo(toX,toY);ctx.stroke();
+  // Dot at target
+  ctx.beginPath();ctx.arc(toX,toY,1.5,0,Math.PI*2);ctx.fill();
+  // Text at leader origin
+  ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign=textAlign;ctx.textBaseline='middle';
+  ctx.fillText(text,fromX,fromY-4);
+  ctx.restore();
+}
+
+// ── HVAC ──
+function drawWaterHeater(ctx,cx,cy,ft,opts={}){
+  const r=ft(0.83);// 20" dia
+  ctx.save();
+  ctx.fillStyle='rgba(100,170,255,.15)';ctx.strokeStyle=ARCH_STANDARDS.symbols.waterFixture;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();ctx.stroke();
+  ctx.fillStyle='rgba(100,170,255,.75)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('WH',cx,cy);
+  ctx.restore();
+}
+function drawFurnace(ctx,cx,cy,ft,opts={}){
+  const w=ft(2),d=ft(2);
+  ctx.save();
+  ctx.fillStyle='rgba(90,100,115,.4)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixtureHeavy;
+  ctx.fillRect(cx-w/2,cy-d/2,w,d);ctx.strokeRect(cx-w/2,cy-d/2,w,d);
+  // Flame icon
+  ctx.fillStyle='rgba(245,150,85,.8)';
+  ctx.beginPath();ctx.arc(cx,cy,Math.min(w,d)*.15,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(210,225,244,.8)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('FURN',cx,cy+d*.3);
+  ctx.restore();
+}
+function drawMiniSplit(ctx,cx,cy,ft,opts={}){
+  // Wall-mounted indoor head (slim horizontal unit)
+  const w=ft(3),d=ft(0.83);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  ctx.fillStyle='rgba(200,215,235,.45)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  ctx.fillRect(-w/2,-d/2,w,d);ctx.strokeRect(-w/2,-d/2,w,d);
+  // Louver lines
+  ctx.strokeStyle='rgba(100,170,255,.55)';ctx.lineWidth=0.3;
+  for(let i=1;i<4;i++){const y=-d/2+d*(i/4);ctx.beginPath();ctx.moveTo(-w*.45,y);ctx.lineTo(w*.45,y);ctx.stroke()}
+  ctx.fillStyle='rgba(100,170,255,.8)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('A/C',0,d);
+  ctx.restore();
+}
+function drawERV(ctx,cx,cy,ft,opts={}){
+  // Energy recovery ventilator — small box w/ air arrows
+  const w=ft(2),d=ft(1.5);
+  ctx.save();
+  ctx.fillStyle='rgba(34,224,138,.2)';ctx.strokeStyle='rgba(34,224,138,.7)';ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixture;
+  ctx.fillRect(cx-w/2,cy-d/2,w,d);ctx.strokeRect(cx-w/2,cy-d/2,w,d);
+  ctx.fillStyle='rgba(34,224,138,.85)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('ERV',cx,cy);
+  ctx.restore();
+}
+
+// ── ELECTRICAL ──
+function drawElectricalPanel(ctx,cx,cy,ft,opts={}){
+  const w=ft(1.5),d=ft(0.5);
+  ctx.save();ctx.translate(cx,cy);if(opts.orient)ctx.rotate(opts.orient*Math.PI/180);
+  ctx.fillStyle='rgba(70,80,95,.5)';ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixtureHeavy;
+  ctx.fillRect(-w/2,-d/2,w,d);ctx.strokeRect(-w/2,-d/2,w,d);
+  ctx.fillStyle='rgba(245,200,66,.85)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(`${opts.amps||200}A`,0,0);
+  ctx.restore();
+}
+
+// ── STRUCTURAL ──
+function drawColumnBubble(ctx,cx,cy,letter,number){
+  // AIA structural grid reference — intersecting lines + labeled circle
+  ctx.save();
+  const r=12;
+  ctx.strokeStyle='rgba(245,200,66,.45)';ctx.lineWidth=0.6;ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(cx-40,cy);ctx.lineTo(cx+40,cy);ctx.moveTo(cx,cy-40);ctx.lineTo(cx,cy+40);ctx.stroke();ctx.setLineDash([]);
+  // Bubble
+  ctx.fillStyle='rgba(11,14,21,.9)';ctx.strokeStyle='rgba(245,200,66,.85)';ctx.lineWidth=0.9;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();ctx.stroke();
+  // Letter on top, number on bottom (per AIA)
+  ctx.fillStyle='rgba(245,200,66,.95)';ctx.font='500 8px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(`${letter}${number}`,cx,cy);
+  ctx.restore();
+}
+function drawBeamOverhead(ctx,x1,y1,x2,y2,label='B-1'){
+  // Beam shown dashed (hidden above) with size label
+  ctx.save();
+  ctx.strokeStyle='rgba(245,200,66,.6)';ctx.lineWidth=1.5;ctx.setLineDash([10,4,2,4]);
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.setLineDash([]);
+  // Label in middle with background
+  const mx=(x1+x2)/2,my=(y1+y2)/2;
+  ctx.fillStyle='rgba(11,14,21,.8)';ctx.fillRect(mx-15,my-6,30,12);
+  ctx.fillStyle='rgba(245,200,66,.9)';ctx.font='500 7px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(label,mx,my);
+  ctx.restore();
+}
+function drawShearWallHatch(ctx,x,y,w,h,label='SW-1'){
+  // Shear wall — crosshatch pattern
+  ctx.save();
+  ctx.fillStyle='rgba(255,101,85,.12)';ctx.strokeStyle='rgba(255,101,85,.75)';ctx.lineWidth=ARCH_STANDARDS.lineWeights.wallExt;
+  ctx.fillRect(x,y,w,h);ctx.strokeRect(x,y,w,h);
+  // 45° hatching
+  ctx.strokeStyle='rgba(255,101,85,.4)';ctx.lineWidth=0.4;
+  ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();
+  for(let d=-h;d<w+h;d+=6){ctx.beginPath();ctx.moveTo(x+d,y);ctx.lineTo(x+d+h,y+h);ctx.stroke()}
+  ctx.restore();
+  // Label
+  ctx.fillStyle='rgba(255,101,85,.9)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(label,x+w/2,y+h/2);
+  ctx.restore();
+}
+
+// ═══ LIB — public namespace exposing every primitive in one place ═══
+// Usage: LIB.d2.fixture.toilet(ctx, cx, cy, ft) — same signature as the raw fn.
+// This is for discoverability and easier future extension. The raw drawXxx
+// functions remain callable directly; LIB is a thin pointer map.
+const LIB={
+  get standards(){return ARCH_STANDARDS},
+  d2:{
+    fixture:{toilet:drawToilet,lavatory:drawLavatory,tub:drawTub,shower:drawShower,kitchenSink:drawKitchenSink,waterHeater:drawWaterHeater},
+    appliance:{range:drawRange,fridge:drawFridge,dishwasher:drawDishwasher,washerDryer:drawWasherDryer,kitchenIsland:drawKitchenIsland,miniSplit:drawMiniSplit},
+    door:{double:drawDoorDouble,french:drawDoorFrench,pocket:drawDoorPocket,sliding:drawDoorSliding,bifold:drawDoorBifold,overhead:drawDoorGarage},
+    window:{doubleHung:drawWindowDoubleHung,casement:drawWindowCasement,bay:drawWindowBay,awning:drawWindowAwning,fixed:drawWindowFixed,slider:drawWindowSlider},
+    furniture:{bed:drawBed,sofa:drawSofa,diningTable:drawDiningTable,desk:drawDesk,tv:drawTV,armchair:drawArmchair,coffeeTable:drawCoffeeTable},
+    stair:{straight:drawStairRun,lShape:drawStairLShape,uShape:drawStairUShape},
+    symbol:{doorTag:drawDoorTag,windowTag:drawWindowTag,roomTag:drawRoomTag,sectionCut:drawSectionCut,detailCallout:drawDetailCallout,elevationKey:drawElevationKey,revisionCloud:drawRevisionCloud,noteLeader:drawNoteLeader},
+    hvac:{waterHeater:drawWaterHeater,furnace:drawFurnace,miniSplit:drawMiniSplit,erv:drawERV},
+    electrical:{panel:drawElectricalPanel},
+    structural:{columnBubble:drawColumnBubble,beamOverhead:drawBeamOverhead,shearWall:drawShearWallHatch},
+    closet:drawClosetInset,
+    disclosure:drawDisclosureBlock,
+    dispatcher:drawRoomFixtures,
+  },
+  d3:{
+    roof:{gable:_roofGable,hip:_roofHip,shed:_roofShed,flat:_roofFlat,pick:_pickRoofForm},
+    mass:{withOpenings:_buildMassWithOpenings},
+  },
+};
+
+function drawStairUShape(ctx,x,y,w,d,ft,opts={}){
+  // U-shape with landing at top. Two parallel runs with landing connecting them.
+  const midW=w/2;
+  ctx.save();
+  ctx.strokeStyle=ARCH_STANDARDS.symbols.fixtureStroke;ctx.lineWidth=ARCH_STANDARDS.lineWeights.fixtureHeavy;
+  ctx.strokeRect(x,y,w,d);
+  // Landing strip at top
+  ctx.strokeStyle='rgba(210,225,244,.35)';ctx.lineWidth=0.5;
+  ctx.strokeRect(x,y,w,d*.25);
+  // Tread lines — left flight (going down)
+  ctx.strokeStyle=ARCH_STANDARDS.symbols.stairTread;ctx.lineWidth=0.5;
+  const r=7;const td=(d-d*.25)/r;
+  for(let i=1;i<r;i++){ctx.beginPath();ctx.moveTo(x,y+d*.25+i*td);ctx.lineTo(x+midW,y+d*.25+i*td);ctx.stroke()}
+  // Tread lines — right flight (going up)
+  for(let i=1;i<r;i++){ctx.beginPath();ctx.moveTo(x+midW,y+d*.25+i*td);ctx.lineTo(x+w,y+d*.25+i*td);ctx.stroke()}
+  // Divider between two flights
+  ctx.strokeStyle='rgba(210,225,244,.5)';ctx.lineWidth=0.6;
+  ctx.beginPath();ctx.moveTo(x+midW,y+d*.25);ctx.lineTo(x+midW,y+d);ctx.stroke();
+  // UP arrow on right flight
+  ctx.strokeStyle='rgba(245,200,66,.8)';ctx.fillStyle='rgba(245,200,66,.8)';ctx.lineWidth=1.2;
+  const ax=x+midW+midW/2;ctx.beginPath();ctx.moveTo(ax,y+d-ft(1));ctx.lineTo(ax,y+d*.25+ft(1));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ax,y+d*.25+ft(1));ctx.lineTo(ax-midW*.15,y+d*.25+ft(2));ctx.lineTo(ax+midW*.15,y+d*.25+ft(2));ctx.closePath();ctx.fill();
+  ctx.fillStyle='rgba(245,200,66,.9)';ctx.font=ARCH_STANDARDS.typography.fixture;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('UP 14R',x+w/2,y+d*.12);
+  ctx.restore();
+}
 const SHEETS=[
   {id:'A-0',lbl:'A-0 Cover'},
   {id:'A-1',lbl:'A-1 Site Plan'},
@@ -1776,7 +2932,17 @@ function buildSheetTabs(){
   const tabs=document.getElementById('sheet-tabs');tabs.innerHTML='';
   SHEETS.forEach(sh=>{
     const b=document.createElement('button');b.className='stab'+(sh.id===S.activeSheet?' on':'');b.textContent=sh.lbl;
-    b.onclick=()=>{S.activeSheet=sh.id;document.querySelectorAll('.stab').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(S.view==='plan')renderSheet(sh.id)};
+    b.onclick=()=>{
+      S.activeSheet=sh.id;
+      document.querySelectorAll('.stab').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      // Round 5p fix #9: sheet tabs only render in PLAN view. If user
+      // is currently in MAP or 3D, snap to PLAN so the selected sheet
+      // actually appears (otherwise A-4 click would update state but
+      // leave the 3D/map canvas visible — observed in live test).
+      if(S.view==='plan')renderSheet(sh.id);
+      else setView('plan');
+    };
     tabs.appendChild(b);
   });
 }
@@ -1814,22 +2980,35 @@ const ADVISOR_SHORT='NOT FOR CONSTRUCTION \u2014 AI PRELIMINARY SCHEMATIC \u2014
 function runArchitectAdvisor(){
   const z=S._z||{};const plan=S.plan||{};const m=plan.meta||{};
   const state=z.state||'';const stories=m.stories||1;const units=m.units||0;const gsf=m.totalSqFt||0;
-  const overlays={historic:!!S._historic,coastal:S._coastal||'none',hillside:!!S._hillside,wildfire:S._wildfire||'none'};
-  const flood=S._flood||{};
+  // Overlays now come from OVERLAY_REGISTRY fetches (structured objects w/ .class + .source)
+  // or fall back to boolean/string legacy fields for backward compat.
+  const ov={
+    historic:S._historic||(S.overlays?.historic?{class:'NRHP listed',source:'legacy flag'}:null),
+    coastal:S._coastal||(S.overlays?.coastal?{class:'flagged',source:'legacy flag'}:null),
+    hillside:S._hillside||(S.overlays?.hillside?{class:'flagged',source:'legacy flag'}:null),
+    wildfire:S._wildfire||(S.overlays?.fire?{class:'flagged',source:'legacy flag'}:null),
+    liquefaction:S._liquefaction||(S.overlays?.liquefaction?{class:'flagged',source:'legacy flag'}:null),
+  };
+  const flood=S._flood||(S.femaZone?{zone:S.femaZone}:{});
   const triggeredBy=[];let rdpRequired=false;
   if(stories>2){rdpRequired=true;triggeredBy.push(`>2 stories (${stories})`)}
   if(gsf>4000){rdpRequired=true;triggeredBy.push(`>4,000 GSF (${gsf.toLocaleString()})`)}
   if(units>4){rdpRequired=true;triggeredBy.push(`Multi-family >4 units (${units})`)}
-  if(overlays.hillside){rdpRequired=true;triggeredBy.push('Hillside overlay')}
-  if(overlays.coastal&&overlays.coastal!=='none'){rdpRequired=true;triggeredBy.push(`Coastal overlay (${overlays.coastal})`)}
-  if(overlays.wildfire&&overlays.wildfire!=='none'){rdpRequired=true;triggeredBy.push(`Wildfire/WUI (${overlays.wildfire})`)}
-  if(overlays.historic){rdpRequired=true;triggeredBy.push('Historic register')}
-  if(flood.zone&&['AE','VE','AO','A','V'].includes(flood.zone)){rdpRequired=true;triggeredBy.push(`Flood zone ${flood.zone}`)}
+  if(ov.hillside){rdpRequired=true;triggeredBy.push(`Hillside / landslide (${ov.hillside.class}) \u2014 ${ov.hillside.source}`)}
+  if(ov.coastal){rdpRequired=true;triggeredBy.push(`Coastal zone (${ov.coastal.class}) \u2014 ${ov.coastal.source}`)}
+  if(ov.wildfire){
+    const high=ov.wildfire.class==='very_high'||ov.wildfire.class==='high';
+    rdpRequired=true;triggeredBy.push(`Wildfire/WUI (${ov.wildfire.class}${high?', HIGH hazard':''}) \u2014 ${ov.wildfire.source}`);
+  }
+  if(ov.historic){rdpRequired=true;triggeredBy.push(`Historic: ${ov.historic.class} \u2014 ${ov.historic.source}`)}
+  if(ov.liquefaction){rdpRequired=true;triggeredBy.push(`Liquefaction zone (${ov.liquefaction.class}) \u2014 ${ov.liquefaction.source}`)}
+  if(flood.zone&&['AE','VE','AO','A','V'].includes(flood.zone)){rdpRequired=true;triggeredBy.push(`Flood zone ${flood.zone} (FEMA NFHL)`)}
   const sealsRequired=[];
   if(rdpRequired)sealsRequired.push('Architect (RA)');
-  if(stories>2||units>4||overlays.hillside||(flood.zone&&flood.zone!=='X'))sealsRequired.push('Structural PE');
+  if(stories>2||units>4||ov.hillside||ov.liquefaction||(flood.zone&&flood.zone!=='X'))sealsRequired.push('Structural PE');
   if(units>4)sealsRequired.push('MEP PE');
-  if(overlays.hillside||(overlays.coastal&&overlays.coastal!=='none')||units>4)sealsRequired.push('Civil PE');
+  if(ov.hillside||ov.coastal||units>4)sealsRequired.push('Civil PE');
+  if(ov.historic)sealsRequired.push('Historic Preservation Specialist');
   return{
     disclosure:ADVISOR_DISCLOSURE,shortDisclosure:ADVISOR_SHORT,
     rdpRequired,triggeredBy,sealsRequired:[...new Set(sealsRequired)],
@@ -1995,7 +3174,7 @@ function buildUseCaseBrief(a){
 // ── SHEET: A-0 Cover Sheet ──
 function drawCoverSheet(ctx,W,H){
   const m=S.plan?.meta||{};const z=S._z||{};const st=z.state||'';
-  const db=STATE_DB[st]||{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115'};
+  const db=STATE_DB[normalizeState(st)]||{bc:'IBC 2018',ec:'IECC 2018',seismic:'B',wind:'115'};
   ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
   // Border
   ctx.strokeStyle='rgba(61,139,255,.35)';ctx.lineWidth=2;ctx.strokeRect(12,12,W-24,H-24);
@@ -2067,7 +3246,7 @@ function drawCoverSheet(ctx,W,H){
 
 // ── CODE-2 helper: energy schedule called from drawSchedulesSheet ──
 function drawEnergySchedule(ctx,W,H,TY,z){
-  const st=z?.state||'';const db=STATE_DB[st]||{ec:'IECC 2018'};
+  const st=normalizeState(z?.state||'');const db=STATE_DB[st]||{ec:'IECC 2018'};
   const isCA=st==='CA',isFL=st==='FL',isAK=st==='AK',isWA=st==='WA';
   const R={
     ceil:isCA?'R-49':isFL?'R-30':isAK?'R-60':'R-49',
@@ -2126,10 +3305,20 @@ function drawSitePlanSheet(ctx,W,H){
   const scl=rawScl;
   const ox=PA.x+(PA.w-z.lotWidth*scl)/2;const oy=PA.y+(PA.h-z.lotDepth*scl)/2;
   const tx=x=>ox+x*scl;const ty=y=>oy+y*scl;const ft=v=>v*scl;
-  // Ground fill
-  ctx.fillStyle='rgba(40,60,30,.3)';ctx.fillRect(ox,oy,ft(z.lotWidth),ft(z.lotDepth));
-  // Property line
-  ctx.strokeStyle='#ff6555';ctx.lineWidth=2;ctx.setLineDash([10,7]);ctx.strokeRect(ox,oy,ft(z.lotWidth),ft(z.lotDepth));ctx.setLineDash([]);
+  // Ground fill + property line. MAP-6: when z._lotPolygon is set
+  // (verified parcel polygon from runPhase_record), draw the actual
+  // irregular shape instead of the bounding-box rectangle.
+  if(z._lotPolygon&&z._lotPolygon.length>=3){
+    const poly=z._lotPolygon;
+    ctx.beginPath();ctx.moveTo(tx(poly[0][0]),ty(poly[0][1]));
+    for(let i=1;i<poly.length;i++)ctx.lineTo(tx(poly[i][0]),ty(poly[i][1]));
+    ctx.closePath();
+    ctx.fillStyle='rgba(40,60,30,.3)';ctx.fill();
+    ctx.strokeStyle='#ff6555';ctx.lineWidth=2;ctx.setLineDash([10,7]);ctx.stroke();ctx.setLineDash([]);
+  }else{
+    ctx.fillStyle='rgba(40,60,30,.3)';ctx.fillRect(ox,oy,ft(z.lotWidth),ft(z.lotDepth));
+    ctx.strokeStyle='#ff6555';ctx.lineWidth=2;ctx.setLineDash([10,7]);ctx.strokeRect(ox,oy,ft(z.lotWidth),ft(z.lotDepth));ctx.setLineDash([]);
+  }
   ctx.fillStyle='rgba(255,101,85,.7)';ctx.font='8px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('PROPERTY LINE',ox+ft(z.lotWidth)/2,oy-10);
   ctx.textAlign='right';ctx.fillStyle='rgba(255,101,85,.5)';ctx.font='7px JetBrains Mono,monospace';
   ctx.fillText(`${z.lotWidth}'-0"`,ox+ft(z.lotWidth),oy+ft(z.lotDepth)+14);
@@ -2648,29 +3837,32 @@ async function exportPermitPDF(){
   const W=1440,H=960;// virtual sheet size in px for rendering
   const offscreen=document.createElement('canvas');offscreen.width=W;offscreen.height=H;
   const ctx=offscreen.getContext('2d');
-  // 36"×24" at 72dpi = 2592×1728pt in jsPDF; we'll use mm: 914×610mm
-  const doc=new jsPDF({orientation:'landscape',unit:'mm',format:[914,610]});
+  // DRAW-5 fix: 36"×24" Architectural D sheet is exactly 914.4×609.6mm
+  // (ratio 1.5000), matching the 1440×960 virtual canvas (ratio 1.5000).
+  // Earlier 914×610mm rounded to integers (ratio 1.4983) caused a 0.11%
+  // horizontal stretch in the rendered image.
+  const doc=new jsPDF({orientation:'landscape',unit:'mm',format:[914.4,609.6]});
   const addSheet=(drawFn,label)=>{
     ctx.clearRect(0,0,W,H);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,W,H);
     // Temporarily set background to white for PDF
     const orig=S.zoom;const origPX=S.panX;const origPY=S.panY;S.zoom=1;S.panX=0;S.panY=0;
     drawFn(ctx,W,H);S.zoom=orig;S.panX=origPX;S.panY=origPY;
     const img=offscreen.toDataURL('image/jpeg',0.95);
-    doc.addImage(img,'JPEG',0,0,914,610);
+    doc.addImage(img,'JPEG',0,0,914.4,609.6);
     L.info(`PDF: added sheet ${label}`);
   };
   try{
     addSheet(drawCoverSheet,'A-0 Cover');
-    doc.addPage([914,610],'landscape');addSheet(drawSitePlanSheet,'A-1 Site Plan');
+    doc.addPage([914.4,609.6],'landscape');addSheet(drawSitePlanSheet,'A-1 Site Plan');
     const savedFloor=S.floor; // DRAW-6: save floor index before PDF loop
     for(let i=0;i<(S.plan.floors||[]).length;i++){
-      const fi=i;doc.addPage([914,610],'landscape');
+      const fi=i;doc.addPage([914.4,609.6],'landscape');
       addSheet((c,w,h)=>{S.floor=fi;drawFloorPlanSheet(c,w,h,fi)},`A-2 Floor ${i+1}`);
     }
     S.floor=savedFloor; // DRAW-6: restore after loop so canvas stays on user's floor
-    doc.addPage([914,610],'landscape');addSheet(drawElevationsSheet,'A-3 Elevations');
-    doc.addPage([914,610],'landscape');addSheet(drawSectionsSheet,'A-4 Sections');
-    doc.addPage([914,610],'landscape');addSheet(drawSchedulesSheet,'A-5 Schedules');
+    doc.addPage([914.4,609.6],'landscape');addSheet(drawElevationsSheet,'A-3 Elevations');
+    doc.addPage([914.4,609.6],'landscape');addSheet(drawSectionsSheet,'A-4 Sections');
+    doc.addPage([914.4,609.6],'landscape');addSheet(drawSchedulesSheet,'A-5 Schedules');
     const fname=`${(S.plan.meta.address||S.addr||'permit').replace(/[^a-z0-9]/gi,'_').substring(0,30)}_PermitSet.pdf`;
     doc.save(fname);L.info(`PDF saved: ${fname} (${doc.internal.pages.length} sheets)`);
     alert(`✓ PDF saved: ${fname}\n\n${doc.internal.pages.length} sheets:\nA-0 Cover · A-1 Site Plan · A-2 Floor Plan(s) · A-3 Elevations · A-4 Sections · A-5 Schedule`);
@@ -2693,12 +3885,211 @@ function initThree(){
   document.getElementById('three-canvas').addEventListener('webglcontextlost',e=>{e.preventDefault();THREE_INIT=false;L.warn('WebGL context lost')});
   a3d();
 }
+// ═══ LIB.d3 — 3D building primitives ═══
+// Each returns a THREE.Group at origin; caller positions + rotates as needed.
+
+function _roofGable(bw,bd,rh,color){
+  // Gable roof — ridge runs along the LONGER axis so gables face the short ends
+  const g=new THREE.Group();
+  const ridgeAlongX=bw>=bd;
+  const geo=new THREE.BufferGeometry();
+  const vx=[];
+  if(ridgeAlongX){
+    // Eaves along Z axis, ridge along X axis
+    vx.push(-bw/2,0,-bd/2,  bw/2,0,-bd/2,  bw/2,0,bd/2,  -bw/2,0,bd/2,   // eave plane quad
+            -bw/2,rh,0,       bw/2,rh,0);                                // ridge line points
+  }else{
+    vx.push(-bw/2,0,-bd/2,  bw/2,0,-bd/2,  bw/2,0,bd/2,  -bw/2,0,bd/2,
+            0,rh,-bd/2,      0,rh,bd/2);
+  }
+  // Build two sloping faces + two gable end triangles
+  const verts=new Float32Array(vx);geo.setAttribute('position',new THREE.BufferAttribute(verts,3));
+  // 4 triangles: 2 for roof slopes + 2 for gable ends
+  let idx;
+  if(ridgeAlongX){idx=[0,1,4, 1,5,4,  2,3,5, 3,4,5,  0,4,3,  1,2,5]}
+  else{idx=[0,3,4, 3,5,4,  1,2,5, 1,5,4,  0,1,4,  2,3,5]}
+  geo.setIndex(idx);geo.computeVertexNormals();
+  const mat=new THREE.MeshLambertMaterial({color,side:THREE.DoubleSide});
+  const roof=new THREE.Mesh(geo,mat);roof.castShadow=true;g.add(roof);
+  return g;
+}
+function _roofHip(bw,bd,rh,color){
+  // Hipped roof — 4 sloped faces meeting at a ridge
+  const g=new THREE.Group();
+  // Use a pyramid for short/square shapes; flat-top ridge for rectangular
+  if(Math.abs(bw-bd)<3){
+    // Pyramid (square hip)
+    const geo=new THREE.ConeGeometry(Math.max(bw,bd)*.72,rh,4);
+    const m=new THREE.Mesh(geo,new THREE.MeshLambertMaterial({color}));
+    m.rotation.y=Math.PI/4;m.position.y=rh/2;m.castShadow=true;g.add(m);
+  }else{
+    // Rectangular hip — ridge along long axis, 4 sloped planes
+    const ridgeLen=Math.max(bw,bd)-Math.min(bw,bd);
+    const ridgeAlongX=bw>bd;
+    const geo=new THREE.BufferGeometry();
+    const vx=[
+      -bw/2,0,-bd/2,  bw/2,0,-bd/2,  bw/2,0,bd/2,  -bw/2,0,bd/2,     // 0-3 eave corners
+    ];
+    if(ridgeAlongX){vx.push(-ridgeLen/2,rh,0,  ridgeLen/2,rh,0)}       // 4-5 ridge
+    else{vx.push(0,rh,-ridgeLen/2,  0,rh,ridgeLen/2)}
+    const verts=new Float32Array(vx);geo.setAttribute('position',new THREE.BufferAttribute(verts,3));
+    // 4 sloping faces + small triangles for the ends
+    let idx;
+    if(ridgeAlongX){idx=[0,1,4,  1,5,4,  1,2,5,  2,3,5,  3,0,4,  3,4,5]}
+    else{idx=[0,1,5,  1,2,5,  2,3,5,  3,0,4,  0,4,5,  2,4,5]}
+    geo.setIndex(idx);geo.computeVertexNormals();
+    const mat=new THREE.MeshLambertMaterial({color,side:THREE.DoubleSide});
+    const roof=new THREE.Mesh(geo,mat);roof.castShadow=true;g.add(roof);
+  }
+  return g;
+}
+function _roofShed(bw,bd,rh,color){
+  // Shed roof — single slope. High side = -Z.
+  const g=new THREE.Group();
+  const geo=new THREE.BufferGeometry();
+  const verts=new Float32Array([
+    -bw/2,0,-bd/2,  bw/2,0,-bd/2,  bw/2,0,bd/2,  -bw/2,0,bd/2,         // eave quad
+    -bw/2,rh,-bd/2,  bw/2,rh,-bd/2,                                      // ridge at back
+  ]);
+  geo.setAttribute('position',new THREE.BufferAttribute(verts,3));
+  geo.setIndex([0,1,5, 0,5,4,   2,3,4,5,   0,4,3,   1,2,5]);  // slope + back wall + small gable ends
+  // safer: set just the main slope and let it be a simple tilted plane
+  const planeGeo=new THREE.BufferGeometry();
+  planeGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array([
+    -bw/2,rh,-bd/2,  bw/2,rh,-bd/2,  bw/2,0,bd/2,  -bw/2,0,bd/2,
+  ]),3));
+  planeGeo.setIndex([0,1,2, 0,2,3]);planeGeo.computeVertexNormals();
+  const roof=new THREE.Mesh(planeGeo,new THREE.MeshLambertMaterial({color,side:THREE.DoubleSide}));
+  roof.castShadow=true;g.add(roof);
+  return g;
+}
+function _roofFlat(bw,bd,color){
+  const g=new THREE.Group();
+  const geo=new THREE.BoxGeometry(bw*1.05,0.8,bd*1.05);
+  const m=new THREE.Mesh(geo,new THREE.MeshLambertMaterial({color}));m.position.y=0.4;m.castShadow=true;g.add(m);
+  return g;
+}
+
+// Decide roof form based on geometry + stories
+function _pickRoofForm(bw,bd,stories){
+  // Square + 1-2 story → hip (classic suburban)
+  // Rectangular + any → gable (runs ridge along long axis)
+  // Low + wide + ADU → shed
+  // 3+ story → flat (modern)
+  const ratio=Math.max(bw,bd)/Math.min(bw,bd);
+  if(stories>=3)return 'flat';
+  if(ratio>=1.6)return 'gable';
+  return 'hip';
+}
+
+function _buildMassWithOpenings(w,h,d,color,stories,opts={}){
+  // Build a mass with window rectangles etched into each long face.
+  const g=new THREE.Group();
+  // Main volume
+  const geo=new THREE.BoxGeometry(w,h,d);
+  const mat=new THREE.MeshLambertMaterial({color});
+  const mesh=new THREE.Mesh(geo,mat);mesh.castShadow=mesh.receiveShadow=true;mesh.position.y=h/2;g.add(mesh);
+  // Edge lines
+  const el=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0x1e2d42}));
+  el.position.y=h/2;g.add(el);
+  // Window cut-outs — dark inset rectangles per face, per floor
+  const floorHt=h/Math.max(1,stories);
+  const perFace={front:Math.max(2,Math.floor(w/10)),back:Math.max(2,Math.floor(w/10)),left:Math.max(1,Math.floor(d/10)),right:Math.max(1,Math.floor(d/10))};
+  const winMat=new THREE.MeshLambertMaterial({color:0x1a2a40});
+  const winW=Math.min(w*.12,3.5),winH=floorHt*.45;
+  const drawFace=(count,ax,plane,normal)=>{
+    for(let f=0;f<stories;f++){
+      const y=f*floorHt+floorHt*.55;
+      for(let i=0;i<count;i++){
+        const pos=(i+.5)/count;
+        const wg=new THREE.BoxGeometry(winW,winH,.3);
+        const wm=new THREE.Mesh(wg,winMat);
+        if(plane==='z'){wm.position.set(-w/2+pos*w,y,normal*(d/2+.01))}
+        else{wm.rotation.y=Math.PI/2;wm.position.set(normal*(w/2+.01),y,-d/2+pos*d)}
+        g.add(wm);
+      }
+    }
+  };
+  drawFace(perFace.front,'x','z',1);
+  drawFace(perFace.back,'x','z',-1);
+  drawFace(perFace.left,'z','x',-1);
+  drawFace(perFace.right,'z','x',1);
+  // Entry door on front face (center-ish, ground floor)
+  const doorW=3,doorH=6.67;
+  const doorGeo=new THREE.BoxGeometry(doorW,doorH,.3);
+  const doorMat=new THREE.MeshLambertMaterial({color:0x6a4528});
+  const door=new THREE.Mesh(doorGeo,doorMat);
+  door.position.set(opts.entryX||0,doorH/2,d/2+.02);g.add(door);
+  return g;
+}
+
 function gen3D(pd){
   if(!THREE_INIT||!mg)return;while(mg.children.length){const c=mg.children[0];c.geometry?.dispose();c.material?.dispose();mg.remove(c)}
-  if(!pd?.floors)return;let cumY=0;let mnX=Infinity,mxX=-Infinity,mnZ=Infinity,mxZ=-Infinity;
-  pd.floors.forEach(fl=>{const fh=fl.heightFt||9;(fl.rooms||[]).forEach(r=>{if(!r.w||!r.h||r.w<1||r.h<1)return;mnX=Math.min(mnX,r.x);mxX=Math.max(mxX,r.x+r.w);mnZ=Math.min(mnZ,r.y);mxZ=Math.max(mxZ,r.y+r.h);const geo=new THREE.BoxGeometry(r.w,fh,r.h);const mat=new THREE.MeshLambertMaterial({color:C3[r.type]||C3.default,transparent:r.type==='balcony',opacity:r.type==='balcony'?.45:1});const mesh=new THREE.Mesh(geo,mat);mesh.castShadow=mesh.receiveShadow=true;mesh.position.set(r.x+r.w/2,cumY+fh/2,r.y+r.h/2);mg.add(mesh);const el=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0x1e2d42}));el.position.copy(mesh.position);mg.add(el)});cumY+=fh});
-  if(mnX<Infinity){const bw=mxX-mnX,bd=mxZ-mnZ,bcx=(mnX+mxX)/2,bcz=(mnZ+mxZ)/2,rH=Math.min(bw,bd)*.28;const rg=new THREE.ConeGeometry(Math.max(bw,bd)*.72,rH,4);const rf=new THREE.Mesh(rg,new THREE.MeshLambertMaterial({color:0x2a3650}));rf.position.set(bcx,cumY+rH/2,bcz);rf.rotation.y=Math.PI/4;rf.castShadow=true;mg.add(rf)}
-  const mm=pd.meta||{};orb.cx=(mm.lotWidth||50)/2;orb.cz=(mm.lotDepth||100)/2;orb.cy=cumY/2;orb.r=Math.max(mm.lotWidth||50,mm.lotDepth||100)*2.5;camUp();
+  if(!pd?.floors)return;
+  const stories=pd.meta?.stories||pd.floors.length||1;
+  const fh=pd.floors[0]?.heightFt||9;const totalH=stories*fh;
+  // Separate main volume from ADU volume (ADU rooms have names starting with "ADU ")
+  const mainRooms=[];const aduRooms=[];const balconyRooms=[];
+  pd.floors.forEach((fl,fIdx)=>{(fl.rooms||[]).forEach(r=>{
+    if(!r.w||!r.h||r.w<1||r.h<1)return;
+    if(r.type==='balcony'){balconyRooms.push({...r,floor:fIdx,fh:fl.heightFt||9})}
+    else if((r.name||'').startsWith('ADU '))aduRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
+    else mainRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
+  })});
+  const bounds=rs=>{let mnX=Infinity,mxX=-Infinity,mnZ=Infinity,mxZ=-Infinity;
+    rs.forEach(r=>{mnX=Math.min(mnX,r.x);mxX=Math.max(mxX,r.x+r.w);mnZ=Math.min(mnZ,r.y);mxZ=Math.max(mxZ,r.y+r.h)});
+    return {mnX,mxX,mnZ,mxZ,w:mxX-mnX,d:mxZ-mnZ,cx:(mnX+mxX)/2,cz:(mnZ+mxZ)/2};
+  };
+  const mainColor=0x6b7a8c,aduColor=0x7a8a9c;
+  // Main mass
+  if(mainRooms.length){
+    const mb=bounds(mainRooms);
+    const mass=_buildMassWithOpenings(mb.w,totalH,mb.d,mainColor,stories);
+    mass.position.set(mb.cx,0,mb.cz);mg.add(mass);
+    // Roof
+    const roofForm=_pickRoofForm(mb.w,mb.d,stories);
+    let roof;const rH=Math.min(mb.w,mb.d)*.28;
+    if(roofForm==='gable')roof=_roofGable(mb.w,mb.d,rH,0x2a3650);
+    else if(roofForm==='shed')roof=_roofShed(mb.w,mb.d,rH,0x2a3650);
+    else if(roofForm==='flat')roof=_roofFlat(mb.w,mb.d,0x2a3650);
+    else roof=_roofHip(mb.w,mb.d,rH,0x2a3650);
+    roof.position.set(mb.cx,totalH,mb.cz);mg.add(roof);
+  }
+  // ADU mass (1 story)
+  if(aduRooms.length){
+    const ab=bounds(aduRooms);
+    const aH=Math.min(fh,10);
+    const aduMass=_buildMassWithOpenings(ab.w,aH,ab.d,aduColor,1,{entryX:0});
+    aduMass.position.set(ab.cx,0,ab.cz);mg.add(aduMass);
+    // ADUs usually get a shed or small hip
+    const aduRoofH=Math.min(ab.w,ab.d)*.2;
+    const aduRoof=_roofShed(ab.w,ab.d,aduRoofH,0x3a4660);
+    aduRoof.position.set(ab.cx,aH,ab.cz);mg.add(aduRoof);
+  }
+  // Balconies (translucent)
+  balconyRooms.forEach(r=>{
+    const geo=new THREE.BoxGeometry(r.w,.5,r.h);
+    const m=new THREE.Mesh(geo,new THREE.MeshLambertMaterial({color:0x289678,transparent:true,opacity:.45}));
+    m.position.set(r.x+r.w/2,r.floor*fh+fh-.25,r.y+r.h/2);mg.add(m);
+  });
+  // ── Site accents — driveway + trees ──
+  const mm=pd.meta||{};const lotW=mm.lotWidth||50,lotD=mm.lotDepth||100;
+  // Driveway strip from front curb to main entry
+  if(mainRooms.length){
+    const mb=bounds(mainRooms);
+    const dwGeo=new THREE.PlaneGeometry(10,mb.mnZ-0);
+    const dw=new THREE.Mesh(dwGeo,new THREE.MeshLambertMaterial({color:0x14202c}));
+    dw.rotation.x=-Math.PI/2;dw.position.set(mb.cx,0.05,mb.mnZ/2);mg.add(dw);
+  }
+  // Two trees (front corners of lot)
+  [[3,3],[lotW-3,3]].forEach(([tx,tz])=>{
+    const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.4,.5,5),new THREE.MeshLambertMaterial({color:0x3a2818}));
+    trunk.position.set(tx,2.5,tz);mg.add(trunk);
+    const canopy=new THREE.Mesh(new THREE.SphereGeometry(4,8,6),new THREE.MeshLambertMaterial({color:0x2a4a2a}));
+    canopy.position.set(tx,7,tz);canopy.castShadow=true;mg.add(canopy);
+  });
+  // Camera framing
+  orb.cx=lotW/2;orb.cz=lotD/2;orb.cy=totalH/2;orb.r=Math.max(lotW,lotD)*2.5;camUp();
 }
 function a3d(){requestAnimationFrame(a3d);if(ren3&&THREE_INIT&&S.view==='3d')ren3.render(scene,cam)}
 function camUp(){if(!cam)return;const t=orb.ph*Math.PI/180,p=orb.th*Math.PI/180;cam.position.set(orb.cx+orb.r*Math.sin(t)*Math.sin(p),orb.cy+orb.r*Math.cos(t),orb.cz+orb.r*Math.sin(t)*Math.cos(p));cam.lookAt(orb.cx,orb.cy,orb.cz)}
@@ -2791,7 +4182,129 @@ document.getElementById('addr-inp').addEventListener('change',e=>{
 });
 
 // ── INIT ──
-probeConnection();
+// Vault landing UI is the default. Disable with ?legacy=1 in the URL during
+// rollout testing — falls back to the original dark-card landing.
+try {
+  const useVault = !new URLSearchParams(location.search).has('legacy');
+  if (useVault) document.getElementById('landing')?.classList.add('vault');
+} catch (_) {}
+
+// ── P0-1 hosted-key bootstrap ──
+// When ADIAuth.isHostedMode() is true:
+//   - skip BYOK probe entirely
+//   - if a Supabase session exists → mark connected, ready to analyze
+//   - else show the auth modal (sign-in / sign-up)
+// When hosted mode is off, the legacy BYOK path (bootstrapStoredKey →
+// probeConnection) runs unchanged.
+async function adiInitAuth() {
+  const A = window.ADIAuth;
+  if (!A || !A.isHostedMode()) {
+    bootstrapStoredKey().then(ok => { if (!ok) probeConnection(); }).catch(() => probeConnection());
+    return;
+  }
+  if (!A.isConfigured()) {
+    setBanner('needs-key', '⚠ Hosted mode not configured',
+      'data/auth-config.js is missing supabaseUrl / supabaseAnonKey. Falling back to BYOK. Owner: paste credentials per supabase/README.md.');
+    bootstrapStoredKey().then(ok => { if (!ok) probeConnection(); }).catch(() => probeConnection());
+    return;
+  }
+  try {
+    const session = await A.getSession();
+    if (session) {
+      adiOnSignedIn(session);
+    } else {
+      adiShowAuthModal('signin');
+    }
+  } catch (e) {
+    L.error('adiInitAuth threw:', e?.message);
+    adiShowAuthModal('signin');
+  }
+  // React to auth changes (token refresh, sign-out from another tab)
+  A.onAuthChange((event, sess) => {
+    if (event === 'SIGNED_OUT') {
+      S.mode = 'embedded'; S.apiReady = false;
+      document.getElementById('run-btn').disabled = true;
+      adiShowAuthModal('signin');
+    } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+      adiOnSignedIn(sess);
+    }
+  });
+}
+
+async function adiOnSignedIn(session) {
+  S.mode = 'hosted'; S.apiReady = true;
+  const u = session?.user;
+  let usage = { used: 0, quota: 1, plan: 'trial' };
+  try { usage = await window.ADIAuth.usage(); } catch (_) {}
+  const remaining = Math.max(0, (usage.quota || 0) - (usage.used || 0));
+  setBanner('ok', '✓ Signed in',
+    `${u?.email || 'authenticated'} · ${usage.plan} plan · ${usage.used}/${usage.quota} used <a href="#" onclick="adiSignOut();return false" style="color:var(--txt3);font-size:8px;margin-left:6px">sign out</a>`);
+  document.getElementById('run-btn').disabled = (remaining <= 0);
+  if (remaining <= 0) adiShowPaywall(usage);
+  adiHideAuthModal();
+}
+
+async function adiSignOut() {
+  try { await window.ADIAuth.signOut(); } catch (_) {}
+  S.mode = 'embedded'; S.apiReady = false;
+  adiShowAuthModal('signin');
+}
+
+function adiShowAuthModal(tab) {
+  const m = document.getElementById('auth-modal');
+  if (!m) return;
+  m.style.display = 'flex';
+  adiSwitchAuthTab(tab || 'signin');
+}
+function adiHideAuthModal() {
+  const m = document.getElementById('auth-modal'); if (m) m.style.display = 'none';
+}
+function adiSwitchAuthTab(tab) {
+  document.getElementById('auth-tab-signin').classList.toggle('active', tab === 'signin');
+  document.getElementById('auth-tab-signup').classList.toggle('active', tab === 'signup');
+  document.getElementById('auth-pane-signin').style.display = tab === 'signin' ? 'block' : 'none';
+  document.getElementById('auth-pane-signup').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('auth-msg').textContent = '';
+}
+async function adiSubmitSignIn() {
+  const email = document.getElementById('auth-email-in').value.trim();
+  const pw = document.getElementById('auth-pw-in').value;
+  if (!email || !pw) { document.getElementById('auth-msg').textContent = 'Email and password required.'; return; }
+  document.getElementById('auth-msg').textContent = 'Signing in…';
+  const { user, session, error } = await window.ADIAuth.signIn(email, pw);
+  if (error) { document.getElementById('auth-msg').textContent = '✗ ' + error.message; return; }
+  if (session) adiOnSignedIn(session);
+}
+async function adiSubmitSignUp() {
+  const email = document.getElementById('auth-email-up').value.trim();
+  const pw = document.getElementById('auth-pw-up').value;
+  if (!email || !pw) { document.getElementById('auth-msg').textContent = 'Email and password required.'; return; }
+  if (pw.length < 8) { document.getElementById('auth-msg').textContent = 'Password must be ≥ 8 characters.'; return; }
+  document.getElementById('auth-msg').textContent = 'Creating account…';
+  const { user, session, error } = await window.ADIAuth.signUp(email, pw);
+  if (error) { document.getElementById('auth-msg').textContent = '✗ ' + error.message; return; }
+  if (session) { adiOnSignedIn(session); return; }
+  document.getElementById('auth-msg').textContent = '✓ Account created. Check your email to confirm, then sign in.';
+}
+async function adiSignInGoogle() {
+  document.getElementById('auth-msg').textContent = 'Redirecting to Google…';
+  const { error } = await window.ADIAuth.signInWithGoogle();
+  if (error) document.getElementById('auth-msg').textContent = '✗ ' + error.message;
+}
+async function adiPasswordReset() {
+  const email = document.getElementById('auth-email-in').value.trim();
+  if (!email) { document.getElementById('auth-msg').textContent = 'Enter your email above first.'; return; }
+  const { error } = await window.ADIAuth.sendPasswordReset(email);
+  document.getElementById('auth-msg').textContent = error ? ('✗ ' + error.message) : '✓ Reset email sent.';
+}
+function adiShowPaywall(usage) {
+  const cfg = window.ADI_AUTH_CONFIG || {};
+  const planLabel = cfg.plans?.[usage.plan]?.label || usage.plan;
+  setBanner('needs-key', '⛔ Plan limit reached',
+    `${usage.used}/${usage.quota} on ${planLabel}. Upgrade to continue. <a href="#" onclick="alert('Stripe billing arrives in P1. Contact support for early upgrade.');return false" style="color:var(--blue);font-size:8px;margin-left:6px">Upgrade →</a>`);
+}
+
+adiInitAuth();
 </script>
 </body>
 </html>

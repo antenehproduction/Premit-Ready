@@ -70,10 +70,10 @@ Do **before** turning on billing or advertising the proxy. Tier 2 is a unit (sha
 
 These make the product assert things it hasn't verified — the heart of the "recommendation isn't tied to zoning" concern.
 
-> **Status — branch `feat/phase2-truthfulness` (2026-06-02):**
-> ✅ **P2-A** done (`bdde35d`) — entitlement classifier + scorer; recommendation is zone-aware and never picks an illegal program. *Partial:* density-from-min-lot-area and explicit height-in-feet checks are not yet wired (classification is by use list + primary-unit tier); use-case goal/budget not yet a scoring input.
+> **Status (2026-06-02):**
+> ✅ **P2-A** done (`bdde35d` + `d09d983`) — entitlement classifier + scorer; recommendation is zone-aware and never picks an illegal program. Deferred sub-items now **also done** (`d09d983`): density cap (HB 1110 `maxUnits`), height-in-feet check, and use-case-driven scoring (risk tolerance / unit target / priority). *Remaining (minor):* no min-lot-area density field exists in the zone schema outside HB 1110 — non-WA density still rides the use-tier gate.
 > ✅ **P2-B** done (`b1218df`) — permit-key normalization + alias map (15/15 tests). *Deferred:* worker `/permits` city-list reconciliation (only matters when `ADI_PROXY` is set; entangled with Phase 1 SSRF work).
-> ✅ **P2-C** done (`2fffe9c`) — prompt de-fabrication + unverified disclaimer. *Deferred:* re-sequencing comp before opts and feeding real permit hits into the prompt (pipeline-order change).
+> ✅ **P2-C** done (`2fffe9c`) — prompt de-fabrication + unverified disclaimer. *Deferred:* re-sequencing comp before opts and feeding real permit hits into the prompt (pipeline-order change — left for a focused pass).
 > ✅ **P2-D** done (`b1218df`) — unified `baseCostPerSF()` + FEMA `features`-array gate.
 
 ### P2-A · Real, zoning-aware option scorer (replace hardcoded recommendation) — **L**

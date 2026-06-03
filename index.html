@@ -800,6 +800,7 @@ async function callAIWithRetry(msgs,sys,maxTok=2200,timeoutMs=90000){
       } else throw e;
     }
   }
+  throw new Error('callAIWithRetry: retries exhausted'); // never reached today, but guards callers from a silent undefined → fmt() crash
 }
 async function callJSONWithRetry(msgs,sys,maxTok=2200,timeoutMs=90000){
   for(let attempt=0;attempt<3;attempt++){
@@ -812,6 +813,7 @@ async function callJSONWithRetry(msgs,sys,maxTok=2200,timeoutMs=90000){
       } else throw e;
     }
   }
+  throw new Error('callJSONWithRetry: retries exhausted');
 }
 
 async function callJSON(msgs,sys,maxTok=2200,timeoutMs=90000){
@@ -1126,12 +1128,18 @@ function localFloorPlan(z, selectedOption){
   },setbacks:{front:z.frontSetback,rear:z.rearSetback,left:z.leftSetback,right:z.rightSetback},floors};
 }
 
+// Phase 3: structural-grid column label. String.fromCharCode(65+n) produced
+// '[', '\\', etc. past 26 bays (lots wider than ~520ft buildable). Roll over to
+// AA, AB, … like a spreadsheet. Floor (not round) the bay index.
+function bayCol(i){i=Math.max(0,Math.floor(i));let s='';i++;while(i>0){i--;s=String.fromCharCode(65+(i%26))+s;i=Math.floor(i/26);}return s;}
 function valPlan(plan,z){
   const minX=z.leftSetback,maxX=z.lotWidth-z.rightSetback,minY=z.frontSetback,maxY=z.lotDepth-z.rearSetback;
   if(!plan.floors)return;
   const EXEMPT=new Set(['corridor','stair','storage','balcony','entry','laundry']);
   const minD=t=>EXEMPT.has(t||'')?3:7; // IBC §1208.1 min 7ft habitable
+  let _dropped=0;
   plan.floors.forEach(fl=>{if(!fl.rooms)fl.rooms=[];
+    const _before=fl.rooms.length;
     fl.rooms=fl.rooms.filter(r=>{
       if(typeof r.w!=='number'||typeof r.h!=='number')return false;
       // GEOM-2: drop rooms whose origin already crosses the rear or right
@@ -1142,15 +1150,20 @@ function valPlan(plan,z){
       if(r.x>=maxX||r.y>=maxY)return false;
       if(r.x<minX){r.w-=(minX-r.x);r.x=minX;}
       if(r.y<minY){r.h-=(minY-r.y);r.y=minY;}
-      // Clip overhang to the setback envelope (parcel-level rear/right).
-      if(r.x+r.w>maxX)r.w=maxX-r.x;
-      if(r.y+r.h>maxY)r.h=maxY-r.y;
+      // Clip overhang to the setback envelope; Math.max(0,…) so a room sitting
+      // right on the line can never produce a negative dimension (Phase 3).
+      if(r.x+r.w>maxX)r.w=Math.max(0,maxX-r.x);
+      if(r.y+r.h>maxY)r.h=Math.max(0,maxY-r.y);
       // After clipping, drop rooms below per-type minimum dimension.
       // GEOM-3 retained: 7ft min for habitable, 3ft for utility/circulation.
       const md=minD(r.type);
       return r.w>=md&&r.h>=md;
     });
+    _dropped+=_before-fl.rooms.length;
   });
+  // Phase 3: surface the drop instead of letting rooms silently vanish on a
+  // shallow/narrow lot — the plan can otherwise come out near-empty with no hint.
+  if(_dropped>0&&typeof L!=='undefined')L.warn(`Floor plan: ${_dropped} room(s) dropped — exceeded the buildable envelope on this lot. Consider a smaller program or larger setbacks.`);
 }
 
 // ═══ PIPELINE ═══
@@ -1967,7 +1980,7 @@ Then recommend (these drive the design, so be concrete):
         }catch(e){L.info(`Permit portal query failed: ${e.message.substring(0,60)}`)}
       }else if(z?.jurisdiction){L.info(`Permit portal: no registry entry for "${z.jurisdiction}" \u2014 skipping cross-check`)}
     }
-  }catch(e){phSet('comp','error',`${((Date.now()-t)/1000).toFixed(1)}s`);addFind('comp','🏆 Competitor Research',`<div class="ebox">Competitor research failed: ${e.message}<br><em>Proceeding with design — competitor data will not be incorporated.</em></div>`);// don't throw — not critical
+  }catch(e){if(S._compInterval){clearInterval(S._compInterval);S._compInterval=null;}/* Phase 3: clear the progress-dot interval on error too, or it keeps mutating the overlay text forever */phSet('comp','error',`${((Date.now()-t)/1000).toFixed(1)}s`);addFind('comp','🏆 Competitor Research',`<div class="ebox">Competitor research failed: ${e.message}<br><em>Proceeding with design — competitor data will not be incorporated.</em></div>`);// don't throw — not critical
   }
 }
 
@@ -3548,7 +3561,7 @@ function drawFloorPlanSheet(ctx,W,H,floorIdx){
   ctx.save();
   for(let gx=z.leftSetback;gx<=z.lotWidth-z.rightSetback;gx+=bayFt){
     const gxp=tx(gx);ctx.strokeStyle='rgba(245,200,66,.12)';ctx.lineWidth=0.7;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(gxp,oy-20);ctx.lineTo(gxp,oy+ft(z.lotDepth)+20);ctx.stroke();ctx.setLineDash([]);
-    ctx.fillStyle='rgba(245,200,66,.6)';ctx.font='6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText(String.fromCharCode(65+Math.round((gx-z.leftSetback)/bayFt)),gxp,oy-6);
+    ctx.fillStyle='rgba(245,200,66,.6)';ctx.font='6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText(bayCol((gx-z.leftSetback)/bayFt),gxp,oy-6);
     ctx.fillStyle='rgba(245,200,66,.4)';ctx.beginPath();ctx.arc(gxp,oy-12,4,0,Math.PI*2);ctx.stroke();
   }
   for(let gy=z.frontSetback;gy<=z.lotDepth-z.rearSetback;gy+=bayFt){
@@ -4380,23 +4393,37 @@ async function adiInitAuth() {
       S.mode = 'embedded'; S.apiReady = false;
       document.getElementById('run-btn').disabled = true;
       adiShowAuthModal('signin');
-    } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+    } else if (event === 'SIGNED_IN') {
       adiOnSignedIn(sess);
+    } else if (event === 'TOKEN_REFRESHED') {
+      // Phase 3: keep the session active but do NOT re-run the usage/paywall
+      // check — a background token refresh must never pop the paywall mid-session.
+      S.mode = 'hosted'; S.apiReady = true;
     }
   });
 }
 
+// Phase 3: a successful sign-in calls this BOTH directly (submit handler) and
+// via the SIGNED_IN event. Guard against the rapid double-invocation so usage()
+// isn't fetched twice and the banner/paywall don't flicker.
+let _onSignedInBusy = false;
 async function adiOnSignedIn(session) {
-  S.mode = 'hosted'; S.apiReady = true;
-  const u = session?.user;
-  let usage = { used: 0, quota: 1, plan: 'trial' };
-  try { usage = await window.ADIAuth.usage(); } catch (_) {}
-  const remaining = Math.max(0, (usage.quota || 0) - (usage.used || 0));
-  setBanner('ok', '✓ Signed in',
-    `${u?.email || 'authenticated'} · ${usage.plan} plan · ${usage.used}/${usage.quota} used <a href="#" onclick="adiSignOut();return false" style="color:var(--txt3);font-size:8px;margin-left:6px">sign out</a>`);
-  document.getElementById('run-btn').disabled = (remaining <= 0);
-  if (remaining <= 0) adiShowPaywall(usage);
-  adiHideAuthModal();
+  if (_onSignedInBusy) return;
+  _onSignedInBusy = true;
+  try {
+    S.mode = 'hosted'; S.apiReady = true;
+    const u = session?.user;
+    let usage = { used: 0, quota: 1, plan: 'trial' };
+    try { usage = await window.ADIAuth.usage(); } catch (_) {}
+    const remaining = Math.max(0, (usage.quota || 0) - (usage.used || 0));
+    setBanner('ok', '✓ Signed in',
+      `${u?.email || 'authenticated'} · ${usage.plan} plan · ${usage.used}/${usage.quota} used <a href="#" onclick="adiSignOut();return false" style="color:var(--txt3);font-size:8px;margin-left:6px">sign out</a>`);
+    document.getElementById('run-btn').disabled = (remaining <= 0);
+    if (remaining <= 0) adiShowPaywall(usage);
+    adiHideAuthModal();
+  } finally {
+    setTimeout(() => { _onSignedInBusy = false; }, 1500);
+  }
 }
 
 async function adiSignOut() {
@@ -4447,9 +4474,15 @@ async function adiSubmitSignUp() {
   let res;
   try { res = await window.ADIAuth.signUp(email, pw); }
   catch (e) { msg.textContent = '✗ Network error — backend unreachable. Reload to use your own API key.'; return; }
-  const { session, error } = res || {};
+  const { user, session, error } = res || {};
   if (error) { msg.textContent = '✗ ' + error.message; return; }
-  if (session) { adiOnSignedIn(session); return; }
+  if (session) { adiOnSignedIn(session); return; } // autoconfirm → signed in (SIGNED_IN event also fires)
+  // Phase 3: Supabase returns a user with an empty `identities` array (and no
+  // error) when the email is already registered — surface that instead of a
+  // misleading "check your email".
+  if (user && Array.isArray(user.identities) && user.identities.length === 0) {
+    msg.textContent = '✗ An account with this email already exists — switch to Sign in.'; return;
+  }
   msg.textContent = '✓ Account created. Check your email to confirm, then sign in.';
 }
 async function adiSignInGoogle() {

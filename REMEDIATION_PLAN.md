@@ -115,17 +115,17 @@ These make the product assert things it hasn't verified — the heart of the "re
 
 ## PHASE 3 — Polish & latent
 
-Lower impact; batch when touching nearby code. (AUDIT #20, Tier-5.)
+> **Status (2026-06-02):** 7 of 9 done on `chore/phase3-polish`. 2 deferred with rationale.
 
-- `adiOnSignedIn` double-dispatch + `TOKEN_REFRESHED` paywall pop — **S** (`index.html:4276,4228`).
-- Sign-up "check your email" vs `mailer_autoconfirm:true` mismatch + "already registered" handling — **S** (`index.html:4286`).
-- `callAIWithRetry`/`callJSONWithRetry` add post-loop `throw` (avoid `undefined`→`fmt()` crash) — **S** (`index.html:792`).
-- `valPlan` clamp with `Math.max(0,…)` + log dropped rooms on shallow lots (GEOM-2) — **S** (`index.html:1143`).
-- Structural grid label rollover past 'Z' (AA/AB) — **S** (`index.html:3411`).
-- `runPhase_comp` clear progress interval in catch — **S** (`index.html:1771`).
-- `usage()` dead `quotaNum` lookup — **S** (`lib/auth.js:129`).
-- Move Anthropic key out of cleartext `localStorage` (XSS exfil) — **M**, security review (`index.html:894,910`).
-- Delete unused SQL `plan_quota()`/`can_run_analysis()` or have the edge fn call them (drift) — **S**.
+- ✅ `adiOnSignedIn` double-dispatch guard + `TOKEN_REFRESHED` no longer re-runs the paywall check.
+- ✅ Sign-up "already registered" detection (empty `identities`) instead of a misleading "check your email".
+- ✅ `callAIWithRetry`/`callJSONWithRetry` post-loop `throw` (no silent `undefined`→`fmt()` crash).
+- ✅ `valPlan` clamps room dims with `Math.max(0,…)` + logs dropped rooms on shallow lots.
+- ✅ Structural grid label rolls over past 'Z' (`bayCol()` → AA/AB; floor not round). Unit-tested.
+- ✅ `runPhase_comp` clears the progress interval in the catch path.
+- ✅ `usage()` dead `quotaNum` lookup removed (display quota documented to track `plan_quota()`).
+- ⏸️ **Deferred — Anthropic key in `localStorage`:** it's part of the **locked** BYOK key path (CLAUDE.md rule #3 explicitly sanctions `localStorage.ADI_ANTHROPIC_KEY` for cross-session use). The real mitigation is reducing the XSS surface (AI output is `innerHTML`-ed), a separate larger effort — not a storage swap.
+- ⏸️ **Deferred — drop dead `can_run_analysis()`:** it's superseded by the reserve flow but already **locked down** in `0002` (revoked from anon/authenticated; advisor cleared). Dropping it needs another prod migration for zero functional gain. (`plan_quota()` is NOT dead — `reserve_analysis()` calls it.)
 
 ---
 

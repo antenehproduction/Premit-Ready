@@ -1705,8 +1705,19 @@ function generateOptions(z){
   opts.forEach(o=>{
     if(o._entitlement){ o.entitlement=o._entitlement; /* SB9 ministerial / MFTE conditional — keep their hardcoded label */ }
     else { const ent=classifyEntitlement(z,o._primaryUnits!=null?o._primaryUnits:o.units); o.entitlement=ent.status; o.permits=ent.label; }
+    // Height feasibility (P2-A deferred): does the story count fit the height
+    // cap? Estimate ground 10ft + uppers 9ft + ~3ft parapet/roof. If it busts
+    // the cap, flag it and downgrade a by-right option to conditional.
+    if(z.maxHeightFt>0&&o.stories>0){
+      const estFt=10+(o.stories-1)*9+3;
+      if(estFt>z.maxHeightFt+1){
+        o._heightWarn=`~${estFt}ft est. > ${z.maxHeightFt}ft cap`;
+        if(o.entitlement==='by-right')o.entitlement='conditional';
+      }
+    }
   });
-  scoreOptions(opts);
+  const brief=(typeof S!=='undefined'&&S&&S._useCaseBrief&&S._useCaseBrief.answers)||{};
+  scoreOptions(opts,brief);
   return opts;
 }
 
@@ -1728,33 +1739,77 @@ function classifyEntitlement(z,units){
   };
   const kws=KW[tier]||KW.multifamily;
   const hit=list=>list.some(u=>u&&kws.some(k=>u.indexOf(k)>=0));
-  if(hit(permitted))return{status:'by-right',label:'By-right (permitted use)'};
-  if(hit(conditional))return{status:'conditional',label:'Conditional use — CUP/variance'};
-  if(!permitted.length)return{status:'unverified',label:'Verify use w/ planning dept'};
-  if(tier==='sfr')return{status:'unverified',label:'Verify single-family use'};
-  return{status:'not-permitted',label:'Not by-right — rezone/variance'};
+  let base;
+  if(hit(permitted))base={status:'by-right',label:'By-right (permitted use)'};
+  else if(hit(conditional))base={status:'conditional',label:'Conditional use — CUP/variance'};
+  else if(!permitted.length)base={status:'unverified',label:'Verify use w/ planning dept'};
+  else if(tier==='sfr')base={status:'unverified',label:'Verify single-family use'};
+  else base={status:'not-permitted',label:'Not by-right — rezone/variance'};
+  // Density cap (P2-A deferred): when a max-units cap is known (HB 1110
+  // effective maxUnits), a program exceeding it is not by-right regardless of
+  // use — downgrade by-right→conditional, keep not-permitted as-is.
+  const cap=densityCap(z);
+  if(cap!=null&&units>cap){
+    if(base.status==='by-right'||base.status==='unverified')
+      return{status:'conditional',label:`Density variance — exceeds ${cap}-unit cap`};
+  }
+  return base;
 }
 
-// Score options by risk-adjusted return, gated by legality. Marks exactly one
-// option `recommended` (the best legally-plausible one). Not-permitted options
-// are never recommended. Replaces the hardcoded badge.
-function scoreOptions(opts){
-  const legalW={'by-right':1.0,'conditional':0.82,'unverified':0.9,'not-permitted':0};
+// Best available cap on PRIMARY dwellings for the lot. Uses HB 1110 effective
+// maxUnits (WA middle-housing, set in runPhase_zone) when present; null = no
+// numeric density cap known (fall back to use-list classification only).
+function densityCap(z){
+  const c=(z._effectiveMHTransit&&z._effectiveMHTransit.maxUnits)||
+          (z._effectiveMH&&z._effectiveMH.maxUnits)||
+          (z._effectiveBase&&z._effectiveBase.maxUnits);
+  return (typeof c==='number'&&c>0)?c:null;
+}
+
+// Score options by risk-adjusted return, gated by legality and tuned by the
+// user's intake answers (brief). Marks exactly one option `recommended` (the
+// best legally-plausible one). Not-permitted options are never recommended.
+function scoreOptions(opts,brief){
+  brief=brief||{};
+  // Legality weighting shifts with the user's stated entitlement-risk tolerance
+  // (intake `risk`): a conservative user heavily penalizes conditional options;
+  // an aggressive user is nearly indifferent. Default = moderate.
+  const legalW=brief.risk==='conservative'
+    ?{'by-right':1.0,'conditional':0.45,'unverified':0.70,'not-permitted':0}
+    :brief.risk==='aggressive'
+    ?{'by-right':1.0,'conditional':0.95,'unverified':0.95,'not-permitted':0}
+    :{'by-right':1.0,'conditional':0.82,'unverified':0.90,'not-permitted':0};
   const riskW=r=>{r=String(r||'').toLowerCase();
     if(r.indexOf('low-medium')===0)return 0.95;
     if(r.indexOf('low')===0)return 1.0;
     if(r.indexOf('medium-high')===0)return 0.80;
     if(r.indexOf('medium')===0)return 0.88;
     return 0.85;};
-  let best=null;
+  const targetUnits=Number(brief.units)||null;
+  const prio=brief.priorities;
+  let best=null,bestAny=null;
   opts.forEach(o=>{
     o.recommended=false;
     const roi=isFinite(o._roi)?Math.max(0,o._roi):0;
     const lw=legalW.hasOwnProperty(o.entitlement)?legalW[o.entitlement]:0.9;
-    o._score=roi*lw*riskW(o.risk);
-    if(o.entitlement!=='not-permitted'&&(!best||o._score>best._score))best=o;
+    // Small base (0.05) so legality/risk/intake preferences still differentiate
+    // options even when the rough $/SF model yields ~0 ROI for all of them.
+    let s=(0.05+roi)*lw*riskW(o.risk);
+    if(targetUnits){const diff=Math.abs((o.units||0)-targetUnits);s*=1/(1+diff*0.15);} // prefer near the user's unit target
+    if(prio==='gsf')s*=1+((o.units||0)*0.02);                                          // max-SF → bias to density
+    else if(prio==='netzero'&&/net-zero|passive/i.test((o.name||'')+(o.cert||'')))s*=1.12;
+    else if(prio==='yield'&&/cash flow|rent|duplex/i.test((o.name||'')+(o.badge||'')))s*=1.08;
+    o._score=s;
+    if(o.entitlement==='not-permitted')return;
+    if(!bestAny||o._score>bestAny._score)bestAny=o;
+    // A conservative user picked "by-right only, no variance" — don't recommend
+    // a conditional/unverified option to them even if its ROI is higher.
+    if(brief.risk==='conservative'&&o.entitlement!=='by-right')return;
+    if(!best||o._score>best._score)best=o;
   });
-  (best||opts[0]||{}).recommended=true;
+  // Prefer the best legally-eligible option; fall back to best-of-any-legal
+  // (e.g. conservative user but nothing is by-right) then the first option.
+  (best||bestAny||opts[0]||{}).recommended=true;
 }
 
 async function runPhase_opts(){
@@ -1802,6 +1857,7 @@ function renderOptionsPanel(opts,recommended,z){
           <div class="opt-name">${o.name}</div>
           <div class="opt-type">${o.type}</div>
           ${o.entitlement==='not-permitted'?`<div style="margin:5px 0;padding:3px 6px;background:rgba(245,80,80,.12);border:1px solid rgba(245,80,80,.4);border-radius:4px;color:#ff8a8a;font-size:8px">⚠ Not by-right in ${z.zoningDistrict} — requires rezone/variance</div>`:o.entitlement==='conditional'?`<div style="margin:5px 0;padding:3px 6px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.35);border-radius:4px;color:var(--amber);font-size:8px">△ Conditional use — discretionary approval</div>`:o.entitlement==='unverified'?`<div style="margin:5px 0;padding:3px 6px;background:rgba(122,154,184,.1);border:1px solid var(--brd2);border-radius:4px;color:var(--txt3);font-size:8px">? Entitlement unverified — confirm with planning</div>`:''}
+          ${o._heightWarn?`<div style="margin:5px 0;padding:3px 6px;background:rgba(245,140,66,.1);border:1px solid rgba(245,140,66,.35);border-radius:4px;color:#f0a060;font-size:8px">▲ Height: ${o._heightWarn} — reduce stories or seek variance</div>`:''}
           <div class="opt-metrics">
             <div class="opt-metric"><div class="oml">EST. COST</div><div class="omv">${o.cost}</div></div>
             <div class="opt-metric"><div class="oml">EST. VALUE</div><div class="omv g">${o.value}</div></div>

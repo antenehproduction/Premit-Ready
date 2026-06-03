@@ -1165,9 +1165,20 @@ async function startAnalysis(){
   if(MAP_INSTANCE){MAP_INSTANCE.eachLayer(l=>{if(l._isArchDraw||l._isOSM)MAP_INSTANCE.removeLayer(l)})}
   LOG.length=0;
   L.info(`=== v12 ANALYSIS START: ${S.addr} ===`);
-  // P0-1: open an analyses row in Supabase when running in hosted mode
+  // P1-A: reserve the run server-side (atomic quota check + insert) in hosted
+  // mode. On quota exhaustion, show the paywall and abort before any AI call.
   S._adiAnalysisId=null;
-  if(S.mode==='hosted'&&window.ADIProxy){try{S._adiAnalysisId=await ADIProxy.startAnalysis({address:S.addr})}catch(e){L.warn('analyses insert failed:',e?.message)}}
+  if(S.mode==='hosted'&&window.ADIProxy){
+    try{S._adiAnalysisId=await ADIProxy.startAnalysis({address:S.addr})}
+    catch(e){
+      if(e&&e.quotaExceeded){
+        try{const u=await window.ADIAuth.usage();adiShowPaywall(u)}catch(_){}
+        S.analyzing=false;document.getElementById('run-btn').disabled=!S.apiReady;document.getElementById('run-btn').textContent='ANALYZE →';
+        return;
+      }
+      L.warn('reserve_analysis failed:',e?.message);
+    }
+  }
   showScreen('workspace');document.getElementById('rp-addr').textContent=S.addr;
   document.getElementById('findings').innerHTML='';buildPhases();
   PHASES.forEach(p=>phSet(p.id,'pending'));setOvl('STARTING','Initializing');

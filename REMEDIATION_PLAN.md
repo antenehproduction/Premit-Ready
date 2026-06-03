@@ -70,6 +70,12 @@ Do **before** turning on billing or advertising the proxy. Tier 2 is a unit (sha
 
 These make the product assert things it hasn't verified — the heart of the "recommendation isn't tied to zoning" concern.
 
+> **Status — branch `feat/phase2-truthfulness` (2026-06-02):**
+> ✅ **P2-A** done (`bdde35d`) — entitlement classifier + scorer; recommendation is zone-aware and never picks an illegal program. *Partial:* density-from-min-lot-area and explicit height-in-feet checks are not yet wired (classification is by use list + primary-unit tier); use-case goal/budget not yet a scoring input.
+> ✅ **P2-B** done (`b1218df`) — permit-key normalization + alias map (15/15 tests). *Deferred:* worker `/permits` city-list reconciliation (only matters when `ADI_PROXY` is set; entangled with Phase 1 SSRF work).
+> ✅ **P2-C** done (`2fffe9c`) — prompt de-fabrication + unverified disclaimer. *Deferred:* re-sequencing comp before opts and feeding real permit hits into the prompt (pipeline-order change).
+> ✅ **P2-D** done (`b1218df`) — unified `baseCostPerSF()` + FEMA `features`-array gate.
+
 ### P2-A · Real, zoning-aware option scorer (replace hardcoded recommendation) — **L**
 - **Issue:** Feature diagnostic §1–§2. `recommended:true` is hardcoded on Option 3 ([index.html:1676](index.html#L1676)); the ⭐ "AI Recommended" badge is cosmetic; options ignore use rights, density, height, overlays.
 - **Files:** `index.html` (`generateOptions` 1628, `runPhase_opts` 1692), `data/middle-housing.js`, `data/wa-statewide.js`, `data/overlay-registry.js`.

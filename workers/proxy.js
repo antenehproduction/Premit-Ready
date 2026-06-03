@@ -124,7 +124,12 @@ async function handleFema(params, origin) {
       if (resp.ok && looksJson) {
         let parsed = null;
         try { parsed = JSON.parse(text); } catch (_) {}
-        if (parsed && (parsed.features !== undefined || parsed.error === undefined)) {
+        // Accept ONLY a genuine Esri query result (a `features` array — empty
+        // [] is valid = no flood zone). The old `error === undefined` check
+        // accepted any non-error JSON (e.g. a service-description doc from a
+        // wrong-but-live endpoint), returning it as a flood determination.
+        // See AUDIT.md #19.
+        if (parsed && Array.isArray(parsed.features)) {
           return new Response(text, {
             status: 200,
             headers: { ...CORS_HEADERS(origin), 'Content-Type': 'application/json', ...OK_CACHE },

@@ -1625,6 +1625,16 @@ async function fetchOverlays(lat,lon,state){
 }
 
 // ── DEVELOPMENT OPTIONS GENERATION (local, instant) ──
+// Single source of truth for construction $/SF (pre-inflation). Both the
+// options panel and the checklist valuation call this so they can never
+// disagree again (was $220/$380 in options vs $200/$260/$380 in checklist —
+// AUDIT.md #18). Caller multiplies by window.COST_INDEX for inflation.
+function baseCostPerSF(state){
+  const s=normalizeState(state);
+  if(['CA','NY','DC','MA','WA'].includes(s))return 380; // high-cost coastal metros
+  if(['FL','TX'].includes(s))return 200;                // low-cost, high-volume
+  return 260;                                            // national mid
+}
 function generateOptions(z){
   const bW=Math.max(14,z.lotWidth-z.leftSetback-z.rightSetback);
   const bD=Math.max(20,z.lotDepth-z.frontSetback-z.rearSetback);
@@ -1648,7 +1658,7 @@ function generateOptions(z){
   // ratio, and bump COST_INDEX.asOf. Auto-refresh script is a planned
   // follow-up (parallel to fetch-socrata-schemas.py — workflow on cron).
   const costIndex=(window.COST_INDEX&&window.COST_INDEX.current)||1.06;
-  const costPerSF=Math.round((isCA||isWA?380:220)*costIndex);
+  const costPerSF=Math.round(baseCostPerSF(z.state)*costIndex);
   const valuePerUnit=Math.round(((isCA)?720000:isWA?540000:320000)*costIndex);
   const costMultiplier=(highSeismic)?1.18:1.0;// seismic premium
 
@@ -1665,28 +1675,86 @@ function generateOptions(z){
 
   // Option 1: Conservative — SFR + ADU
   {const sf=clampSF(bW*bD*.65, 1);const units=adu?2:1;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.8);
-  opts.push({id:1,icon:'🏡',name:'Conservative SFR + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 1-story`,badge:'Low Risk',badgeClass:'badge-green',units,sf,stories:1,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.2/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.15/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.1-cost)/cost*80)}%`,risk:'Low',timeline:'8–12 months',green:['Solar-ready','EV parking','Energy Star'],cert:`${db.ec} + LEED for Homes possible`,permits:'By-right, ministerial'})}
+  opts.push({id:1,_primaryUnits:1,icon:'🏡',name:'Conservative SFR + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 1-story`,badge:'Low Risk',badgeClass:'badge-green',units,sf,_roi:(val-cost)/cost,stories:1,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.2/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.15/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.1-cost)/cost*80)}%`,risk:'Low',timeline:'8–12 months',green:['Solar-ready','EV parking','Energy Star'],cert:`${db.ec} + LEED for Homes possible`,permits:'By-right, ministerial'})}
 
   // Option 2: Stacked Duplex + ADU (if 2+ stories)
   if(maxSt>=2){const sf=clampSF(bW*bD*1.3, 2);const units=adu?3:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.85);
-  opts.push({id:2,icon:'🏘️',name:'Stacked Duplex + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Cash Flow',badgeClass:'badge-blue',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.18/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.15-cost)/cost*80)}%`,risk:'Low-Medium',timeline:'14–18 months',green:['Passive solar orientation','Solar PV 8kW','Zehnder ERV','EV charging × 2'],cert:`LEED Silver achievable · ${db.ec}`,permits:'By-right in most R zones'})}
+  opts.push({id:2,_primaryUnits:2,icon:'🏘️',name:'Stacked Duplex + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Cash Flow',badgeClass:'badge-blue',units,sf,_roi:(val-cost)/cost,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.18/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.15-cost)/cost*80)}%`,risk:'Low-Medium',timeline:'14–18 months',green:['Passive solar orientation','Solar PV 8kW','Zehnder ERV','EV charging × 2'],cert:`LEED Silver achievable · ${db.ec}`,permits:'By-right in most R zones'})}
 
   // Option 3: Side-by-Side + ADUs (if wide enough)
   if(bW>=40&&maxSt>=2){const sf=clampSF(bW*bD*1.55, 2);const units=adu?4:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
-  opts.push({id:3,icon:'🌿',name:'Net-Zero Side-by-Side + 2 ADUs',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Sustainability',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.25/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.2/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'16–22 months',green:['Net-zero energy','Shared 16kW solar','Warmboard radiant','Greywater reuse','Green roof on ADU','EV fleet charging'],cert:`LEED Gold · Passive House EnerPHit possible`,permits:'By-right if <50% lot coverage',recommended:true})}
+  opts.push({id:3,_primaryUnits:2,icon:'🌿',name:'Net-Zero Side-by-Side + 2 ADUs',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Sustainability',badgeClass:'badge-purple',units,sf,_roi:(val-cost)/cost,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.25/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.2/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'16–22 months',green:['Net-zero energy','Shared 16kW solar','Warmboard radiant','Greywater reuse','Green roof on ADU','EV fleet charging'],cert:`LEED Gold · Passive House EnerPHit possible`,permits:'By-right if <50% lot coverage'})}
 
   // Option 4: Max Density Triplex/4-plex
   if(maxSt>=2){const sf=clampSF(bW*bD*(maxSt>=3?1.9:1.65), maxSt);const units=adu?maxSt*2+1:maxSt*2;const cost=Math.round(sf*costPerSF*1.05*costMultiplier);const val=Math.round(units*valuePerUnit*.92);
-  opts.push({id:4,icon:'🏗️',name:`Maximum Density ${maxSt}-Story + ADUs`,type:`${units}-unit · ${sf.toLocaleString()} SF · ${maxSt}-story`,badge:'Highest Density',badgeClass:'badge-amber',units,sf,stories:maxSt,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.28/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.22/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium-High',timeline:'20–28 months',green:['LEED Platinum target','22kW solar array','Living roof','WUFI thermal bridge analysis','Triple-pane windows'],cert:`LEED Platinum · ${db.bc} Type V-A`,permits:'May require design review / DRB approval'})}
+  opts.push({id:4,_primaryUnits:maxSt*2,icon:'🏗️',name:`Maximum Density ${maxSt}-Story + ADUs`,type:`${units}-unit · ${sf.toLocaleString()} SF · ${maxSt}-story`,badge:'Highest Density',badgeClass:'badge-amber',units,sf,_roi:(val-cost)/cost,stories:maxSt,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.28/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.22/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium-High',timeline:'20–28 months',green:['LEED Platinum target','22kW solar array','Living roof','WUFI thermal bridge analysis','Triple-pane windows'],cert:`LEED Platinum · ${db.bc} Type V-A`,permits:'May require design review / DRB approval'})}
 
   // Option 5: CA SB9 or WA MFTE
   if(isCA&&z.sb9Eligible!==false){const sf=clampSF(bW*bD*1.7, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.95);
-  opts.push({id:5,icon:'🏙️',name:'SB9 Lot Split → 4 Units',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Max ROI (CA SB9)',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'18–26 months',green:['Solar required (T24)','CALGreen Tier 2','EV-ready × 4','Water-efficient landscaping'],cert:`CALGreen Tier 2 · Title 24 2022`,permits:'Ministerial under SB9 — city cannot deny'})
+  opts.push({id:5,_primaryUnits:4,icon:'🏙️',name:'SB9 Lot Split → 4 Units',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Max ROI (CA SB9)',badgeClass:'badge-purple',units,sf,_roi:(val-cost)/cost,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'18–26 months',green:['Solar required (T24)','CALGreen Tier 2','EV-ready × 4','Water-efficient landscaping'],cert:`CALGreen Tier 2 · Title 24 2022`,permits:'Ministerial under SB9 — city cannot deny',_entitlement:'by-right'})
   }else if(isWA){const sf=clampSF(bW*bD*1.6, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
-  opts.push({id:5,icon:'🏙️',name:'MFTE Affordable 4-Unit',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Tax Exemption (WA)',badgeClass:'badge-purple',units,sf,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'20–26 months',green:['WSEC 2021 enhanced','Solar-ready','EV × 2','Permeable paving'],cert:`WSEC 2021 · MFTE 12-yr tax exemption`,permits:'City MFTE approval + design review'})
+  opts.push({id:5,_primaryUnits:4,icon:'🏙️',name:'MFTE Affordable 4-Unit',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Tax Exemption (WA)',badgeClass:'badge-purple',units,sf,_roi:(val-cost)/cost,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'20–26 months',green:['WSEC 2021 enhanced','Solar-ready','EV × 2','Permeable paving'],cert:`WSEC 2021 · MFTE 12-yr tax exemption`,permits:'City MFTE approval + design review',_entitlement:'conditional'})
   }
 
+  // ── P2-A: use-rights classification + zoning-aware scoring ──
+  // Replaces the old hardcoded `recommended:true` on the Net-Zero option (which
+  // always won regardless of the lot/zone) and the hardcoded "By-right" permit
+  // strings. Each option's `permits` label and `entitlement` now reflect the
+  // zone's actual permitted/conditional use list; the recommendation is the
+  // highest risk-adjusted-return option among the legally-plausible ones.
+  opts.forEach(o=>{
+    if(o._entitlement){ o.entitlement=o._entitlement; /* SB9 ministerial / MFTE conditional — keep their hardcoded label */ }
+    else { const ent=classifyEntitlement(z,o._primaryUnits!=null?o._primaryUnits:o.units); o.entitlement=ent.status; o.permits=ent.label; }
+  });
+  scoreOptions(opts);
   return opts;
+}
+
+// Classify a program of `units` dwellings against the zone's permitted /
+// conditional use lists (populated by runPhase_zone). Returns a status the
+// scorer and UI use. Degrades to 'unverified' (not a false "by-right") when
+// the zone's use list is absent — never asserts entitlement we can't support.
+function classifyEntitlement(z,units){
+  const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9]/g,'');
+  const permitted=(z.permittedUses||[]).map(norm);
+  const conditional=(z.conditionalUses||[]).map(norm);
+  const tier=units<=1?'sfr':units===2?'duplex':units===3?'triplex':units===4?'fourplex':'multifamily';
+  const KW={
+    sfr:['sfr','singlefamily','singlefamilyresidential','sfd','detached','dwelling'],
+    duplex:['duplex','twofamily','2family','2unit','middlehousing','multifamily','townhouse','townhome'],
+    triplex:['triplex','threefamily','3family','3unit','middlehousing','multifamily','townhouse','townhome'],
+    fourplex:['fourplex','4plex','fourfamily','4family','4unit','middlehousing','multifamily','townhouse','townhome'],
+    multifamily:['multifamily','apartment','apartments','5plus','midrise','highrise']
+  };
+  const kws=KW[tier]||KW.multifamily;
+  const hit=list=>list.some(u=>u&&kws.some(k=>u.indexOf(k)>=0));
+  if(hit(permitted))return{status:'by-right',label:'By-right (permitted use)'};
+  if(hit(conditional))return{status:'conditional',label:'Conditional use — CUP/variance'};
+  if(!permitted.length)return{status:'unverified',label:'Verify use w/ planning dept'};
+  if(tier==='sfr')return{status:'unverified',label:'Verify single-family use'};
+  return{status:'not-permitted',label:'Not by-right — rezone/variance'};
+}
+
+// Score options by risk-adjusted return, gated by legality. Marks exactly one
+// option `recommended` (the best legally-plausible one). Not-permitted options
+// are never recommended. Replaces the hardcoded badge.
+function scoreOptions(opts){
+  const legalW={'by-right':1.0,'conditional':0.82,'unverified':0.9,'not-permitted':0};
+  const riskW=r=>{r=String(r||'').toLowerCase();
+    if(r.indexOf('low-medium')===0)return 0.95;
+    if(r.indexOf('low')===0)return 1.0;
+    if(r.indexOf('medium-high')===0)return 0.80;
+    if(r.indexOf('medium')===0)return 0.88;
+    return 0.85;};
+  let best=null;
+  opts.forEach(o=>{
+    o.recommended=false;
+    const roi=isFinite(o._roi)?Math.max(0,o._roi):0;
+    const lw=legalW.hasOwnProperty(o.entitlement)?legalW[o.entitlement]:0.9;
+    o._score=roi*lw*riskW(o.risk);
+    if(o.entitlement!=='not-permitted'&&(!best||o._score>best._score))best=o;
+  });
+  (best||opts[0]||{}).recommended=true;
 }
 
 async function runPhase_opts(){
@@ -1728,11 +1796,12 @@ function renderOptionsPanel(opts,recommended,z){
     <div class="opts-grid">
       ${opts.map(o=>`
         <div class="opt-card ${o.id===recommended?.id?'recommended':''}" onclick="selectOption(${o.id})">
-          ${o.id===recommended?.id?`<div class="opt-rec-star">⭐ AI Recommended</div>`:''}
+          ${o.id===recommended?.id?`<div class="opt-rec-star">⭐ Best Fit</div>`:''}
           <div class="opt-badge ${o.badgeClass}">${o.badge}</div>
           <div class="opt-icon">${o.icon}</div>
           <div class="opt-name">${o.name}</div>
           <div class="opt-type">${o.type}</div>
+          ${o.entitlement==='not-permitted'?`<div style="margin:5px 0;padding:3px 6px;background:rgba(245,80,80,.12);border:1px solid rgba(245,80,80,.4);border-radius:4px;color:#ff8a8a;font-size:8px">⚠ Not by-right in ${z.zoningDistrict} — requires rezone/variance</div>`:o.entitlement==='conditional'?`<div style="margin:5px 0;padding:3px 6px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.35);border-radius:4px;color:var(--amber);font-size:8px">△ Conditional use — discretionary approval</div>`:o.entitlement==='unverified'?`<div style="margin:5px 0;padding:3px 6px;background:rgba(122,154,184,.1);border:1px solid var(--brd2);border-radius:4px;color:var(--txt3);font-size:8px">? Entitlement unverified — confirm with planning</div>`:''}
           <div class="opt-metrics">
             <div class="opt-metric"><div class="oml">EST. COST</div><div class="omv">${o.cost}</div></div>
             <div class="opt-metric"><div class="oml">EST. VALUE</div><div class="omv g">${o.value}</div></div>
@@ -1747,7 +1816,12 @@ function renderOptionsPanel(opts,recommended,z){
         </div>`).join('')}
     </div>
     <div class="opt-ai-note">
-      <strong>Expert Recommendation (Dr. Alexandra Chen, FAIA):</strong> For ${z.jurisdiction} in 2024, the Net-Zero Side-by-Side option typically achieves the best risk-adjusted return — green premiums add 12-18% to value while LEED Gold certification qualifies for lower construction financing rates. All options comply with ${z.zoningDistrict} by-right development standards. Cost estimates include ${z.state==='CA'?'Title 24 + CALGreen':z.state==='WA'?'WSEC 2021 + SEPA review':'state energy code'} compliance. Structural costs include ${['CA','AK','WA','OR','NV','UT'].includes(z.state)?'seismic premium (SDC D-E, ~15-20% above baseline)':'standard code-minimum engineering'}.
+      ${(()=>{const r=recommended;const e=r&&r.entitlement||'unverified';
+        const phrase=e==='by-right'?`permitted by-right in ${z.zoningDistrict}`:e==='conditional'?`allowed in ${z.zoningDistrict} via conditional-use/variance`:`of unconfirmed entitlement in ${z.zoningDistrict}`;
+        const uses=(z.permittedUses&&z.permittedUses.length)?`the ${z.zoningDistrict} permitted-use list (${z.permittedUses.slice(0,4).join(', ')}${z.permittedUses.length>4?'…':''})`:`general residential assumptions — confirm permitted uses with ${z.jurisdiction} planning`;
+        const energy=z.state==='CA'?'Title 24 + CALGreen':z.state==='WA'?'WSEC 2021 + SEPA':'state energy code';
+        const seismic=['CA','AK','WA','OR','NV','UT'].includes(z.state)?', plus a seismic premium':'';
+        return `<strong>Recommended program (zoning-aware scoring):</strong> ${r?`<strong>${r.name}</strong> scores highest on risk-adjusted return among the programs ${phrase}. `:''}Each option's entitlement label is derived from ${uses}. Cost figures are rough $/SF planning estimates (incl. ${energy}${seismic}) — not a licensed cost estimate. <em>Confirm entitlement, density, and code with a licensed architect before relying on any option.</em>`;})()}
     </div>`;
 }
 
@@ -1779,35 +1853,34 @@ async function runPhase_comp(){
   const z=S._z;const opt=S.selectedOption;
   try{
     const res=await callAI([{role:'user',content:
-      `As a PhD architect with 50 years of experience, research 3-5 SPECIFIC, NAMED comparable residential developments completed 2019-2024 within a 2–5 MILE RADIUS of ${S.addr} (${z.jurisdiction}, ${z.state}).
+      `As a PhD architect with 50 years of experience, summarize the comparable-development landscape for a **${opt?.name||'multi-family'} project** (${opt?.units||2} units, ~${opt?.sf||2500} SF) near ${S.addr} (${z.jurisdiction}, ${z.state}, district ${z.zoningDistrict}).
 
-We are designing a **${opt?.name||'multi-family'} project** (${opt?.units||2} units, ~${opt?.sf||2500} SF).
+ACCURACY RULES — this output is shown to a developer making real decisions, so do not fabricate:
+- You do NOT have live web/MLS/permit access. Work from general market knowledge only.
+- Where you can CONFIDENTLY recall a real, specific completed project (2019-2024) in this market, name it. Where you cannot, describe a REPRESENTATIVE project TYPE for this submarket instead of inventing one.
+- NEVER fabricate a permit number, exact street address, developer name, listing ID, source URL, or exact sale price. Omit a field rather than invent it.
+- Mark any number that is a market-typical estimate (not a recalled fact) with "(typical, unverified)".
+- JURISDICTION LOCK: any zoning/code reference must be specific to ${z.jurisdiction}, ${z.state}. If unsure of a section number, write "see ${z.jurisdiction} municipal code" — do not fabricate one.
 
-JURISDICTION LOCK: All zoning, code, and ordinance references in your response MUST be specific to **${z.jurisdiction}, ${z.state}** (district: **${z.zoningDistrict}**). Do NOT cite zone codes from other cities (e.g., do not write "RS 7.2" or "KMC Title 21" if those belong to a different jurisdiction). When unsure of a specific section number, write "see ${z.jurisdiction} municipal code" instead of fabricating a citation.
+Provide 3-5 comparables (real-and-named OR clearly representative). For each:
+1. Name or "Representative <typology> project"; neighborhood/submarket; approx year; flag clearly which are recalled vs representative
+2. Why it's a relevant comparable (similar use, density, typology). Lot context: ${z.lotWidth}ft × ${z.lotDepth}ft = ${(z.lotWidth*z.lotDepth).toLocaleString()} SF — do not invent other dimensions.
+3. Unit mix, stories, total SF, density
+4. Green/sustainability features typical of this tier
+5. Structural system and rationale
+6. Cost per SF range for this market (label "(typical, unverified)")
+7. Market performance as a RANGE for the submarket (label "(typical, unverified)") — no fabricated specific sale prices
 
-Prioritize sources in this order:
-  1. Public permit data portals (data.<city>.gov / Socrata) filed under a recognizable project name within ${z.jurisdiction}
-  2. Recently listed/sold properties visible on Zillow, Redfin, Realtor.com within the 2–5 mile radius
-  3. Published developer / architect project pages, AIA Honor Awards, ULI awards
-  4. Local news coverage of specific completed projects
-
-For each comparable provide:
-1. Project name, specific street/neighborhood, developer, year completed, permit number if known
-2. Distance from ${S.addr} (miles) and WHY it's a relevant comparable (similar lot, use, density, typology). For lot context use ${z.lotWidth}ft × ${z.lotDepth}ft = ${(z.lotWidth*z.lotDepth).toLocaleString()} SF — the canonical site dimensions; do not invent alternatives.
-3. Unit mix, stories, total SF, density achieved
-4. Notable green/sustainable innovations actually implemented
-5. Structural system and why it was chosen
-6. Cost per SF and what drove it
-7. Market performance (sold/leased price, time on market, source URL or listing ID when possible)
-
-Then recommend:
-**3 specific design innovations we must incorporate** based on what top competitors are doing
-**Optimal unit mix** for current market demand
-**2 structural improvements** over typical code minimum (with specific member sizes)
-**1 green technology** with proven market ROI in this market`
-    }],SYS,1000,120000); // 120s timeout — comp phase often hits 90s due to expanded prompt and source-citation requirement
+Then recommend (these drive the design, so be concrete):
+**3 design innovations to incorporate** for this typology in this market
+**Optimal unit mix** for current demand
+**2 structural improvements** over code minimum (with member sizes)
+**1 green technology** with proven market ROI here`
+    }],SYS,1000,120000); // 120s timeout — comp phase often hits 90s due to expanded prompt
     phSet('comp','done',`${((Date.now()-t)/1000).toFixed(1)}s`);
-    if(S._compInterval){clearInterval(S._compInterval);S._compInterval=null;}addFind('comp','🏆 Competitor Analysis & Market Intelligence',fmt(res));S.competitors=res;phaseRunners.comp=runPhase_comp;
+    if(S._compInterval){clearInterval(S._compInterval);S._compInterval=null;}
+    const compDisclaimer=`<div style="margin-bottom:8px;padding:6px 8px;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.3);border-radius:5px;font-size:8.5px;color:var(--amber);line-height:1.5">⚠ AI-generated from training knowledge — no live MLS/permit access. Named projects, prices, and figures are illustrative or market-typical, not verified. Cross-check against the permit filings below and local listings before relying.</div>`;
+    addFind('comp','🏆 Market Comparables (AI — verify before relying)',compDisclaimer+fmt(res));S.competitors=res;phaseRunners.comp=runPhase_comp;
     // ── Cross-check with permit-portal registry (public permit data) ──
     if(window.PERMIT_PORTAL_REGISTRY&&window.permitRegistryKey&&S.lat&&S.lon){
       const cityKey=window.permitRegistryKey(z?.jurisdiction||'');
@@ -1873,7 +1946,7 @@ async function runPhase_chk(){
   // DATA-2 fix: apply ENR-style inflation multiplier (BLS PPI proxy) —
   // see options-panel cost calc above for full rationale and update path.
   const costIndex=(window.COST_INDEX&&window.COST_INDEX.current)||1.06;
-  const costPerSF=Math.round(((isCA||isNY||isDC||isMA||isWA)?380:(isFL||isTX)?200:260)*costIndex);
+  const costPerSF=Math.round(baseCostPerSF(st)*costIndex);
   const valuation=Math.round(totalSF*costPerSF);const feeRate=(isCA||isNY)?.012:(isWA||isOR)?.01:.008;
   const feeEst=Math.round(valuation*feeRate/100)*100;
   const feeRange=`$${(feeEst*.8/1000).toFixed(0)}K–$${(feeEst*1.4/1000).toFixed(0)}K`;

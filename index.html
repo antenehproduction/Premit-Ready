@@ -1853,35 +1853,34 @@ async function runPhase_comp(){
   const z=S._z;const opt=S.selectedOption;
   try{
     const res=await callAI([{role:'user',content:
-      `As a PhD architect with 50 years of experience, research 3-5 SPECIFIC, NAMED comparable residential developments completed 2019-2024 within a 2–5 MILE RADIUS of ${S.addr} (${z.jurisdiction}, ${z.state}).
+      `As a PhD architect with 50 years of experience, summarize the comparable-development landscape for a **${opt?.name||'multi-family'} project** (${opt?.units||2} units, ~${opt?.sf||2500} SF) near ${S.addr} (${z.jurisdiction}, ${z.state}, district ${z.zoningDistrict}).
 
-We are designing a **${opt?.name||'multi-family'} project** (${opt?.units||2} units, ~${opt?.sf||2500} SF).
+ACCURACY RULES — this output is shown to a developer making real decisions, so do not fabricate:
+- You do NOT have live web/MLS/permit access. Work from general market knowledge only.
+- Where you can CONFIDENTLY recall a real, specific completed project (2019-2024) in this market, name it. Where you cannot, describe a REPRESENTATIVE project TYPE for this submarket instead of inventing one.
+- NEVER fabricate a permit number, exact street address, developer name, listing ID, source URL, or exact sale price. Omit a field rather than invent it.
+- Mark any number that is a market-typical estimate (not a recalled fact) with "(typical, unverified)".
+- JURISDICTION LOCK: any zoning/code reference must be specific to ${z.jurisdiction}, ${z.state}. If unsure of a section number, write "see ${z.jurisdiction} municipal code" — do not fabricate one.
 
-JURISDICTION LOCK: All zoning, code, and ordinance references in your response MUST be specific to **${z.jurisdiction}, ${z.state}** (district: **${z.zoningDistrict}**). Do NOT cite zone codes from other cities (e.g., do not write "RS 7.2" or "KMC Title 21" if those belong to a different jurisdiction). When unsure of a specific section number, write "see ${z.jurisdiction} municipal code" instead of fabricating a citation.
+Provide 3-5 comparables (real-and-named OR clearly representative). For each:
+1. Name or "Representative <typology> project"; neighborhood/submarket; approx year; flag clearly which are recalled vs representative
+2. Why it's a relevant comparable (similar use, density, typology). Lot context: ${z.lotWidth}ft × ${z.lotDepth}ft = ${(z.lotWidth*z.lotDepth).toLocaleString()} SF — do not invent other dimensions.
+3. Unit mix, stories, total SF, density
+4. Green/sustainability features typical of this tier
+5. Structural system and rationale
+6. Cost per SF range for this market (label "(typical, unverified)")
+7. Market performance as a RANGE for the submarket (label "(typical, unverified)") — no fabricated specific sale prices
 
-Prioritize sources in this order:
-  1. Public permit data portals (data.<city>.gov / Socrata) filed under a recognizable project name within ${z.jurisdiction}
-  2. Recently listed/sold properties visible on Zillow, Redfin, Realtor.com within the 2–5 mile radius
-  3. Published developer / architect project pages, AIA Honor Awards, ULI awards
-  4. Local news coverage of specific completed projects
-
-For each comparable provide:
-1. Project name, specific street/neighborhood, developer, year completed, permit number if known
-2. Distance from ${S.addr} (miles) and WHY it's a relevant comparable (similar lot, use, density, typology). For lot context use ${z.lotWidth}ft × ${z.lotDepth}ft = ${(z.lotWidth*z.lotDepth).toLocaleString()} SF — the canonical site dimensions; do not invent alternatives.
-3. Unit mix, stories, total SF, density achieved
-4. Notable green/sustainable innovations actually implemented
-5. Structural system and why it was chosen
-6. Cost per SF and what drove it
-7. Market performance (sold/leased price, time on market, source URL or listing ID when possible)
-
-Then recommend:
-**3 specific design innovations we must incorporate** based on what top competitors are doing
-**Optimal unit mix** for current market demand
-**2 structural improvements** over typical code minimum (with specific member sizes)
-**1 green technology** with proven market ROI in this market`
-    }],SYS,1000,120000); // 120s timeout — comp phase often hits 90s due to expanded prompt and source-citation requirement
+Then recommend (these drive the design, so be concrete):
+**3 design innovations to incorporate** for this typology in this market
+**Optimal unit mix** for current demand
+**2 structural improvements** over code minimum (with member sizes)
+**1 green technology** with proven market ROI here`
+    }],SYS,1000,120000); // 120s timeout — comp phase often hits 90s due to expanded prompt
     phSet('comp','done',`${((Date.now()-t)/1000).toFixed(1)}s`);
-    if(S._compInterval){clearInterval(S._compInterval);S._compInterval=null;}addFind('comp','🏆 Competitor Analysis & Market Intelligence',fmt(res));S.competitors=res;phaseRunners.comp=runPhase_comp;
+    if(S._compInterval){clearInterval(S._compInterval);S._compInterval=null;}
+    const compDisclaimer=`<div style="margin-bottom:8px;padding:6px 8px;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.3);border-radius:5px;font-size:8.5px;color:var(--amber);line-height:1.5">⚠ AI-generated from training knowledge — no live MLS/permit access. Named projects, prices, and figures are illustrative or market-typical, not verified. Cross-check against the permit filings below and local listings before relying.</div>`;
+    addFind('comp','🏆 Market Comparables (AI — verify before relying)',compDisclaimer+fmt(res));S.competitors=res;phaseRunners.comp=runPhase_comp;
     // ── Cross-check with permit-portal registry (public permit data) ──
     if(window.PERMIT_PORTAL_REGISTRY&&window.permitRegistryKey&&S.lat&&S.lon){
       const cityKey=window.permitRegistryKey(z?.jurisdiction||'');

@@ -25,14 +25,37 @@
 //   GET /api/arcgis?url=    → any ArcGIS REST query (whitelisted)
 //   GET /api/municode?url=  → municipal code text
 //   GET /api/permits/<city>?... → Socrata permit search
-//   GET /api/diag?url=      → upstream debugging passthrough
+// (/api/ai/* is served by api/ai/[...path].js. /api/diag removed in P1-B.)
 
-const PROXY_VERSION = '8-vercel'; // v8 — browser UA on ArcGIS, /api/overpass route, surfaced 502 errors
+const PROXY_VERSION = '9-vercel'; // v9 — P1-B/C: anchored SSRF allowlist, origin-locked CORS, /diag removed, AI dedup
 
-// v5: permissive CORS for public data. Reflect the requesting origin so the
-// proxy works from any deployment target (github.io, vercel.app, custom
-// domains, localhost). Tighten again when we add paid-API secrets.
-const ALLOWED_ORIGINS = null; // unused; kept for doc
+// P1-B: CORS restricted to the app's own origins (github.io + the app's
+// *.vercel.app deployments + localhost). A disallowed origin gets the canonical
+// origin back, which the browser rejects on ACAO mismatch.
+const ALLOWED_ORIGINS = [
+  'https://antenehproduction.github.io',
+  'http://localhost:8080',
+  'http://127.0.0.1:8080',
+];
+function allowOrigin(origin) {
+  if (!origin) return ALLOWED_ORIGINS[0];
+  if (ALLOWED_ORIGINS.includes(origin)) return origin;
+  try { if (new URL(origin).hostname.endsWith('.vercel.app')) return origin; } catch (_) {}
+  return ALLOWED_ORIGINS[0];
+}
+// P1-B: anchored upstream validation (replaces bypassable substring matching).
+// https-only, no IP-literal/internal hosts (kills metadata/SSRF), hostname must
+// match an allowlisted suffix. '.gov' covers FEMA/USGS/NOAA/USDA + most counties.
+function validUpstream(rawUrl, suffixes) {
+  let u; try { u = new URL(rawUrl); } catch (_) { return false; }
+  if (u.protocol !== 'https:') return false;
+  const h = u.hostname.toLowerCase();
+  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(h) || h.includes(':')) return false; // no IPv4/IPv6 literals
+  if (h === 'localhost' || h.endsWith('.localhost') || h.endsWith('.internal') || h.endsWith('.local')) return false;
+  return suffixes.some(s => h === s || h.endsWith('.' + s));
+}
+const ARCGIS_SUFFIXES = ['gov','arcgis.com','arcgisonline.com','portlandmaps.com','sfgov.org','acgov.org','wakegov.com','denvergov.org','hillsboroughcounty.org','ocpafl.org','cobbcounty.org','sccgov.org','cuyahogacounty.us','alleghenycounty.us','hennepin.us','countyofriverside.us','jeffco.us','psu.edu'];
+const MUNICODE_SUFFIXES = ['municode.com','ecode360.com','codepublishing.com','legistar.com','amlegal.com'];
 
 const PERMIT_ENDPOINTS = {
   seattle:  'https://data.seattle.gov/resource/76t5-zqzr.json',
@@ -47,7 +70,8 @@ const PERMIT_ENDPOINTS = {
 const PROXY_HEADERS = { 'User-Agent': 'ArchDrawIntel-Proxy/1.0', 'Accept': 'application/json' };
 
 const corsHeaders = (origin) => ({
-  'Access-Control-Allow-Origin': origin || '*',
+  'Access-Control-Allow-Origin': allowOrigin(origin),
+  'Vary': 'Origin',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Max-Age': '86400',
@@ -144,8 +168,8 @@ const ARCGIS_HEADERS = {
 async function handleArcgis(params, origin) {
   const url = params.get('url');
   if (!url) return jsonResponse({ error: 'url required' }, origin, 400);
-  if (!/arcgis|services\.arcgisonline|gismaps|portlandmaps|hazards\.fema|dpw\.gis\.lacounty|sfplanninggis|acgov|hazards\.usgs|coast\.noaa|apps\.fs\.usda|fortress\.wa\.gov|gis\.dnr\.wa\.gov|gis\.conservation\.ca\.gov|services1\.arcgis|services6\.arcgis|fdot|saccounty|kingcounty|mcassessor|clarkcountynv|colorado\.gov|jeffco|miamidade|hillsborough|ocpafl|fultoncountyga|cobbcountyga|dekalbcountyga|wakegov|charlottenc|fairfaxcounty|franklincountyohio|cuyahogacounty|pasda\.psu|alleghenycounty|hennepin|webgis\.sccgov|gis-public\.sandiegocounty|countyofriverside|mapservices\.gis\.saccounty|gisportal\.jeffco|maps\.hillsboroughcounty|vgispublic\.ocpafl|gismaps\.fultoncountyga|geo-cobbcountyga|dcgis\.dekalbcountyga|maps\.wakegov|gis\.charlottenc|fairfaxcounty|gis\.franklincountyohio|gis\.cuyahogacounty|gisdata\.alleghenycounty|gis\.hennepin|www\.ocgis|clvgis|denvergov\.org|mapdata\.lasvegasnevada|sandiegocounty/i.test(url))
-    return jsonResponse({ error: 'url must be an ArcGIS REST endpoint' }, origin, 400);
+  if (!validUpstream(url, ARCGIS_SUFFIXES))
+    return jsonResponse({ error: 'url must be an https ArcGIS/GIS host on the allowlist' }, origin, 400);
   // Wrap fetch + passthrough so any error surfaces in the response body
   // instead of reaching the outer handler() catch-all (which swallows
   // upstream context). The pre-PR version was returning a generic 500
@@ -194,9 +218,9 @@ async function handleOverpass(params, origin) {
 async function handleMunicode(params, origin) {
   const url = params.get('url');
   if (!url) return jsonResponse({ error: 'url required' }, origin, 400);
-  if (!/municode|ecode360|codepublishing|legistar|amlegal/i.test(url))
-    return jsonResponse({ error: 'url must be a recognized municipal-code domain' }, origin, 400);
-  const resp = await fetch(url);
+  if (!validUpstream(url, MUNICODE_SUFFIXES))
+    return jsonResponse({ error: 'url must be an https municipal-code host on the allowlist' }, origin, 400);
+  const resp = await fetch(url, { headers: PROXY_HEADERS });
   if (!resp.ok) return jsonResponse({ error: 'upstream_failed', upstreamStatus: resp.status }, origin, 502);
   const text = await resp.text();
   return new Response(text, {
@@ -214,198 +238,12 @@ async function handlePermits(city, params, origin) {
   return jsonPassthrough(resp, origin, `permits:${city}`);
 }
 
-// ═══ P0-1 — Hosted-AI proxy ═══════════════════════════════
-// /api/ai/messages — POST { model, max_tokens, messages, system? }
-// Validates Supabase JWT, enforces per-plan quota, proxies to Anthropic
-// using the server-side ANTHROPIC_KEY env var, and logs a usage_events row.
-//
-// Required env vars (Vercel project settings):
-//   ANTHROPIC_KEY                  — sk-ant-... server-side
-//   SUPABASE_URL                   — https://<ref>.supabase.co
-//   SUPABASE_SERVICE_ROLE_KEY      — eyJ... (NEVER ship to client)
-//
-// 401 — no/invalid JWT
-// 402 — quota exceeded (UI should show paywall)
-// 429 — Anthropic rate limit propagated upstream
-// 502 — Anthropic upstream error
-
-const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
-const PLAN_QUOTAS = { trial: 1, pro: 50, team: 250 };
-
-function aiCors(origin, status, body) {
-  return new Response(typeof body === 'string' ? body : JSON.stringify(body), {
-    status,
-    headers: { ...corsHeaders(origin), 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-  });
-}
-
-async function supabaseUserFromJWT(jwt) {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-  if (!url || !key) return { error: 'supabase_env_missing', user: null };
-  try {
-    const r = await fetch(`${url}/auth/v1/user`, {
-      headers: { Authorization: `Bearer ${jwt}`, apikey: key },
-    });
-    if (!r.ok) return { error: `auth_${r.status}`, user: null };
-    const u = await r.json();
-    return { user: u, error: null };
-  } catch (e) {
-    return { error: e.message, user: null };
-  }
-}
-
-async function supabaseSelect(table, query) {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return { error: 'service_role_missing', data: null };
-  const r = await fetch(`${url}/rest/v1/${table}?${query}`, {
-    headers: { apikey: key, Authorization: `Bearer ${key}`, Accept: 'application/json' },
-  });
-  if (!r.ok) return { error: `select_${r.status}`, data: null };
-  return { data: await r.json(), error: null };
-}
-
-async function supabaseInsert(table, row) {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return { error: 'service_role_missing' };
-  const r = await fetch(`${url}/rest/v1/${table}`, {
-    method: 'POST',
-    headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      'Content-Type': 'application/json',
-      Prefer: 'return=minimal',
-    },
-    body: JSON.stringify(row),
-  });
-  if (!r.ok) {
-    let detail = '';
-    try { detail = await r.text(); } catch (_) {}
-    return { error: `insert_${r.status}: ${detail.substring(0, 200)}` };
-  }
-  return { error: null };
-}
-
-async function getUserPlanAndUsage(userId) {
-  // Profile → plan
-  const profileResp = await supabaseSelect('profiles',
-    `select=plan,plan_renews_at&id=eq.${encodeURIComponent(userId)}&limit=1`);
-  if (profileResp.error || !profileResp.data?.length) return { plan: 'trial', used: 0, error: profileResp.error };
-  const plan = profileResp.data[0].plan || 'trial';
-  // Usage — completed analyses; trial=lifetime, paid=last 30d
-  const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-  const dateClause = plan === 'trial' ? '' : `&completed_at=gte.${encodeURIComponent(since)}`;
-  const usageResp = await supabaseSelect('analyses',
-    `select=id&user_id=eq.${encodeURIComponent(userId)}&status=eq.completed${dateClause}`);
-  const used = usageResp.data?.length || 0;
-  return { plan, used, quota: PLAN_QUOTAS[plan] || 0, error: null };
-}
-
-async function handleAIMessages(request, origin) {
-  // Auth
-  const authz = request.headers.get('authorization') || '';
-  const jwt = authz.replace(/^Bearer\s+/i, '').trim();
-  if (!jwt) return aiCors(origin, 401, { error: 'missing_authorization' });
-  const { user, error: authErr } = await supabaseUserFromJWT(jwt);
-  if (authErr || !user?.id) return aiCors(origin, 401, { error: 'invalid_token', detail: authErr });
-
-  // Body
-  let body;
-  try { body = await request.json(); } catch (_) { return aiCors(origin, 400, { error: 'invalid_json_body' }); }
-  if (!body?.messages || !Array.isArray(body.messages)) {
-    return aiCors(origin, 400, { error: 'messages_required' });
-  }
-
-  // Quota
-  const { plan, used, quota } = await getUserPlanAndUsage(user.id);
-  if ((quota || 0) <= 0) {
-    return aiCors(origin, 402, { error: 'no_active_plan', plan, used, quota });
-  }
-  if (used >= quota) {
-    return aiCors(origin, 402, { error: 'quota_exceeded', plan, used, quota });
-  }
-
-  // Anthropic key
-  const anthroKey = process.env.ANTHROPIC_KEY;
-  if (!anthroKey) return aiCors(origin, 500, { error: 'anthropic_key_missing' });
-
-  // Forward to Anthropic
-  const t0 = Date.now();
-  const upstream = await fetch(ANTHROPIC_URL, {
-    method: 'POST',
-    headers: {
-      'x-api-key': anthroKey,
-      'anthropic-version': '2023-06-01',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: body.model || 'claude-sonnet-4-6',
-      max_tokens: body.max_tokens || 1500,
-      messages: body.messages,
-      ...(body.system ? { system: body.system } : {}),
-    }),
-  });
-  const elapsed = Date.now() - t0;
-  const upstreamText = await upstream.text();
-  if (!upstream.ok) {
-    return new Response(upstreamText || JSON.stringify({ error: 'anthropic_upstream', status: upstream.status }), {
-      status: upstream.status === 429 ? 429 : 502,
-      headers: { ...corsHeaders(origin), 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-    });
-  }
-  let parsed;
-  try { parsed = JSON.parse(upstreamText); } catch (_) { parsed = null; }
-  if (parsed) {
-    // Best-effort usage log; fail-soft so a logging error never breaks the call.
-    const tokensIn = parsed.usage?.input_tokens || null;
-    const tokensOut = parsed.usage?.output_tokens || null;
-    supabaseInsert('usage_events', {
-      user_id: user.id,
-      event_type: 'ai_message',
-      tokens_in: tokensIn,
-      tokens_out: tokensOut,
-      model: parsed.model || body.model || 'claude-sonnet-4-6',
-      ms_elapsed: elapsed,
-    }).catch(() => {});
-  }
-  return new Response(upstreamText, {
-    status: 200,
-    headers: { ...corsHeaders(origin), 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-  });
-}
-
-async function handleAIWhoami(request, origin) {
-  const authz = request.headers.get('authorization') || '';
-  const jwt = authz.replace(/^Bearer\s+/i, '').trim();
-  if (!jwt) return aiCors(origin, 401, { error: 'missing_authorization' });
-  const { user, error: authErr } = await supabaseUserFromJWT(jwt);
-  if (authErr || !user?.id) return aiCors(origin, 401, { error: 'invalid_token', detail: authErr });
-  const { plan, used, quota } = await getUserPlanAndUsage(user.id);
-  return aiCors(origin, 200, { user: { id: user.id, email: user.email }, plan, used, quota });
-}
-
-async function handleDiag(params, origin) {
-  const url = params.get('url');
-  if (!url) return jsonResponse({ error: 'pass ?url=... to diagnose any endpoint' }, origin, 400);
-  try {
-    const t0 = Date.now();
-    const resp = await fetch(url, { headers: PROXY_HEADERS });
-    const text = await resp.text();
-    return jsonResponse({
-      url,
-      upstreamStatus: resp.status,
-      upstreamContentType: resp.headers.get('content-type') || '(none)',
-      bodyLength: text.length,
-      bodyPreview: text.substring(0, 500),
-      elapsedMs: Date.now() - t0,
-      proxyVersion: PROXY_VERSION,
-    }, origin);
-  } catch (e) {
-    return jsonResponse({ error: e.message, url, proxyVersion: PROXY_VERSION }, origin, 500);
-  }
-}
+// ═══ Hosted-AI proxy ═══════════════════════════════════
+// The hosted-AI endpoints (/api/ai/messages, /api/ai/whoami) live in
+// api/ai/[...path].js — the streaming implementation that takes Vercel
+// routing priority for /api/ai/*. The non-streaming duplicate that used to
+// live here was removed in P1-C (single source of truth). The /diag open
+// fetch proxy was removed in P1-B (unauthenticated SSRF surface).
 
 export const config = { runtime: 'edge' };
 
@@ -427,7 +265,7 @@ export default async function handler(request) {
         ok: true,
         version: PROXY_VERSION,
         platform: 'vercel-edge',
-        routes: ['/api/fema?lat=&lon=', '/api/arcgis?url=', '/api/overpass?data=', '/api/municode?url=', '/api/permits/:city', '/api/diag?url=', '/api/ai/messages', '/api/ai/whoami'],
+        routes: ['/api/fema?lat=&lon=', '/api/arcgis?url=', '/api/overpass?data=', '/api/municode?url=', '/api/permits/:city', '/api/ai/messages', '/api/ai/whoami'],
         permitCities: Object.keys(PERMIT_ENDPOINTS),
         aiHosted: !!process.env.ANTHROPIC_KEY && !!process.env.SUPABASE_URL,
       }, origin);
@@ -437,12 +275,9 @@ export default async function handler(request) {
     if (route === 'overpass') return await handleOverpass(u.searchParams, origin);
     if (route === 'municode') return await handleMunicode(u.searchParams, origin);
     if (route === 'permits' && segments[1]) return await handlePermits(segments[1], u.searchParams, origin);
-    if (route === 'diag') return await handleDiag(u.searchParams, origin);
-    if (route === 'ai' && segments[1] === 'messages') {
-      if (request.method !== 'POST') return jsonResponse({ error: 'POST required' }, origin, 405);
-      return await handleAIMessages(request, origin);
-    }
-    if (route === 'ai' && segments[1] === 'whoami') return await handleAIWhoami(request, origin);
+    // /api/ai/* is served by api/ai/[...path].js (P1-C: single source of truth).
+    // /diag was removed (P1-B: it was an unauthenticated open-fetch SSRF surface).
+    if (route === 'ai') return jsonResponse({ error: 'route_moved', detail: 'served by api/ai/[...path].js' }, origin, 404);
     return jsonResponse({ error: 'not found', tried: subPath }, origin, 404);
   } catch (e) {
     return jsonResponse({ error: e.message, route }, origin, 500);

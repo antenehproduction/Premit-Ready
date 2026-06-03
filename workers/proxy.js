@@ -28,21 +28,41 @@ const ALLOWED_ORIGINS = [
   'https://antenehproduction.github.io',
   'http://localhost:8080', // local dev
   'http://127.0.0.1:8080',
-]; // retained for documentation; v5 CORS policy is permissive (see below)
+];
 
-const PROXY_VERSION = '6'; // v6 — FEMA endpoint fallback chain (old /gis/nfhl path retired by FEMA)
+const PROXY_VERSION = '7'; // v7 — P1-B: origin-locked CORS, anchored SSRF allowlist, /diag removed
 
-// CORS policy: public data (FEMA, county GIS, Socrata permits) is non-sensitive.
-// Reflect the requesting origin so the proxy works from any deployment target
-// (github.io, vercel.app, custom domains, localhost). When we add paid-API
-// secrets in the future, tighten this to an allowlist again.
+// P1-B: CORS locked to the app's own origins (+ the app's *.vercel.app
+// deployments). A disallowed origin gets the canonical origin back, which the
+// browser rejects on ACAO mismatch.
+function allowOrigin(origin) {
+  if (!origin) return ALLOWED_ORIGINS[0];
+  if (ALLOWED_ORIGINS.includes(origin)) return origin;
+  try { if (new URL(origin).hostname.endsWith('.vercel.app')) return origin; } catch (_) {}
+  return ALLOWED_ORIGINS[0];
+}
 const CORS_HEADERS = (origin) => ({
-  'Access-Control-Allow-Origin': origin || '*',
+  'Access-Control-Allow-Origin': allowOrigin(origin),
+  'Vary': 'Origin',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Max-Age': '86400',
   'X-Adi-Proxy-Version': PROXY_VERSION,
 });
+
+// P1-B: anchored upstream validation (replaces bypassable substring matching).
+// https-only, no IP-literal/internal hosts (kills metadata/SSRF), hostname must
+// match an allowlisted suffix. '.gov' covers FEMA/USGS/NOAA/USDA + most counties.
+function validUpstream(rawUrl, suffixes) {
+  let u; try { u = new URL(rawUrl); } catch (_) { return false; }
+  if (u.protocol !== 'https:') return false;
+  const h = u.hostname.toLowerCase();
+  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(h) || h.includes(':')) return false;
+  if (h === 'localhost' || h.endsWith('.localhost') || h.endsWith('.internal') || h.endsWith('.local')) return false;
+  return suffixes.some(s => h === s || h.endsWith('.' + s));
+}
+const ARCGIS_SUFFIXES = ['gov','arcgis.com','arcgisonline.com','portlandmaps.com','sfgov.org','acgov.org','wakegov.com','denvergov.org','hillsboroughcounty.org','ocpafl.org','cobbcounty.org','sccgov.org','cuyahogacounty.us','alleghenycounty.us','hennepin.us','countyofriverside.us','jeffco.us','psu.edu'];
+const MUNICODE_SUFFIXES = ['municode.com','ecode360.com','codepublishing.com','legistar.com','amlegal.com'];
 
 const PERMIT_ENDPOINTS = {
   seattle:  'https://data.seattle.gov/resource/76t5-zqzr.json',       // Building permits
@@ -152,8 +172,8 @@ async function handleFema(params, origin) {
 async function handleArcgis(params, origin) {
   const url = params.get('url');
   if (!url) return corsResponse({ error: 'url required' }, origin, 400);
-  if (!/arcgis|services\.arcgisonline|gismaps|portlandmaps|hazards\.fema|dpw\.gis\.lacounty|sfplanninggis|acgov|hazards\.usgs|coast\.noaa|apps\.fs\.usda|fortress\.wa\.gov|gis\.dnr\.wa\.gov|gis\.conservation\.ca\.gov|services1\.arcgis|services6\.arcgis|fdot|saccounty|kingcounty|mcassessor|clarkcountynv|colorado\.gov|jeffco|miamidade|hillsborough|ocpafl|fultoncountyga|cobbcountyga|dekalbcountyga|wakegov|charlottenc|fairfaxcounty|franklincountyohio|cuyahogacounty|pasda\.psu|alleghenycounty|hennepin|webgis\.sccgov|gis-public\.sandiegocounty|countyofriverside|mapservices\.gis\.saccounty|gisportal\.jeffco|maps\.hillsboroughcounty|vgispublic\.ocpafl|gismaps\.fultoncountyga|geo-cobbcountyga|dcgis\.dekalbcountyga|maps\.wakegov|gis\.charlottenc|fairfaxcounty|gis\.franklincountyohio|gis\.cuyahogacounty|gisdata\.alleghenycounty|gis\.hennepin|www\.ocgis|clvgis|denvergov\.org|mapdata\.lasvegasnevada|sandiegocounty/i.test(url))
-    return corsResponse({ error: 'url must be an ArcGIS REST endpoint' }, origin, 400);
+  if (!validUpstream(url, ARCGIS_SUFFIXES))
+    return corsResponse({ error: 'url must be an https ArcGIS/GIS host on the allowlist' }, origin, 400);
   const resp = await fetch(url, { headers: PROXY_HEADERS });
   return jsonPassthrough(resp, origin, 'arcgis');
 }
@@ -161,9 +181,9 @@ async function handleArcgis(params, origin) {
 async function handleMunicode(params, origin) {
   const url = params.get('url');
   if (!url) return corsResponse({ error: 'url required' }, origin, 400);
-  if (!/municode|ecode360|codepublishing|legistar|amlegal/i.test(url))
-    return corsResponse({ error: 'url must be a recognized municipal-code domain' }, origin, 400);
-  const resp = await fetch(url);
+  if (!validUpstream(url, MUNICODE_SUFFIXES))
+    return corsResponse({ error: 'url must be an https municipal-code host on the allowlist' }, origin, 400);
+  const resp = await fetch(url, { headers: PROXY_HEADERS });
   if (!resp.ok) return corsResponse({ error: 'upstream_failed', upstreamStatus: resp.status }, origin, 502, ERR_CACHE);
   const text = await resp.text();
   return new Response(text, {
@@ -182,27 +202,8 @@ async function handlePermits(path, params, origin) {
   return jsonPassthrough(resp, origin, `permits:${city}`);
 }
 
-// Diagnostic — bypasses everything, fetches upstream raw, returns full info
-async function handleDiag(params, origin) {
-  const url = params.get('url');
-  if (!url) return corsResponse({ error: 'pass ?url=... to diagnose any endpoint' }, origin, 400);
-  try {
-    const t0 = Date.now();
-    const resp = await fetch(url, { headers: PROXY_HEADERS });
-    const text = await resp.text();
-    return corsResponse({
-      url,
-      upstreamStatus: resp.status,
-      upstreamContentType: resp.headers.get('content-type') || '(none)',
-      bodyLength: text.length,
-      bodyPreview: text.substring(0, 500),
-      elapsedMs: Date.now() - t0,
-      proxyVersion: PROXY_VERSION,
-    }, origin, 200, ERR_CACHE);
-  } catch (e) {
-    return corsResponse({ error: e.message, url, proxyVersion: PROXY_VERSION }, origin, 500, ERR_CACHE);
-  }
-}
+// (P1-B: the /diag open-fetch passthrough was removed — it was an
+// unauthenticated SSRF surface that fetched any URL and returned a body preview.)
 
 export default {
   async fetch(request, env, ctx) {
@@ -217,12 +218,11 @@ export default {
       if (path === '/arcgis') return await handleArcgis(u.searchParams, origin);
       if (path === '/municode') return await handleMunicode(u.searchParams, origin);
       if (path.startsWith('/permits/')) return await handlePermits(path, u.searchParams, origin);
-      if (path === '/diag') return await handleDiag(u.searchParams, origin);
       if (path === '/' || path === '/health') {
         return corsResponse({
           ok: true,
           version: PROXY_VERSION,
-          routes: ['/fema', '/arcgis', '/municode', '/permits/:city', '/diag?url='],
+          routes: ['/fema', '/arcgis', '/municode', '/permits/:city'],
           permitCities: Object.keys(PERMIT_ENDPOINTS),
         }, origin);
       }

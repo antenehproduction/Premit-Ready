@@ -41,6 +41,11 @@ The app can lock itself out through normal operation. Smallest, highest-urgency 
 
 Do **before** turning on billing or advertising the proxy. Tier 2 is a unit (shared root cause: plan/usage live in client-writable rows the server then counts).
 
+> **Status (2026-06-02):**
+> ⏳ **P1-A** not started — the quota/billing redesign (design-first; gates paid launch).
+> ✅ **P1-B** done (`52fc5bc`) — anchored `validUpstream()` SSRF allowlist + origin-locked CORS on `api/[...path].js`, `api/ai/[...path].js`, `workers/proxy.js`; `/diag` removed (api + worker + vercel.json). 12/12 SSRF allow/deny cases pass. *Note:* hostname allowlist is fail-closed — an obscure non-`.gov` county GIS host may 400 and need adding.
+> ✅ **P1-C** done (`52fc5bc`) — dead non-streaming AI handlers removed from `api/[...path].js`; `api/ai/[...path].js` is the single AI path.
+
 ### P1-A · Make quota/billing server-authoritative — **L** ⚑
 - **Issues:** AUDIT #5,#6,#7,#8 (+#9,#10,#11).
 - **Files:** `supabase/migrations/000X_quota_hardening.sql` (new), `api/ai/[...path].js`, `lib/proxy.js`.

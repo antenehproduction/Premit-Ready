@@ -21,8 +21,24 @@ export const config = { runtime: 'edge' };
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 const PLAN_QUOTAS = { trial: 1, pro: 50, team: 250 };
 
+// P1-B: this is the credentialed AI path (Bearer JWT in, Anthropic completion
+// out) — CORS is locked to the app's own origins so an arbitrary site cannot
+// drive the authenticated proxy. A disallowed origin gets the canonical origin
+// back, which the browser rejects on ACAO mismatch.
+const ALLOWED_ORIGINS = [
+  'https://antenehproduction.github.io',
+  'http://localhost:8080',
+  'http://127.0.0.1:8080',
+];
+function allowOrigin(origin) {
+  if (!origin) return ALLOWED_ORIGINS[0];
+  if (ALLOWED_ORIGINS.includes(origin)) return origin;
+  try { if (new URL(origin).hostname.endsWith('.vercel.app')) return origin; } catch (_) {}
+  return ALLOWED_ORIGINS[0];
+}
 const corsHeaders = (origin) => ({
-  'Access-Control-Allow-Origin': origin || '*',
+  'Access-Control-Allow-Origin': allowOrigin(origin),
+  'Vary': 'Origin',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Max-Age': '86400',

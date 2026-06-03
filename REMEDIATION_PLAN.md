@@ -42,7 +42,7 @@ The app can lock itself out through normal operation. Smallest, highest-urgency 
 Do **before** turning on billing or advertising the proxy. Tier 2 is a unit (shared root cause: plan/usage live in client-writable rows the server then counts).
 
 > **Status (2026-06-02):**
-> ⏳ **P1-A** not started — the quota/billing redesign (design-first; gates paid launch).
+> ✅ **P1-A** DONE — migration `0002` **applied to prod** (`apply_migration`, dry-run-validated first) + Edge/client deployed. Verified live: `authenticated` can no longer update `profiles.plan`; `analyses` is SELECT-only; `reserve_analysis`/`complete_analysis`/`has_active_analysis` enforce quota; advisor dropped ~11→3 findings (2 remaining are the intentional client RPCs; 1 is the leaked-password Auth toggle — owner action). See P1A_DESIGN.md §0.
 > ✅ **P1-B** done (`52fc5bc`) — anchored `validUpstream()` SSRF allowlist + origin-locked CORS on `api/[...path].js`, `api/ai/[...path].js`, `workers/proxy.js`; `/diag` removed (api + worker + vercel.json). 12/12 SSRF allow/deny cases pass. *Note:* hostname allowlist is fail-closed — an obscure non-`.gov` county GIS host may 400 and need adding.
 > ✅ **P1-C** done (`52fc5bc`) — dead non-streaming AI handlers removed from `api/[...path].js`; `api/ai/[...path].js` is the single AI path.
 

@@ -54,8 +54,8 @@ function jsonResp(body, origin, status = 200) {
 
 async function supabaseUserFromJWT(jwt) {
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-  if (!url || !key) return { error: 'supabase_env_missing', user: null };
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY; // P1-A #9: no anon fallback — fail closed
+  if (!url || !key) return { error: 'service_role_missing', user: null };
   try {
     const r = await fetch(`${url}/auth/v1/user`, {
       headers: { Authorization: `Bearer ${jwt}`, apikey: key },
@@ -100,17 +100,38 @@ async function supabaseInsert(table, row) {
   return { error: null };
 }
 
+// P1-A: call a SECURITY DEFINER RPC via service-role (e.g. has_active_analysis,
+// current_period_usage). Returns { data, error }.
+async function rpcCall(fn, args) {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return { error: 'service_role_missing', data: null };
+  try {
+    const r = await fetch(`${url}/rest/v1/rpc/${fn}`, {
+      method: 'POST',
+      headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(args || {}),
+    });
+    if (!r.ok) return { error: `rpc_${r.status}`, data: null };
+    let data = null; try { data = await r.json(); } catch (_) {}
+    return { data, error: null };
+  } catch (e) {
+    return { error: e.message, data: null };
+  }
+}
+
+// Authoritative plan + period usage (used by /whoami). `used` comes from the
+// SQL current_period_usage() RPC, NOT a client-forgeable row count.
+// P1-A #9: fail closed — a read error reports used=Infinity (deny), never a
+// usable trial state.
 async function getUserPlanAndUsage(userId) {
   const profileResp = await supabaseSelect('profiles',
-    `select=plan,plan_renews_at&id=eq.${encodeURIComponent(userId)}&limit=1`);
-  if (profileResp.error || !profileResp.data?.length) return { plan: 'trial', used: 0, error: profileResp.error };
-  const plan = profileResp.data[0].plan || 'trial';
-  const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-  const dateClause = plan === 'trial' ? '' : `&completed_at=gte.${encodeURIComponent(since)}`;
-  const usageResp = await supabaseSelect('analyses',
-    `select=id&user_id=eq.${encodeURIComponent(userId)}&status=eq.completed${dateClause}`);
-  const used = usageResp.data?.length || 0;
-  return { plan, used, quota: PLAN_QUOTAS[plan] || 0, error: null };
+    `select=plan&id=eq.${encodeURIComponent(userId)}&limit=1`);
+  if (profileResp.error) return { plan: null, used: Infinity, quota: 0, error: profileResp.error };
+  const plan = profileResp.data?.[0]?.plan || 'trial';
+  const usageResp = await rpcCall('current_period_usage', { uid: userId });
+  if (usageResp.error) return { plan, used: Infinity, quota: PLAN_QUOTAS[plan] || 0, error: usageResp.error };
+  return { plan, used: usageResp.data || 0, quota: PLAN_QUOTAS[plan] || 0, error: null };
 }
 
 async function handleMessages(request, origin) {
@@ -118,17 +139,28 @@ async function handleMessages(request, origin) {
   const jwt = authz.replace(/^Bearer\s+/i, '').trim();
   if (!jwt) return jsonResp({ error: 'missing_authorization' }, origin, 401);
   const { user, error: authErr } = await supabaseUserFromJWT(jwt);
-  if (authErr || !user?.id) return jsonResp({ error: 'invalid_token', detail: authErr }, origin, 401);
+  if (authErr || !user?.id) return jsonResp({ error: 'unauthorized' }, origin, 401); // P1-A: no detail leak
+  // P1-A #10: only genuine signed-in end-users — reject anon / service tokens.
+  if (user.role !== 'authenticated') return jsonResp({ error: 'unauthorized' }, origin, 401);
 
   let body;
   try { body = await request.json(); } catch (_) { return jsonResp({ error: 'invalid_json_body' }, origin, 400); }
   if (!body?.messages || !Array.isArray(body.messages)) {
     return jsonResp({ error: 'messages_required' }, origin, 400);
   }
-
-  const { plan, used, quota } = await getUserPlanAndUsage(user.id);
-  if ((quota || 0) <= 0) return jsonResp({ error: 'no_active_plan', plan, used, quota }, origin, 402);
-  if (used >= quota)     return jsonResp({ error: 'quota_exceeded', plan, used, quota }, origin, 402);
+  // P1-A #11: bound request size (cost-amplification guard).
+  if (JSON.stringify(body.messages).length > 256 * 1024) {
+    return jsonResp({ error: 'payload_too_large' }, origin, 413);
+  }
+  // P1-A #7/#8: authorize against a fresh reservation. reserve_analysis (client
+  // RPC) already created the 'running' row and enforced quota atomically; here
+  // we only confirm the user holds that live reservation — no per-message count,
+  // no race. Direct calls without a reservation get 402.
+  const analysisId = body.analysis_id;
+  if (!analysisId) return jsonResp({ error: 'no_active_analysis' }, origin, 402);
+  const active = await rpcCall('has_active_analysis', { uid: user.id, aid: analysisId });
+  if (active.error) return jsonResp({ error: 'authz_unavailable' }, origin, 503); // fail closed
+  if (active.data !== true) return jsonResp({ error: 'no_active_analysis' }, origin, 402);
 
   const anthroKey = process.env.ANTHROPIC_KEY;
   if (!anthroKey) return jsonResp({ error: 'anthropic_key_missing' }, origin, 500);
@@ -147,8 +179,8 @@ async function handleMessages(request, origin) {
       'Accept': 'text/event-stream',
     },
     body: JSON.stringify({
-      model: body.model || 'claude-sonnet-4-6',
-      max_tokens: body.max_tokens || 1500,
+      model: 'claude-sonnet-4-6',                                          // P1-A #11: pinned server-side
+      max_tokens: Math.min(Math.max(1, Number(body.max_tokens) || 1500), 4096), // P1-A #11: clamped
       messages: body.messages,
       stream: true,
       ...(body.system ? { system: body.system } : {}),
@@ -196,10 +228,11 @@ async function handleMessages(request, origin) {
       if (usage) {
         await supabaseInsert('usage_events', {
           user_id: user.id,
+          analysis_id: analysisId,
           event_type: 'ai_message',
           tokens_in: usage.input_tokens || null,
           tokens_out: usage.output_tokens || null,
-          model: modelName || body.model || 'claude-sonnet-4-6',
+          model: modelName || 'claude-sonnet-4-6',
           ms_elapsed: Date.now() - t0,
         });
       }
@@ -222,9 +255,10 @@ async function handleWhoami(request, origin) {
   const jwt = authz.replace(/^Bearer\s+/i, '').trim();
   if (!jwt) return jsonResp({ error: 'missing_authorization' }, origin, 401);
   const { user, error: authErr } = await supabaseUserFromJWT(jwt);
-  if (authErr || !user?.id) return jsonResp({ error: 'invalid_token', detail: authErr }, origin, 401);
+  if (authErr || !user?.id) return jsonResp({ error: 'unauthorized' }, origin, 401);
+  if (user.role !== 'authenticated') return jsonResp({ error: 'unauthorized' }, origin, 401);
   const { plan, used, quota } = await getUserPlanAndUsage(user.id);
-  return jsonResp({ user: { id: user.id, email: user.email }, plan, used, quota }, origin, 200);
+  return jsonResp({ plan, used, quota }, origin, 200); // P1-A: no id/email echo
 }
 
 export default async function handler(request) {
@@ -242,8 +276,8 @@ export default async function handler(request) {
       return await handleMessages(request, origin);
     }
     if (leaf === 'whoami') return await handleWhoami(request, origin);
-    return jsonResp({ error: 'not found', tried: subPath, scope: 'api/ai' }, origin, 404);
+    return jsonResp({ error: 'not_found' }, origin, 404);
   } catch (e) {
-    return jsonResp({ error: e.message, scope: 'api/ai' }, origin, 500);
+    return jsonResp({ error: 'internal_error' }, origin, 500); // P1-A: no e.message leak
   }
 }

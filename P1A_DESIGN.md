@@ -1,8 +1,17 @@
-# P1-A — Server-Authoritative Quota & Billing (Design Pass)
+# P1-A — Server-Authoritative Quota & Billing
 
-**Date:** 2026-06-02 · **Status:** design + draft migration for review — **nothing applied to the live DB.**
+**Date:** 2026-06-02 · **Status:** **implemented + dry-run-validated** — migration NOT yet applied to prod (deploys with the code, see §7).
 **Closes:** AUDIT.md #5–#11 + live Supabase security-advisor findings.
-**Artifacts in this PR:** `supabase/migrations/0002_p1_a_quota_hardening.sql` (draft), this doc.
+**Artifacts:** `supabase/migrations/0002_p1_a_quota_hardening.sql`, Edge (`api/ai/[...path].js`), client (`lib/proxy.js`, `index.html`), this doc.
+
+## 0. Validation status (2026-06-02)
+
+Supabase **branching requires Pro** (project is free-tier), so true staging wasn't available. Instead the migration was validated by **`BEGIN … ROLLBACK` dry-runs against prod** (verified non-persisting first; prod confirmed unchanged after). Two bugs were caught and fixed:
+
+1. **`REVOKE … FROM PUBLIC` was insufficient** — Supabase default-privileges grant function `EXECUTE` to `anon`/`authenticated` directly, so the lockdown must revoke from `public, anon, authenticated`.
+2. **`analyses` had stray `DELETE/TRIGGER/TRUNCATE/REFERENCES`** grants (out-of-band `grant all`) — switched to `REVOKE ALL` then `GRANT SELECT`.
+
+Final dry-run — all green: `analyses` authenticated grants = `[SELECT]`; `current_period_usage`/`handle_new_user`/`plan_quota`/`can_run_analysis` no longer client-executable; `reserve_analysis` callable by `authenticated` only (not `anon`); `has_active_analysis` callable by `service_role`. **Functional test** (simulated authenticated user via `request.jwt.claims`): 1st `reserve_analysis` → OK, `has_active` → true, 2nd reserve at trial=1 → **`quota_exceeded`**, after `complete_analysis` → active false.
 
 ---
 

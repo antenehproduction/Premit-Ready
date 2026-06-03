@@ -25,8 +25,11 @@
 
 begin;
 
--- ── 1. profiles: client may update display_name ONLY ─────────────────────
-revoke update on public.profiles from authenticated;
+-- ── 1. profiles: client may SELECT, and UPDATE display_name ONLY ─────────
+-- REVOKE ALL first: the live grant set included more than SELECT/UPDATE (out-
+-- of-band `grant all`), so revoke everything then re-grant the minimum.
+revoke all on public.profiles from authenticated;
+grant  select on public.profiles to authenticated;
 grant  update (display_name) on public.profiles to authenticated;
 
 drop policy if exists "profiles self update" on public.profiles;
@@ -34,10 +37,13 @@ create policy "profiles self update" on public.profiles
   for update using (auth.uid() = id) with check (auth.uid() = id);
 
 -- ── 2. analyses: client is READ-ONLY; lifecycle moves to the RPCs ────────
-revoke insert, update on public.analyses from authenticated;
+-- REVOKE ALL clears the stray DELETE/TRIGGER/TRUNCATE/REFERENCES grants seen
+-- live; re-grant only SELECT so the UI can show history.
+revoke all on public.analyses from authenticated;
+grant  select on public.analyses to authenticated;
 drop policy if exists "analyses self insert" on public.analyses;
 drop policy if exists "analyses self update" on public.analyses;
--- "analyses self read" (SELECT) is retained so the UI can show history.
+-- "analyses self read" (SELECT) policy is retained.
 
 -- ── 3. quota counting: completed-in-window + in-flight running ───────────
 -- Counting recent 'running' rows blocks the "start N analyses at once" bypass;
@@ -162,15 +168,18 @@ as $$
 $$;
 
 -- ── 7. lock down function EXECUTE (advisors 0028 / 0029) ─────────────────
--- Internal/trigger + server-only functions must NOT be RPC-callable by
--- clients. service_role retains EXECUTE (it is not in PUBLIC and bypasses
--- these revokes for owned/granted objects; explicit grants added where the
--- Edge Function calls them).
-revoke all on function public.handle_new_user()              from anon, authenticated;
-revoke all on function public.current_period_usage(uuid)     from anon, authenticated;
-revoke all on function public.can_run_analysis(uuid)         from anon, authenticated;
-revoke all on function public.plan_quota(text)               from anon, authenticated;
-revoke all on function public.has_active_analysis(uuid,uuid) from anon, authenticated;
+-- Functions grant EXECUTE to PUBLIC by default — that (not a grant to anon/
+-- authenticated) plus Supabase's default-privilege grants to anon/authenticated
+-- AND the explicit 0001 grants — so revoke from all three to truly lock these
+-- down. service_role keeps access via the explicit grants below. (Verified by
+-- dry-run: revoking from PUBLIC alone left anon/authenticated EXECUTE intact.)
+revoke all on function public.handle_new_user()                     from public, anon, authenticated;
+revoke all on function public.current_period_usage(uuid)            from public, anon, authenticated;
+revoke all on function public.can_run_analysis(uuid)                from public, anon, authenticated;
+revoke all on function public.plan_quota(text)                      from public, anon, authenticated;
+revoke all on function public.has_active_analysis(uuid,uuid)        from public, anon, authenticated;
+revoke all on function public.reserve_analysis(text,text,text,text) from public, anon, authenticated;
+revoke all on function public.complete_analysis(uuid,text,text)     from public, anon, authenticated;
 
 -- rls_auto_enable() exists on the live project but is not in 0001 (added out of
 -- band). Revoke defensively only if present, so this migration also runs on a
@@ -181,7 +190,7 @@ begin
     select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
     where n.nspname = 'public' and p.proname = 'rls_auto_enable'
   ) then
-    execute 'revoke all on function public.rls_auto_enable() from anon, authenticated';
+    execute 'revoke all on function public.rls_auto_enable() from public, anon, authenticated';
   end if;
 end $$;
 

@@ -1659,6 +1659,20 @@ function baseCostPerSF(state){
   if(['FL','TX'].includes(s))return 200;                // low-cost, high-volume
   return 260;                                            // national mid
 }
+// DATA-2: regional finished-resale value $/SF (what completed space is worth) —
+// the VALUE side of the option ROI model, the counterpart to baseCostPerSF (the
+// COST side). Rough planning figures; ideally sourced from an FHFA/Zillow
+// regional $/SF index. Set so value exceeds all-in dev cost in viable markets
+// (otherwise infill development wouldn't pencil and every option would score ≤0,
+// which is exactly the degeneracy this fixes).
+function marketValuePerSF(state){
+  const s=normalizeState(state);
+  if(s==='CA')return 820;
+  if(['NY','DC','MA'].includes(s))return 700;
+  if(s==='WA')return 700;
+  if(['FL','TX'].includes(s))return 360;
+  return 470;                                            // national mid
+}
 function generateOptions(z){
   const bW=Math.max(14,z.lotWidth-z.leftSetback-z.rightSetback);
   const bD=Math.max(20,z.lotDepth-z.frontSetback-z.rearSetback);
@@ -1671,20 +1685,23 @@ function generateOptions(z){
 
   const opts=[];
 
-  // Compute realistic costs and values.
-  // DATA-2 fix (2026-04): apply a time-based inflation multiplier so the
-  // hard-coded $/SF baselines (anchored to 2024-Q1 publication) track
-  // current construction-cost inflation. ENR CCI is paywalled; BLS PPI for
-  // Residential Construction (series PCU236116, https://data.bls.gov/) is
-  // the closest free analog and is what the multiplier below tracks.
-  // Update procedure: every quarter, fetch the latest PPI value, divide by
-  // the baseline-quarter PPI value, set window.COST_INDEX.current to the
-  // ratio, and bump COST_INDEX.asOf. Auto-refresh script is a planned
-  // follow-up (parallel to fetch-socrata-schemas.py — workflow on cron).
+  // ── DATA-2: coherent cost-vs-value model so option ROI is meaningful ──
+  // Previously COST was per-SF but VALUE was per-UNIT with too-low magnitudes,
+  // so most options computed a NEGATIVE ROI and the scorer had nothing to rank
+  // (it fell back to "first legal option"). Both sides are now per-SF and
+  // inflation-adjusted via COST_INDEX (BLS PPI for Residential Construction,
+  // series PCU236116 — ENR CCI is paywalled; this free analog tracks the same
+  // labor+materials inputs; update COST_INDEX.current quarterly):
+  //   all-in dev cost/SF = construction $/SF × seismic premium × soft-cost factor
+  //   market value/SF     = regional finished-resale $/SF (marketValuePerSF)
+  // Land is excluded (unknown per parcel), so these are planning-grade estimates,
+  // not an appraisal. ROI = (value − all-in dev cost) / all-in dev cost; the
+  // shared costIndex cancels out of the ratio (it only scales the displayed $).
   const costIndex=(window.COST_INDEX&&window.COST_INDEX.current)||1.06;
+  const SOFT_COST=1.30;                                  // design+permits+financing+contingency
   const costPerSF=Math.round(baseCostPerSF(z.state)*costIndex);
-  const valuePerUnit=Math.round(((isCA)?720000:isWA?540000:320000)*costIndex);
-  const costMultiplier=(highSeismic)?1.18:1.0;// seismic premium
+  const valPerSF=Math.round(marketValuePerSF(z.state)*costIndex);
+  const costMultiplier=(highSeismic?1.18:1.0)*SOFT_COST; // seismic premium × soft costs → all-in
 
   // Round 5p fix #8: clamp option SF to the buildable envelope.
   // The naive bW*bD*storyMultiplier formula consistently overstated SF
@@ -1698,25 +1715,25 @@ function generateOptions(z){
   }
 
   // Option 1: Conservative — SFR + ADU
-  {const sf=clampSF(bW*bD*.65, 1);const units=adu?2:1;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.8);
+  {const sf=clampSF(bW*bD*.65, 1);const units=adu?2:1;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(sf*valPerSF*1.00);
   opts.push({id:1,_primaryUnits:1,icon:'🏡',name:'Conservative SFR + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 1-story`,badge:'Low Risk',badgeClass:'badge-green',units,sf,_roi:(val-cost)/cost,stories:1,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.2/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.15/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.1-cost)/cost*80)}%`,risk:'Low',timeline:'8–12 months',green:['Solar-ready','EV parking','Energy Star'],cert:`${db.ec} + LEED for Homes possible`,permits:'By-right, ministerial'})}
 
   // Option 2: Stacked Duplex + ADU (if 2+ stories)
-  if(maxSt>=2){const sf=clampSF(bW*bD*1.3, 2);const units=adu?3:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.85);
+  if(maxSt>=2){const sf=clampSF(bW*bD*1.3, 2);const units=adu?3:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(sf*valPerSF*1.02);
   opts.push({id:2,_primaryUnits:2,icon:'🏘️',name:'Stacked Duplex + ADU',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Cash Flow',badgeClass:'badge-blue',units,sf,_roi:(val-cost)/cost,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.18/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.15-cost)/cost*80)}%`,risk:'Low-Medium',timeline:'14–18 months',green:['Passive solar orientation','Solar PV 8kW','Zehnder ERV','EV charging × 2'],cert:`LEED Silver achievable · ${db.ec}`,permits:'By-right in most R zones'})}
 
   // Option 3: Side-by-Side + ADUs (if wide enough)
-  if(bW>=40&&maxSt>=2){const sf=clampSF(bW*bD*1.55, 2);const units=adu?4:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
+  if(bW>=40&&maxSt>=2){const sf=clampSF(bW*bD*1.55, 2);const units=adu?4:2;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(sf*valPerSF*1.08);
   opts.push({id:3,_primaryUnits:2,icon:'🌿',name:'Net-Zero Side-by-Side + 2 ADUs',type:`${units}-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Best Sustainability',badgeClass:'badge-purple',units,sf,_roi:(val-cost)/cost,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.25/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.2/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'16–22 months',green:['Net-zero energy','Shared 16kW solar','Warmboard radiant','Greywater reuse','Green roof on ADU','EV fleet charging'],cert:`LEED Gold · Passive House EnerPHit possible`,permits:'By-right if <50% lot coverage'})}
 
   // Option 4: Max Density Triplex/4-plex
-  if(maxSt>=2){const sf=clampSF(bW*bD*(maxSt>=3?1.9:1.65), maxSt);const units=adu?maxSt*2+1:maxSt*2;const cost=Math.round(sf*costPerSF*1.05*costMultiplier);const val=Math.round(units*valuePerUnit*.92);
+  if(maxSt>=2){const sf=clampSF(bW*bD*(maxSt>=3?1.9:1.65), maxSt);const units=adu?maxSt*2+1:maxSt*2;const cost=Math.round(sf*costPerSF*1.05*costMultiplier);const val=Math.round(sf*valPerSF*1.05);
   opts.push({id:4,_primaryUnits:maxSt*2,icon:'🏗️',name:`Maximum Density ${maxSt}-Story + ADUs`,type:`${units}-unit · ${sf.toLocaleString()} SF · ${maxSt}-story`,badge:'Highest Density',badgeClass:'badge-amber',units,sf,_roi:(val-cost)/cost,stories:maxSt,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.28/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.22/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium-High',timeline:'20–28 months',green:['LEED Platinum target','22kW solar array','Living roof','WUFI thermal bridge analysis','Triple-pane windows'],cert:`LEED Platinum · ${db.bc} Type V-A`,permits:'May require design review / DRB approval'})}
 
   // Option 5: CA SB9 or WA MFTE
-  if(isCA&&z.sb9Eligible!==false){const sf=clampSF(bW*bD*1.7, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.95);
+  if(isCA&&z.sb9Eligible!==false){const sf=clampSF(bW*bD*1.7, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(sf*valPerSF*1.05);
   opts.push({id:5,_primaryUnits:4,icon:'🏙️',name:'SB9 Lot Split → 4 Units',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Max ROI (CA SB9)',badgeClass:'badge-purple',units,sf,_roi:(val-cost)/cost,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'18–26 months',green:['Solar required (T24)','CALGreen Tier 2','EV-ready × 4','Water-efficient landscaping'],cert:`CALGreen Tier 2 · Title 24 2022`,permits:'Ministerial under SB9 — city cannot deny',_entitlement:'by-right'})
-  }else if(isWA){const sf=clampSF(bW*bD*1.6, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(units*valuePerUnit*.9);
+  }else if(isWA){const sf=clampSF(bW*bD*1.6, 2);const units=4;const cost=Math.round(sf*costPerSF*costMultiplier);const val=Math.round(sf*valPerSF*0.92);
   opts.push({id:5,_primaryUnits:4,icon:'🏙️',name:'MFTE Affordable 4-Unit',type:`4-unit · ${sf.toLocaleString()} SF · 2-story`,badge:'Tax Exemption (WA)',badgeClass:'badge-purple',units,sf,_roi:(val-cost)/cost,stories:2,cost:`$${Math.round(cost/1000)}K–$${Math.round(cost*1.22/1000)}K`,value:`$${Math.round(val/1000)}K–$${Math.round(val*1.25/1000)}K`,roi:`${Math.round((val-cost)/cost*80)}–${Math.round((val*1.2-cost)/cost*80)}%`,risk:'Medium',timeline:'20–26 months',green:['WSEC 2021 enhanced','Solar-ready','EV × 2','Permeable paving'],cert:`WSEC 2021 · MFTE 12-yr tax exemption`,permits:'City MFTE approval + design review',_entitlement:'conditional'})
   }
 

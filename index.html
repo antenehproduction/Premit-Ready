@@ -394,6 +394,27 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
 #auth-modal .auth-foot a:hover{text-decoration:underline}
 #auth-modal .auth-divider{text-align:center;font-size:9px;letter-spacing:1px;color:rgba(20,33,61,.45);margin:10px 0;text-transform:uppercase;font-family:var(--mono,monospace)}
 #auth-modal .auth-disclosure{margin-top:14px;padding-top:12px;border-top:1px solid rgba(20,33,61,.12);font-size:9px;line-height:1.45;color:rgba(20,33,61,.6)}
+/* L3: Project-Info intake modal (title-block fields) */
+#pi-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,12,20,.78);backdrop-filter:blur(6px);z-index:10001}
+#pi-modal.show{display:flex}
+#pi-modal .pi-card{width:540px;max-width:94vw;max-height:90vh;overflow-y:auto;background:#fffdf3;color:#14213d;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5);padding:24px 26px;font-family:var(--mono,monospace)}
+#pi-modal h2{font-size:16px;font-weight:600;letter-spacing:.5px;margin:0 0 3px}
+#pi-modal .pi-sub{font-size:10.5px;color:rgba(20,33,61,.62);margin:0 0 14px;line-height:1.4}
+#pi-modal .pi-context{font-size:9.5px;color:#0e3d8a;background:rgba(14,61,138,.06);border-radius:4px;padding:6px 8px;margin-bottom:6px}
+#pi-modal .pi-sec{font-size:9px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#0e3d8a;margin:14px 0 4px;border-bottom:1px solid rgba(20,33,61,.12);padding-bottom:3px}
+#pi-modal .pi-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
+#pi-modal .pi-rev{display:grid;grid-template-columns:54px 120px 1fr;gap:10px}
+#pi-modal .pi-full{grid-column:1 / -1}
+#pi-modal label{display:block;font-size:8.5px;letter-spacing:.4px;text-transform:uppercase;color:rgba(20,33,61,.6);margin:7px 0 3px}
+#pi-modal input,#pi-modal textarea{width:100%;padding:8px 9px;background:#fff;border:1px solid rgba(20,33,61,.25);border-radius:5px;color:#14213d;font-size:12px;font-family:inherit;box-sizing:border-box}
+#pi-modal textarea{resize:vertical;min-height:44px}
+#pi-modal input:focus,#pi-modal textarea:focus{outline:none;border-color:#0e3d8a;box-shadow:0 0 0 2px rgba(14,61,138,.15)}
+#pi-modal .pi-hint{font-size:8.5px;color:rgba(20,33,61,.5);margin-top:3px}
+#pi-modal .pi-actions{display:flex;gap:10px;margin-top:18px}
+#pi-modal .pi-btn{flex:1;padding:10px;background:#0e3d8a;color:#fffdf3;border:none;border-radius:5px;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;cursor:pointer;font-family:inherit}
+#pi-modal .pi-btn:hover{background:#0a2d6a}
+#pi-modal .pi-btn.alt{flex:0 0 130px;background:#fff;color:#14213d;border:1px solid rgba(20,33,61,.3)}
+#pi-modal .pi-btn.alt:hover{background:#f5f1e3}
 </style>
 </head>
 <body>
@@ -591,6 +612,41 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
   </div>
 </div>
 
+<!-- ═══ L3: Project-Info intake (title-block fields) ═══ -->
+<div id="pi-modal" role="dialog" aria-modal="true" aria-labelledby="pi-title" onclick="if(event.target===this)closePIModal()">
+  <div class="pi-card">
+    <h2 id="pi-title">Project Information</h2>
+    <p class="pi-sub">Populates the title block on every sheet. Blank fields render as on-drawing placeholders — never fabricated. Address, zoning &amp; APN auto-fill from the analysis.</p>
+    <div class="pi-context" id="pi-context">No analysis loaded yet.</div>
+    <div class="pi-sec">Owner / Applicant</div>
+    <div class="pi-grid">
+      <div><label for="pi-owner">Owner / applicant</label><input id="pi-owner" placeholder="Name"></div>
+      <div><label for="pi-ownerPhone">Owner phone</label><input id="pi-ownerPhone" placeholder="(555) 000-0000"></div>
+    </div>
+    <div class="pi-sec">Design Team</div>
+    <div class="pi-grid">
+      <div><label for="pi-designer">Designer / drafter</label><input id="pi-designer"></div>
+      <div><label for="pi-designerPhone">Designer phone</label><input id="pi-designerPhone"></div>
+      <div class="pi-full"><label for="pi-engineer">Engineer(s) of record (if known)</label><input id="pi-engineer" placeholder="Structural / MEP / Civil PE — by others"></div>
+    </div>
+    <div class="pi-sec">Parcel</div>
+    <div class="pi-grid">
+      <div class="pi-full"><label for="pi-apn">APN / Tax Parcel #</label><input id="pi-apn"><div class="pi-hint" id="pi-apn-hint"></div></div>
+      <div class="pi-full"><label for="pi-legal">Legal description (Lot / Block / Subdivision, or metes &amp; bounds)</label><textarea id="pi-legal" placeholder="PER RECORDED PLAT / SURVEY"></textarea></div>
+    </div>
+    <div class="pi-sec">Add Revision (optional)</div>
+    <div class="pi-rev">
+      <div><label for="pi-rev-n">Rev #</label><input id="pi-rev-n" placeholder="1"></div>
+      <div><label for="pi-rev-date">Date</label><input id="pi-rev-date" placeholder="MM/DD/YY"></div>
+      <div><label for="pi-rev-desc">Description</label><input id="pi-rev-desc" placeholder="e.g. Plan-check corrections"></div>
+    </div>
+    <div class="pi-actions">
+      <button class="pi-btn alt" onclick="closePIModal()">Cancel</button>
+      <button class="pi-btn" onclick="savePIModal()">Save to title block</button>
+    </div>
+  </div>
+</div>
+
 <div id="log-panel"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -678,7 +734,7 @@ const S={
   generatedOptions:[],   // 2-5 computed options
   // L3: title-block project info (owner/designer/engineer/legal). Editable via
   // editProjectInfo(); blanks render as permit placeholders, never fabricated.
-  projectInfo:{owner:'',ownerPhone:'',designer:'',designerPhone:'',engineer:'',legalDescription:'',revisions:[]},
+  projectInfo:{owner:'',ownerPhone:'',designer:'',designerPhone:'',engineer:'',apn:'',legalDescription:'',revisions:[]},
 };
 const PHASES=[
   {id:'site',  lbl:'Site & Parcel Research'},
@@ -4373,16 +4429,38 @@ function drawCivilSheet(ctx,W,H){
     return {notes:['CIVIL NOTES (BY CIVIL ENGINEER):','GRADING:',`  Datum EL. ${baseEl.toFixed(1)}' (USGS 3DEP)`,'  Slope 2% min / 5′ from bldg.','  Spot grades + FF by survey.','UTILITIES:','  Water + sewer to main, or','  septic/well by design (verify).','STORMWATER:','  Roof + site runoff retained/','  detained per code (civil to size).','EROSION:','  '+esc,'  Silt fence + inlet protection.','','Contours approx. — VERIFY BY SURVEY']};
   },{name:'Civil',seal:'PE'});
 }
-// L3: lightweight local editor for the title-block project info (no API).
+// L3: Project-Info intake modal (title-block fields). Local only, no API.
+// Opens a form pre-filled from S.projectInfo; APN/zoning/address context comes
+// from the analysis (county assessor record where found). Blanks stay blank →
+// the title block renders honest placeholders, never fabricated values.
 function editProjectInfo(){
   const pi=S.projectInfo||(S.projectInfo={revisions:[]});
-  const q=(label,cur)=>{const v=prompt(label,cur||'');return v==null?cur:v.trim();};
-  pi.owner=q('Owner / applicant name:',pi.owner);
-  pi.ownerPhone=q('Owner phone:',pi.ownerPhone);
-  pi.designer=q('Designer / drafter:',pi.designer);
-  pi.engineer=q('Engineer of record (if known):',pi.engineer);
-  pi.legalDescription=q('Legal description (Lot/Block/Subdivision or metes & bounds):',pi.legalDescription);
-  try{L.info('Project info updated for title block')}catch(_){}
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v||'';};
+  set('pi-owner',pi.owner);set('pi-ownerPhone',pi.ownerPhone);set('pi-designer',pi.designer);
+  set('pi-designerPhone',pi.designerPhone);set('pi-engineer',pi.engineer);set('pi-apn',pi.apn);set('pi-legal',pi.legalDescription);
+  set('pi-rev-n','');set('pi-rev-date','');set('pi-rev-desc','');
+  const z=S._z||{};const ctx=document.getElementById('pi-context');
+  if(ctx)ctx.textContent=S.addr?`Site: ${S.addr}  ·  ${z.jurisdiction||'—'}, ${z.state||'—'}  ·  Zone ${z.zoningDistrict||'—'}`:'No analysis loaded — run one to auto-fill site, zoning & APN.';
+  const cAPN=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||'';
+  const hint=document.getElementById('pi-apn-hint');
+  if(hint)hint.textContent=cAPN?`Auto-detected from county assessor: ${cAPN} (leave blank to use it)`:'Not in county records — enter manually, or leave blank for "PER ASSESSOR".';
+  const apnIn=document.getElementById('pi-apn');if(apnIn)apnIn.placeholder=cAPN||'PER ASSESSOR';
+  const m=document.getElementById('pi-modal');if(m)m.classList.add('show');
+}
+function closePIModal(){const m=document.getElementById('pi-modal');if(m)m.classList.remove('show');}
+function savePIModal(){
+  const pi=S.projectInfo||(S.projectInfo={revisions:[]});
+  const get=id=>{const el=document.getElementById(id);return el?el.value.trim():'';};
+  pi.owner=get('pi-owner');pi.ownerPhone=get('pi-ownerPhone');pi.designer=get('pi-designer');
+  pi.designerPhone=get('pi-designerPhone');pi.engineer=get('pi-engineer');pi.apn=get('pi-apn');pi.legalDescription=get('pi-legal');
+  if(!Array.isArray(pi.revisions))pi.revisions=[];
+  const rn=get('pi-rev-n'),rd=get('pi-rev-date'),rdesc=get('pi-rev-desc');
+  if(rn||rdesc){
+    if(!pi.revisions.length)pi.revisions.push({n:'0',date:new Date().toLocaleDateString('en-US'),desc:'Issued for permit (prelim.)'});
+    pi.revisions.push({n:rn||String(pi.revisions.length),date:rd||new Date().toLocaleDateString('en-US'),desc:rdesc||'Revision'});
+  }
+  closePIModal();
+  try{L.info('Project info saved to title block'+((rn||rdesc)?' (+1 revision)':''))}catch(_){}
   if(S.plan&&typeof renderSheet==='function')renderSheet(S.activeSheet);
 }
 function dimLine(ctx,x1,y1,x2,y2,lbl,vert=false){

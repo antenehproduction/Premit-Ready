@@ -1192,12 +1192,41 @@ function localFloorPlan(z, selectedOption){
   if(wantADU&&aduD>=14){const aw=Math.min(bW,Math.max(20,bW/Math.max(1,adus)));const acols=splitBand(bX,Math.min(bW,aw*adus),Array(adus).fill(1));
     for(let a=0;a<adus;a++){const id=newUnit(`ADU ${a+1}`,'adu');placements.push({u:id,box:{x:acols[a].off,y:aduY,w:acols[a].size,h:aduD},level:1,role:'flat',pfx:`ADU${adus>1?(a+1):''} `,multi:false});}
   }
+  // ── L1 Phase C: derive first-class walls[] (ext perimeter + party/demising)
+  //    and openings[] (per-unit ground entry + perimeter egress windows). These
+  //    drive demising-wall rendering, the L5 safety overlay, and the DXF/plot. ──
+  function floorWalls(places,rooms,level){
+    const T=0.5,walls=[],openings=[];
+    const boxes=places.map(p=>({x:p.box.x,y:p.box.y,w:p.box.w,h:p.box.h,u:p.u}));
+    if(!boxes.length)return{walls,openings};
+    const par=boxes.map((_,i)=>i),find=i=>par[i]===i?i:(par[i]=find(par[i]));
+    const touch=(a,b)=>{const yOv=Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)>0.5,xOv=Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>0.5;
+      const vE=Math.abs((a.x+a.w)-b.x)<0.3||Math.abs((b.x+b.w)-a.x)<0.3,hE=Math.abs((a.y+a.h)-b.y)<0.3||Math.abs((b.y+b.h)-a.y)<0.3;
+      return (vE&&yOv)||(hE&&xOv)};
+    for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++)if(touch(boxes[i],boxes[j]))par[find(i)]=find(j);
+    const groups={};boxes.forEach((b,i)=>{(groups[find(i)]=groups[find(i)]||[]).push(b)});
+    Object.values(groups).forEach(g=>{
+      const x0=Math.min(...g.map(b=>b.x)),y0=Math.min(...g.map(b=>b.y)),x1=Math.max(...g.map(b=>b.x+b.w)),y1=Math.max(...g.map(b=>b.y+b.h));
+      walls.push({x1:x0,y1:y0,x2:x1,y2:y0,kind:'ext',t:T},{x1:x1,y1:y0,x2:x1,y2:y1,kind:'ext',t:T},{x1:x1,y1:y1,x2:x0,y2:y1,kind:'ext',t:T},{x1:x0,y1:y1,x2:x0,y2:y0,kind:'ext',t:T});
+      for(let i=0;i<g.length;i++)for(let j=i+1;j<g.length;j++){const a=g[i],b=g[j];if(a.u===b.u)continue;
+        if(Math.abs((a.x+a.w)-b.x)<0.3||Math.abs((b.x+b.w)-a.x)<0.3){const ex=Math.abs((a.x+a.w)-b.x)<0.3?a.x+a.w:b.x+b.w;const yy0=Math.max(a.y,b.y),yy1=Math.min(a.y+a.h,b.y+b.h);if(yy1-yy0>1)walls.push({x1:ex,y1:yy0,x2:ex,y2:yy1,kind:'party',t:T});}
+      }
+      if(level===1)g.forEach(b=>{if(Math.abs(b.y-y0)<0.3)openings.push({kind:'door',x:b.x+Math.min(b.w/2,b.w-2.5),y:y0,w:3,onUnit:b.u});});
+      (rooms||[]).forEach(r=>{if(r.type!=='bedroom'&&r.type!=='living')return;
+        if(Math.abs(r.y-y0)<0.4)openings.push({kind:'window',x:r.x+r.w/2,y:y0,w:Math.min(4,r.w*.5)});
+        else if(Math.abs((r.y+r.h)-y1)<0.4)openings.push({kind:'window',x:r.x+r.w/2,y:y1,w:Math.min(4,r.w*.5)});
+        else if(Math.abs(r.x-x0)<0.4)openings.push({kind:'window',x:x0,y:r.y+r.h/2,w:Math.min(4,r.h*.5),vert:true});
+        else if(Math.abs((r.x+r.w)-x1)<0.4)openings.push({kind:'window',x:x1,y:r.y+r.h/2,w:Math.min(4,r.h*.5),vert:true});});
+    });
+    return{walls,openings};
+  }
   // ── pack placements into floors ──
   const floors=[];const storiesUsed=placements.reduce((m,p)=>Math.max(m,p.level),1);
-  for(let L=1;L<=storiesUsed;L++){const rooms=[];
-    placements.filter(p=>p.level===L).forEach(p=>{layoutUnit(p.box,p.role,p.u,p.pfx,p.multi).forEach(r=>rooms.push(r))});
-    floors.push({level:L,label:L===1?'Ground Floor':L===storiesUsed?`Top Floor (Level ${L})`:`Level ${L}`,heightFt:L===1?10:9,
-      rooms:rooms.map(r=>({...r,x:Math.round(r.x*100)/100,y:Math.round(r.y*100)/100,w:Math.round(r.w*100)/100,h:Math.round(r.h*100)/100})).filter(r=>r.w>=2.5&&r.h>=2.5)});
+  for(let L=1;L<=storiesUsed;L++){const places=placements.filter(p=>p.level===L);const rooms=[];
+    places.forEach(p=>{layoutUnit(p.box,p.role,p.u,p.pfx,p.multi).forEach(r=>rooms.push(r))});
+    const rr=rooms.map(r=>({...r,x:Math.round(r.x*100)/100,y:Math.round(r.y*100)/100,w:Math.round(r.w*100)/100,h:Math.round(r.h*100)/100})).filter(r=>r.w>=2.5&&r.h>=2.5);
+    const wo=floorWalls(places,rr,L);
+    floors.push({level:L,label:L===1?'Ground Floor':L===storiesUsed?`Top Floor (Level ${L})`:`Level ${L}`,heightFt:L===1?10:9,rooms:rr,walls:wo.walls,openings:wo.openings});
   }
   // ── meta ──
   const totalUnits=units.length;

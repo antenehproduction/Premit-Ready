@@ -1086,40 +1086,58 @@ function localFloorPlan(z, selectedOption){
       const cb=node.dir==='h'?{x:box.x,y:s.off,w:box.w,h:s.size}:{x:s.off,y:box.y,w:s.size,h:box.h};
       pack(cb, c.node||c, out)});
   }
-  // ── modern program templates (node trees) ──
-  function tplFlat(uW){ // complete single-level dwelling (flat / SFR-1story / large ADU)
-    const beds=uW>=24?2:uW>=15?1:0;
-    const priv=beds>=2?{dir:'v',children:[
-        {weight:.52,node:{dir:'h',children:[{weight:.62,name:'PRIMARY BED',type:'bedroom'},{weight:.38,node:{dir:'v',children:[{weight:.45,name:'W.I.C.',type:'storage'},{weight:.55,name:'ENSUITE',type:'bath'}]}}]}},
-        {weight:.48,node:{dir:'h',children:[{weight:.62,name:'BED 2',type:'bedroom'},{weight:.38,node:{dir:'v',children:[{weight:.55,name:'BATH',type:'bath'},{weight:.45,name:'LAUNDRY',type:'laundry'}]}}]}}]}
-      :beds===1?{dir:'v',children:[{weight:.66,name:'BEDROOM',type:'bedroom'},{weight:.34,node:{dir:'v',children:[{weight:.6,name:'BATH',type:'bath'},{weight:.4,name:'LAUNDRY',type:'laundry'}]}}]}
-      :{dir:'v',children:[{weight:.7,name:'STUDIO',type:'living'},{weight:.3,name:'BATH',type:'bath'}]};
-    return {dir:'h',children:[
-      {weight:.5,node:{dir:'v',children:[{weight:.6,name:'GREAT ROOM',type:'living'},{weight:.4,name:'KITCHEN',type:'kitchen'}]}},
-      {weight:.13,node:{dir:'v',children:[{weight:.4,name:'ENTRY',type:'entry'},{weight:.32,name:'POWDER',type:'bath'},{weight:.28,name:'MECH',type:'storage'}]}},
-      {weight:.37,node:priv}]};
+  // ── modern program templates (node trees), width/depth-tiered so every leaf
+  //    clears its minimum: WIDE units get a double-loaded plan (two width
+  //    columns), NARROW units a single-loaded plan (full-width rooms stacked by
+  //    depth). Nesting splits service cells by DEPTH so each keeps full width. ──
+  function tplFlat(uW,uD){ // complete single-level dwelling (flat / SFR-1story / ADU)
+    if(uW>=22&&uD>=30){ // 2-bed, double-loaded
+      return {dir:'h',children:[
+        {weight:.46,node:{dir:'v',children:[{weight:.6,name:'GREAT ROOM',type:'living'},{weight:.4,name:'KITCHEN',type:'kitchen'}]}},
+        {weight:.16,node:{dir:'v',children:[{weight:.34,name:'ENTRY',type:'entry'},{weight:.34,name:'POWDER',type:'bath'},{weight:.32,name:'MECH',type:'storage'}]}},
+        {weight:.38,node:{dir:'v',children:[
+          {weight:.55,node:{dir:'h',children:[{weight:.68,name:'PRIMARY BED',type:'bedroom'},{weight:.32,name:'ENSUITE',type:'bath'}]}},
+          {weight:.45,node:{dir:'h',children:[{weight:.66,name:'BED 2',type:'bedroom'},{weight:.34,name:'BATH',type:'bath'}]}}]}}]};
+    }
+    if(uD>=26){ // 1-2 bed, single-loaded (narrow): full-width rooms stacked by depth
+      return {dir:'h',children:[
+        {weight:.30,name:'GREAT ROOM',type:'living'},
+        {weight:.22,name:'KITCHEN',type:'kitchen'},
+        {weight:.30,name:'PRIMARY BED',type:'bedroom'},
+        {weight:.18,node:{dir:'v',children:[{weight:.6,name:'BATH',type:'bath'},{weight:.4,name:'LAUNDRY',type:'laundry'}]}}]};
+    }
+    return {dir:'h',children:[ // studio (shallow)
+      {weight:.66,node:{dir:'v',children:[{weight:.64,name:'STUDIO',type:'living'},{weight:.36,name:'KITCHENETTE',type:'kitchen'}]}},
+      {weight:.34,node:{dir:'v',children:[{weight:.6,name:'BATH',type:'bath'},{weight:.4,name:'CLOSET',type:'storage'}]}}]};
   }
-  function tplMain(uW){ // townhouse ground floor (public + service spine)
-    return {dir:'h',children:[
+  function tplMain(uW,uD){ // townhouse ground floor (public + service)
+    if(uW>=20){return {dir:'h',children:[
       {weight:.56,node:{dir:'v',children:[{weight:.58,name:'GREAT ROOM',type:'living'},{weight:.42,name:'KITCHEN',type:'kitchen'}]}},
-      {weight:.44,node:{dir:'v',children:[{weight:.5,name:'DINING',type:'dining'},{weight:.28,node:{dir:'h',children:[{weight:.5,name:'POWDER',type:'bath'},{weight:.5,name:'MUDROOM',type:'entry'}]}},{weight:.22,name:'MECH',type:'storage'}]}}]};
+      {weight:.44,node:{dir:'v',children:[{weight:.52,name:'DINING',type:'dining'},{weight:.48,node:{dir:'h',children:[{weight:.36,name:'POWDER',type:'bath'},{weight:.34,name:'MUDROOM',type:'entry'},{weight:.30,name:'MECH',type:'storage'}]}}]}}]};}
+    return {dir:'h',children:[ // narrow: single-loaded
+      {weight:.40,name:'GREAT ROOM',type:'living'},{weight:.24,name:'KITCHEN',type:'kitchen'},
+      {weight:.20,node:{dir:'v',children:[{weight:.55,name:'POWDER',type:'bath'},{weight:.45,name:'ENTRY',type:'entry'}]}},
+      {weight:.16,name:'MECH',type:'storage'}]};
   }
-  function tplUpper(uW){ // townhouse upper floor (sleeping)
-    const two=uW>=20;
-    return {dir:'h',children:[
-      {weight:.52,node:{dir:'v',children:[{weight:.6,name:'PRIMARY BED',type:'bedroom'},{weight:.4,node:{dir:'h',children:[{weight:.5,name:'W.I.C.',type:'storage'},{weight:.5,name:'ENSUITE',type:'bath'}]}}]}},
-      {weight:.48,node:two?{dir:'v',children:[{weight:.56,name:'BED 2',type:'bedroom'},{weight:.44,node:{dir:'h',children:[{weight:.55,name:'BATH',type:'bath'},{weight:.45,name:'LAUNDRY',type:'laundry'}]}}]}:{dir:'v',children:[{weight:.62,name:'BED 2',type:'bedroom'},{weight:.38,name:'BATH',type:'bath'}]}}]};
+  function tplUpper(uW,uD){ // townhouse upper floor (sleeping)
+    if(uW>=20){return {dir:'h',children:[
+      {weight:.52,node:{dir:'v',children:[{weight:.62,name:'PRIMARY BED',type:'bedroom'},{weight:.38,node:{dir:'h',children:[{weight:.55,name:'ENSUITE',type:'bath'},{weight:.45,name:'W.I.C.',type:'storage'}]}}]}},
+      {weight:.48,node:{dir:'v',children:[{weight:.6,name:'BED 2',type:'bedroom'},{weight:.4,node:{dir:'h',children:[{weight:.58,name:'BATH',type:'bath'},{weight:.42,name:'LAUNDRY',type:'laundry'}]}}]}}]};}
+    return {dir:'h',children:[ // narrow: single-loaded
+      {weight:.40,name:'PRIMARY BED',type:'bedroom'},
+      {weight:.22,node:{dir:'v',children:[{weight:.58,name:'ENSUITE',type:'bath'},{weight:.42,name:'W.I.C.',type:'storage'}]}},
+      {weight:.38,name:'BED 2',type:'bedroom'}]};
   }
-  // pack a unit footprint for one level, reserving an aligned stair strip for multi-story units
+  // pack a unit footprint for one level, reserving a slim aligned stair strip
   function layoutUnit(box,role,unitId,pfx,multi){
     const out=[];let main=box;
-    if(multi){const sw=Math.min(10,Math.max(7,box.w*0.22));
+    if(multi){const sw=Math.min(5,Math.max(4,box.w*0.16));
       main={x:box.x,y:box.y,w:box.w-sw,h:box.h};
-      const sh=Math.min(box.h,14);
+      const sh=Math.min(box.h,12);
       out.push({name:'STAIR',type:'stair',x:box.x+box.w-sw,y:box.y,w:sw,h:sh});
-      if(box.h-sh>=4)out.push({name:'HALL',type:'corridor',x:box.x+box.w-sw,y:box.y+sh,w:sw,h:box.h-sh});
+      if(box.h-sh>=3)out.push({name:'LINEN',type:'storage',x:box.x+box.w-sw,y:box.y+sh,w:sw,h:box.h-sh});
     }
-    const node=role==='main'?tplMain(main.w):role==='upper'?tplUpper(main.w):tplFlat(main.w);
+    const node=role==='main'?tplMain(main.w,main.h):role==='upper'?tplUpper(main.w,main.h):tplFlat(main.w,main.h);
     pack(main,node,out);
     return out.map(r=>({name:pfx+r.name,type:r.type,x:r.x,y:r.y,w:r.w,h:r.h,unit:unitId,dimW:fi(r.w),dimH:fi(r.h)}));
   }
@@ -1199,7 +1217,11 @@ function valPlan(plan,z){
   const minX=z.leftSetback,maxX=z.lotWidth-z.rightSetback,minY=z.frontSetback,maxY=z.lotDepth-z.rearSetback;
   if(!plan.floors)return;
   const EXEMPT=new Set(['corridor','stair','storage','balcony','entry','laundry']);
-  const minD=t=>EXEMPT.has(t||'')?3:7; // IBC §1208.1 min 7ft habitable
+  // IBC §1208.1 7ft min applies to HABITABLE rooms (living/sleeping/dining).
+  // Bathrooms, kitchens, and circulation/service spaces are NOT habitable rooms
+  // and have smaller minimums — so a powder/half-bath (~4ft) or compact kitchen
+  // is valid and must not be dropped (this previously deleted every 5ft bath).
+  const minD=t=>EXEMPT.has(t||'')?3:t==='bath'?4:t==='kitchen'?5:7;
   let _dropped=0;
   plan.floors.forEach(fl=>{if(!fl.rooms)fl.rooms=[];
     const _before=fl.rooms.length;

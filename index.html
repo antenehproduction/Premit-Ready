@@ -4662,34 +4662,45 @@ async function exportPermitPDF(){
   // Earlier 914×610mm rounded to integers (ratio 1.4983) caused a 0.11%
   // horizontal stretch in the rendered image.
   const doc=new jsPDF({orientation:'landscape',unit:'mm',format:[914.4,609.6]});
-  const addSheet=(drawFn,label)=>{
-    ctx.clearRect(0,0,W,H);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,W,H);
-    // Temporarily set background to white for PDF
-    const orig=S.zoom;const origPX=S.panX;const origPY=S.panY;S.zoom=1;S.panX=0;S.panY=0;
-    drawFn(ctx,W,H);S.zoom=orig;S.panX=origPX;S.panY=origPY;
-    const img=offscreen.toDataURL('image/jpeg',0.95);
-    doc.addImage(img,'JPEG',0,0,914.4,609.6);
-    L.info(`PDF: added sheet ${label}`);
+  // True monochrome plotted set (L2): DL-backed drawing sheets render via
+  // paintSheetPlot (crisp black-on-white at AIA pen weights, identical to the
+  // ◻ PLOT preview); the text sheets without a DisplayList (A-0 cover, A-5
+  // schedules) keep their detailed renderer and are inverted to a light
+  // grayscale plot. PNG (not JPEG) so thin black lines stay clean.
+  const invertGray=()=>{try{const im=ctx.getImageData(0,0,W,H),d=im.data;for(let i=0;i<d.length;i+=4){const g=255-(0.3*d[i]+0.59*d[i+1]+0.11*d[i+2]);d[i]=d[i+1]=d[i+2]=g;}ctx.putImageData(im,0,0);}catch(_){}};
+  const addSheet=(sheetId,fallbackFn,label)=>{
+    const orig=S.zoom,opx=S.panX,opy=S.panY;S.zoom=1;S.panX=0;S.panY=0;
+    if(DL_SHEETS.has(sheetId)){
+      ctx.fillStyle='#ffffff';ctx.fillRect(0,0,W,H);
+      paintSheetPlot(ctx,W,H,sheetId);
+    }else{
+      ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
+      if(fallbackFn)fallbackFn(ctx,W,H);
+      invertGray();
+    }
+    S.zoom=orig;S.panX=opx;S.panY=opy;
+    doc.addImage(offscreen.toDataURL('image/png'),'PNG',0,0,914.4,609.6);
+    L.info(`PDF: added sheet ${label} (${DL_SHEETS.has(sheetId)?'mono plot':'inverted'})`);
   };
   try{
-    addSheet(drawCoverSheet,'A-0 Cover');
-    doc.addPage([914.4,609.6],'landscape');addSheet(drawSitePlanSheet,'A-1 Site Plan');
+    addSheet('A-0',drawCoverSheet,'A-0 Cover');
+    doc.addPage([914.4,609.6],'landscape');addSheet('A-1',drawSitePlanSheet,'A-1 Site Plan');
     const savedFloor=S.floor; // DRAW-6: save floor index before PDF loop
     for(let i=0;i<(S.plan.floors||[]).length;i++){
-      const fi=i;doc.addPage([914.4,609.6],'landscape');
-      addSheet((c,w,h)=>{S.floor=fi;drawFloorPlanSheet(c,w,h,fi)},`A-2 Floor ${i+1}`);
+      doc.addPage([914.4,609.6],'landscape');S.floor=i; // paintSheetPlot('A-2') uses S.floor
+      addSheet('A-2',null,`A-2 Floor ${i+1}`);
     }
     S.floor=savedFloor; // DRAW-6: restore after loop so canvas stays on user's floor
-    doc.addPage([914.4,609.6],'landscape');addSheet(drawElevationsSheet,'A-3 Elevations');
-    doc.addPage([914.4,609.6],'landscape');addSheet(drawSectionsSheet,'A-4 Sections');
-    doc.addPage([914.4,609.6],'landscape');addSheet(drawSchedulesSheet,'A-5 Schedules');
-    doc.addPage([914.4,609.6],'landscape');addSheet(drawFoundationSheet,'S-1 Foundation');
-    doc.addPage([914.4,609.6],'landscape');addSheet(drawFramingSheet,'S-2 Framing');
-    doc.addPage([914.4,609.6],'landscape');addSheet(drawMEPSheet,'M-1 MEP');
-    doc.addPage([914.4,609.6],'landscape');addSheet(drawCivilSheet,'C-1 Civil');
+    doc.addPage([914.4,609.6],'landscape');addSheet('A-3',drawElevationsSheet,'A-3 Elevations');
+    doc.addPage([914.4,609.6],'landscape');addSheet('A-4',drawSectionsSheet,'A-4 Sections');
+    doc.addPage([914.4,609.6],'landscape');addSheet('A-5',drawSchedulesSheet,'A-5 Schedules');
+    doc.addPage([914.4,609.6],'landscape');addSheet('S-1',drawFoundationSheet,'S-1 Foundation');
+    doc.addPage([914.4,609.6],'landscape');addSheet('S-2',drawFramingSheet,'S-2 Framing');
+    doc.addPage([914.4,609.6],'landscape');addSheet('M-1',drawMEPSheet,'M-1 MEP');
+    doc.addPage([914.4,609.6],'landscape');addSheet('C-1',drawCivilSheet,'C-1 Civil');
     const fname=`${(S.plan.meta.address||S.addr||'permit').replace(/[^a-z0-9]/gi,'_').substring(0,30)}_PermitSet.pdf`;
-    doc.save(fname);L.info(`PDF saved: ${fname} (${doc.internal.pages.length} sheets)`);
-    alert(`✓ PDF saved: ${fname}\n\n${doc.internal.pages.length} sheets:\nA-0 · A-1 · A-2 · A-3 · A-4 · A-5 · S-1 · S-2 · M-1 · C-1\n\nNote: S/M/C sheets are PRELIMINARY schematic — to be engineered & sealed by the respective engineer of record.`);
+    doc.save(fname);L.info(`PDF saved: ${fname} (${doc.internal.pages.length} sheets, monochrome plot)`);
+    alert(`✓ PDF saved: ${fname}\n\n${doc.internal.pages.length} sheets, black-on-white plotted set:\nA-0 · A-1 · A-2 · A-3 · A-4 · A-5 · S-1 · S-2 · M-1 · C-1\n\nNote: S/M/C sheets are PRELIMINARY schematic — to be engineered & sealed by the respective engineer of record.`);
   }catch(e){L.error('PDF export failed:',e.message);alert('PDF export failed: '+e.message)}
 }
 

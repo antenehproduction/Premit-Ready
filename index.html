@@ -1181,12 +1181,13 @@ function localFloorPlan(z, selectedOption){
     for(let c=0;c<primary;c++){const id=newUnit(`Unit ${String.fromCharCode(65+c)} — Townhouse`);const pfx=`${String.fromCharCode(65+c)} `;
       for(let L=1;L<=stories;L++)placements.push({u:id,box:{x:cols[c].off,y:bY,w:cols[c].size,h:mainD},level:L,role:L===1?'main':'upper',pfx,multi:stories>1});}
   }else if(kind==='STACKED'){const n=Math.min(primary,stories);
-    for(let L=1;L<=n;L++){const id=newUnit(`Unit ${String.fromCharCode(65+L-1)} — Flat L${L}`);placements.push({u:id,box:{x:bX,y:bY,w:bW,h:mainD},level:L,role:'flat',pfx:`${String.fromCharCode(65+L-1)} `,multi:false});}
-    if(stories>1){/* shared core */}
+    // multi:n>1 reserves an aligned stair strip on every floor → a shared
+    // vertical core connecting the ground common entry to the upper flat(s).
+    for(let L=1;L<=n;L++){const id=newUnit(`Unit ${String.fromCharCode(65+L-1)} — Flat L${L}`);placements.push({u:id,box:{x:bX,y:bY,w:bW,h:mainD},level:L,role:'flat',pfx:`${String.fromCharCode(65+L-1)} `,multi:n>1});}
   }else if(kind==='STACKED_TH'){const cs=splitBand(bX,bW,Array(cols).fill(1));let k=0;
-    for(let c=0;c<cols;c++)for(let L=1;L<=perFloors;L++){if(k>=primary)break;const id=newUnit(`Unit ${String.fromCharCode(65+k)} — Flat`);placements.push({u:id,box:{x:cs[c].off,y:bY,w:cs[c].size,h:mainD},level:L,role:'flat',pfx:`${String.fromCharCode(65+k)} `,multi:false});k++;}
+    for(let c=0;c<cols;c++)for(let L=1;L<=perFloors;L++){if(k>=primary)break;const id=newUnit(`Unit ${String.fromCharCode(65+k)} — Flat`);placements.push({u:id,box:{x:cs[c].off,y:bY,w:cs[c].size,h:mainD},level:L,role:'flat',pfx:`${String.fromCharCode(65+k)} `,multi:perFloors>1});k++;}
   }else if(kind==='SB9'){const lots=splitBand(bX,bW,[1,1]);let k=0;
-    for(let lot=0;lot<2;lot++)for(let L=1;L<=2;L++){const id=newUnit(`Lot ${lot+1} Unit ${L}`);placements.push({u:id,box:{x:lots[lot].off,y:bY,w:lots[lot].size,h:mainD},level:L,role:'flat',pfx:`${lot+1}.${L} `,multi:false});k++;}
+    for(let lot=0;lot<2;lot++)for(let L=1;L<=2;L++){const id=newUnit(`Lot ${lot+1} Unit ${L}`);placements.push({u:id,box:{x:lots[lot].off,y:bY,w:lots[lot].size,h:mainD},level:L,role:'flat',pfx:`${lot+1}.${L} `,multi:true});k++;}
   }
   // ADUs (rear, ground level, single-level)
   if(wantADU&&aduD>=14){const aw=Math.min(bW,Math.max(20,bW/Math.max(1,adus)));const acols=splitBand(bX,Math.min(bW,aw*adus),Array(adus).fill(1));

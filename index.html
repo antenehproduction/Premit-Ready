@@ -4858,16 +4858,72 @@ function buildSitePlanDL(plan,z){
   planAnnoDL(dl,'A-1','SITE / PLOT PLAN',`1/8"=1'-0"`,lotW,lotD);
   return dl;
 }
+// S-1 Foundation Plan DisplayList (schematic, RDP-gated).
+function buildFoundationDL(plan,z){
+  const f=planFrameDL(z,{grid:true,setback:false}),dl=f.dl,FY=f.FY,lotW=f.lotW,lotD=f.lotD;
+  const fp=buildingFootprints(plan),fl=(plan.floors||[])[0]||{};
+  const foot=(b,label)=>{if(!b)return;const x0=b.x,x1=b.x+b.w,ya=FY(b.y),yb=FY(b.y+b.h),o=0.9;
+    dl.push({t:'pl',layer:'S-GRID',closed:true,pts:[[x0-o,yb-o],[x1+o,yb-o],[x1+o,ya+o],[x0-o,ya+o]]});       // spread footing (light)
+    dl.push({t:'pl',layer:'S-FNDN',closed:true,pts:[[x0,yb],[x1,yb],[x1,ya],[x0,ya]]});                        // stem wall (heavy)
+    if(label)dl.push({t:'text',layer:'A-AREA-IDEN',x:(x0+x1)/2,y:(ya+yb)/2,h:0.9,str:label,align:'center'});};
+  foot(fp.main,'4" SLAB-ON-GRADE');fp.adus.forEach((a,i)=>foot(a,'ADU '+(i+1)));
+  (fl.walls||[]).filter(w=>w.kind==='party').forEach(w=>dl.push({t:'line',layer:'S-FNDN',x1:w.x1,y1:FY(w.y1),x2:w.x2,y2:FY(w.y2)}));
+  if(fp.main){const el=S.padElevation!=null?`GRADE EL ${S.padElevation.toFixed(1)} (USGS 3DEP)`:'EL 100.00 ASSUMED';dl.push({t:'text',layer:'A-ANNO',x:fp.main.x+fp.main.w/2,y:FY(fp.main.y+fp.main.h)-1.6,h:0.8,str:el,align:'center'});}
+  planAnnoDL(dl,'S-1','FOUNDATION PLAN (PRELIM — BY SE)',`1/4"=1'-0"`,lotW,lotD);
+  return dl;
+}
+// S-2 Floor & Roof Framing Plan DisplayList (schematic).
+function buildFramingDL(plan,z){
+  const f=planFrameDL(z,{grid:true,setback:false}),dl=f.dl,FY=f.FY,lotW=f.lotW,lotD=f.lotD;
+  const fp=buildingFootprints(plan),fl=(plan.floors||[])[0]||{};
+  const frame=(b,label)=>{if(!b)return;const x0=b.x,x1=b.x+b.w,ya=FY(b.y),yb=FY(b.y+b.h),lo=Math.min(ya,yb),hi=Math.max(ya,yb);
+    dl.push({t:'pl',layer:'S-FRAM',closed:true,pts:[[x0,yb],[x1,yb],[x1,ya],[x0,ya]]});
+    if(b.h<=b.w){for(let xx=x0+2;xx<x1;xx+=2)dl.push({t:'line',layer:'S-FRAM',x1:xx,y1:lo+0.3,x2:xx,y2:hi-0.3});}
+    else{for(let yy=lo+2;yy<hi;yy+=2)dl.push({t:'line',layer:'S-FRAM',x1:x0+0.3,y1:yy,x2:x1-0.3,y2:yy});}
+    if(label)dl.push({t:'text',layer:'A-AREA-IDEN',x:(x0+x1)/2,y:(ya+yb)/2,h:0.9,str:label,align:'center'});};
+  frame(fp.main,'JOISTS @16" OC');fp.adus.forEach((a,i)=>frame(a,'ADU '+(i+1)));
+  (fl.walls||[]).filter(w=>w.kind==='party').forEach(w=>dl.push({t:'line',layer:'S-FNDN',x1:w.x1,y1:FY(w.y1),x2:w.x2,y2:FY(w.y2)}));
+  (fl.openings||[]).forEach(o=>{const X=o.x,Y=FY(o.y),w=o.w||3;if(o.vert)dl.push({t:'line',layer:'A-ANNO-SAFE',x1:X,y1:Y-w/2,x2:X,y2:Y+w/2});else dl.push({t:'line',layer:'A-ANNO-SAFE',x1:X-w/2,y1:Y,x2:X+w/2,y2:Y});});
+  planAnnoDL(dl,'S-2','FLOOR & ROOF FRAMING (PRELIM — BY SE)',`1/4"=1'-0"`,lotW,lotD);
+  return dl;
+}
+// M-1 MEP Plan DisplayList (schematic).
+function buildMEPDL(plan,z){
+  const f=planFrameDL(z,{setback:false}),dl=f.dl,FY=f.FY,lotW=f.lotW,lotD=f.lotD;
+  const fp=buildingFootprints(plan),fl=(plan.floors||[])[0]||{};
+  [fp.main,...fp.adus].forEach(b=>{if(b)dl.push({t:'pl',layer:'A-WALL',closed:true,pts:[[b.x,FY(b.y+b.h)],[b.x+b.w,FY(b.y+b.h)],[b.x+b.w,FY(b.y)],[b.x,FY(b.y)]]});});
+  (fl.rooms||[]).forEach(r=>{const ltr=r.type==='bath'?'P':r.type==='kitchen'?'K':r.type==='laundry'?'W':null;if(!ltr)return;const cx=r.x+r.w/2,cy=FY(r.y+r.h/2);dl.push({t:'circle',layer:'P-FIXT',cx,cy,r:0.9});dl.push({t:'text',layer:'P-FIXT',x:cx,y:cy,h:0.7,str:ltr,align:'center'});});
+  if(fp.main){const b=fp.main,by=FY(b.y+b.h),ty=FY(b.y);
+    dl.push({t:'pl',layer:'E-POWR',closed:true,pts:[[b.x+1,by+1],[b.x+3,by+1],[b.x+3,by+3],[b.x+1,by+3]]},{t:'text',layer:'E-POWR',x:b.x+3.6,y:by+2,h:0.7,str:'200A PANEL',align:'left'});
+    dl.push({t:'pl',layer:'M-DUCT',closed:true,pts:[[b.x+b.w+1,ty-3],[b.x+b.w+3,ty-3],[b.x+b.w+3,ty-1],[b.x+b.w+1,ty-1]]},{t:'text',layer:'M-DUCT',x:b.x+b.w+3.6,y:ty-2,h:0.7,str:'ASHP',align:'left'});}
+  planAnnoDL(dl,'M-1','MEP — MECH/ELEC/PLUMB (PRELIM)',`1/4"=1'-0"`,lotW,lotD);
+  return dl;
+}
+// C-1 Civil / Grading / Utilities DisplayList (schematic).
+function buildCivilDL(plan,z){
+  const f=planFrameDL(z,{setback:true}),dl=f.dl,FY=f.FY,lotW=f.lotW,lotD=f.lotD;
+  const fp=buildingFootprints(plan),base=S.padElevation!=null?S.padElevation:100;
+  for(let i=0;i<5;i++){const cy=(z.frontSetback||15)+((lotD-(z.frontSetback||15)-(z.rearSetback||15))*(i+1)/6);const pts=[];for(let s=0;s<=8;s++)pts.push([lotW*s/8,FY(cy+2*Math.sin(s*0.8))]);dl.push({t:'pl',layer:'C-TOPO',closed:false,pts});dl.push({t:'text',layer:'C-TOPO',x:1.5,y:FY(cy)+0.6,h:0.7,str:String(Math.round(base+(2-i)*2)),align:'left'});}
+  [fp.main,...fp.adus].forEach(b=>{if(b)dl.push({t:'pl',layer:'A-WALL',closed:true,pts:[[b.x,FY(b.y+b.h)],[b.x+b.w,FY(b.y+b.h)],[b.x+b.w,FY(b.y)],[b.x,FY(b.y)]]});});
+  if(fp.main){const b=fp.main,cx=b.x+b.w/2,cy=FY(b.y+b.h);dl.push({t:'line',layer:'C-TOPO',x1:cx,y1:cy,x2:cx,y2:cy-5},{t:'text',layer:'C-TOPO',x:cx,y:cy-6,h:0.7,str:'2% MIN',align:'center'});}
+  dl.push({t:'pl',layer:'A-PKNG',closed:true,pts:[[1,1],[lotW-1,1],[lotW-1,lotD-1],[1,lotD-1]]},{t:'text',layer:'A-PKNG',x:2,y:lotD-2,h:0.7,str:'SILT FENCE (TYP)',align:'left'});
+  planAnnoDL(dl,'C-1','CIVIL — GRADING / UTILITIES (PRELIM)',`1/8"=1'-0"`,lotW,lotD);
+  return dl;
+}
 // Dispatcher: DisplayList for any DL-backed sheet (else []).
 function buildSheetDL(sheetId){
   const z=S._z||{};if(!S.plan)return [];
   switch(sheetId){
     case 'A-1':return buildSitePlanDL(S.plan,z);
     case 'A-2':return buildFloorPlanDL(S.plan,S.floor||0,z);
+    case 'S-1':return buildFoundationDL(S.plan,z);
+    case 'S-2':return buildFramingDL(S.plan,z);
+    case 'M-1':return buildMEPDL(S.plan,z);
+    case 'C-1':return buildCivilDL(S.plan,z);
     default:return [];
   }
 }
-const DL_SHEETS=new Set(['A-1','A-2']); // sheets with DXF/plot support (extended below)
+const DL_SHEETS=new Set(['A-1','A-2','S-1','S-2','M-1','C-1']); // DXF/plot-backed sheets
 
 function exportSheetDXF(){
   if(!S.plan){alert('Run analysis first.');return}

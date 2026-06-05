@@ -2601,6 +2601,9 @@ const CAD_LAYERS={
   'A-DIMS':        {aci:2,  lwMm:0.13, ink:'#555555', lt:'CONTINUOUS'}, // dimension lines + text
   'A-ANNO':        {aci:7,  lwMm:0.18, ink:'#000000', lt:'CONTINUOUS'}, // general annotation
   'A-ANNO-SAFE':   {aci:1,  lwMm:0.35, ink:'#000000', lt:'CONTINUOUS'}, // egress arrows / smoke+CO / safety
+  'A-PROP':        {aci:2,  lwMm:0.50, ink:'#000000', lt:'DASHED'},     // property / lot line (site)
+  'A-SETB':        {aci:3,  lwMm:0.18, ink:'#444444', lt:'DASHED'},     // setback envelope (site)
+  'A-PKNG':        {aci:8,  lwMm:0.18, ink:'#555555', lt:'CONTINUOUS'}, // parking stalls (site)
   'G-ANNO-TTLB':   {aci:7,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'}, // title block
   'G-ANNO-NOTE':   {aci:1,  lwMm:0.18, ink:'#000000', lt:'CONTINUOUS'}, // disclosure / general notes
   // discipline layers (reserved for S-/M-/E-/P-/C- sheets, Sprints 4-5)
@@ -3454,14 +3457,16 @@ function renderSheet(sheetId){
   if(W<10||H<10)return;
   cv.width=W;cv.height=H;
   const ctx=cv.getContext('2d');ctx.clearRect(0,0,W,H);
-  // L2: monochrome plot preview is A-2-scoped this sprint — white paper for A-2,
-  // dark theme otherwise (so other sheets stay legible until they get a DL too).
-  const plotA2=S.plotMode&&sheetId==='A-2';
-  ctx.fillStyle=plotA2?'#ffffff':'#0c1420';ctx.fillRect(0,0,W,H);
+  // L2: monochrome plot preview — white paper + DisplayList for any DL-backed
+  // sheet (DL_SHEETS); dark theme otherwise. Early-return so the mono plot fully
+  // replaces the dark renderer for that sheet.
+  const plotThis=S.plotMode&&DL_SHEETS.has(sheetId);
+  ctx.fillStyle=plotThis?'#ffffff':'#0c1420';ctx.fillRect(0,0,W,H);
+  if(plotThis){paintSheetPlot(ctx,W,H,sheetId);return;}
   switch(sheetId){
     case 'A-0':drawCoverSheet(ctx,W,H);break;
     case 'A-1':drawSitePlanSheet(ctx,W,H);break;
-    case 'A-2':plotA2?paintFloorPlot(ctx,W,H,S.floor):drawFloorPlanSheet(ctx,W,H,S.floor);break;
+    case 'A-2':drawFloorPlanSheet(ctx,W,H,S.floor);break;
     case 'A-3':drawElevationsSheet(ctx,W,H);break;
     case 'A-4':drawSectionsSheet(ctx,W,H);break;
     case 'A-5':drawSchedulesSheet(ctx,W,H);break;
@@ -4810,19 +4815,74 @@ function writeDXF(dl,meta){
   return out.join('\n')+'\n';
 }
 
+// ── L2 (full set): shared plan-view frame + per-sheet DisplayList builders ──
+// Lot coordinate space (0..lotW × 0..lotD), Y flipped so the front/street is at
+// the top — consistent with buildFloorPlanDL. paintDL_plot/writeDXF auto-fit.
+function northDL(x,y){return [
+  {t:'line',layer:'A-ANNO',x1:x,y1:y-3,x2:x,y2:y+3},
+  {t:'line',layer:'A-ANNO',x1:x,y1:y+3,x2:x-1.1,y2:y+1.2},
+  {t:'line',layer:'A-ANNO',x1:x,y1:y+3,x2:x+1.1,y2:y+1.2},
+  {t:'text',layer:'A-ANNO',x:x,y:y+4.8,h:1.3,str:'N',align:'center'}];}
+function planFrameDL(z,opts){
+  opts=opts||{};const lotW=z.lotWidth||60,lotD=z.lotDepth||120;
+  const lsb=z.leftSetback||5,rsb=z.rightSetback||5,fsb=z.frontSetback||15,rrsb=z.rearSetback||15;
+  const FY=y=>lotD-y;
+  const dl=[{t:'pl',layer:'A-PROP',closed:true,pts:[[0,0],[lotW,0],[lotW,lotD],[0,lotD]]}];
+  if(opts.setback!==false)dl.push({t:'pl',layer:'A-SETB',closed:true,pts:[[lsb,FY(fsb)],[lotW-rsb,FY(fsb)],[lotW-rsb,FY(lotD-rrsb)],[lsb,FY(lotD-rrsb)]]});
+  if(opts.grid){const bay=20;
+    for(let gx=lsb;gx<=lotW-rsb+0.1;gx+=bay){dl.push({t:'line',layer:'S-GRID',x1:gx,y1:FY(fsb)+2,x2:gx,y2:FY(lotD-rrsb)-2});dl.push({t:'circle',layer:'S-GRID',cx:gx,cy:FY(fsb)+4,r:1.4});dl.push({t:'text',layer:'S-GRID',x:gx,y:FY(fsb)+4,h:1.0,str:bayCol((gx-lsb)/bay),align:'center'});}
+    let n=1;for(let gy=fsb;gy<=lotD-rrsb+0.1;gy+=bay,n++){dl.push({t:'line',layer:'S-GRID',x1:lsb-2,y1:FY(gy),x2:lotW-rsb+2,y2:FY(gy)});dl.push({t:'circle',layer:'S-GRID',cx:lsb-4,cy:FY(gy),r:1.4});dl.push({t:'text',layer:'S-GRID',x:lsb-4,y:FY(gy),h:1.0,str:String(n),align:'center'});}}
+  return {dl,FY,lotW,lotD,lsb,rsb,fsb,rrsb};
+}
+// Title + disclosure block appended to any plan-view DL (below the plan).
+function planAnnoDL(dl,sheetId,title,scale,lotW,lotD){
+  dl.push({t:'text',layer:'A-ANNO',x:lotW/2,y:lotD+3,h:1.1,str:'STREET / R.O.W.',align:'center'});
+  dl.push(...northDL(lotW+5,lotD-6));
+  dl.push({t:'text',layer:'G-ANNO-TTLB',x:0,y:-6.5,h:1.5,str:dxfStr((S.addr||'PROPOSED PLAN').toUpperCase()),align:'left'});
+  dl.push({t:'text',layer:'G-ANNO-TTLB',x:0,y:-8.5,h:1.0,str:dxfStr(`${sheetId}  ${title}   ${scale}`),align:'left'});
+  dl.push({t:'text',layer:'G-ANNO-NOTE',x:0,y:-11,h:0.9,str:dxfStr(ADVISOR_SHORT),align:'left'});
+  wrapText(ADVISOR_DISCLOSURE,118).forEach((ln,i)=>dl.push({t:'text',layer:'G-ANNO-NOTE',x:0,y:-12.6-i*1.3,h:0.62,str:dxfStr(ln),align:'left'}));
+}
+// A-1 Site / Plot Plan DisplayList.
+function buildSitePlanDL(plan,z){
+  const f=planFrameDL(z,{setback:true}),dl=f.dl,FY=f.FY,lotW=f.lotW,lotD=f.lotD;
+  const fp=buildingFootprints(plan);
+  const rect=(b,layer,label,h)=>{if(!b)return;const x0=b.x,x1=b.x+b.w,ya=FY(b.y),yb=FY(b.y+b.h);
+    dl.push({t:'pl',layer,closed:true,pts:[[x0,yb],[x1,yb],[x1,ya],[x0,ya]]});
+    if(label)dl.push({t:'text',layer:'A-AREA-IDEN',x:(x0+x1)/2,y:(ya+yb)/2,h:h||1.0,str:label,align:'center'});};
+  rect(fp.main,'A-WALL','PROPOSED BUILDING',1.3);
+  fp.adus.forEach((a,i)=>rect(a,'A-WALL','ADU '+(i+1),1.0));
+  // overall lot dims (width below, depth at left)
+  dl.push({t:'line',layer:'A-DIMS',x1:0,y1:-3.5,x2:lotW,y2:-3.5},{t:'text',layer:'A-DIMS',x:lotW/2,y:-3,h:1.0,str:fmtFI(lotW),align:'center'});
+  dl.push({t:'line',layer:'A-DIMS',x1:-3.5,y1:0,x2:-3.5,y2:lotD},{t:'text',layer:'A-DIMS',x:-4,y:lotD/2,h:1.0,str:fmtFI(lotD),align:'center',rot:90});
+  planAnnoDL(dl,'A-1','SITE / PLOT PLAN',`1/8"=1'-0"`,lotW,lotD);
+  return dl;
+}
+// Dispatcher: DisplayList for any DL-backed sheet (else []).
+function buildSheetDL(sheetId){
+  const z=S._z||{};if(!S.plan)return [];
+  switch(sheetId){
+    case 'A-1':return buildSitePlanDL(S.plan,z);
+    case 'A-2':return buildFloorPlanDL(S.plan,S.floor||0,z);
+    default:return [];
+  }
+}
+const DL_SHEETS=new Set(['A-1','A-2']); // sheets with DXF/plot support (extended below)
+
 function exportSheetDXF(){
   if(!S.plan){alert('Run analysis first.');return}
   if(!assertExportAllowed('DXF'))return;
-  const fi=S.floor||0;
-  const dl=buildFloorPlanDL(S.plan,fi,S._z||{});
-  if(!dl.length){alert('No floor-plan geometry on this sheet to export.\nThe DXF export is the A-2 floor plan — switch to an A-2 sheet first.');return}
+  const sid=S.activeSheet||'A-2';
+  const dl=buildSheetDL(sid);
+  if(!dl.length){alert(`No editable CAD geometry for sheet ${sid}.\nDXF export is available for: ${[...DL_SHEETS].join(', ')}.`);return}
   try{
     const dxf=writeDXF(dl,{});
     const blob=new Blob([dxf],{type:'application/dxf'});
+    const suffix=sid==='A-2'?`A2_floor${(S.floor||0)+1}`:sid.replace(/[^A-Z0-9]/gi,'');
     const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-    a.download=`${(S.addr||'plan').replace(/[^a-z0-9]/gi,'_').substring(0,25)}_A2_floor${fi+1}.dxf`;
+    a.download=`${(S.addr||'plan').replace(/[^a-z0-9]/gi,'_').substring(0,25)}_${suffix}.dxf`;
     document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
-    L.info(`DXF exported: floor ${fi+1}, ${dl.length} primitives, ${Object.keys(CAD_LAYERS).length} AIA layers (R12/feet)`);
+    L.info(`DXF exported: ${sid}, ${dl.length} primitives, ${Object.keys(CAD_LAYERS).length} AIA layers (R12/feet)`);
   }catch(e){L.error('DXF export failed:',e.message);alert('DXF export failed: '+e.message)}
 }
 
@@ -4848,16 +4908,16 @@ function paintDL_plot(ctx,W,H,dl){
       else ctx.fillText(e.str,PX(e.x),PY(e.y))}});
   ctx.restore();
 }
-// Render the active A-2 sheet as a monochrome plot (called from renderSheet).
-function paintFloorPlot(ctx,W,H,fi){
-  const dl=buildFloorPlanDL(S.plan,fi,S._z||{});
-  if(!dl.length){ctx.fillStyle='#333';ctx.font='13px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('No floor-plan geometry on this sheet.',W/2,H/2);return}
+// Render any DL-backed sheet as a monochrome plot (called from renderSheet).
+function paintSheetPlot(ctx,W,H,sheetId){
+  const dl=buildSheetDL(sheetId);
+  if(!dl.length){ctx.fillStyle='#333';ctx.font='13px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText(`No CAD geometry for ${sheetId} — plot is available for ${[...DL_SHEETS].join(', ')}.`,W/2,H/2);return}
   paintDL_plot(ctx,W,H,dl);
 }
 function togglePlotMode(){
   S.plotMode=!S.plotMode;
   const b=document.getElementById('plot-btn');if(b)b.classList.toggle('on',S.plotMode);
-  if(S.plotMode&&S.activeSheet!=='A-2'){L.info('PLOT preview is the A-2 floor plan (this sprint) — switch to an A-2 sheet to see it.');}
+  if(S.plotMode&&!DL_SHEETS.has(S.activeSheet)){L.info(`PLOT preview is available for ${[...DL_SHEETS].join(', ')} — switch to one of those sheets to see it.`);}
   if(typeof renderSheet==='function'&&S.plan)renderSheet(S.activeSheet);
 }
 

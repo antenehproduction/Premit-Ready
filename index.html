@@ -1143,7 +1143,15 @@ function localFloorPlan(z, selectedOption){
       main={x:box.x,y:box.y,w:box.w-sw,h:box.h};
       const sh=Math.min(box.h,12);
       out.push({name:'STAIR',type:'stair',x:box.x+box.w-sw,y:box.y,w:sw,h:sh});
-      if(box.h-sh>=3)out.push({name:'LINEN',type:'storage',x:box.x+box.w-sw,y:box.y+sh,w:sw,h:box.h-sh});
+      // The strip alongside/below the stair is the unit's circulation spine, not
+      // a closet — a small linen at the stair head, then HALL for the remainder
+      // (corridor is EXEMPT from the habitable min-dim, so a long thin run is OK).
+      const rem=box.h-sh;
+      if(rem>=3){
+        const lin=Math.min(rem,5);
+        out.push({name:'LINEN',type:'storage',x:box.x+box.w-sw,y:box.y+sh,w:sw,h:lin});
+        if(rem-lin>=3)out.push({name:'HALL',type:'corridor',x:box.x+box.w-sw,y:box.y+sh+lin,w:sw,h:rem-lin});
+      }
     }
     const node=role==='main'?tplMain(main.w,main.h):role==='upper'?tplUpper(main.w,main.h):tplFlat(main.w,main.h);
     pack(main,node,out);

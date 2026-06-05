@@ -3587,26 +3587,30 @@ function drawSitePlanSheet(ctx,W,H){
   ctx.strokeRect(sx,sy,sw,sh);ctx.setLineDash([]);
   ctx.fillStyle='rgba(34,224,138,.6)';ctx.font='7px JetBrains Mono,monospace';ctx.textAlign='left';
   ctx.fillText(`SETBACK ENVELOPE`,sx+2,sy-4);
-  // Building footprint
-  if(S.plan){
-    const bW=sw*.88;const bD=sh*.82;const bx=sx+(sw-bW)/2;const by=sy+(sh-bD)*.15;
-    ctx.fillStyle='rgba(61,139,255,.2)';ctx.fillRect(bx,by,bW,bD);
-    ctx.strokeStyle='#3d8bff';ctx.lineWidth=2;ctx.strokeRect(bx,by,bW,bD);
-    // Hatch pattern inside building
-    ctx.save();ctx.beginPath();ctx.rect(bx,by,bW,bD);ctx.clip();
-    ctx.strokeStyle='rgba(61,139,255,.08)';ctx.lineWidth=0.5;
-    for(let d=-bD;d<bW+bD;d+=12){ctx.beginPath();ctx.moveTo(bx+d,by);ctx.lineTo(bx+d+bD,by+bD);ctx.stroke()}
-    ctx.restore();
-    ctx.fillStyle='rgba(61,139,255,.8)';ctx.font='500 9px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(`PROPOSED BUILDING`,bx+bW/2,by+bD/2);
-    ctx.font='8px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.5)';
-    ctx.fillText(`${m.projectType||''}  ·  ${(m.totalSqFt||0).toLocaleString()} SF`,bx+bW/2,by+bD/2+14);
-    // Dimension strings
-    dimLine(ctx,bx,by+bD+24,bx+bW,by+bD+24,`${(bW/scl).toFixed(0)}'-0"`);
-    dimLine(ctx,bx+bW+20,by,bx+bW+20,by+bD,`${(bD/scl).toFixed(0)}'-0"`,true);
-    // Setback annotations
-    dimLine(ctx,ox,sy+sh/2,bx,sy+sh/2,`${z.leftSetback}' SB`);
-    dimLine(ctx,ox,oy,ox,sy,`${z.frontSetback}'\nFRONT SB`,true);
+  // Building footprint — L4: draw the ACTUAL generated building (ground-floor
+  // room bounding box) at its real position on the parcel, plus the ADU as a
+  // separate footprint, so the site plan (A-1) and floor plan (A-2) are one
+  // coordinated object ("based on the site plan").
+  if(S.plan&&S.plan.floors&&S.plan.floors[0]){
+    const f0=S.plan.floors[0].rooms||[];
+    const aduIds=new Set((S.plan.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
+    const bbox=rs=>{if(!rs.length)return null;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;rs.forEach(r=>{x0=Math.min(x0,r.x);y0=Math.min(y0,r.y);x1=Math.max(x1,r.x+r.w);y1=Math.max(y1,r.y+r.h)});return{x:x0,y:y0,w:x1-x0,h:y1-y0}};
+    const drawFp=(bb,label,sub,dims)=>{if(!bb)return;const bx=tx(bb.x),by=ty(bb.y),bw=ft(bb.w),bd=ft(bb.h);
+      ctx.fillStyle='rgba(61,139,255,.2)';ctx.fillRect(bx,by,bw,bd);
+      ctx.strokeStyle='#3d8bff';ctx.lineWidth=2;ctx.strokeRect(bx,by,bw,bd);
+      ctx.save();ctx.beginPath();ctx.rect(bx,by,bw,bd);ctx.clip();ctx.strokeStyle='rgba(61,139,255,.08)';ctx.lineWidth=.5;
+      for(let d=-bd;d<bw+bd;d+=12){ctx.beginPath();ctx.moveTo(bx+d,by);ctx.lineTo(bx+d+bd,by+bd);ctx.stroke()}ctx.restore();
+      ctx.fillStyle='rgba(61,139,255,.85)';ctx.font='500 9px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,bx+bw/2,by+bd/2-5);
+      ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.55)';ctx.fillText(sub,bx+bw/2,by+bd/2+8);
+      if(dims){dimLine(ctx,bx,by+bd+18,bx+bw,by+bd+18,`${bb.w.toFixed(0)}'-0"`);dimLine(ctx,bx+bw+16,by,bx+bw+16,by+bd,`${bb.h.toFixed(0)}'-0"`,true);}
+    };
+    const mb=bbox(f0.filter(r=>!aduIds.has(r.unit)));
+    const ab=bbox(f0.filter(r=>aduIds.has(r.unit)));
+    drawFp(mb,'PROPOSED BUILDING',`${m.typology||''} · ${m.stories||1}-STORY · ${(m.totalSqFt||0).toLocaleString()} SF`,true);
+    if(ab)drawFp(ab,'PROPOSED ADU',`${ab.w.toFixed(0)}'×${ab.h.toFixed(0)}'`,false);
+    // setback annotations measured to the real footprint
+    if(mb){dimLine(ctx,ox,ty(mb.y+mb.h/2),tx(mb.x),ty(mb.y+mb.h/2),`${z.leftSetback}' SB`);
+      dimLine(ctx,tx(mb.x+mb.w/2),oy,tx(mb.x+mb.w/2),ty(mb.y),`${z.frontSetback}' FRONT SB`,true);}
   }
   // ── GEOM-4: Parking stalls (8.5'×18' per IBC §1106) ──
   const numStalls=(S.plan?.meta?.parkingSpaces)||0;

@@ -1361,7 +1361,7 @@ async function startAnalysis(){
   document.getElementById('run-btn').disabled=true;document.getElementById('run-btn').textContent='ANALYZING...';
   // Clean slate — never reuse geocoded coords, OSM buildings, or map overlays from a previous run
   S.plan=null;S.floor=0;S.zoom=1;S.panX=0;S.panY=0;S.selectedOption=null;S.competitors=null;S.countyRecord=null;
-  S.lat=null;S.lon=null;S.osmBuildings=null;S.femaZone=null;S._geoAddr=null;S._z=null;S._advisor=null;S.padElevation=null;
+  S.lat=null;S.lon=null;S.osmBuildings=null;S.femaZone=null;S._geoAddr=null;S._z=null;S._advisor=null;S.padElevation=null;S.regridParcel=null;S.solarYield=null;
   if(MAP_INSTANCE){MAP_INSTANCE.eachLayer(l=>{if(l._isArchDraw||l._isOSM)MAP_INSTANCE.removeLayer(l)})}
   LOG.length=0;
   L.info(`=== v12 ANALYSIS START: ${S.addr} ===`);
@@ -1592,6 +1592,35 @@ async function runPhase_record(){
       if(isFinite(ev)&&ev>-1000&&ev<30000){S.padElevation=ev;findings.push(`• **Site grade elevation:** ${ev.toFixed(1)}'-0" (USGS 3DEP / EPQS) — approximate; finished floor to be set by survey.`);L.info(`USGS 3DEP elevation: ${ev.toFixed(2)} ft @ ${(+S.lat).toFixed(4)},${(+S.lon).toFixed(4)}`);}
       else findings.push('• USGS 3DEP elevation: no data at this point — set FF datum by survey.');
     }catch(e){L.info('USGS elevation: '+(/fetch|timeout|network/i.test(e.message)?'unavailable':String(e.message).substring(0,40)));findings.push('• USGS 3DEP elevation: unavailable — set datum by survey.');}
+
+    // Strategy 2c: Regrid parcel/APN (key server-side via /api/regrid). Proxy-
+    // only — no direct fallback (the token must never reach the browser). On the
+    // Vercel deployment /api auto-resolves; standalone fails gracefully.
+    try{
+      const r=await Promise.race([proxyFetch(`/regrid?lat=${S.lat}&lon=${S.lon}&radius=25`,null),new Promise((_,rej)=>setTimeout(()=>rej(new Error('regrid_timeout')),9000))]);
+      const d=await r.json();
+      if(d&&d.error){throw new Error(d.error);}
+      const feat=((d&&(d.parcels&&d.parcels.features))||(d&&d.features)||[])[0];
+      const fld=(feat&&feat.properties&&(feat.properties.fields||feat.properties))||null;
+      if(fld){
+        const apn=fld.parcelnumb||fld.parcelnumb_no_formatting||fld.alt_parcelnumb1||'';
+        S.regridParcel={apn,owner:fld.owner||'',address:fld.address||fld.saddno&&`${fld.saddno} ${fld.saddstr||''}`||'',use:fld.usedesc||fld.lbcs_activity_desc||'',zoning:fld.zoning||'',acres:fld.ll_gisacre||fld.gisacre||null};
+        findings.push(`✅ **Regrid Parcel:** APN ${apn||'—'}${S.regridParcel.use?`, Use: ${S.regridParcel.use}`:''}${S.regridParcel.acres?`, ${(+S.regridParcel.acres).toFixed(2)} ac`:''} (Regrid v2)`);
+        L.info(`Regrid parcel: APN ${apn||'(none)'}`);
+      }else findings.push('• Regrid: no parcel returned at this point.');
+    }catch(e){L.info('Regrid: '+(/timeout|fetch|configured|not_configured/i.test(e.message)?'unavailable (proxy/key not reachable)':String(e.message).substring(0,40)));}
+
+    // Strategy 2d: NREL PVWatts v8 solar specific yield (kWh per kW per year) for
+    // this location (key server-side via /api/nrel; system_capacity=1). The app
+    // multiplies by the actual array size when the plan is known.
+    try{
+      const tilt=Math.min(40,Math.max(10,Math.round(Math.abs(+S.lat))));
+      const r=await Promise.race([proxyFetch(`/nrel?lat=${S.lat}&lon=${S.lon}&system_capacity=1&array_type=1&module_type=1&losses=14&tilt=${tilt}&azimuth=180`,null),new Promise((_,rej)=>setTimeout(()=>rej(new Error('nrel_timeout')),10000))]);
+      const d=await r.json();
+      if(d&&d.error){throw new Error(d.error);}
+      const sy=parseFloat(d&&d.outputs&&d.outputs.ac_annual);
+      if(isFinite(sy)&&sy>0){S.solarYield={specificYield:Math.round(sy),solrad:d.outputs.solrad_annual,source:'NREL PVWatts v8'};findings.push(`☀️ **Solar resource:** ${Math.round(sy).toLocaleString()} kWh/kW/yr (NREL PVWatts v8, ${(+d.outputs.solrad_annual).toFixed(1)} kWh/m²/day) — drives Net-Zero ROI.`);L.info(`NREL solar specific yield: ${Math.round(sy)} kWh/kW/yr`);}
+    }catch(e){L.info('NREL solar: '+(/timeout|fetch|configured|not_configured/i.test(e.message)?'unavailable (proxy/key not reachable)':String(e.message).substring(0,40)));}
 
     // Strategy 3: COUNTY_REGISTRY lookup (verified ArcGIS parcel endpoints)
     if(z&&window.COUNTY_REGISTRY&&window.countyRegistryKey){
@@ -4231,7 +4260,7 @@ function drawTitleBlock(ctx,W,H,TH,sheetNum,sheetTitle,scale){
   ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.7)';let py=TY+28;
   ctx.fillText('SITE: '+(m.address||S.addr||'—').substring(0,54),X0+8,py);py+=11;
   ctx.fillText('LEGAL: '+ph(pi.legalDescription).substring(0,54),X0+8,py);py+=11;
-  const apn=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||pi.apn||'PER ASSESSOR';
+  const apn=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||S.regridParcel?.apn||pi.apn||'PER ASSESSOR';
   ctx.fillText(`APN: ${apn}    ${z.jurisdiction||'—'}, ${z.state||'—'}    ZONE: ${z.zoningDistrict||'—'}`,X0+8,py);py+=11;
   ctx.fillText(`${m.typology||'—'} · ${ph(m.units)} unit(s) · ${(m.totalSqFt||0).toLocaleString()} SF · ${date}`,X0+8,py);
   // ── middle zone: contacts + revisions ──
@@ -4441,9 +4470,10 @@ function editProjectInfo(){
   set('pi-rev-n','');set('pi-rev-date','');set('pi-rev-desc','');
   const z=S._z||{};const ctx=document.getElementById('pi-context');
   if(ctx)ctx.textContent=S.addr?`Site: ${S.addr}  ·  ${z.jurisdiction||'—'}, ${z.state||'—'}  ·  Zone ${z.zoningDistrict||'—'}`:'No analysis loaded — run one to auto-fill site, zoning & APN.';
-  const cAPN=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||'';
+  const cAPN=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||S.regridParcel?.apn||'';
+  const cSrc=(S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN)?'county assessor':'Regrid';
   const hint=document.getElementById('pi-apn-hint');
-  if(hint)hint.textContent=cAPN?`Auto-detected from county assessor: ${cAPN} (leave blank to use it)`:'Not in county records — enter manually, or leave blank for "PER ASSESSOR".';
+  if(hint)hint.textContent=cAPN?`Auto-detected from ${cSrc}: ${cAPN} (leave blank to use it)`:'Not in county/parcel records — enter manually, or leave blank for "PER ASSESSOR".';
   const apnIn=document.getElementById('pi-apn');if(apnIn)apnIn.placeholder=cAPN||'PER ASSESSOR';
   const m=document.getElementById('pi-modal');if(m)m.classList.add('show');
 }

@@ -238,6 +238,58 @@ async function handlePermits(city, params, origin) {
   return jsonPassthrough(resp, origin, `permits:${city}`);
 }
 
+// ═══ NREL PVWatts v8 (solar) — key injected server-side (NREL_API_KEY) ═══
+// developer.nrel.gov was retired 2026-05-29; the live host is developer.nlr.gov.
+// The upstream host is HARDCODED and the client supplies ONLY validated numeric
+// params, so there is no SSRF surface (unlike the generic /arcgis passthrough).
+// Called with system_capacity=1 to get the location's specific yield (annual
+// kWh per kW); the app multiplies by the actual array size client-side.
+async function handleNREL(params, origin) {
+  const key = process.env.NREL_API_KEY;
+  if (!key) return jsonResponse({ error: 'nrel_not_configured', hint: 'Set NREL_API_KEY in the Vercel project env vars.' }, origin, 503);
+  const lat = parseFloat(params.get('lat')), lon = parseFloat(params.get('lon'));
+  if (!isFinite(lat) || !isFinite(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180)
+    return jsonResponse({ error: 'valid lat + lon required' }, origin, 400);
+  const clamp = (v, lo, hi, d) => { const n = parseFloat(v); return isFinite(n) ? Math.min(hi, Math.max(lo, n)) : d; };
+  const qp = new URLSearchParams({
+    api_key: key,
+    lat: String(lat), lon: String(lon),
+    system_capacity: String(clamp(params.get('system_capacity'), 0.05, 1000, 1)),
+    module_type: String(clamp(params.get('module_type'), 0, 2, 1)),
+    losses: String(clamp(params.get('losses'), -5, 99, 14)),
+    array_type: String(clamp(params.get('array_type'), 0, 4, 1)),
+    tilt: String(clamp(params.get('tilt'), 0, 90, Math.min(90, Math.abs(lat)))),
+    azimuth: String(clamp(params.get('azimuth'), 0, 359, 180)),
+    timeframe: 'monthly',
+  });
+  try {
+    const resp = await fetch(`https://developer.nlr.gov/api/pvwatts/v8.json?${qp.toString()}`, { headers: PROXY_HEADERS });
+    return jsonPassthrough(resp, origin, 'nrel');
+  } catch (e) {
+    return jsonResponse({ error: 'nrel_fetch_threw', message: String(e?.message || e).substring(0, 200) }, origin, 502);
+  }
+}
+
+// ═══ Regrid parcel API v2 (parcel/APN) — token injected (REGRID_TOKEN) ═══
+// Hardcoded host; client supplies only validated lat/lon/radius. The token is a
+// query param per Regrid's design but is added server-side and never reaches the
+// browser. (Reads REGRID_TOKEN, with REGRID_API_TOKEN / REGRID_KEY fallbacks.)
+async function handleRegrid(params, origin) {
+  const token = process.env.REGRID_TOKEN || process.env.REGRID_API_TOKEN || process.env.REGRID_KEY;
+  if (!token) return jsonResponse({ error: 'regrid_not_configured', hint: 'Set REGRID_TOKEN in the Vercel project env vars.' }, origin, 503);
+  const lat = parseFloat(params.get('lat')), lon = parseFloat(params.get('lon'));
+  if (!isFinite(lat) || !isFinite(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180)
+    return jsonResponse({ error: 'valid lat + lon required' }, origin, 400);
+  const radius = Math.min(1000, Math.max(0, parseInt(params.get('radius'), 10) || 25));
+  const qp = new URLSearchParams({ lat: String(lat), lon: String(lon), radius: String(radius), limit: '1', token });
+  try {
+    const resp = await fetch(`https://app.regrid.com/api/v2/parcels/point?${qp.toString()}`, { headers: PROXY_HEADERS });
+    return jsonPassthrough(resp, origin, 'regrid');
+  } catch (e) {
+    return jsonResponse({ error: 'regrid_fetch_threw', message: String(e?.message || e).substring(0, 200) }, origin, 502);
+  }
+}
+
 // ═══ Hosted-AI proxy ═══════════════════════════════════
 // The hosted-AI endpoints (/api/ai/messages, /api/ai/whoami) live in
 // api/ai/[...path].js — the streaming implementation that takes Vercel
@@ -265,15 +317,19 @@ export default async function handler(request) {
         ok: true,
         version: PROXY_VERSION,
         platform: 'vercel-edge',
-        routes: ['/api/fema?lat=&lon=', '/api/arcgis?url=', '/api/overpass?data=', '/api/municode?url=', '/api/permits/:city', '/api/ai/messages', '/api/ai/whoami'],
+        routes: ['/api/fema?lat=&lon=', '/api/arcgis?url=', '/api/overpass?data=', '/api/municode?url=', '/api/permits/:city', '/api/nrel?lat=&lon=', '/api/regrid?lat=&lon=', '/api/ai/messages', '/api/ai/whoami'],
         permitCities: Object.keys(PERMIT_ENDPOINTS),
         aiHosted: !!process.env.ANTHROPIC_KEY && !!process.env.SUPABASE_URL,
+        solarHosted: !!process.env.NREL_API_KEY,
+        parcelHosted: !!(process.env.REGRID_TOKEN || process.env.REGRID_API_TOKEN || process.env.REGRID_KEY),
       }, origin);
     }
     if (route === 'fema') return await handleFema(u.searchParams, origin);
     if (route === 'arcgis') return await handleArcgis(u.searchParams, origin);
     if (route === 'overpass') return await handleOverpass(u.searchParams, origin);
     if (route === 'municode') return await handleMunicode(u.searchParams, origin);
+    if (route === 'nrel') return await handleNREL(u.searchParams, origin);
+    if (route === 'regrid') return await handleRegrid(u.searchParams, origin);
     if (route === 'permits' && segments[1]) return await handlePermits(segments[1], u.searchParams, origin);
     // /api/ai/* is served by api/ai/[...path].js (P1-C: single source of truth).
     // /diag was removed (P1-B: it was an unauthenticated open-fetch SSRF surface).

@@ -113,6 +113,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
 .ptbtn:hover{background:var(--ink3);color:var(--txt)}
 .ptbtn.g{color:var(--green);border-color:rgba(34,224,138,.3)}.ptbtn.b{color:var(--blue);border-color:rgba(61,139,255,.3)}
 .ptbtn.r{color:var(--coral);border-color:rgba(255,101,85,.3)}
+.ptbtn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
 #cc{flex:1;position:relative;overflow:hidden}
 #map-view{position:absolute;inset:0;display:none;z-index:1}
 #map-view.vis{display:block}
@@ -492,8 +493,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
       <div id="sheet-tabs"></div>
       <div class="sp"></div>
       <button class="ptbtn b" onclick="fitPlan()" title="Fit to screen">FIT</button>
+      <button class="ptbtn" onclick="editProjectInfo()" title="Edit title-block info (owner, designer, legal description)">ℹ INFO</button>
       <button class="ptbtn" onclick="toggleLogPanel()">LOG</button>
+      <button class="ptbtn" id="plot-btn" onclick="togglePlotMode()" title="Toggle monochrome black-on-white plot preview">◻ PLOT</button>
       <button class="ptbtn" onclick="exportSheetPNG()" title="Save current sheet as PNG">↓ PNG</button>
+      <button class="ptbtn" onclick="exportSheetDXF()" title="Export current floor plan as an editable AutoCAD DXF (feet, AIA layers)">↓ DXF</button>
       <button class="ptbtn r" onclick="exportPermitPDF()" title="Export full 24×36 permit set as PDF">↓ PDF SET</button>
     </div>
     <!-- architect-advisor RDP banner (populated when project triggers RDP requirement) -->
@@ -665,12 +669,16 @@ const S={
   view:'map',activeSheet:'A-0',
   apiKey:'',mode:'embedded',apiReady:false,analyzing:false,
   zoom:1,panX:0,panY:0,panning:false,panStart:{x:0,y:0,px:0,py:0},
+  plotMode:false,        // L2: monochrome black-on-white plot preview / PDF
   overlays:{flood:false,hillside:false,historic:false,coastal:false,fire:false,liquefaction:false},
   femaZone:null,lat:null,lon:null,osmBuildings:[],
   selectedOption:null,   // chosen development program
   competitors:null,      // competitor research results
   countyRecord:null,     // found GIS/OSM site data
   generatedOptions:[],   // 2-5 computed options
+  // L3: title-block project info (owner/designer/engineer/legal). Editable via
+  // editProjectInfo(); blanks render as permit placeholders, never fabricated.
+  projectInfo:{owner:'',ownerPhone:'',designer:'',designerPhone:'',engineer:'',legalDescription:'',revisions:[]},
 };
 const PHASES=[
   {id:'site',  lbl:'Site & Parcel Research'},
@@ -1058,74 +1066,193 @@ async function fetchOSMBuildings(lat,lon){
   }catch(e){L.warn('OSM fetch failed:',e.message)}
 }
 
-// ═══ LOCAL FLOOR PLAN GENERATOR — Expert Dimensions ═══
+// ═══ LOCAL FLOOR PLAN GENERATOR — typology-driven, modern program (DATA/DRAW rebuild) ═══
+// Rewritten so the plan matches the SELECTED OPTION's unit count + typology and
+// lays out a modern (2025-26) program. 100% LOCAL/deterministic (CLAUDE.md #6).
+// Backward-compatible output shape ({meta,setbacks,floors[].rooms[]}); adds a
+// `unit` id per room + `units[]` registry + `meta.typology`/`planNotes`.
 function localFloorPlan(z, selectedOption){
-  const opt=selectedOption||{units:2,stories:Math.min(z.maxStories||2,3)};
+  const opt=selectedOption||{units:2,_primaryUnits:1,stories:Math.min(z.maxStories||2,3)};
   const bX=z.leftSetback,bY=z.frontSetback;
   const bW=Math.max(14,z.lotWidth-z.leftSetback-z.rightSetback);
   const bD=Math.max(20,z.lotDepth-z.frontSetback-z.rearSetback);
-  const stories=Math.min(opt.stories||Math.min(z.maxStories||2,3),3);
-  const sideUnits=bW>=46?2:1;
-  const unitW=Math.floor(bW/sideUnits);
-  const hasADU=z.aduAllowed!==false&&bD>=65&&(opt.units>sideUnits*stories);
-  const mainD=hasADU?Math.floor(bD*.62):bD;
-  const aduY=bY+mainD+6;const aduD=hasADU?bD-mainD-6:0;
-  const totalUnits=opt.units||(sideUnits*stories+(hasADU?1:0));
+  const maxSt=Math.min(z.maxStories||2,3);
+  const stories=Math.min(opt.stories||maxSt,3);
+  const aduOK=z.aduAllowed!==false;
+  const notes=[];
+  // ── feet-inches formatter (handles 12" rollover) ──
+  const fi=v=>{let f=Math.floor(v),i=Math.round((v-f)*12);if(i===12){f++;i=0}return `${f}'-${i}"`};
+  // ── deterministic guillotine packer: a "node" is a leaf {name,type} or a
+  //    split {dir:'h'|'v', children:[{weight, node?|name,type}]}. splitBand tiles
+  //    [start,start+len] EXACTLY (last child = remainder) → no overlaps, no gaps. ──
+  const splitBand=(start,len,weights)=>{const tot=weights.reduce((a,b)=>a+b,0);let cur=start;const out=[];
+    for(let i=0;i<weights.length;i++){const size=i===weights.length-1?(start+len-cur):len*weights[i]/tot;out.push({off:cur,size});cur+=size}return out};
+  function pack(box,node,out){
+    if(!node.dir){out.push({name:node.name,type:node.type,x:box.x,y:box.y,w:box.w,h:box.h});return}
+    const segs=splitBand(node.dir==='h'?box.y:box.x, node.dir==='h'?box.h:box.w, node.children.map(c=>c.weight));
+    node.children.forEach((c,i)=>{const s=segs[i];
+      const cb=node.dir==='h'?{x:box.x,y:s.off,w:box.w,h:s.size}:{x:s.off,y:box.y,w:s.size,h:box.h};
+      pack(cb, c.node||c, out)});
+  }
+  // ── modern program templates (node trees), width/depth-tiered so every leaf
+  //    clears its minimum: WIDE units get a double-loaded plan (two width
+  //    columns), NARROW units a single-loaded plan (full-width rooms stacked by
+  //    depth). Nesting splits service cells by DEPTH so each keeps full width. ──
+  function tplFlat(uW,uD){ // complete single-level dwelling (flat / SFR-1story / ADU)
+    if(uW>=22&&uD>=30){ // 2-bed, double-loaded
+      return {dir:'h',children:[
+        {weight:.46,node:{dir:'v',children:[{weight:.6,name:'GREAT ROOM',type:'living'},{weight:.4,name:'KITCHEN',type:'kitchen'}]}},
+        {weight:.16,node:{dir:'v',children:[{weight:.34,name:'ENTRY',type:'entry'},{weight:.34,name:'POWDER',type:'bath'},{weight:.32,name:'MECH',type:'storage'}]}},
+        {weight:.38,node:{dir:'v',children:[
+          {weight:.55,node:{dir:'h',children:[{weight:.68,name:'PRIMARY BED',type:'bedroom'},{weight:.32,name:'ENSUITE',type:'bath'}]}},
+          {weight:.45,node:{dir:'h',children:[{weight:.66,name:'BED 2',type:'bedroom'},{weight:.34,name:'BATH',type:'bath'}]}}]}}]};
+    }
+    if(uD>=26){ // 1-2 bed, single-loaded (narrow): full-width rooms stacked by depth
+      return {dir:'h',children:[
+        {weight:.30,name:'GREAT ROOM',type:'living'},
+        {weight:.22,name:'KITCHEN',type:'kitchen'},
+        {weight:.30,name:'PRIMARY BED',type:'bedroom'},
+        {weight:.18,node:{dir:'v',children:[{weight:.6,name:'BATH',type:'bath'},{weight:.4,name:'LAUNDRY',type:'laundry'}]}}]};
+    }
+    return {dir:'h',children:[ // studio (shallow)
+      {weight:.66,node:{dir:'v',children:[{weight:.64,name:'STUDIO',type:'living'},{weight:.36,name:'KITCHENETTE',type:'kitchen'}]}},
+      {weight:.34,node:{dir:'v',children:[{weight:.6,name:'BATH',type:'bath'},{weight:.4,name:'CLOSET',type:'storage'}]}}]};
+  }
+  function tplMain(uW,uD){ // townhouse ground floor (public + service)
+    if(uW>=20){return {dir:'h',children:[
+      {weight:.56,node:{dir:'v',children:[{weight:.58,name:'GREAT ROOM',type:'living'},{weight:.42,name:'KITCHEN',type:'kitchen'}]}},
+      {weight:.44,node:{dir:'v',children:[{weight:.52,name:'DINING',type:'dining'},{weight:.48,node:{dir:'h',children:[{weight:.36,name:'POWDER',type:'bath'},{weight:.34,name:'MUDROOM',type:'entry'},{weight:.30,name:'MECH',type:'storage'}]}}]}}]};}
+    return {dir:'h',children:[ // narrow: single-loaded
+      {weight:.40,name:'GREAT ROOM',type:'living'},{weight:.24,name:'KITCHEN',type:'kitchen'},
+      {weight:.20,node:{dir:'v',children:[{weight:.55,name:'POWDER',type:'bath'},{weight:.45,name:'ENTRY',type:'entry'}]}},
+      {weight:.16,name:'MECH',type:'storage'}]};
+  }
+  function tplUpper(uW,uD){ // townhouse upper floor (sleeping)
+    if(uW>=20){return {dir:'h',children:[
+      {weight:.52,node:{dir:'v',children:[{weight:.62,name:'PRIMARY BED',type:'bedroom'},{weight:.38,node:{dir:'h',children:[{weight:.55,name:'ENSUITE',type:'bath'},{weight:.45,name:'W.I.C.',type:'storage'}]}}]}},
+      {weight:.48,node:{dir:'v',children:[{weight:.6,name:'BED 2',type:'bedroom'},{weight:.4,node:{dir:'h',children:[{weight:.58,name:'BATH',type:'bath'},{weight:.42,name:'LAUNDRY',type:'laundry'}]}}]}}]};}
+    return {dir:'h',children:[ // narrow: single-loaded
+      {weight:.40,name:'PRIMARY BED',type:'bedroom'},
+      {weight:.22,node:{dir:'v',children:[{weight:.58,name:'ENSUITE',type:'bath'},{weight:.42,name:'W.I.C.',type:'storage'}]}},
+      {weight:.38,name:'BED 2',type:'bedroom'}]};
+  }
+  // pack a unit footprint for one level, reserving a slim aligned stair strip
+  function layoutUnit(box,role,unitId,pfx,multi){
+    const out=[];let main=box;
+    if(multi){const sw=Math.min(5,Math.max(4,box.w*0.16));
+      main={x:box.x,y:box.y,w:box.w-sw,h:box.h};
+      const sh=Math.min(box.h,12);
+      out.push({name:'STAIR',type:'stair',x:box.x+box.w-sw,y:box.y,w:sw,h:sh});
+      // The strip alongside/below the stair is the unit's circulation spine, not
+      // a closet — a small linen at the stair head, then HALL for the remainder
+      // (corridor is EXEMPT from the habitable min-dim, so a long thin run is OK).
+      const rem=box.h-sh;
+      if(rem>=3){
+        const lin=Math.min(rem,5);
+        out.push({name:'LINEN',type:'storage',x:box.x+box.w-sw,y:box.y+sh,w:sw,h:lin});
+        if(rem-lin>=3)out.push({name:'HALL',type:'corridor',x:box.x+box.w-sw,y:box.y+sh+lin,w:sw,h:rem-lin});
+      }
+    }
+    const node=role==='main'?tplMain(main.w,main.h):role==='upper'?tplUpper(main.w,main.h):tplFlat(main.w,main.h);
+    pack(main,node,out);
+    return out.map(r=>({name:pfx+r.name,type:r.type,x:r.x,y:r.y,w:r.w,h:r.h,unit:unitId,dimW:fi(r.w),dimH:fi(r.h)}));
+  }
+  // ── typology selection (option → real dwelling typology + counts) ──
+  const wanted=opt._primaryUnits||opt.units||1;
+  const name=(opt.name||'').toLowerCase();
+  const maxCols=Math.max(1,Math.floor(bW/16));   // side-by-side needs ~16ft/unit
+  let kind,primary,cols=1,perFloors=1;
+  if((opt.id===1)||wanted<=1){kind='SFR';primary=1;}
+  else if(/sb9/.test(name)){kind='SB9';primary=4;cols=2;perFloors=2;}
+  else if(opt.id===5){kind='STACKED_TH';cols=Math.min(2,maxCols);perFloors=2;primary=cols*perFloors;}   // WA MFTE fourplex
+  else if(opt.id===3||/side-by-side|townhouse/.test(name)){kind='TOWNHOUSE';primary=Math.min(wanted,maxCols);cols=primary;perFloors=stories;}
+  else if(opt.id===2||/stack/.test(name)){kind='STACKED';primary=Math.min(wanted,Math.max(2,stories));}
+  else if(opt.id===4){ // max density — fit `wanted` units: full townhouses if wide enough, else stack columns × floors
+    if(maxCols>=wanted&&stories>=2){kind='TOWNHOUSE';primary=wanted;cols=wanted;perFloors=stories;}
+    else if(maxCols>=2&&stories>=2){kind='STACKED_TH';cols=Math.min(maxCols,Math.ceil(wanted/stories));perFloors=stories;primary=Math.min(wanted,cols*perFloors);}
+    else{kind='STACKED';primary=Math.min(wanted,Math.max(2,stories));}
+  }
+  else{kind=bW>=40?'TOWNHOUSE':'STACKED';primary=Math.min(wanted,kind==='TOWNHOUSE'?maxCols:Math.max(2,stories));if(kind==='TOWNHOUSE'){cols=primary;perFloors=stories;}}
+  if(primary<wanted)notes.push(`Reduced to ${primary} primary unit(s) — the ${Math.round(bW)}'×${Math.round(bD)}' buildable envelope can't fit ${wanted} of this typology.`);
+
+  // ── ADU count, capped by what the rear yard / lot width can actually site ──
+  const aduReq=aduOK?Math.max(0,(opt.units||primary)-primary):0;
+  const aduCapacity=bD>=58?Math.min(2,Math.max(0,Math.floor(bW/20))):0;
+  const adus=Math.min(aduReq,aduCapacity);
+  if(aduReq>adus)notes.push(`${aduReq-adus} ADU(s) omitted — rear yard / lot width can't site them.`);
+  const wantADU=adus>0;
+  const mainD=wantADU&&bD>=58?Math.round(bD*.64):bD;
+  const aduY=bY+mainD+5,aduD=wantADU?bD-mainD-5:0;
+
+  // ── build placements: (unitId, box, level, role) ──
+  const units=[];const placements=[];let nextU=0;
+  const newUnit=(label,type)=>{const id=nextU++;units.push({id,label,type:type||'primary'});return id};
+  if(kind==='SFR'){const id=newUnit('Unit A — SFR');
+    for(let L=1;L<=stories;L++)placements.push({u:id,box:{x:bX,y:bY,w:bW,h:mainD},level:L,role:L===1?'main':'upper',pfx:'',multi:stories>1});
+  }else if(kind==='TOWNHOUSE'){const cols=splitBand(bX,bW,Array(primary).fill(1));
+    for(let c=0;c<primary;c++){const id=newUnit(`Unit ${String.fromCharCode(65+c)} — Townhouse`);const pfx=`${String.fromCharCode(65+c)} `;
+      for(let L=1;L<=stories;L++)placements.push({u:id,box:{x:cols[c].off,y:bY,w:cols[c].size,h:mainD},level:L,role:L===1?'main':'upper',pfx,multi:stories>1});}
+  }else if(kind==='STACKED'){const n=Math.min(primary,stories);
+    // multi:n>1 reserves an aligned stair strip on every floor → a shared
+    // vertical core connecting the ground common entry to the upper flat(s).
+    for(let L=1;L<=n;L++){const id=newUnit(`Unit ${String.fromCharCode(65+L-1)} — Flat L${L}`);placements.push({u:id,box:{x:bX,y:bY,w:bW,h:mainD},level:L,role:'flat',pfx:`${String.fromCharCode(65+L-1)} `,multi:n>1});}
+  }else if(kind==='STACKED_TH'){const cs=splitBand(bX,bW,Array(cols).fill(1));let k=0;
+    for(let c=0;c<cols;c++)for(let L=1;L<=perFloors;L++){if(k>=primary)break;const id=newUnit(`Unit ${String.fromCharCode(65+k)} — Flat`);placements.push({u:id,box:{x:cs[c].off,y:bY,w:cs[c].size,h:mainD},level:L,role:'flat',pfx:`${String.fromCharCode(65+k)} `,multi:perFloors>1});k++;}
+  }else if(kind==='SB9'){const lots=splitBand(bX,bW,[1,1]);let k=0;
+    for(let lot=0;lot<2;lot++)for(let L=1;L<=2;L++){const id=newUnit(`Lot ${lot+1} Unit ${L}`);placements.push({u:id,box:{x:lots[lot].off,y:bY,w:lots[lot].size,h:mainD},level:L,role:'flat',pfx:`${lot+1}.${L} `,multi:true});k++;}
+  }
+  // ADUs (rear, ground level, single-level)
+  if(wantADU&&aduD>=14){const aw=Math.min(bW,Math.max(20,bW/Math.max(1,adus)));const acols=splitBand(bX,Math.min(bW,aw*adus),Array(adus).fill(1));
+    for(let a=0;a<adus;a++){const id=newUnit(`ADU ${a+1}`,'adu');placements.push({u:id,box:{x:acols[a].off,y:aduY,w:acols[a].size,h:aduD},level:1,role:'flat',pfx:`ADU${adus>1?(a+1):''} `,multi:false});}
+  }
+  // ── L1 Phase C: derive first-class walls[] (ext perimeter + party/demising)
+  //    and openings[] (per-unit ground entry + perimeter egress windows). These
+  //    drive demising-wall rendering, the L5 safety overlay, and the DXF/plot. ──
+  function floorWalls(places,rooms,level){
+    const T=0.5,walls=[],openings=[];
+    const boxes=places.map(p=>({x:p.box.x,y:p.box.y,w:p.box.w,h:p.box.h,u:p.u}));
+    if(!boxes.length)return{walls,openings};
+    const par=boxes.map((_,i)=>i),find=i=>par[i]===i?i:(par[i]=find(par[i]));
+    const touch=(a,b)=>{const yOv=Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)>0.5,xOv=Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>0.5;
+      const vE=Math.abs((a.x+a.w)-b.x)<0.3||Math.abs((b.x+b.w)-a.x)<0.3,hE=Math.abs((a.y+a.h)-b.y)<0.3||Math.abs((b.y+b.h)-a.y)<0.3;
+      return (vE&&yOv)||(hE&&xOv)};
+    for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++)if(touch(boxes[i],boxes[j]))par[find(i)]=find(j);
+    const groups={};boxes.forEach((b,i)=>{(groups[find(i)]=groups[find(i)]||[]).push(b)});
+    Object.values(groups).forEach(g=>{
+      const x0=Math.min(...g.map(b=>b.x)),y0=Math.min(...g.map(b=>b.y)),x1=Math.max(...g.map(b=>b.x+b.w)),y1=Math.max(...g.map(b=>b.y+b.h));
+      walls.push({x1:x0,y1:y0,x2:x1,y2:y0,kind:'ext',t:T},{x1:x1,y1:y0,x2:x1,y2:y1,kind:'ext',t:T},{x1:x1,y1:y1,x2:x0,y2:y1,kind:'ext',t:T},{x1:x0,y1:y1,x2:x0,y2:y0,kind:'ext',t:T});
+      for(let i=0;i<g.length;i++)for(let j=i+1;j<g.length;j++){const a=g[i],b=g[j];if(a.u===b.u)continue;
+        if(Math.abs((a.x+a.w)-b.x)<0.3||Math.abs((b.x+b.w)-a.x)<0.3){const ex=Math.abs((a.x+a.w)-b.x)<0.3?a.x+a.w:b.x+b.w;const yy0=Math.max(a.y,b.y),yy1=Math.min(a.y+a.h,b.y+b.h);if(yy1-yy0>1)walls.push({x1:ex,y1:yy0,x2:ex,y2:yy1,kind:'party',t:T});}
+      }
+      if(level===1)g.forEach(b=>{if(Math.abs(b.y-y0)<0.3)openings.push({kind:'door',x:b.x+Math.min(b.w/2,b.w-2.5),y:y0,w:3,onUnit:b.u});});
+      (rooms||[]).forEach(r=>{if(r.type!=='bedroom'&&r.type!=='living')return;
+        if(Math.abs(r.y-y0)<0.4)openings.push({kind:'window',x:r.x+r.w/2,y:y0,w:Math.min(4,r.w*.5)});
+        else if(Math.abs((r.y+r.h)-y1)<0.4)openings.push({kind:'window',x:r.x+r.w/2,y:y1,w:Math.min(4,r.w*.5)});
+        else if(Math.abs(r.x-x0)<0.4)openings.push({kind:'window',x:x0,y:r.y+r.h/2,w:Math.min(4,r.h*.5),vert:true});
+        else if(Math.abs((r.x+r.w)-x1)<0.4)openings.push({kind:'window',x:x1,y:r.y+r.h/2,w:Math.min(4,r.h*.5),vert:true});});
+    });
+    return{walls,openings};
+  }
+  // ── pack placements into floors ──
+  const floors=[];const storiesUsed=placements.reduce((m,p)=>Math.max(m,p.level),1);
+  for(let L=1;L<=storiesUsed;L++){const places=placements.filter(p=>p.level===L);const rooms=[];
+    places.forEach(p=>{layoutUnit(p.box,p.role,p.u,p.pfx,p.multi).forEach(r=>rooms.push(r))});
+    const rr=rooms.map(r=>({...r,x:Math.round(r.x*100)/100,y:Math.round(r.y*100)/100,w:Math.round(r.w*100)/100,h:Math.round(r.h*100)/100})).filter(r=>r.w>=2.5&&r.h>=2.5);
+    const wo=floorWalls(places,rr,L);
+    floors.push({level:L,label:L===1?'Ground Floor':L===storiesUsed?`Top Floor (Level ${L})`:`Level ${L}`,heightFt:L===1?10:9,rooms:rr,walls:wo.walls,openings:wo.openings});
+  }
+  // ── meta ──
+  const totalUnits=units.length;
   const projectType=opt.name||'Residential';
   const streetMatch=(S.addr||'').match(/^(\d+\s+\S+)/);
   const projectName=streetMatch?streetMatch[1]+' '+projectType:projectType;
-
-  // Expert room dimensions (IBC/IRC code minimums + good practice)
-  // Exported as fractional feet for display (e.g., 12.5 = 12'-6")
-  function unitRooms(level,u){
-    const ux=bX+u*unitW;const pfx=sideUnits>1?`U${u+1} `:'';
-    const stairW=stories>1?10:0;const usableW=u===0?unitW-stairW:unitW;const startX=ux;const rooms=[];
-    if(level===1){
-      // Expert dims: Living 14×18 min, Kitchen 10×12, Dining 10×10, Bath 5×9.5, Entry 6×8
-      const livW=Math.max(14,Math.min(Math.round(usableW*.55),20));const kitW=Math.max(10,usableW-livW);
-      const livH=Math.max(16,Math.min(Math.round(mainD*.42),18));const kitH=Math.max(12,Math.min(Math.round(mainD*.35),14));
-      rooms.push({name:`${pfx}LIVING`,x:startX,y:bY,w:livW,h:livH,type:'living',dimW:`${Math.floor(livW)}'-${Math.round((livW%1)*12)}"`,dimH:`${Math.floor(livH)}'-${Math.round((livH%1)*12)}"`});
-      rooms.push({name:`${pfx}KITCHEN`,x:startX+livW,y:bY,w:kitW,h:kitH,type:'kitchen',dimW:`${Math.floor(kitW)}'-0"`,dimH:`${Math.floor(kitH)}'-0"`});
-      rooms.push({name:`${pfx}DINING`,x:startX,y:bY+livH,w:livW,h:Math.max(10,Math.min(10,mainD-livH-9)),type:'dining',dimW:`${Math.floor(livW)}'-0"`,dimH:`10'-0"`});
-      rooms.push({name:`${pfx}BATH`,x:startX+livW,y:bY+kitH,w:Math.max(5,kitW),h:Math.max(9,7),type:'bath',dimW:`5'-0"`,dimH:`9'-6"`});
-      rooms.push({name:`${pfx}ENTRY`,x:startX,y:bY+mainD-9,w:Math.min(10,usableW),h:9,type:'entry',dimW:`6'-0"`,dimH:`8'-0"`});
-    }else{
-      // Expert dims: Master 12.5×14, Secondary 10×12, Bath 5×9.5
-      const bedW=Math.max(12.5,Math.min(Math.round(usableW*.5),14));const bed2W=Math.max(10,usableW-bedW);
-      const bedH=Math.max(13,Math.min(Math.round(mainD*.45),15));
-      rooms.push({name:`${pfx}MASTER BED`,x:startX,y:bY,w:bedW,h:bedH,type:'bedroom',dimW:`12'-6"`,dimH:`14'-0"`});
-      rooms.push({name:`${pfx}BED 2`,x:startX+bedW,y:bY,w:bed2W,h:bedH,type:'bedroom',dimW:`10'-0"`,dimH:`12'-0"`});
-      rooms.push({name:`${pfx}BATH`,x:startX,y:bY+bedH,w:Math.max(5,Math.min(8,usableW)),h:Math.max(9,7),type:'bath',dimW:`5'-0"`,dimH:`9'-6"`});
-      if(usableW>16)rooms.push({name:`${pfx}LAUNDRY`,x:startX+Math.min(8,usableW),y:bY+bedH,w:usableW-Math.min(8,usableW),h:7,type:'laundry',dimW:`8'-0"`,dimH:`7'-0"`});
-    }
-    return rooms;
-  }
-
-  const floors=[];
-  for(let level=1;level<=stories;level++){
-    const rooms=[];
-    for(let u=0;u<sideUnits;u++)rooms.push(...unitRooms(level,u));
-    // Stair: IBC §1009.4 — 3'-8"×14'-0" minimum run
-    if(stories>1)rooms.push({name:'STAIR',x:bX+unitW-10,y:bY,w:10,h:14,type:'stair',dimW:`3'-8"`,dimH:`14'-0"`});
-    // ADU (ground floor only)
-    if(level===1&&hasADU&&aduD>=14){const aduW=Math.min(bW,26);const aLvW=Math.round(aduW*.6);
-      rooms.push({name:'ADU LIVING',x:bX,y:aduY,w:aLvW,h:Math.min(12,aduD-8),type:'living',dimW:`${aLvW}'-0"`,dimH:`12'-0"`});
-      rooms.push({name:'ADU KITCHEN',x:bX+aLvW,y:aduY,w:aduW-aLvW,h:Math.min(10,aduD-8),type:'kitchen',dimW:`${aduW-aLvW}'-0"`,dimH:`10'-0"`});
-      if(aduD>=22){rooms.push({name:'ADU BED',x:bX,y:aduY+Math.min(12,aduD-8),w:aLvW,h:Math.min(11,aduD-20),type:'bedroom',dimW:`${aLvW}'-0"`,dimH:`11'-0"`});rooms.push({name:'ADU BATH',x:bX+aLvW,y:aduY+Math.min(10,aduD-8),w:aduW-aLvW,h:7,type:'bath',dimW:`5'-0"`,dimH:`7'-0"`})}
-    }
-    // Roof deck: passive solar amenity, green roof potential
-    if(level===stories&&stories>1){const rdY=bY+Math.round(mainD*.55)+4;if(rdY+8<=bY+mainD)rooms.push({name:'ROOF DECK',x:bX,y:rdY,w:bW,h:Math.max(8,bY+mainD-rdY),type:'balcony',dimW:`${bW}'-0"`,dimH:'varies'})}
-    floors.push({level,label:level===1?'Ground Floor':level===stories&&stories>1?`Top Floor (Level ${level})`:`Level ${level}`,heightFt:level===1?10:9,rooms:rooms.filter(r=>r.w>=3&&r.h>=3)});
-  }
   const allR=floors.flatMap(f=>f.rooms);const totalSF=Math.round(allR.reduce((s,r)=>s+r.w*r.h,0));
-  const floorSF=floors[0].rooms.reduce((s,r)=>s+r.w*r.h,0);
-  // Structural specifications embedded in meta
-  return{meta:{projectName,projectType,address:S.addr,county:z.county,jurisdiction:z.jurisdiction,zoningDistrict:z.zoningDistrict,lotWidth:z.lotWidth,lotDepth:z.lotDepth,lotArea:z.lotWidth*z.lotDepth,totalSqFt:totalSF,stories,units:totalUnits,commercialSqFt:0,parkingSpaces:Math.ceil(totalUnits*(z.parkingPerUnit||1)),FAR:parseFloat((totalSF/(z.lotWidth*z.lotDepth)).toFixed(2)),lotCoveragePercent:Math.round(floorSF/(z.lotWidth*z.lotDepth)*100),
-    // Structural specs (50yr expert level)
+  const floorSF=floors[0]?floors[0].rooms.reduce((s,r)=>s+r.w*r.h,0):0;
+  if(notes.length)try{L.warn('Floor plan: '+notes.join(' '))}catch(_){}
+  return{meta:{projectName,projectType,address:S.addr,county:z.county,jurisdiction:z.jurisdiction,zoningDistrict:z.zoningDistrict,lotWidth:z.lotWidth,lotDepth:z.lotDepth,lotArea:z.lotWidth*z.lotDepth,totalSqFt:totalSF,stories:storiesUsed,units:totalUnits,primaryUnits:primary,aduUnits:adus,typology:kind,planNotes:notes,commercialSqFt:0,parkingSpaces:Math.ceil(totalUnits*(z.parkingPerUnit||1)),FAR:parseFloat((totalSF/(z.lotWidth*z.lotDepth)).toFixed(2)),lotCoveragePercent:Math.round(floorSF/(z.lotWidth*z.lotDepth)*100),
     structBay:"20'-0\"",framingSystem:'2×6 @ 16" o.c. ext / 2×4 @ 16" o.c. int',foundation:'24"×12" contin. footing, 4" slab + 6×6 WWF',roofSystem:'2×10 rafters @ 16" o.c. + R-38 dense pack',
-    // Green specs
     hvac:'Mitsubishi Hyper Heat ASHP + Zehnder ComfoAir 200 ERV',solar:`SunPower Maxeon 400W, ${Math.ceil(totalSF/1000)*4}kW array`,glazing:'Triple-pane Fibrex, U-0.17 / SHGC 0.25 south, 0.18 other',
-  },setbacks:{front:z.frontSetback,rear:z.rearSetback,left:z.leftSetback,right:z.rightSetback},floors};
+  },units,setbacks:{front:z.frontSetback,rear:z.rearSetback,left:z.leftSetback,right:z.rightSetback},floors};
 }
 
 // Phase 3: structural-grid column label. String.fromCharCode(65+n) produced
@@ -1136,7 +1263,11 @@ function valPlan(plan,z){
   const minX=z.leftSetback,maxX=z.lotWidth-z.rightSetback,minY=z.frontSetback,maxY=z.lotDepth-z.rearSetback;
   if(!plan.floors)return;
   const EXEMPT=new Set(['corridor','stair','storage','balcony','entry','laundry']);
-  const minD=t=>EXEMPT.has(t||'')?3:7; // IBC §1208.1 min 7ft habitable
+  // IBC §1208.1 7ft min applies to HABITABLE rooms (living/sleeping/dining).
+  // Bathrooms, kitchens, and circulation/service spaces are NOT habitable rooms
+  // and have smaller minimums — so a powder/half-bath (~4ft) or compact kitchen
+  // is valid and must not be dropped (this previously deleted every 5ft bath).
+  const minD=t=>EXEMPT.has(t||'')?3:t==='bath'?4:t==='kitchen'?5:7;
   let _dropped=0;
   plan.floors.forEach(fl=>{if(!fl.rooms)fl.rooms=[];
     const _before=fl.rooms.length;
@@ -2296,6 +2427,45 @@ const ARCH_STANDARDS={
   },
 };
 
+// ═══ CAD LAYER + PEN TABLE (AIA / NCS CAD Layer Guidelines) ═══════════════
+// Single source of truth for the DisplayList → consumed by writeDXF (ACI color
+// + lineweight) and paintDL_plot (black-ink monochrome at the same weights), so
+// the DXF and the plotted PDF never drift. Lineweights are real CAD pen weights
+// in mm; `lwDxf` is the AutoCAD LWPOLYLINE/entity lineweight in 1/100 mm. `aci`
+// is the AutoCAD Color Index that the layer's color is set to in the DXF. `ink`
+// is the monochrome plot color (grayscale) — heavy elements pure black, notes/
+// dims a mid-gray, exactly as a pen-plotted permit sheet reads.
+const CAD_LAYERS={
+  // key            aci  lwMm   ink        linetype      note
+  'A-WALL':        {aci:7,  lwMm:0.50, ink:'#000000', lt:'CONTINUOUS'}, // exterior/bearing walls (heavy, poché)
+  'A-WALL-INTR':   {aci:7,  lwMm:0.35, ink:'#1a1a1a', lt:'CONTINUOUS'}, // interior partitions
+  'A-WALL-PRHT':   {aci:1,  lwMm:0.50, ink:'#000000', lt:'CONTINUOUS'}, // party / fire-rated demising (1-HR)
+  'A-DOOR':        {aci:3,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'}, // door leaf + swing
+  'A-GLAZ':        {aci:5,  lwMm:0.18, ink:'#000000', lt:'CONTINUOUS'}, // windows / glazing
+  'A-FLOR-FIXT':   {aci:4,  lwMm:0.18, ink:'#333333', lt:'CONTINUOUS'}, // plumbing/kitchen fixtures
+  'A-FLOR-STRS':   {aci:3,  lwMm:0.25, ink:'#222222', lt:'CONTINUOUS'}, // stairs
+  'A-AREA':        {aci:8,  lwMm:0.13, ink:'#888888', lt:'CONTINUOUS'}, // room/area boundary
+  'A-AREA-IDEN':   {aci:7,  lwMm:0.13, ink:'#000000', lt:'CONTINUOUS'}, // room names + areas (text)
+  'A-DIMS':        {aci:2,  lwMm:0.13, ink:'#555555', lt:'CONTINUOUS'}, // dimension lines + text
+  'A-ANNO':        {aci:7,  lwMm:0.18, ink:'#000000', lt:'CONTINUOUS'}, // general annotation
+  'A-ANNO-SAFE':   {aci:1,  lwMm:0.35, ink:'#000000', lt:'CONTINUOUS'}, // egress arrows / smoke+CO / safety
+  'G-ANNO-TTLB':   {aci:7,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'}, // title block
+  'G-ANNO-NOTE':   {aci:1,  lwMm:0.18, ink:'#000000', lt:'CONTINUOUS'}, // disclosure / general notes
+  // discipline layers (reserved for S-/M-/E-/P-/C- sheets, Sprints 4-5)
+  'S-GRID':        {aci:8,  lwMm:0.13, ink:'#888888', lt:'CENTER'},
+  'S-FNDN':        {aci:7,  lwMm:0.50, ink:'#000000', lt:'CONTINUOUS'},
+  'S-FRAM':        {aci:3,  lwMm:0.35, ink:'#000000', lt:'CONTINUOUS'},
+  'C-TOPO':        {aci:8,  lwMm:0.13, ink:'#999999', lt:'CONTINUOUS'},
+  'M-DUCT':        {aci:4,  lwMm:0.35, ink:'#000000', lt:'CONTINUOUS'},
+  'P-FIXT':        {aci:5,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'},
+  'E-POWR':        {aci:2,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'},
+  '0':             {aci:7,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'}, // fallback
+};
+// mm → canvas px at a given scale (pxPerFt). 1 ft = 12 in = 304.8 mm; a 0.5mm
+// pen is hairline-thin in model space, so plot weights are a fixed px ramp
+// (independent of zoom) — matches how a real plotter pens regardless of scale.
+function plotPx(lwMm){return Math.max(0.5, lwMm*2.4);}
+
 // ═══ FIXTURE PRIMITIVES — each takes (ctx, cx, cy, ft, orient?) ═══
 // cx,cy are the center of the fixture footprint in canvas pixel space
 // ft(value_in_feet) converts to pixels at the current sheet scale
@@ -3128,11 +3298,14 @@ function renderSheet(sheetId){
   if(W<10||H<10)return;
   cv.width=W;cv.height=H;
   const ctx=cv.getContext('2d');ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
+  // L2: monochrome plot preview is A-2-scoped this sprint — white paper for A-2,
+  // dark theme otherwise (so other sheets stay legible until they get a DL too).
+  const plotA2=S.plotMode&&sheetId==='A-2';
+  ctx.fillStyle=plotA2?'#ffffff':'#0c1420';ctx.fillRect(0,0,W,H);
   switch(sheetId){
     case 'A-0':drawCoverSheet(ctx,W,H);break;
     case 'A-1':drawSitePlanSheet(ctx,W,H);break;
-    case 'A-2':drawFloorPlanSheet(ctx,W,H,S.floor);break;
+    case 'A-2':plotA2?paintFloorPlot(ctx,W,H,S.floor):drawFloorPlanSheet(ctx,W,H,S.floor);break;
     case 'A-3':drawElevationsSheet(ctx,W,H);break;
     case 'A-4':drawSectionsSheet(ctx,W,H);break;
     case 'A-5':drawSchedulesSheet(ctx,W,H);break;
@@ -3179,13 +3352,35 @@ function runArchitectAdvisor(){
   if(units>4)sealsRequired.push('MEP PE');
   if(ov.hillside||ov.coastal||units>4)sealsRequired.push('Civil PE');
   if(ov.historic)sealsRequired.push('Historic Preservation Specialist');
+  // exportBlocked is the hard gate honored by assertExportAllowed() for EVERY
+  // file we emit (PDF/PNG/DXF). It is NOT tripped by rdpRequired — an RDP-
+  // required plan still exports as a DRAFT carrying the disclosure (that is the
+  // whole point). It trips only when we could not attach the mandatory
+  // professional disclosure, i.e. the verbatim text is missing or has been
+  // altered. That guarantees no drawing set ever leaves the app undisclosed.
+  const discOK=typeof ADVISOR_DISCLOSURE==='string'&&ADVISOR_DISCLOSURE.length>200&&/NOT FOR CONSTRUCTION/.test(ADVISOR_DISCLOSURE)&&/Registered Design Professional/.test(ADVISOR_DISCLOSURE);
   return{
     disclosure:ADVISOR_DISCLOSURE,shortDisclosure:ADVISOR_SHORT,
     rdpRequired,triggeredBy,sealsRequired:[...new Set(sealsRequired)],
     statuteCitation:state?`Verify with state licensing board (NCARB jurisdiction table — ${state}).`:'Unknown state — user must verify with jurisdiction.',
     jurisdictionNote:z.jurisdiction?`Check ${z.jurisdiction} local amendments for additional requirements.`:'',
-    exportBlocked:false,
+    exportBlocked:!discOK,
+    blockReason:discOK?'':'Mandatory CRITICAL PROFESSIONAL DISCLOSURE text is missing or altered — refusing to emit an undisclosed drawing set. Restore ADVISOR_DISCLOSURE.',
   };
+}
+
+// ═══ EXPORT GATE — every file (PDF / PNG / DXF) passes through here ═══
+// Honors architect-advisor.exportBlocked. Returns true if the export may
+// proceed; alerts + logs and returns false if the advisor blocked it.
+function assertExportAllowed(kind){
+  const adv=S._advisor||runArchitectAdvisor();S._advisor=adv;
+  if(adv.exportBlocked){
+    const why=adv.blockReason||'Export blocked by architect-advisor.';
+    L.error(`${kind} export BLOCKED — ${why}`);
+    try{alert(`⛔ ${kind} export blocked\n\n${why}`);}catch(_){}
+    return false;
+  }
+  return true;
 }
 
 function renderAdvisorBanner(adv){
@@ -3498,26 +3693,30 @@ function drawSitePlanSheet(ctx,W,H){
   ctx.strokeRect(sx,sy,sw,sh);ctx.setLineDash([]);
   ctx.fillStyle='rgba(34,224,138,.6)';ctx.font='7px JetBrains Mono,monospace';ctx.textAlign='left';
   ctx.fillText(`SETBACK ENVELOPE`,sx+2,sy-4);
-  // Building footprint
-  if(S.plan){
-    const bW=sw*.88;const bD=sh*.82;const bx=sx+(sw-bW)/2;const by=sy+(sh-bD)*.15;
-    ctx.fillStyle='rgba(61,139,255,.2)';ctx.fillRect(bx,by,bW,bD);
-    ctx.strokeStyle='#3d8bff';ctx.lineWidth=2;ctx.strokeRect(bx,by,bW,bD);
-    // Hatch pattern inside building
-    ctx.save();ctx.beginPath();ctx.rect(bx,by,bW,bD);ctx.clip();
-    ctx.strokeStyle='rgba(61,139,255,.08)';ctx.lineWidth=0.5;
-    for(let d=-bD;d<bW+bD;d+=12){ctx.beginPath();ctx.moveTo(bx+d,by);ctx.lineTo(bx+d+bD,by+bD);ctx.stroke()}
-    ctx.restore();
-    ctx.fillStyle='rgba(61,139,255,.8)';ctx.font='500 9px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(`PROPOSED BUILDING`,bx+bW/2,by+bD/2);
-    ctx.font='8px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.5)';
-    ctx.fillText(`${m.projectType||''}  ·  ${(m.totalSqFt||0).toLocaleString()} SF`,bx+bW/2,by+bD/2+14);
-    // Dimension strings
-    dimLine(ctx,bx,by+bD+24,bx+bW,by+bD+24,`${(bW/scl).toFixed(0)}'-0"`);
-    dimLine(ctx,bx+bW+20,by,bx+bW+20,by+bD,`${(bD/scl).toFixed(0)}'-0"`,true);
-    // Setback annotations
-    dimLine(ctx,ox,sy+sh/2,bx,sy+sh/2,`${z.leftSetback}' SB`);
-    dimLine(ctx,ox,oy,ox,sy,`${z.frontSetback}'\nFRONT SB`,true);
+  // Building footprint — L4: draw the ACTUAL generated building (ground-floor
+  // room bounding box) at its real position on the parcel, plus the ADU as a
+  // separate footprint, so the site plan (A-1) and floor plan (A-2) are one
+  // coordinated object ("based on the site plan").
+  if(S.plan&&S.plan.floors&&S.plan.floors[0]){
+    const f0=S.plan.floors[0].rooms||[];
+    const aduIds=new Set((S.plan.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
+    const bbox=rs=>{if(!rs.length)return null;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;rs.forEach(r=>{x0=Math.min(x0,r.x);y0=Math.min(y0,r.y);x1=Math.max(x1,r.x+r.w);y1=Math.max(y1,r.y+r.h)});return{x:x0,y:y0,w:x1-x0,h:y1-y0}};
+    const drawFp=(bb,label,sub,dims)=>{if(!bb)return;const bx=tx(bb.x),by=ty(bb.y),bw=ft(bb.w),bd=ft(bb.h);
+      ctx.fillStyle='rgba(61,139,255,.2)';ctx.fillRect(bx,by,bw,bd);
+      ctx.strokeStyle='#3d8bff';ctx.lineWidth=2;ctx.strokeRect(bx,by,bw,bd);
+      ctx.save();ctx.beginPath();ctx.rect(bx,by,bw,bd);ctx.clip();ctx.strokeStyle='rgba(61,139,255,.08)';ctx.lineWidth=.5;
+      for(let d=-bd;d<bw+bd;d+=12){ctx.beginPath();ctx.moveTo(bx+d,by);ctx.lineTo(bx+d+bd,by+bd);ctx.stroke()}ctx.restore();
+      ctx.fillStyle='rgba(61,139,255,.85)';ctx.font='500 9px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,bx+bw/2,by+bd/2-5);
+      ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.55)';ctx.fillText(sub,bx+bw/2,by+bd/2+8);
+      if(dims){dimLine(ctx,bx,by+bd+18,bx+bw,by+bd+18,`${bb.w.toFixed(0)}'-0"`);dimLine(ctx,bx+bw+16,by,bx+bw+16,by+bd,`${bb.h.toFixed(0)}'-0"`,true);}
+    };
+    const mb=bbox(f0.filter(r=>!aduIds.has(r.unit)));
+    const ab=bbox(f0.filter(r=>aduIds.has(r.unit)));
+    drawFp(mb,'PROPOSED BUILDING',`${m.typology||''} · ${m.stories||1}-STORY · ${(m.totalSqFt||0).toLocaleString()} SF`,true);
+    if(ab)drawFp(ab,'PROPOSED ADU',`${ab.w.toFixed(0)}'×${ab.h.toFixed(0)}'`,false);
+    // setback annotations measured to the real footprint
+    if(mb){dimLine(ctx,ox,ty(mb.y+mb.h/2),tx(mb.x),ty(mb.y+mb.h/2),`${z.leftSetback}' SB`);
+      dimLine(ctx,tx(mb.x+mb.w/2),oy,tx(mb.x+mb.w/2),ty(mb.y),`${z.frontSetback}' FRONT SB`,true);}
   }
   // ── GEOM-4: Parking stalls (8.5'×18' per IBC §1106) ──
   const numStalls=(S.plan?.meta?.parkingSpaces)||0;
@@ -3552,6 +3751,33 @@ function drawSitePlanSheet(ctx,W,H){
 }
 
 // ── SHEET: A-2 Floor Plans ──
+// L1 Phase C + L5: draw first-class walls[] (ext heavy, party = fire-rated
+// demising) + openings[] (per-unit entry doors w/ swing, egress windows) and
+// the life-safety overlay (smoke/CO alarms, egress-path arrows) on A-2.
+function drawWallsOpeningsSafety(ctx,fl,tx,ty,ft){
+  // ── walls ──
+  (fl.walls||[]).forEach(w=>{const x1=tx(w.x1),y1=ty(w.y1),x2=tx(w.x2),y2=ty(w.y2);
+    if(w.kind==='party'){ctx.strokeStyle='rgba(255,101,85,.7)';ctx.lineWidth=Math.max(2.5,ft(0.5));ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+      ctx.save();ctx.fillStyle='rgba(255,101,85,.6)';ctx.font='5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.translate((x1+x2)/2,(y1+y2)/2);ctx.rotate(Math.abs(x1-x2)<2?-Math.PI/2:0);ctx.fillText('1-HR PARTY WALL',0,-4);ctx.restore();}
+    else{ctx.strokeStyle='rgba(210,225,244,.8)';ctx.lineWidth=Math.max(2,ft(0.5));ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}});
+  // ── openings ──
+  (fl.openings||[]).forEach(o=>{
+    if(o.kind==='door'){const dx=tx(o.x),dy=ty(o.y),dw=ft(o.w);
+      ctx.strokeStyle='#0c1420';ctx.lineWidth=Math.max(2.5,ft(0.5))+1;ctx.beginPath();ctx.moveTo(dx-dw/2,dy);ctx.lineTo(dx+dw/2,dy);ctx.stroke(); // knock out wall
+      ctx.strokeStyle='rgba(34,224,138,.9)';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(dx-dw/2,dy);ctx.lineTo(dx-dw/2,dy+dw);ctx.stroke(); // leaf
+      ctx.strokeStyle='rgba(34,224,138,.45)';ctx.lineWidth=.7;ctx.setLineDash([2,2]);ctx.beginPath();ctx.arc(dx-dw/2,dy,dw,0,Math.PI/2);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='rgba(34,224,138,.75)';ctx.font='500 5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('ENTRY',dx,dy-2);}
+    else if(o.kind==='window'){const wx=tx(o.x),wy=ty(o.y),ww=ft(o.w);ctx.strokeStyle='rgba(100,170,255,.8)';ctx.lineWidth=1.1;ctx.beginPath();
+      if(o.vert){ctx.moveTo(wx,wy-ww/2);ctx.lineTo(wx,wy+ww/2)}else{ctx.moveTo(wx-ww/2,wy);ctx.lineTo(wx+ww/2,wy)}ctx.stroke();}});
+  // ── L5 safety: smoke (SD) / CO alarms in bedrooms + living, egress arrows ──
+  (fl.rooms||[]).forEach(r=>{if(r.type!=='bedroom'&&r.type!=='living')return;
+    const cx=tx(r.x+r.w/2),cy=ty(r.y+r.h*0.32);
+    ctx.strokeStyle='rgba(255,101,85,.85)';ctx.fillStyle='rgba(255,101,85,.18)';ctx.lineWidth=.8;ctx.beginPath();ctx.arc(cx,cy,4.5,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='rgba(255,101,85,.9)';ctx.font='4.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(r.type==='bedroom'?'SD':'SD/CO',cx,cy);});
+  (fl.openings||[]).filter(o=>o.kind==='door').forEach(o=>{const dx=tx(o.x),dy=ty(o.y);
+    ctx.strokeStyle='rgba(34,224,138,.45)';ctx.fillStyle='rgba(34,224,138,.5)';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(dx,dy+ft(9));ctx.lineTo(dx,dy+4);ctx.stroke();ctx.setLineDash([]);
+    ctx.beginPath();ctx.moveTo(dx,dy+2);ctx.lineTo(dx-3,dy+7);ctx.lineTo(dx+3,dy+7);ctx.closePath();ctx.fill();});
+}
 function drawFloorPlanSheet(ctx,W,H,floorIdx){
   ctx.textBaseline='alphabetic'; // DRAW-3: always reset baseline
   const z=S._z||{lotWidth:60,lotDepth:120,frontSetback:20,rearSetback:15,leftSetback:5,rightSetback:5};
@@ -3704,6 +3930,8 @@ function drawFloorPlanSheet(ctx,W,H,floorIdx){
     });
     ctx.restore();
   }
+  // L1 Phase C + L5: demising walls, per-unit entries, egress windows, safety
+  if(fl.walls)drawWallsOpeningsSafety(ctx,fl,tx,ty,ft);
   // Floor label + structural notes
   ctx.fillStyle='rgba(61,139,255,.8)';ctx.font='500 9px JetBrains Mono,monospace';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText(fl.label,ox,oy-30);
   ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.5)';ctx.fillText(`Ceiling: ${fl.heightFt||9}'-0"  ·  ${fl.rooms?.length||0} rooms  ·  Struct. bay: 20'-0"  ·  Frame: 2×6 @ 16" o.c.`,ox,oy-18);
@@ -3748,8 +3976,12 @@ function drawElevationsSheet(ctx,W,H){
   ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
   ctx.strokeStyle='rgba(61,139,255,.35)';ctx.lineWidth=2;ctx.strokeRect(12,12,W-24,H-24);
   const TH=70;const TY=H-TH-12;drawTitleBlock(ctx,W,H,TH,'A-3','Exterior Elevations','1/4"=1\'‑0"');
-  const bW=z.lotWidth-(z.leftSetback||5)-(z.rightSetback||5);
-  const bD=z.lotDepth-(z.frontSetback||20)-(z.rearSetback||15);
+  // A-3 coordination: use the ACTUAL main-building footprint extent (matches A-1/A-2)
+  let bW=z.lotWidth-(z.leftSetback||5)-(z.rightSetback||5);
+  let bD=z.lotDepth-(z.frontSetback||20)-(z.rearSetback||15);
+  const _f0=pd.floors?.[0]?.rooms||[];const _aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
+  const _mr=_f0.filter(r=>!_aduIds.has(r.unit));
+  if(_mr.length){bW=Math.max(...(_mr.map(r=>r.x+r.w)))-Math.min(...(_mr.map(r=>r.x)));bD=Math.max(...(_mr.map(r=>r.y+r.h)))-Math.min(...(_mr.map(r=>r.y)));}
   const stories=m.stories||2;
   const floorH=9;const grndH=10;const totalH=grndH+(stories-1)*floorH;const roofPitch=4;// 4:12
   const elPad=40;const elW=(W-elPad*2)/2-20;const elH=(TY-elPad)/2-20;
@@ -3819,8 +4051,12 @@ function drawSectionsSheet(ctx,W,H){
   ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
   ctx.strokeStyle='rgba(61,139,255,.35)';ctx.lineWidth=2;ctx.strokeRect(12,12,W-24,H-24);
   const TH=70;const TY=H-TH-12;drawTitleBlock(ctx,W,H,TH,'A-4','Building Sections','1/4"=1\'‑0"');
-  const bW=z.lotWidth-(z.leftSetback||5)-(z.rightSetback||5);
-  const bD=z.lotDepth-(z.frontSetback||20)-(z.rearSetback||15);
+  // A-4 coordination: actual main-building footprint extent (matches A-1/A-2/A-3)
+  let bW=z.lotWidth-(z.leftSetback||5)-(z.rightSetback||5);
+  let bD=z.lotDepth-(z.frontSetback||20)-(z.rearSetback||15);
+  const _f0=pd.floors?.[0]?.rooms||[];const _aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
+  const _mr=_f0.filter(r=>!_aduIds.has(r.unit));
+  if(_mr.length){bW=Math.max(...(_mr.map(r=>r.x+r.w)))-Math.min(...(_mr.map(r=>r.x)));bD=Math.max(...(_mr.map(r=>r.y+r.h)))-Math.min(...(_mr.map(r=>r.y)));}
   const m=pd.meta||{};const stories=m.stories||2;
   // Two sections side by side
   const s1x=30;const s1y=40;const s1w=(W-80)/2;const s1h=TY-50;
@@ -3900,26 +4136,64 @@ function drawSchedulesSheet(ctx,W,H){
 }
 
 // ── Drawing utilities ──
+// L3: complete permit title block — project info, contacts + signatures,
+// revision log, sheet block, RDP-aware stamp. Blank fields render as honest
+// placeholders (never fabricated). Edit via editProjectInfo().
 function drawTitleBlock(ctx,W,H,TH,sheetNum,sheetTitle,scale){
-  const TY=H-TH-12;const m=S.plan?.meta||{};const z=S._z||{};
-  ctx.fillStyle='rgba(11,14,21,.94)';ctx.fillRect(12,TY,W-24,TH);
-  ctx.strokeStyle='rgba(61,139,255,.3)';ctx.lineWidth=.5;ctx.strokeRect(12,TY,W-24,TH);
-  ctx.beginPath();ctx.moveTo(12,TY+24);ctx.lineTo(W-200,TY+24);ctx.moveTo(W-200,TY);ctx.lineTo(W-200,TY+TH);ctx.stroke();
-  ctx.font='500 10px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.9)';ctx.textAlign='left';ctx.textBaseline='middle';
-  ctx.fillText((m.projectName||'NEW DEVELOPMENT').substring(0,44),20,TY+12);
-  ctx.font='7.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.6)';
-  ctx.fillText((m.address||S.addr||'').substring(0,60),20,TY+32);
-  ctx.fillText(`${z.jurisdiction||'—'}, ${z.state||'—'}  ·  Zone: ${z.zoningDistrict||'—'}  ·  APN: TBD`,20,TY+44);
-  const apn=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||'See County Assessor';
-    ctx.fillText(`APN: ${apn}  ·  ArchDraw Intel v14  ·  AI Schematic  ·  ${new Date().toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'})}`,20,TY+56);
-  // Sheet info
-  ctx.textAlign='center';ctx.fillStyle='rgba(210,225,244,.9)';ctx.font='500 22px JetBrains Mono,monospace';ctx.fillText(sheetNum,W-100,TY+TH/2-6);
-  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.5)';ctx.fillText(sheetTitle.toUpperCase(),W-100,TY+TH/2+12);ctx.fillText('SCALE: '+scale,W-100,TY+TH/2+24);
-  // Permit stamp box
-  ctx.strokeStyle='rgba(61,139,255,.2)';ctx.strokeRect(W-196,TY+2,92,TH-4);ctx.fillStyle='rgba(122,154,184,.3)';ctx.font='6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('ENGINEER / ARCHITECT STAMP',W-150,TY+TH/2-4);ctx.fillText('(Required for submittal)',W-150,TY+TH/2+6);
-  // Short-form professional disclosure footer — architect-advisor
-  ctx.fillStyle='rgba(255,101,85,.75)';ctx.font='500 6.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';
-  ctx.fillText(ADVISOR_SHORT,W/2,H-10);
+  const TY=H-TH-12;const m=S.plan?.meta||{};const z=S._z||{};const pi=S.projectInfo||{};const adv=S._advisor||{};
+  const ph=v=>(v&&String(v).trim())?String(v):'—';
+  const date=new Date().toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'});
+  const X0=12,X1=W-12,XB=X1-188,XM=XB-178;       // sheet zone | middle zone dividers
+  ctx.fillStyle='rgba(11,14,21,.94)';ctx.fillRect(X0,TY,W-24,TH);
+  ctx.strokeStyle='rgba(61,139,255,.3)';ctx.lineWidth=.5;ctx.strokeRect(X0,TY,W-24,TH);
+  ctx.beginPath();ctx.moveTo(XM,TY);ctx.lineTo(XM,TY+TH);ctx.moveTo(XB,TY);ctx.lineTo(XB,TY+TH);ctx.stroke();
+  // ── project zone ──
+  ctx.textAlign='left';ctx.textBaseline='middle';
+  ctx.font='500 11px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.92)';ctx.fillText((m.projectName||'NEW DEVELOPMENT').substring(0,40),X0+8,TY+13);
+  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.7)';let py=TY+28;
+  ctx.fillText('SITE: '+(m.address||S.addr||'—').substring(0,54),X0+8,py);py+=11;
+  ctx.fillText('LEGAL: '+ph(pi.legalDescription).substring(0,54),X0+8,py);py+=11;
+  const apn=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||pi.apn||'PER ASSESSOR';
+  ctx.fillText(`APN: ${apn}    ${z.jurisdiction||'—'}, ${z.state||'—'}    ZONE: ${z.zoningDistrict||'—'}`,X0+8,py);py+=11;
+  ctx.fillText(`${m.typology||'—'} · ${ph(m.units)} unit(s) · ${(m.totalSqFt||0).toLocaleString()} SF · ${date}`,X0+8,py);
+  // ── middle zone: contacts + revisions ──
+  let mx=XM+6,my=TY+10;
+  ctx.font='600 6.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.6)';ctx.fillText('OWNER / APPLICANT',mx,my);my+=10;
+  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.82)';ctx.fillText((ph(pi.owner)+(pi.ownerPhone?'  '+pi.ownerPhone:'')).substring(0,28),mx,my);my+=8;
+  ctx.strokeStyle='rgba(122,154,184,.3)';ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(mx,my+2);ctx.lineTo(XB-8,my+2);ctx.stroke();
+  ctx.font='5.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.4)';ctx.fillText('signature / date',mx,my+7);my+=17;
+  ctx.font='600 6.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.6)';ctx.fillText('DESIGNER / DRAFTER',mx,my);my+=10;
+  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.82)';ctx.fillText(ph(pi.designer).substring(0,28),mx,my);my+=8;
+  ctx.strokeStyle='rgba(122,154,184,.3)';ctx.beginPath();ctx.moveTo(mx,my+2);ctx.lineTo(XB-8,my+2);ctx.stroke();my+=15;
+  ctx.font='600 6px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.5)';ctx.fillText('REV  DATE        DESCRIPTION',mx,my);my+=9;
+  ctx.font='6px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.6)';
+  const revs=(pi.revisions&&pi.revisions.length)?pi.revisions:[{n:'0',date,desc:'Issued for permit (prelim.)'}];
+  revs.slice(0,3).forEach(r=>{ctx.fillText(`${String(r.n||'').padEnd(3)} ${String(r.date||'').padEnd(11)} ${String(r.desc||'').substring(0,20)}`,mx,my);my+=8;});
+  // ── sheet zone ──
+  ctx.textAlign='center';const SC=(XB+X1)/2;
+  ctx.font='500 26px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.92)';ctx.fillText(sheetNum,SC,TY+22);
+  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.55)';ctx.fillText(sheetTitle.toUpperCase().substring(0,24),SC,TY+40);
+  ctx.fillStyle='rgba(122,154,184,.7)';ctx.fillText('SCALE: '+scale,SC,TY+52);
+  drawNorthArrow(ctx,X1-18,TY+18);
+  const sb=TY+TH-30;ctx.strokeStyle='rgba(61,139,255,.25)';ctx.strokeRect(XB+8,sb,(X1-XB)-16,24);
+  ctx.fillStyle=adv.rdpRequired?'rgba(255,101,85,.65)':'rgba(122,154,184,.45)';ctx.font='600 5.5px JetBrains Mono,monospace';
+  ctx.fillText(adv.rdpRequired?'RDP SEAL REQUIRED FOR SUBMITTAL':'PROFESSIONAL STAMP AREA',SC,sb+9);
+  ctx.font='5.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.5)';
+  ctx.fillText(((adv.sealsRequired&&adv.sealsRequired.join(', '))||'Architect / Engineer of Record').substring(0,32),SC,sb+18);
+  // Short-form professional disclosure footer — architect-advisor (verbatim)
+  ctx.fillStyle='rgba(255,101,85,.75)';ctx.font='500 6.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText(ADVISOR_SHORT,W/2,H-10);
+}
+// L3: lightweight local editor for the title-block project info (no API).
+function editProjectInfo(){
+  const pi=S.projectInfo||(S.projectInfo={revisions:[]});
+  const q=(label,cur)=>{const v=prompt(label,cur||'');return v==null?cur:v.trim();};
+  pi.owner=q('Owner / applicant name:',pi.owner);
+  pi.ownerPhone=q('Owner phone:',pi.ownerPhone);
+  pi.designer=q('Designer / drafter:',pi.designer);
+  pi.engineer=q('Engineer of record (if known):',pi.engineer);
+  pi.legalDescription=q('Legal description (Lot/Block/Subdivision or metes & bounds):',pi.legalDescription);
+  try{L.info('Project info updated for title block')}catch(_){}
+  if(S.plan&&typeof renderSheet==='function')renderSheet(S.activeSheet);
 }
 function dimLine(ctx,x1,y1,x2,y2,lbl,vert=false){
   ctx.save();ctx.strokeStyle='rgba(34,224,138,.55)';ctx.fillStyle='rgba(34,224,138,.55)';ctx.lineWidth=.7;
@@ -3975,6 +4249,7 @@ planCv.addEventListener('mouseleave',()=>{S.panning=false});
 // PNG export
 function exportSheetPNG(){
   if(!S.plan){alert('Run analysis first.');return}
+  if(!assertExportAllowed('PNG'))return;
   const adv=S._advisor||runArchitectAdvisor();S._advisor=adv;
   L.info(`PNG export \u2192 advisor: rdpRequired=${adv.rdpRequired} seals=[${adv.sealsRequired.join(',')}] (draft \u2014 expert sign-off required before submittal)`);
   // UX-4: only export when plan canvas is visible; warn otherwise
@@ -4001,6 +4276,7 @@ function exportSheetPNG(){
 async function exportPermitPDF(){
   if(!S.plan){alert('Run analysis first.');return}
   if(!window.jspdf){alert('jsPDF not loaded — check internet connection.');return}
+  if(!assertExportAllowed('PDF'))return;
   const adv=S._advisor||runArchitectAdvisor();S._advisor=adv;
   L.info(`PDF export \u2192 advisor: rdpRequired=${adv.rdpRequired} seals=[${adv.sealsRequired.join(',')}] triggers=[${adv.triggeredBy.join('; ')}] (draft \u2014 expert sign-off required before submittal)`);
   const {jsPDF}=window.jspdf;
@@ -4037,6 +4313,179 @@ async function exportPermitPDF(){
     doc.save(fname);L.info(`PDF saved: ${fname} (${doc.internal.pages.length} sheets)`);
     alert(`✓ PDF saved: ${fname}\n\n${doc.internal.pages.length} sheets:\nA-0 Cover · A-1 Site Plan · A-2 Floor Plan(s) · A-3 Elevations · A-4 Sections · A-5 Schedule`);
   }catch(e){L.error('PDF export failed:',e.message);alert('PDF export failed: '+e.message)}
+}
+
+// ═══ L2 — DISPLAYLIST → DXF + MONOCHROME PLOT ═══════════════════════════════
+// One build-once DisplayList (primitives in real-world FEET, Y-up = CAD native)
+// drives BOTH writeDXF (editable AutoCAD file) and paintDL_plot (black-on-white
+// plot), so the two never drift. Built from the S.plan DATA MODEL (rooms/walls/
+// openings) — NOT from the dark-theme canvas renderer, which stays untouched.
+
+// feet → feet-inches label (handles 12" rollover)
+function fmtFI(v){let f=Math.floor(v),i=Math.round((v-f)*12);if(i===12){f++;i=0}return f+"'-"+i+'"';}
+// swept wall rectangle: segment (x1,y1)-(x2,y2) of thickness t → 4 CCW corners
+function wallRect(x1,y1,x2,y2,t){const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy)||1;const nx=-dy/len*(t/2),ny=dx/len*(t/2);return [[x1+nx,y1+ny],[x2+nx,y2+ny],[x2-nx,y2-ny],[x1-nx,y1-ny]];}
+
+// Build the A-2 floor-plan DisplayList for floor index fi.
+function buildFloorPlanDL(plan,fi,z){
+  const fl=(plan.floors||[])[fi];if(!fl)return [];
+  const rooms=fl.rooms||[],walls=fl.walls||[],openings=fl.openings||[];
+  const xs=[],ys=[];
+  rooms.forEach(r=>{xs.push(r.x,r.x+r.w);ys.push(r.y,r.y+r.h)});
+  walls.forEach(w=>{xs.push(w.x1,w.x2);ys.push(w.y1,w.y2)});
+  if(!xs.length)return [];
+  const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+  const FX=x=>x-minX, FY=y=>maxY-y;          // shift to 0-origin; flip Y north-up
+  const bw=maxX-minX, bd=maxY-minY;
+  const dl=[];
+  // 1. rooms — boundary (A-AREA) + name/area label (A-AREA-IDEN) + stair treads
+  rooms.forEach(r=>{
+    const x0=FX(r.x),x1=FX(r.x+r.w),yt=FY(r.y),yb=FY(r.y+r.h);
+    dl.push({t:'pl',layer:'A-AREA',closed:true,pts:[[x0,yb],[x1,yb],[x1,yt],[x0,yt]]});
+    const cx=(x0+x1)/2,cy=(yb+yt)/2;
+    dl.push({t:'text',layer:'A-AREA-IDEN',x:cx,y:cy+0.35,h:0.7,str:String(r.name||r.type||'').toUpperCase(),align:'center'});
+    dl.push({t:'text',layer:'A-AREA-IDEN',x:cx,y:cy-1.0,h:0.5,str:Math.round(r.w*r.h)+' SF',align:'center'});
+    if(r.type==='stair'){const n=Math.max(3,Math.min(14,Math.floor(Math.max(r.w,r.h)/0.92)));
+      const vert=r.h>=r.w;for(let i=1;i<n;i++){const f=i/n;
+        if(vert)dl.push({t:'line',layer:'A-FLOR-STRS',x1:x0,y1:yb+(yt-yb)*f,x2:x1,y2:yb+(yt-yb)*f});
+        else dl.push({t:'line',layer:'A-FLOR-STRS',x1:x0+(x1-x0)*f,y1:yb,x2:x0+(x1-x0)*f,y2:yt});}}
+  });
+  // 2. walls — solid poché + outline; party/fire on A-WALL-PRHT
+  walls.forEach(w=>{const layer=w.kind==='party'?'A-WALL-PRHT':'A-WALL';
+    const q=wallRect(FX(w.x1),FY(w.y1),FX(w.x2),FY(w.y2),w.t||0.5);
+    dl.push({t:'solid',layer,pts:q});dl.push({t:'pl',layer,closed:true,pts:q});});
+  // 3. openings — door leaf+swing (A-DOOR), window triple-line (A-GLAZ)
+  openings.forEach(o=>{const x=FX(o.x),y=FY(o.y),w=o.w||3;
+    if(o.kind==='door'){dl.push({t:'line',layer:'A-DOOR',x1:x,y1:y,x2:x,y2:y-w});dl.push({t:'arc',layer:'A-DOOR',cx:x,cy:y,r:w,a0:270,a1:360});}
+    else if(o.kind==='window'){if(o.vert){for(const dxo of [-0.15,0,0.15])dl.push({t:'line',layer:'A-GLAZ',x1:x+dxo,y1:y-w/2,x2:x+dxo,y2:y+w/2});}
+      else{for(const dyo of [-0.15,0,0.15])dl.push({t:'line',layer:'A-GLAZ',x1:x-w/2,y1:y+dyo,x2:x+w/2,y2:y+dyo});}}});
+  // 4. overall dimensions (A-DIMS): width below, depth at left
+  const tk=0.5;
+  dl.push({t:'line',layer:'A-DIMS',x1:0,y1:-3,x2:bw,y2:-3});
+  dl.push({t:'line',layer:'A-DIMS',x1:0,y1:-3-tk,x2:0,y2:-3+tk});
+  dl.push({t:'line',layer:'A-DIMS',x1:bw,y1:-3-tk,x2:bw,y2:-3+tk});
+  dl.push({t:'text',layer:'A-DIMS',x:bw/2,y:-2.6,h:0.6,str:fmtFI(bw),align:'center'});
+  dl.push({t:'line',layer:'A-DIMS',x1:-3,y1:0,x2:-3,y2:bd});
+  dl.push({t:'line',layer:'A-DIMS',x1:-3-tk,y1:0,x2:-3+tk,y2:0});
+  dl.push({t:'line',layer:'A-DIMS',x1:-3-tk,y1:bd,x2:-3+tk,y2:bd});
+  dl.push({t:'text',layer:'A-DIMS',x:-3.4,y:bd/2,h:0.6,str:fmtFI(bd),align:'center',rot:90});
+  // 5. title + level (G-ANNO-TTLB)
+  const m=plan.meta||{};
+  dl.push({t:'text',layer:'G-ANNO-TTLB',x:0,y:bd+3.2,h:1.1,str:dxfStr((S.addr||'PROPOSED PLAN').toUpperCase()),align:'left'});
+  dl.push({t:'text',layer:'G-ANNO-TTLB',x:0,y:bd+1.6,h:0.8,str:`A-2  FLOOR PLAN — ${fl.label||('LEVEL '+(fi+1))}   1/4"=1'-0"`,align:'left'});
+  // 6. CRITICAL PROFESSIONAL DISCLOSURE (verbatim) on G-ANNO-NOTE
+  dl.push({t:'text',layer:'G-ANNO-NOTE',x:0,y:-6,h:0.7,str:dxfStr(ADVISOR_SHORT),align:'left'});
+  wrapText(ADVISOR_DISCLOSURE,96).forEach((ln,i)=>dl.push({t:'text',layer:'G-ANNO-NOTE',x:0,y:-7.4-i*0.95,h:0.45,str:dxfStr(ln),align:'left'}));
+  return dl;
+}
+
+function wrapText(s,maxChars){const words=String(s).split(' ');const out=[];let cur='';
+  words.forEach(w=>{if((cur+' '+w).trim().length>maxChars){if(cur)out.push(cur);cur=w}else cur=(cur+' '+w).trim()});
+  if(cur)out.push(cur);return out;}
+// DXF is ASCII (R12): transliterate the few unicode glyphs in the disclosure so
+// the text stays legible & verbatim-in-meaning (Sec. for §, - for em/en dash).
+function dxfStr(s){return String(s).replace(/§/g,'Sec.').replace(/[–—]/g,'-').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[^\x20-\x7E]/g,'');}
+
+// Write an AutoCAD R12 (AC1009) ASCII DXF from a DisplayList. R12 is chosen for
+// maximum interoperability (LibreCAD / ODA / AutoCAD / QCAD all read it) — feet
+// units, AIA/NCS layers carrying ACI colors (which drive pen weights via the
+// classic color→pen plot table). AC1015 + per-entity lineweight is a future
+// toggle. Coordinates are already FEET, Y-up (CAD native) — emitted as-is.
+function writeDXF(dl,meta){
+  const out=[];const P=(c,v)=>{out.push(c);out.push(String(v))};
+  const dn=v=>{const n=Math.round((+v||0)*1e6)/1e6;return Object.is(n,-0)?'0':String(n)};
+  // bbox for $EXTMIN/$EXTMAX
+  let nx=1e9,ny=1e9,xx=-1e9,xy=-1e9;const seen=p=>{if(p[0]<nx)nx=p[0];if(p[1]<ny)ny=p[1];if(p[0]>xx)xx=p[0];if(p[1]>xy)xy=p[1]};
+  dl.forEach(e=>{if(e.pts)e.pts.forEach(seen);if('x1'in e){seen([e.x1,e.y1]);seen([e.x2,e.y2])}if('cx'in e)seen([e.cx,e.cy]);if('x'in e)seen([e.x,e.y])});
+  if(nx>xx){nx=ny=0;xx=xy=10}
+  // HEADER
+  P(0,'SECTION');P(2,'HEADER');
+  P(9,'$ACADVER');P(1,'AC1009');
+  P(9,'$INSUNITS');P(70,2);
+  P(9,'$EXTMIN');P(10,dn(nx));P(20,dn(ny));P(30,'0');
+  P(9,'$EXTMAX');P(10,dn(xx));P(20,dn(xy));P(30,'0');
+  P(0,'ENDSEC');
+  // TABLES — LTYPE, LAYER, STYLE
+  P(0,'SECTION');P(2,'TABLES');
+  P(0,'TABLE');P(2,'LTYPE');P(70,4);
+  P(0,'LTYPE');P(2,'CONTINUOUS');P(70,0);P(3,'Solid line');P(72,65);P(73,0);P(40,0);
+  P(0,'LTYPE');P(2,'CENTER');P(70,0);P(3,'Center');P(72,65);P(73,4);P(40,2.0);P(49,1.25);P(49,-0.25);P(49,0.25);P(49,-0.25);
+  P(0,'LTYPE');P(2,'DASHED');P(70,0);P(3,'Dashed');P(72,65);P(73,2);P(40,0.75);P(49,0.5);P(49,-0.25);
+  P(0,'LTYPE');P(2,'HIDDEN');P(70,0);P(3,'Hidden');P(72,65);P(73,2);P(40,0.375);P(49,0.25);P(49,-0.125);
+  P(0,'ENDTAB');
+  const lk=Object.keys(CAD_LAYERS);
+  P(0,'TABLE');P(2,'LAYER');P(70,lk.length);
+  lk.forEach(name=>{const L=CAD_LAYERS[name];P(0,'LAYER');P(2,name);P(70,0);P(62,L.aci);P(6,L.lt||'CONTINUOUS')});
+  P(0,'ENDTAB');
+  P(0,'TABLE');P(2,'STYLE');P(70,1);
+  P(0,'STYLE');P(2,'STANDARD');P(70,0);P(40,0);P(41,1);P(50,0);P(71,0);P(42,0.2);P(3,'txt');P(4,'');
+  P(0,'ENDTAB');
+  P(0,'ENDSEC');
+  // ENTITIES
+  P(0,'SECTION');P(2,'ENTITIES');
+  dl.forEach(e=>{const layer=e.layer||'0';
+    if(e.t==='line'){P(0,'LINE');P(8,layer);P(10,dn(e.x1));P(20,dn(e.y1));P(30,'0');P(11,dn(e.x2));P(21,dn(e.y2));P(31,'0')}
+    else if(e.t==='pl'){P(0,'POLYLINE');P(8,layer);P(66,1);P(70,e.closed?1:0);
+      e.pts.forEach(p=>{P(0,'VERTEX');P(8,layer);P(10,dn(p[0]));P(20,dn(p[1]));P(30,'0')});P(0,'SEQEND')}
+    else if(e.t==='arc'){P(0,'ARC');P(8,layer);P(10,dn(e.cx));P(20,dn(e.cy));P(30,'0');P(40,dn(e.r));P(50,dn(e.a0));P(51,dn(e.a1))}
+    else if(e.t==='circle'){P(0,'CIRCLE');P(8,layer);P(10,dn(e.cx));P(20,dn(e.cy));P(30,'0');P(40,dn(e.r))}
+    else if(e.t==='text'){P(0,'TEXT');P(8,layer);P(10,dn(e.x));P(20,dn(e.y));P(30,'0');P(40,dn(e.h));P(1,dxfStr(e.str));P(50,dn(e.rot||0));P(7,'STANDARD');P(72,e.align==='center'?1:e.align==='right'?2:0);P(11,dn(e.x));P(21,dn(e.y));P(31,'0')}
+    else if(e.t==='solid'){const q=e.pts;P(0,'SOLID');P(8,layer);
+      P(10,dn(q[0][0]));P(20,dn(q[0][1]));P(30,'0');P(11,dn(q[1][0]));P(21,dn(q[1][1]));P(31,'0');
+      P(12,dn(q[3][0]));P(22,dn(q[3][1]));P(32,'0');P(13,dn(q[2][0]));P(23,dn(q[2][1]));P(33,'0')}});
+  P(0,'ENDSEC');P(0,'EOF');
+  return out.join('\n')+'\n';
+}
+
+function exportSheetDXF(){
+  if(!S.plan){alert('Run analysis first.');return}
+  if(!assertExportAllowed('DXF'))return;
+  const fi=S.floor||0;
+  const dl=buildFloorPlanDL(S.plan,fi,S._z||{});
+  if(!dl.length){alert('No floor-plan geometry on this sheet to export.\nThe DXF export is the A-2 floor plan — switch to an A-2 sheet first.');return}
+  try{
+    const dxf=writeDXF(dl,{});
+    const blob=new Blob([dxf],{type:'application/dxf'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download=`${(S.addr||'plan').replace(/[^a-z0-9]/gi,'_').substring(0,25)}_A2_floor${fi+1}.dxf`;
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+    L.info(`DXF exported: floor ${fi+1}, ${dl.length} primitives, ${Object.keys(CAD_LAYERS).length} AIA layers (R12/feet)`);
+  }catch(e){L.error('DXF export failed:',e.message);alert('DXF export failed: '+e.message)}
+}
+
+// Monochrome plot renderer — paints the SAME DisplayList black-on-white, fit to
+// the canvas. Used by the PLOT preview toggle and (later) the plotted PDF.
+function paintDL_plot(ctx,W,H,dl){
+  let nx=1e9,ny=1e9,xx=-1e9,xy=-1e9;const seen=(x,y)=>{if(x<nx)nx=x;if(y<ny)ny=y;if(x>xx)xx=x;if(y>xy)xy=y};
+  dl.forEach(e=>{if(e.pts)e.pts.forEach(p=>seen(p[0],p[1]));if('x1'in e){seen(e.x1,e.y1);seen(e.x2,e.y2)}if('cx'in e)seen(e.cx-e.r,e.cy-e.r),seen(e.cx+e.r,e.cy+e.r);if('x'in e)seen(e.x,e.y)});
+  if(nx>xx)return;
+  const mg=46,sc=Math.min((W-2*mg)/((xx-nx)||1),(H-2*mg)/((xy-ny)||1));
+  const ox=(W-(xx-nx)*sc)/2,oy=(H-(xy-ny)*sc)/2;
+  const PX=x=>ox+(x-nx)*sc, PY=y=>H-(oy+(y-ny)*sc);   // flip Y back for canvas
+  ctx.save();ctx.lineJoin='round';ctx.lineCap='round';
+  dl.forEach(e=>{const L=CAD_LAYERS[e.layer]||CAD_LAYERS['0'];const ink=L.ink;const lw=plotPx(L.lwMm);
+    ctx.strokeStyle=ink;ctx.fillStyle=ink;ctx.lineWidth=lw;
+    if(e.t==='line'){ctx.beginPath();ctx.moveTo(PX(e.x1),PY(e.y1));ctx.lineTo(PX(e.x2),PY(e.y2));ctx.stroke()}
+    else if(e.t==='pl'){ctx.beginPath();e.pts.forEach((p,i)=>{const X=PX(p[0]),Y=PY(p[1]);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});if(e.closed)ctx.closePath();ctx.stroke()}
+    else if(e.t==='solid'){ctx.beginPath();e.pts.forEach((p,i)=>{const X=PX(p[0]),Y=PY(p[1]);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.closePath();ctx.fill()}
+    else if(e.t==='circle'){ctx.beginPath();ctx.arc(PX(e.cx),PY(e.cy),e.r*sc,0,2*Math.PI);ctx.stroke()}
+    else if(e.t==='arc'){ctx.beginPath();const steps=18;for(let i=0;i<=steps;i++){const a=(e.a0+(e.a1-e.a0)*i/steps)*Math.PI/180;const X=PX(e.cx+e.r*Math.cos(a)),Y=PY(e.cy+e.r*Math.sin(a));i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke()}
+    else if(e.t==='text'){const px=Math.max(6,e.h*sc);ctx.font=px+'px JetBrains Mono,monospace';ctx.textAlign=e.align||'left';ctx.textBaseline='middle';
+      if(e.rot){ctx.save();ctx.translate(PX(e.x),PY(e.y));ctx.rotate(-e.rot*Math.PI/180);ctx.fillText(e.str,0,0);ctx.restore()}
+      else ctx.fillText(e.str,PX(e.x),PY(e.y))}});
+  ctx.restore();
+}
+// Render the active A-2 sheet as a monochrome plot (called from renderSheet).
+function paintFloorPlot(ctx,W,H,fi){
+  const dl=buildFloorPlanDL(S.plan,fi,S._z||{});
+  if(!dl.length){ctx.fillStyle='#333';ctx.font='13px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('No floor-plan geometry on this sheet.',W/2,H/2);return}
+  paintDL_plot(ctx,W,H,dl);
+}
+function togglePlotMode(){
+  S.plotMode=!S.plotMode;
+  const b=document.getElementById('plot-btn');if(b)b.classList.toggle('on',S.plotMode);
+  if(S.plotMode&&S.activeSheet!=='A-2'){L.info('PLOT preview is the A-2 floor plan (this sprint) — switch to an A-2 sheet to see it.');}
+  if(typeof renderSheet==='function'&&S.plan)renderSheet(S.activeSheet);
 }
 
 // ═══ THREE.JS 3D ═══
@@ -4198,12 +4647,16 @@ function gen3D(pd){
   if(!pd?.floors)return;
   const stories=pd.meta?.stories||pd.floors.length||1;
   const fh=pd.floors[0]?.heightFt||9;const totalH=stories*fh;
-  // Separate main volume from ADU volume (ADU rooms have names starting with "ADU ")
+  // Separate main volume from ADU volume. L1 Phase C: group by the room's
+  // `unit` id against the units[] registry (was a fragile name-prefix hack that
+  // mis-grouped a second ADU); fall back to the name prefix for old plans.
+  const aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
   const mainRooms=[];const aduRooms=[];const balconyRooms=[];
   pd.floors.forEach((fl,fIdx)=>{(fl.rooms||[]).forEach(r=>{
     if(!r.w||!r.h||r.w<1||r.h<1)return;
+    const isAdu=r.unit!=null?aduIds.has(r.unit):(r.name||'').startsWith('ADU ');
     if(r.type==='balcony'){balconyRooms.push({...r,floor:fIdx,fh:fl.heightFt||9})}
-    else if((r.name||'').startsWith('ADU '))aduRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
+    else if(isAdu)aduRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
     else mainRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
   })});
   const bounds=rs=>{let mnX=Infinity,mxX=-Infinity,mnZ=Infinity,mxZ=-Infinity;

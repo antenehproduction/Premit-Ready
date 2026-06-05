@@ -1782,8 +1782,14 @@ function calcOSMArea(geometry){// rough footprint SF from OSM geometry lat/lon p
 async function fetchMSFootprints(lat,lon){
   const d=0.0012; // ~130m half-envelope around the site
   const env=`${lon-d},${lat-d},${lon+d},${lat+d}`;
-  const up=`https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/MSBFP2/FeatureServer/0/query?geometry=${encodeURIComponent(env)}&geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&outFields=*&returnGeometry=true&f=json&inSR=4326&outSR=4326&resultRecordCount=50`;
-  const r=await Promise.race([proxyFetch(`/arcgis?url=${encodeURIComponent(up)}`,up),new Promise((_,rej)=>setTimeout(()=>rej(new Error('ms_timeout')),12000))]);
+  const up=`https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/MSBFP2/FeatureServer/0/query?geometry=${encodeURIComponent(env)}&geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID&returnGeometry=true&f=json&inSR=4326&outSR=4326&resultRecordCount=40`;
+  // services.arcgis.com is CORS-enabled, and the Vercel edge proxy's egress to it
+  // is throttled (FUNCTION_INVOCATION_TIMEOUT), so fetch DIRECT from the browser
+  // first and fall back to the proxy only if the direct (CORS) fetch is blocked.
+  const to=msx=>new Promise((_,rej)=>setTimeout(()=>rej(new Error('ms_timeout')),msx));
+  let r;
+  try{ r=await Promise.race([fetch(up,{cache:'no-store'}),to(9000)]); if(!r||!r.ok)throw new Error('direct_'+(r&&r.status)); }
+  catch(_){ r=await Promise.race([proxyFetch(`/arcgis?url=${encodeURIComponent(up)}`,up),to(9000)]); }
   const txt=await r.text();let dd;try{dd=JSON.parse(txt)}catch(_){throw new Error('non-JSON');}
   if(dd&&dd.error)throw new Error('proxy_'+((dd.error&&dd.error.message)||dd.error));
   const ftLat=364000,ftLon=364000*Math.cos(lat*Math.PI/180);

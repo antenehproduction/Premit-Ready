@@ -1305,7 +1305,7 @@ async function startAnalysis(){
   document.getElementById('run-btn').disabled=true;document.getElementById('run-btn').textContent='ANALYZING...';
   // Clean slate — never reuse geocoded coords, OSM buildings, or map overlays from a previous run
   S.plan=null;S.floor=0;S.zoom=1;S.panX=0;S.panY=0;S.selectedOption=null;S.competitors=null;S.countyRecord=null;
-  S.lat=null;S.lon=null;S.osmBuildings=null;S.femaZone=null;S._geoAddr=null;S._z=null;S._advisor=null;
+  S.lat=null;S.lon=null;S.osmBuildings=null;S.femaZone=null;S._geoAddr=null;S._z=null;S._advisor=null;S.padElevation=null;
   if(MAP_INSTANCE){MAP_INSTANCE.eachLayer(l=>{if(l._isArchDraw||l._isOSM)MAP_INSTANCE.removeLayer(l)})}
   LOG.length=0;
   L.info(`=== v12 ANALYSIS START: ${S.addr} ===`);
@@ -1522,6 +1522,20 @@ async function runPhase_record(){
         findings.push(`• FEMA flood zone: API ${isCORS?'blocked by CORS':'unavailable'} — verify manually at <strong>msc.fema.gov/portal/search</strong>`);
       }
     }
+
+    // Strategy 2b: USGS 3DEP point elevation (EPQS) — CORS-enabled, no proxy.
+    // Sets the approximate site-grade datum shown on the S-1 foundation sheet.
+    // Promise.race + setTimeout (never AbortController — rule #1). EPQS returns
+    // a large negative sentinel for no-data, so range-check the value.
+    try{
+      const eurl=`https://epqs.nationalmap.gov/v1/json?x=${S.lon}&y=${S.lat}&units=Feet&wkid=4326`;
+      const eP=fetch(eurl,{cache:'no-store'}).then(r=>r.ok?r.json():null);
+      const eT=new Promise((_,r)=>setTimeout(()=>r(new Error('usgs_timeout')),8000));
+      const ed=await Promise.race([eP,eT]);
+      const ev=parseFloat(ed&&ed.value);
+      if(isFinite(ev)&&ev>-1000&&ev<30000){S.padElevation=ev;findings.push(`• **Site grade elevation:** ${ev.toFixed(1)}'-0" (USGS 3DEP / EPQS) — approximate; finished floor to be set by survey.`);L.info(`USGS 3DEP elevation: ${ev.toFixed(2)} ft @ ${(+S.lat).toFixed(4)},${(+S.lon).toFixed(4)}`);}
+      else findings.push('• USGS 3DEP elevation: no data at this point — set FF datum by survey.');
+    }catch(e){L.info('USGS elevation: '+(/fetch|timeout|network/i.test(e.message)?'unavailable':String(e.message).substring(0,40)));findings.push('• USGS 3DEP elevation: unavailable — set datum by survey.');}
 
     // Strategy 3: COUNTY_REGISTRY lookup (verified ArcGIS parcel endpoints)
     if(z&&window.COUNTY_REGISTRY&&window.countyRegistryKey){
@@ -4265,8 +4279,10 @@ function drawFoundationSheet(ctx,W,H){
     // continuous footing under party/bearing walls
     (fl.walls||[]).filter(w=>w.kind==='party').forEach(w=>{ctx.strokeStyle='rgba(245,200,66,.6)';ctx.lineWidth=2.5;ctx.setLineDash([3,2]);ctx.beginPath();ctx.moveTo(tx(w.x1),ty(w.y1));ctx.lineTo(tx(w.x2),ty(w.y2));ctx.stroke();ctx.setLineDash([]);});
     if(fp.main){ctx.fillStyle='rgba(245,200,66,.75)';ctx.font='5.5px JetBrains Mono,monospace';ctx.textAlign='left';ctx.textBaseline='bottom';ctx.fillText('CONT. FOOTING (TYP.) — NOTE 1',tx(fp.main.x),ty(fp.main.y)-3);
-      const padEl=(S.padElevation!=null)?`${S.padElevation.toFixed(2)}' (USGS 3DEP)`:`100.00' ASSUMED — VERIFY SURVEY`;
-      ctx.fillStyle='rgba(34,224,138,.75)';ctx.font='600 6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText('T.O. SLAB EL. '+padEl,tx(fp.main.x+fp.main.w/2),ty(fp.main.y+fp.main.h)+4);}
+      // USGS 3DEP gives existing GRADE elevation (not top-of-slab) — label it
+      // honestly; finished floor is set by survey relative to this datum.
+      const padEl=(S.padElevation!=null)?`APPROX. GRADE EL. ${S.padElevation.toFixed(1)}' (USGS 3DEP)`:`T.O. SLAB EL. 100.00' ASSUMED — VERIFY SURVEY`;
+      ctx.fillStyle='rgba(34,224,138,.75)';ctx.font='600 6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText(padEl,tx(fp.main.x+fp.main.w/2),ty(fp.main.y+fp.main.h)+4);}
     return {notes:['FOUNDATION NOTES:','1. '+String(m.foundation||"cont. ftg + slab").substring(0,30),
       `2. Ftg bottom min. ${frostDepth(z.state)} below grade`,'3. Rebar #4 cont. top & bot. (typ.)',
       `4. Anchor bolts 1/2"Ø @ 6'-0" o.c.,`,'   12" max from corners','5. Slab 4" w/ 6x6 WWF o/ vapor barrier',

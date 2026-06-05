@@ -492,6 +492,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
       <div id="sheet-tabs"></div>
       <div class="sp"></div>
       <button class="ptbtn b" onclick="fitPlan()" title="Fit to screen">FIT</button>
+      <button class="ptbtn" onclick="editProjectInfo()" title="Edit title-block info (owner, designer, legal description)">ℹ INFO</button>
       <button class="ptbtn" onclick="toggleLogPanel()">LOG</button>
       <button class="ptbtn" onclick="exportSheetPNG()" title="Save current sheet as PNG">↓ PNG</button>
       <button class="ptbtn r" onclick="exportPermitPDF()" title="Export full 24×36 permit set as PDF">↓ PDF SET</button>
@@ -671,6 +672,9 @@ const S={
   competitors:null,      // competitor research results
   countyRecord:null,     // found GIS/OSM site data
   generatedOptions:[],   // 2-5 computed options
+  // L3: title-block project info (owner/designer/engineer/legal). Editable via
+  // editProjectInfo(); blanks render as permit placeholders, never fabricated.
+  projectInfo:{owner:'',ownerPhone:'',designer:'',designerPhone:'',engineer:'',legalDescription:'',revisions:[]},
 };
 const PHASES=[
   {id:'site',  lbl:'Site & Parcel Research'},
@@ -3985,26 +3989,64 @@ function drawSchedulesSheet(ctx,W,H){
 }
 
 // ── Drawing utilities ──
+// L3: complete permit title block — project info, contacts + signatures,
+// revision log, sheet block, RDP-aware stamp. Blank fields render as honest
+// placeholders (never fabricated). Edit via editProjectInfo().
 function drawTitleBlock(ctx,W,H,TH,sheetNum,sheetTitle,scale){
-  const TY=H-TH-12;const m=S.plan?.meta||{};const z=S._z||{};
-  ctx.fillStyle='rgba(11,14,21,.94)';ctx.fillRect(12,TY,W-24,TH);
-  ctx.strokeStyle='rgba(61,139,255,.3)';ctx.lineWidth=.5;ctx.strokeRect(12,TY,W-24,TH);
-  ctx.beginPath();ctx.moveTo(12,TY+24);ctx.lineTo(W-200,TY+24);ctx.moveTo(W-200,TY);ctx.lineTo(W-200,TY+TH);ctx.stroke();
-  ctx.font='500 10px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.9)';ctx.textAlign='left';ctx.textBaseline='middle';
-  ctx.fillText((m.projectName||'NEW DEVELOPMENT').substring(0,44),20,TY+12);
-  ctx.font='7.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.6)';
-  ctx.fillText((m.address||S.addr||'').substring(0,60),20,TY+32);
-  ctx.fillText(`${z.jurisdiction||'—'}, ${z.state||'—'}  ·  Zone: ${z.zoningDistrict||'—'}  ·  APN: TBD`,20,TY+44);
-  const apn=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||'See County Assessor';
-    ctx.fillText(`APN: ${apn}  ·  ArchDraw Intel v14  ·  AI Schematic  ·  ${new Date().toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'})}`,20,TY+56);
-  // Sheet info
-  ctx.textAlign='center';ctx.fillStyle='rgba(210,225,244,.9)';ctx.font='500 22px JetBrains Mono,monospace';ctx.fillText(sheetNum,W-100,TY+TH/2-6);
-  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.5)';ctx.fillText(sheetTitle.toUpperCase(),W-100,TY+TH/2+12);ctx.fillText('SCALE: '+scale,W-100,TY+TH/2+24);
-  // Permit stamp box
-  ctx.strokeStyle='rgba(61,139,255,.2)';ctx.strokeRect(W-196,TY+2,92,TH-4);ctx.fillStyle='rgba(122,154,184,.3)';ctx.font='6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('ENGINEER / ARCHITECT STAMP',W-150,TY+TH/2-4);ctx.fillText('(Required for submittal)',W-150,TY+TH/2+6);
-  // Short-form professional disclosure footer — architect-advisor
-  ctx.fillStyle='rgba(255,101,85,.75)';ctx.font='500 6.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';
-  ctx.fillText(ADVISOR_SHORT,W/2,H-10);
+  const TY=H-TH-12;const m=S.plan?.meta||{};const z=S._z||{};const pi=S.projectInfo||{};const adv=S._advisor||{};
+  const ph=v=>(v&&String(v).trim())?String(v):'—';
+  const date=new Date().toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'});
+  const X0=12,X1=W-12,XB=X1-188,XM=XB-178;       // sheet zone | middle zone dividers
+  ctx.fillStyle='rgba(11,14,21,.94)';ctx.fillRect(X0,TY,W-24,TH);
+  ctx.strokeStyle='rgba(61,139,255,.3)';ctx.lineWidth=.5;ctx.strokeRect(X0,TY,W-24,TH);
+  ctx.beginPath();ctx.moveTo(XM,TY);ctx.lineTo(XM,TY+TH);ctx.moveTo(XB,TY);ctx.lineTo(XB,TY+TH);ctx.stroke();
+  // ── project zone ──
+  ctx.textAlign='left';ctx.textBaseline='middle';
+  ctx.font='500 11px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.92)';ctx.fillText((m.projectName||'NEW DEVELOPMENT').substring(0,40),X0+8,TY+13);
+  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.7)';let py=TY+28;
+  ctx.fillText('SITE: '+(m.address||S.addr||'—').substring(0,54),X0+8,py);py+=11;
+  ctx.fillText('LEGAL: '+ph(pi.legalDescription).substring(0,54),X0+8,py);py+=11;
+  const apn=S.countyRecord?.esri?.APN||S.countyRecord?.esri?.PARCELNO||S.countyRecord?.esri?.PIN||pi.apn||'PER ASSESSOR';
+  ctx.fillText(`APN: ${apn}    ${z.jurisdiction||'—'}, ${z.state||'—'}    ZONE: ${z.zoningDistrict||'—'}`,X0+8,py);py+=11;
+  ctx.fillText(`${m.typology||'—'} · ${ph(m.units)} unit(s) · ${(m.totalSqFt||0).toLocaleString()} SF · ${date}`,X0+8,py);
+  // ── middle zone: contacts + revisions ──
+  let mx=XM+6,my=TY+10;
+  ctx.font='600 6.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.6)';ctx.fillText('OWNER / APPLICANT',mx,my);my+=10;
+  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.82)';ctx.fillText((ph(pi.owner)+(pi.ownerPhone?'  '+pi.ownerPhone:'')).substring(0,28),mx,my);my+=8;
+  ctx.strokeStyle='rgba(122,154,184,.3)';ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(mx,my+2);ctx.lineTo(XB-8,my+2);ctx.stroke();
+  ctx.font='5.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.4)';ctx.fillText('signature / date',mx,my+7);my+=17;
+  ctx.font='600 6.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.6)';ctx.fillText('DESIGNER / DRAFTER',mx,my);my+=10;
+  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.82)';ctx.fillText(ph(pi.designer).substring(0,28),mx,my);my+=8;
+  ctx.strokeStyle='rgba(122,154,184,.3)';ctx.beginPath();ctx.moveTo(mx,my+2);ctx.lineTo(XB-8,my+2);ctx.stroke();my+=15;
+  ctx.font='600 6px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.5)';ctx.fillText('REV  DATE        DESCRIPTION',mx,my);my+=9;
+  ctx.font='6px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.6)';
+  const revs=(pi.revisions&&pi.revisions.length)?pi.revisions:[{n:'0',date,desc:'Issued for permit (prelim.)'}];
+  revs.slice(0,3).forEach(r=>{ctx.fillText(`${String(r.n||'').padEnd(3)} ${String(r.date||'').padEnd(11)} ${String(r.desc||'').substring(0,20)}`,mx,my);my+=8;});
+  // ── sheet zone ──
+  ctx.textAlign='center';const SC=(XB+X1)/2;
+  ctx.font='500 26px JetBrains Mono,monospace';ctx.fillStyle='rgba(210,225,244,.92)';ctx.fillText(sheetNum,SC,TY+22);
+  ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.55)';ctx.fillText(sheetTitle.toUpperCase().substring(0,24),SC,TY+40);
+  ctx.fillStyle='rgba(122,154,184,.7)';ctx.fillText('SCALE: '+scale,SC,TY+52);
+  drawNorthArrow(ctx,X1-18,TY+18);
+  const sb=TY+TH-30;ctx.strokeStyle='rgba(61,139,255,.25)';ctx.strokeRect(XB+8,sb,(X1-XB)-16,24);
+  ctx.fillStyle=adv.rdpRequired?'rgba(255,101,85,.65)':'rgba(122,154,184,.45)';ctx.font='600 5.5px JetBrains Mono,monospace';
+  ctx.fillText(adv.rdpRequired?'RDP SEAL REQUIRED FOR SUBMITTAL':'PROFESSIONAL STAMP AREA',SC,sb+9);
+  ctx.font='5.5px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.5)';
+  ctx.fillText(((adv.sealsRequired&&adv.sealsRequired.join(', '))||'Architect / Engineer of Record').substring(0,32),SC,sb+18);
+  // Short-form professional disclosure footer — architect-advisor (verbatim)
+  ctx.fillStyle='rgba(255,101,85,.75)';ctx.font='500 6.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText(ADVISOR_SHORT,W/2,H-10);
+}
+// L3: lightweight local editor for the title-block project info (no API).
+function editProjectInfo(){
+  const pi=S.projectInfo||(S.projectInfo={revisions:[]});
+  const q=(label,cur)=>{const v=prompt(label,cur||'');return v==null?cur:v.trim();};
+  pi.owner=q('Owner / applicant name:',pi.owner);
+  pi.ownerPhone=q('Owner phone:',pi.ownerPhone);
+  pi.designer=q('Designer / drafter:',pi.designer);
+  pi.engineer=q('Engineer of record (if known):',pi.engineer);
+  pi.legalDescription=q('Legal description (Lot/Block/Subdivision or metes & bounds):',pi.legalDescription);
+  try{L.info('Project info updated for title block')}catch(_){}
+  if(S.plan&&typeof renderSheet==='function')renderSheet(S.activeSheet);
 }
 function dimLine(ctx,x1,y1,x2,y2,lbl,vert=false){
   ctx.save();ctx.strokeStyle='rgba(34,224,138,.55)';ctx.fillStyle='rgba(34,224,138,.55)';ctx.lineWidth=.7;

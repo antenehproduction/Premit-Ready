@@ -4910,12 +4910,55 @@ function buildCivilDL(plan,z){
   planAnnoDL(dl,'C-1','CIVIL — GRADING / UTILITIES (PRELIM)',`1/8"=1'-0"`,lotW,lotD);
   return dl;
 }
+// Title + verbatim disclosure block for the elevation/section views (no lot
+// frame). Placed below the drawing (negative Y).
+function titleDiscDL(dl,sheetId,title,scale){
+  dl.push({t:'text',layer:'G-ANNO-TTLB',x:0,y:-7,h:1.4,str:dxfStr((S.addr||'PROPOSED PLAN').toUpperCase()),align:'left'});
+  dl.push({t:'text',layer:'G-ANNO-TTLB',x:0,y:-9,h:1.0,str:dxfStr(`${sheetId}  ${title}   ${scale}`),align:'left'});
+  dl.push({t:'text',layer:'G-ANNO-NOTE',x:0,y:-11.5,h:0.9,str:dxfStr(ADVISOR_SHORT),align:'left'});
+  wrapText(ADVISOR_DISCLOSURE,150).forEach((ln,i)=>dl.push({t:'text',layer:'G-ANNO-NOTE',x:0,y:-13-i*1.3,h:0.6,str:dxfStr(ln),align:'left'}));
+}
+// A-3 Exterior Elevations DisplayList (schematic — 4 sides in a row).
+function buildElevationDL(plan,z){
+  const fp=buildingFootprints(plan),m=plan.meta||{},b=fp.main||{w:40,h:30};
+  const stories=Math.max(1,m.stories||2),fh=10,wallH=stories*fh,dl=[];
+  const elev=(x0,w,label)=>{const rise=Math.min(w,wallH)*0.32;
+    dl.push({t:'line',layer:'A-DIMS',x1:x0-2,y1:0,x2:x0+w+2,y2:0});                                  // grade
+    dl.push({t:'pl',layer:'A-WALL',closed:false,pts:[[x0,0],[x0,wallH],[x0+w,wallH],[x0+w,0]]});      // walls
+    dl.push({t:'pl',layer:'A-WALL',closed:false,pts:[[x0,wallH],[x0+w/2,wallH+rise],[x0+w,wallH]]});  // gable roof
+    for(let i=1;i<stories;i++)dl.push({t:'line',layer:'A-WALL-INTR',x1:x0,y1:i*fh,x2:x0+w,y2:i*fh});  // floor lines
+    for(let s=0;s<stories;s++)for(let k=0;k<2;k++){const wx=x0+w*(0.26+0.48*k)-1.5,wy=s*fh+3;dl.push({t:'pl',layer:'A-GLAZ',closed:true,pts:[[wx,wy],[wx+3,wy],[wx+3,wy+3.5],[wx,wy+3.5]]});}
+    dl.push({t:'text',layer:'A-AREA-IDEN',x:x0+w/2,y:-2.5,h:1.0,str:label,align:'center'});};
+  const gap=8;let x=0;
+  elev(x,b.w,'FRONT (STREET)');x+=b.w+gap;
+  elev(x,b.h,'RIGHT SIDE');x+=b.h+gap;
+  elev(x,b.w,'REAR');x+=b.w+gap;
+  elev(x,b.h,'LEFT SIDE');
+  titleDiscDL(dl,'A-3','EXTERIOR ELEVATIONS',`1/4"=1'-0"`);
+  return dl;
+}
+// A-4 Building Section DisplayList (schematic — foundation to roof).
+function buildSectionDL(plan,z){
+  const fp=buildingFootprints(plan),m=plan.meta||{},b=fp.main||{w:40,h:30};
+  const stories=Math.max(1,m.stories||2),fh=10,wallH=stories*fh,w=b.w,dl=[];
+  dl.push({t:'pl',layer:'S-FNDN',closed:true,pts:[[-1.5,0],[w+1.5,0],[w+1.5,-3],[-1.5,-3]]});        // footing/stem below grade
+  dl.push({t:'line',layer:'A-DIMS',x1:-3,y1:0,x2:w+3,y2:0});                                          // grade
+  dl.push({t:'line',layer:'A-WALL',x1:0,y1:0,x2:0,y2:wallH});dl.push({t:'line',layer:'A-WALL',x1:w,y1:0,x2:w,y2:wallH});
+  for(let i=0;i<=stories;i++)dl.push({t:'line',layer:'A-WALL-INTR',x1:0,y1:i*fh,x2:w,y2:i*fh});      // floor platforms
+  dl.push({t:'pl',layer:'A-WALL',closed:false,pts:[[0,wallH],[w/2,wallH+w*0.32],[w,wallH]]});         // roof
+  for(let i=0;i<stories;i++)dl.push({t:'text',layer:'A-AREA-IDEN',x:w/2,y:i*fh+fh/2,h:1.0,str:'LEVEL '+(i+1),align:'center'});
+  dl.push({t:'text',layer:'A-AREA-IDEN',x:w/2,y:-1.7,h:0.8,str:'FOUNDATION',align:'center'});
+  titleDiscDL(dl,'A-4','BUILDING SECTION',`1/4"=1'-0"`);
+  return dl;
+}
 // Dispatcher: DisplayList for any DL-backed sheet (else []).
 function buildSheetDL(sheetId){
   const z=S._z||{};if(!S.plan)return [];
   switch(sheetId){
     case 'A-1':return buildSitePlanDL(S.plan,z);
     case 'A-2':return buildFloorPlanDL(S.plan,S.floor||0,z);
+    case 'A-3':return buildElevationDL(S.plan,z);
+    case 'A-4':return buildSectionDL(S.plan,z);
     case 'S-1':return buildFoundationDL(S.plan,z);
     case 'S-2':return buildFramingDL(S.plan,z);
     case 'M-1':return buildMEPDL(S.plan,z);
@@ -4923,7 +4966,7 @@ function buildSheetDL(sheetId){
     default:return [];
   }
 }
-const DL_SHEETS=new Set(['A-1','A-2','S-1','S-2','M-1','C-1']); // DXF/plot-backed sheets
+const DL_SHEETS=new Set(['A-1','A-2','A-3','A-4','S-1','S-2','M-1','C-1']); // DXF/plot-backed sheets (A-0 cover / A-5 schedules stay raster — text sheets)
 
 function exportSheetDXF(){
   if(!S.plan){alert('Run analysis first.');return}

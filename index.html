@@ -682,10 +682,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
 //
 // P1-2 (2026-04-25): the legacy `corsproxy.io` fallback was removed. All
 // production data routes through ArchDraw-controlled infra (Vercel Edge
-// or Cloudflare Worker). Standalone users (e.g., GitHub Pages with no
-// proxy configured) see a clear error and must set localStorage.ADI_PROXY
-// to a deployed proxy URL — no silent third-party network hop.
-window.ADI_PROXY_DEFAULT=window.ADI_PROXY_DEFAULT||null;
+// or Cloudflare Worker).
+//
+// S5 (2026-06-05): default the proxy to the PUBLIC production alias so the
+// GitHub Pages site reaches /api (FEMA, ArcGIS, NREL, Regrid, MS footprints) —
+// previously it had no proxy and those calls silently no-op'd for end-users.
+// Only for non-Vercel/non-localhost hosts; *.vercel.app and localhost keep the
+// relative same-origin /api (step 3). localStorage.ADI_PROXY still overrides.
+// The alias is the project's stable production domain (CORS already allows
+// github.io); the deployment-specific URLs stay protected by Vercel Auth.
+window.ADI_PROXY_DEFAULT=window.ADI_PROXY_DEFAULT||(/(\.|^)vercel\.app$|^localhost$|^127\.0\.0\.1$/.test(location.hostname)?null:'https://archdraw-seven.vercel.app/api');
 function getProxyBase(){
   try{
     const explicit=localStorage.getItem('ADI_PROXY')||window.ADI_PROXY_DEFAULT;

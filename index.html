@@ -113,6 +113,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
 .ptbtn:hover{background:var(--ink3);color:var(--txt)}
 .ptbtn.g{color:var(--green);border-color:rgba(34,224,138,.3)}.ptbtn.b{color:var(--blue);border-color:rgba(61,139,255,.3)}
 .ptbtn.r{color:var(--coral);border-color:rgba(255,101,85,.3)}
+.ptbtn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
 #cc{flex:1;position:relative;overflow:hidden}
 #map-view{position:absolute;inset:0;display:none;z-index:1}
 #map-view.vis{display:block}
@@ -494,7 +495,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var
       <button class="ptbtn b" onclick="fitPlan()" title="Fit to screen">FIT</button>
       <button class="ptbtn" onclick="editProjectInfo()" title="Edit title-block info (owner, designer, legal description)">ℹ INFO</button>
       <button class="ptbtn" onclick="toggleLogPanel()">LOG</button>
+      <button class="ptbtn" id="plot-btn" onclick="togglePlotMode()" title="Toggle monochrome black-on-white plot preview">◻ PLOT</button>
       <button class="ptbtn" onclick="exportSheetPNG()" title="Save current sheet as PNG">↓ PNG</button>
+      <button class="ptbtn" onclick="exportSheetDXF()" title="Export current floor plan as an editable AutoCAD DXF (feet, AIA layers)">↓ DXF</button>
       <button class="ptbtn r" onclick="exportPermitPDF()" title="Export full 24×36 permit set as PDF">↓ PDF SET</button>
     </div>
     <!-- architect-advisor RDP banner (populated when project triggers RDP requirement) -->
@@ -3287,11 +3290,14 @@ function renderSheet(sheetId){
   if(W<10||H<10)return;
   cv.width=W;cv.height=H;
   const ctx=cv.getContext('2d');ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
+  // L2: monochrome plot preview is A-2-scoped this sprint — white paper for A-2,
+  // dark theme otherwise (so other sheets stay legible until they get a DL too).
+  const plotA2=S.plotMode&&sheetId==='A-2';
+  ctx.fillStyle=plotA2?'#ffffff':'#0c1420';ctx.fillRect(0,0,W,H);
   switch(sheetId){
     case 'A-0':drawCoverSheet(ctx,W,H);break;
     case 'A-1':drawSitePlanSheet(ctx,W,H);break;
-    case 'A-2':drawFloorPlanSheet(ctx,W,H,S.floor);break;
+    case 'A-2':plotA2?paintFloorPlot(ctx,W,H,S.floor):drawFloorPlanSheet(ctx,W,H,S.floor);break;
     case 'A-3':drawElevationsSheet(ctx,W,H);break;
     case 'A-4':drawSectionsSheet(ctx,W,H);break;
     case 'A-5':drawSchedulesSheet(ctx,W,H);break;
@@ -4299,6 +4305,179 @@ async function exportPermitPDF(){
     doc.save(fname);L.info(`PDF saved: ${fname} (${doc.internal.pages.length} sheets)`);
     alert(`✓ PDF saved: ${fname}\n\n${doc.internal.pages.length} sheets:\nA-0 Cover · A-1 Site Plan · A-2 Floor Plan(s) · A-3 Elevations · A-4 Sections · A-5 Schedule`);
   }catch(e){L.error('PDF export failed:',e.message);alert('PDF export failed: '+e.message)}
+}
+
+// ═══ L2 — DISPLAYLIST → DXF + MONOCHROME PLOT ═══════════════════════════════
+// One build-once DisplayList (primitives in real-world FEET, Y-up = CAD native)
+// drives BOTH writeDXF (editable AutoCAD file) and paintDL_plot (black-on-white
+// plot), so the two never drift. Built from the S.plan DATA MODEL (rooms/walls/
+// openings) — NOT from the dark-theme canvas renderer, which stays untouched.
+
+// feet → feet-inches label (handles 12" rollover)
+function fmtFI(v){let f=Math.floor(v),i=Math.round((v-f)*12);if(i===12){f++;i=0}return f+"'-"+i+'"';}
+// swept wall rectangle: segment (x1,y1)-(x2,y2) of thickness t → 4 CCW corners
+function wallRect(x1,y1,x2,y2,t){const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy)||1;const nx=-dy/len*(t/2),ny=dx/len*(t/2);return [[x1+nx,y1+ny],[x2+nx,y2+ny],[x2-nx,y2-ny],[x1-nx,y1-ny]];}
+
+// Build the A-2 floor-plan DisplayList for floor index fi.
+function buildFloorPlanDL(plan,fi,z){
+  const fl=(plan.floors||[])[fi];if(!fl)return [];
+  const rooms=fl.rooms||[],walls=fl.walls||[],openings=fl.openings||[];
+  const xs=[],ys=[];
+  rooms.forEach(r=>{xs.push(r.x,r.x+r.w);ys.push(r.y,r.y+r.h)});
+  walls.forEach(w=>{xs.push(w.x1,w.x2);ys.push(w.y1,w.y2)});
+  if(!xs.length)return [];
+  const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+  const FX=x=>x-minX, FY=y=>maxY-y;          // shift to 0-origin; flip Y north-up
+  const bw=maxX-minX, bd=maxY-minY;
+  const dl=[];
+  // 1. rooms — boundary (A-AREA) + name/area label (A-AREA-IDEN) + stair treads
+  rooms.forEach(r=>{
+    const x0=FX(r.x),x1=FX(r.x+r.w),yt=FY(r.y),yb=FY(r.y+r.h);
+    dl.push({t:'pl',layer:'A-AREA',closed:true,pts:[[x0,yb],[x1,yb],[x1,yt],[x0,yt]]});
+    const cx=(x0+x1)/2,cy=(yb+yt)/2;
+    dl.push({t:'text',layer:'A-AREA-IDEN',x:cx,y:cy+0.35,h:0.7,str:String(r.name||r.type||'').toUpperCase(),align:'center'});
+    dl.push({t:'text',layer:'A-AREA-IDEN',x:cx,y:cy-1.0,h:0.5,str:Math.round(r.w*r.h)+' SF',align:'center'});
+    if(r.type==='stair'){const n=Math.max(3,Math.min(14,Math.floor(Math.max(r.w,r.h)/0.92)));
+      const vert=r.h>=r.w;for(let i=1;i<n;i++){const f=i/n;
+        if(vert)dl.push({t:'line',layer:'A-FLOR-STRS',x1:x0,y1:yb+(yt-yb)*f,x2:x1,y2:yb+(yt-yb)*f});
+        else dl.push({t:'line',layer:'A-FLOR-STRS',x1:x0+(x1-x0)*f,y1:yb,x2:x0+(x1-x0)*f,y2:yt});}}
+  });
+  // 2. walls — solid poché + outline; party/fire on A-WALL-PRHT
+  walls.forEach(w=>{const layer=w.kind==='party'?'A-WALL-PRHT':'A-WALL';
+    const q=wallRect(FX(w.x1),FY(w.y1),FX(w.x2),FY(w.y2),w.t||0.5);
+    dl.push({t:'solid',layer,pts:q});dl.push({t:'pl',layer,closed:true,pts:q});});
+  // 3. openings — door leaf+swing (A-DOOR), window triple-line (A-GLAZ)
+  openings.forEach(o=>{const x=FX(o.x),y=FY(o.y),w=o.w||3;
+    if(o.kind==='door'){dl.push({t:'line',layer:'A-DOOR',x1:x,y1:y,x2:x,y2:y-w});dl.push({t:'arc',layer:'A-DOOR',cx:x,cy:y,r:w,a0:270,a1:360});}
+    else if(o.kind==='window'){if(o.vert){for(const dxo of [-0.15,0,0.15])dl.push({t:'line',layer:'A-GLAZ',x1:x+dxo,y1:y-w/2,x2:x+dxo,y2:y+w/2});}
+      else{for(const dyo of [-0.15,0,0.15])dl.push({t:'line',layer:'A-GLAZ',x1:x-w/2,y1:y+dyo,x2:x+w/2,y2:y+dyo});}}});
+  // 4. overall dimensions (A-DIMS): width below, depth at left
+  const tk=0.5;
+  dl.push({t:'line',layer:'A-DIMS',x1:0,y1:-3,x2:bw,y2:-3});
+  dl.push({t:'line',layer:'A-DIMS',x1:0,y1:-3-tk,x2:0,y2:-3+tk});
+  dl.push({t:'line',layer:'A-DIMS',x1:bw,y1:-3-tk,x2:bw,y2:-3+tk});
+  dl.push({t:'text',layer:'A-DIMS',x:bw/2,y:-2.6,h:0.6,str:fmtFI(bw),align:'center'});
+  dl.push({t:'line',layer:'A-DIMS',x1:-3,y1:0,x2:-3,y2:bd});
+  dl.push({t:'line',layer:'A-DIMS',x1:-3-tk,y1:0,x2:-3+tk,y2:0});
+  dl.push({t:'line',layer:'A-DIMS',x1:-3-tk,y1:bd,x2:-3+tk,y2:bd});
+  dl.push({t:'text',layer:'A-DIMS',x:-3.4,y:bd/2,h:0.6,str:fmtFI(bd),align:'center',rot:90});
+  // 5. title + level (G-ANNO-TTLB)
+  const m=plan.meta||{};
+  dl.push({t:'text',layer:'G-ANNO-TTLB',x:0,y:bd+3.2,h:1.1,str:dxfStr((S.addr||'PROPOSED PLAN').toUpperCase()),align:'left'});
+  dl.push({t:'text',layer:'G-ANNO-TTLB',x:0,y:bd+1.6,h:0.8,str:`A-2  FLOOR PLAN — ${fl.label||('LEVEL '+(fi+1))}   1/4"=1'-0"`,align:'left'});
+  // 6. CRITICAL PROFESSIONAL DISCLOSURE (verbatim) on G-ANNO-NOTE
+  dl.push({t:'text',layer:'G-ANNO-NOTE',x:0,y:-6,h:0.7,str:dxfStr(ADVISOR_SHORT),align:'left'});
+  wrapText(ADVISOR_DISCLOSURE,96).forEach((ln,i)=>dl.push({t:'text',layer:'G-ANNO-NOTE',x:0,y:-7.4-i*0.95,h:0.45,str:dxfStr(ln),align:'left'}));
+  return dl;
+}
+
+function wrapText(s,maxChars){const words=String(s).split(' ');const out=[];let cur='';
+  words.forEach(w=>{if((cur+' '+w).trim().length>maxChars){if(cur)out.push(cur);cur=w}else cur=(cur+' '+w).trim()});
+  if(cur)out.push(cur);return out;}
+// DXF is ASCII (R12): transliterate the few unicode glyphs in the disclosure so
+// the text stays legible & verbatim-in-meaning (Sec. for §, - for em/en dash).
+function dxfStr(s){return String(s).replace(/§/g,'Sec.').replace(/[–—]/g,'-').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[^\x20-\x7E]/g,'');}
+
+// Write an AutoCAD R12 (AC1009) ASCII DXF from a DisplayList. R12 is chosen for
+// maximum interoperability (LibreCAD / ODA / AutoCAD / QCAD all read it) — feet
+// units, AIA/NCS layers carrying ACI colors (which drive pen weights via the
+// classic color→pen plot table). AC1015 + per-entity lineweight is a future
+// toggle. Coordinates are already FEET, Y-up (CAD native) — emitted as-is.
+function writeDXF(dl,meta){
+  const out=[];const P=(c,v)=>{out.push(c);out.push(String(v))};
+  const dn=v=>{const n=Math.round((+v||0)*1e6)/1e6;return Object.is(n,-0)?'0':String(n)};
+  // bbox for $EXTMIN/$EXTMAX
+  let nx=1e9,ny=1e9,xx=-1e9,xy=-1e9;const seen=p=>{if(p[0]<nx)nx=p[0];if(p[1]<ny)ny=p[1];if(p[0]>xx)xx=p[0];if(p[1]>xy)xy=p[1]};
+  dl.forEach(e=>{if(e.pts)e.pts.forEach(seen);if('x1'in e){seen([e.x1,e.y1]);seen([e.x2,e.y2])}if('cx'in e)seen([e.cx,e.cy]);if('x'in e)seen([e.x,e.y])});
+  if(nx>xx){nx=ny=0;xx=xy=10}
+  // HEADER
+  P(0,'SECTION');P(2,'HEADER');
+  P(9,'$ACADVER');P(1,'AC1009');
+  P(9,'$INSUNITS');P(70,2);
+  P(9,'$EXTMIN');P(10,dn(nx));P(20,dn(ny));P(30,'0');
+  P(9,'$EXTMAX');P(10,dn(xx));P(20,dn(xy));P(30,'0');
+  P(0,'ENDSEC');
+  // TABLES — LTYPE, LAYER, STYLE
+  P(0,'SECTION');P(2,'TABLES');
+  P(0,'TABLE');P(2,'LTYPE');P(70,4);
+  P(0,'LTYPE');P(2,'CONTINUOUS');P(70,0);P(3,'Solid line');P(72,65);P(73,0);P(40,0);
+  P(0,'LTYPE');P(2,'CENTER');P(70,0);P(3,'Center');P(72,65);P(73,4);P(40,2.0);P(49,1.25);P(49,-0.25);P(49,0.25);P(49,-0.25);
+  P(0,'LTYPE');P(2,'DASHED');P(70,0);P(3,'Dashed');P(72,65);P(73,2);P(40,0.75);P(49,0.5);P(49,-0.25);
+  P(0,'LTYPE');P(2,'HIDDEN');P(70,0);P(3,'Hidden');P(72,65);P(73,2);P(40,0.375);P(49,0.25);P(49,-0.125);
+  P(0,'ENDTAB');
+  const lk=Object.keys(CAD_LAYERS);
+  P(0,'TABLE');P(2,'LAYER');P(70,lk.length);
+  lk.forEach(name=>{const L=CAD_LAYERS[name];P(0,'LAYER');P(2,name);P(70,0);P(62,L.aci);P(6,L.lt||'CONTINUOUS')});
+  P(0,'ENDTAB');
+  P(0,'TABLE');P(2,'STYLE');P(70,1);
+  P(0,'STYLE');P(2,'STANDARD');P(70,0);P(40,0);P(41,1);P(50,0);P(71,0);P(42,0.2);P(3,'txt');P(4,'');
+  P(0,'ENDTAB');
+  P(0,'ENDSEC');
+  // ENTITIES
+  P(0,'SECTION');P(2,'ENTITIES');
+  dl.forEach(e=>{const layer=e.layer||'0';
+    if(e.t==='line'){P(0,'LINE');P(8,layer);P(10,dn(e.x1));P(20,dn(e.y1));P(30,'0');P(11,dn(e.x2));P(21,dn(e.y2));P(31,'0')}
+    else if(e.t==='pl'){P(0,'POLYLINE');P(8,layer);P(66,1);P(70,e.closed?1:0);
+      e.pts.forEach(p=>{P(0,'VERTEX');P(8,layer);P(10,dn(p[0]));P(20,dn(p[1]));P(30,'0')});P(0,'SEQEND')}
+    else if(e.t==='arc'){P(0,'ARC');P(8,layer);P(10,dn(e.cx));P(20,dn(e.cy));P(30,'0');P(40,dn(e.r));P(50,dn(e.a0));P(51,dn(e.a1))}
+    else if(e.t==='circle'){P(0,'CIRCLE');P(8,layer);P(10,dn(e.cx));P(20,dn(e.cy));P(30,'0');P(40,dn(e.r))}
+    else if(e.t==='text'){P(0,'TEXT');P(8,layer);P(10,dn(e.x));P(20,dn(e.y));P(30,'0');P(40,dn(e.h));P(1,dxfStr(e.str));P(50,dn(e.rot||0));P(7,'STANDARD');P(72,e.align==='center'?1:e.align==='right'?2:0);P(11,dn(e.x));P(21,dn(e.y));P(31,'0')}
+    else if(e.t==='solid'){const q=e.pts;P(0,'SOLID');P(8,layer);
+      P(10,dn(q[0][0]));P(20,dn(q[0][1]));P(30,'0');P(11,dn(q[1][0]));P(21,dn(q[1][1]));P(31,'0');
+      P(12,dn(q[3][0]));P(22,dn(q[3][1]));P(32,'0');P(13,dn(q[2][0]));P(23,dn(q[2][1]));P(33,'0')}});
+  P(0,'ENDSEC');P(0,'EOF');
+  return out.join('\n')+'\n';
+}
+
+function exportSheetDXF(){
+  if(!S.plan){alert('Run analysis first.');return}
+  if(!assertExportAllowed('DXF'))return;
+  const fi=S.floor||0;
+  const dl=buildFloorPlanDL(S.plan,fi,S._z||{});
+  if(!dl.length){alert('No floor-plan geometry on this sheet to export.\nThe DXF export is the A-2 floor plan — switch to an A-2 sheet first.');return}
+  try{
+    const dxf=writeDXF(dl,{});
+    const blob=new Blob([dxf],{type:'application/dxf'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download=`${(S.addr||'plan').replace(/[^a-z0-9]/gi,'_').substring(0,25)}_A2_floor${fi+1}.dxf`;
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+    L.info(`DXF exported: floor ${fi+1}, ${dl.length} primitives, ${Object.keys(CAD_LAYERS).length} AIA layers (R12/feet)`);
+  }catch(e){L.error('DXF export failed:',e.message);alert('DXF export failed: '+e.message)}
+}
+
+// Monochrome plot renderer — paints the SAME DisplayList black-on-white, fit to
+// the canvas. Used by the PLOT preview toggle and (later) the plotted PDF.
+function paintDL_plot(ctx,W,H,dl){
+  let nx=1e9,ny=1e9,xx=-1e9,xy=-1e9;const seen=(x,y)=>{if(x<nx)nx=x;if(y<ny)ny=y;if(x>xx)xx=x;if(y>xy)xy=y};
+  dl.forEach(e=>{if(e.pts)e.pts.forEach(p=>seen(p[0],p[1]));if('x1'in e){seen(e.x1,e.y1);seen(e.x2,e.y2)}if('cx'in e)seen(e.cx-e.r,e.cy-e.r),seen(e.cx+e.r,e.cy+e.r);if('x'in e)seen(e.x,e.y)});
+  if(nx>xx)return;
+  const mg=46,sc=Math.min((W-2*mg)/((xx-nx)||1),(H-2*mg)/((xy-ny)||1));
+  const ox=(W-(xx-nx)*sc)/2,oy=(H-(xy-ny)*sc)/2;
+  const PX=x=>ox+(x-nx)*sc, PY=y=>H-(oy+(y-ny)*sc);   // flip Y back for canvas
+  ctx.save();ctx.lineJoin='round';ctx.lineCap='round';
+  dl.forEach(e=>{const L=CAD_LAYERS[e.layer]||CAD_LAYERS['0'];const ink=L.ink;const lw=plotPx(L.lwMm);
+    ctx.strokeStyle=ink;ctx.fillStyle=ink;ctx.lineWidth=lw;
+    if(e.t==='line'){ctx.beginPath();ctx.moveTo(PX(e.x1),PY(e.y1));ctx.lineTo(PX(e.x2),PY(e.y2));ctx.stroke()}
+    else if(e.t==='pl'){ctx.beginPath();e.pts.forEach((p,i)=>{const X=PX(p[0]),Y=PY(p[1]);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});if(e.closed)ctx.closePath();ctx.stroke()}
+    else if(e.t==='solid'){ctx.beginPath();e.pts.forEach((p,i)=>{const X=PX(p[0]),Y=PY(p[1]);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.closePath();ctx.fill()}
+    else if(e.t==='circle'){ctx.beginPath();ctx.arc(PX(e.cx),PY(e.cy),e.r*sc,0,2*Math.PI);ctx.stroke()}
+    else if(e.t==='arc'){ctx.beginPath();const steps=18;for(let i=0;i<=steps;i++){const a=(e.a0+(e.a1-e.a0)*i/steps)*Math.PI/180;const X=PX(e.cx+e.r*Math.cos(a)),Y=PY(e.cy+e.r*Math.sin(a));i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke()}
+    else if(e.t==='text'){const px=Math.max(6,e.h*sc);ctx.font=px+'px JetBrains Mono,monospace';ctx.textAlign=e.align||'left';ctx.textBaseline='middle';
+      if(e.rot){ctx.save();ctx.translate(PX(e.x),PY(e.y));ctx.rotate(-e.rot*Math.PI/180);ctx.fillText(e.str,0,0);ctx.restore()}
+      else ctx.fillText(e.str,PX(e.x),PY(e.y))}});
+  ctx.restore();
+}
+// Render the active A-2 sheet as a monochrome plot (called from renderSheet).
+function paintFloorPlot(ctx,W,H,fi){
+  const dl=buildFloorPlanDL(S.plan,fi,S._z||{});
+  if(!dl.length){ctx.fillStyle='#333';ctx.font='13px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('No floor-plan geometry on this sheet.',W/2,H/2);return}
+  paintDL_plot(ctx,W,H,dl);
+}
+function togglePlotMode(){
+  S.plotMode=!S.plotMode;
+  const b=document.getElementById('plot-btn');if(b)b.classList.toggle('on',S.plotMode);
+  if(S.plotMode&&S.activeSheet!=='A-2'){L.info('PLOT preview is the A-2 floor plan (this sprint) — switch to an A-2 sheet to see it.');}
+  if(typeof renderSheet==='function'&&S.plan)renderSheet(S.activeSheet);
 }
 
 // ═══ THREE.JS 3D ═══

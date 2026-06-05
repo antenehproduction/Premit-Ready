@@ -1361,7 +1361,7 @@ async function startAnalysis(){
   document.getElementById('run-btn').disabled=true;document.getElementById('run-btn').textContent='ANALYZING...';
   // Clean slate — never reuse geocoded coords, OSM buildings, or map overlays from a previous run
   S.plan=null;S.floor=0;S.zoom=1;S.panX=0;S.panY=0;S.selectedOption=null;S.competitors=null;S.countyRecord=null;
-  S.lat=null;S.lon=null;S.osmBuildings=null;S.femaZone=null;S._geoAddr=null;S._z=null;S._advisor=null;S.padElevation=null;S.regridParcel=null;S.solarYield=null;
+  S.lat=null;S.lon=null;S.osmBuildings=null;S.femaZone=null;S._geoAddr=null;S._z=null;S._advisor=null;S.padElevation=null;S.regridParcel=null;S.solarYield=null;S.msFootprints=null;
   if(MAP_INSTANCE){MAP_INSTANCE.eachLayer(l=>{if(l._isArchDraw||l._isOSM)MAP_INSTANCE.removeLayer(l)})}
   LOG.length=0;
   L.info(`=== v12 ANALYSIS START: ${S.addr} ===`);
@@ -1622,6 +1622,24 @@ async function runPhase_record(){
       if(isFinite(sy)&&sy>0){S.solarYield={specificYield:Math.round(sy),solrad:d.outputs.solrad_annual,source:'NREL PVWatts v8'};findings.push(`☀️ **Solar resource:** ${Math.round(sy).toLocaleString()} kWh/kW/yr (NREL PVWatts v8, ${(+d.outputs.solrad_annual).toFixed(1)} kWh/m²/day) — drives Net-Zero ROI.`);L.info(`NREL solar specific yield: ${Math.round(sy)} kWh/kW/yr`);}
     }catch(e){L.info('NREL solar: '+(/timeout|fetch|configured|not_configured/i.test(e.message)?'unavailable (proxy/key not reachable)':String(e.message).substring(0,40)));}
 
+    // Strategy 2e: Microsoft Building Footprints — fills existing-structure
+    // detection where OSM is sparse (OSM found < 2 buildings). 125M US buildings
+    // via the existing /arcgis proxy. Feeds the record findings + the A-1
+    // existing-structures callout. Approximate; verified by survey.
+    try{
+      const osmBld=(S.osmBuildings||[]).filter(e=>e.tags&&e.tags.building).length;
+      if(osmBld<2){
+        const ms=await fetchMSFootprints(+S.lat,+S.lon);
+        if(ms&&ms.length){
+          S.msFootprints=ms;
+          const totalSF=ms.reduce((s,b)=>s+(b.area||0),0);
+          const near=ms.slice().sort((a,b)=>b.area-a.area).slice(0,3).map(b=>b.area.toLocaleString()+' SF').join(', ');
+          findings.push(`🏚️ **Existing structures (Microsoft Building Footprints):** ${ms.length} building(s) within ~130m, ~${totalSF.toLocaleString()} SF total (largest: ${near}). OSM had ${osmBld}. Approximate — verify by survey.`);
+          L.info(`MS Building Footprints: ${ms.length} structures (~${totalSF} SF)`);
+        }else findings.push('• Microsoft Building Footprints: none mapped near this point (lot may be vacant).');
+      }
+    }catch(e){L.info('MS footprints: '+(/timeout|fetch|non-JSON|proxy_/i.test(e.message)?'unavailable':String(e.message).substring(0,40)));}
+
     // Strategy 3: COUNTY_REGISTRY lookup (verified ArcGIS parcel endpoints)
     if(z&&window.COUNTY_REGISTRY&&window.countyRegistryKey){
       try{
@@ -1755,6 +1773,29 @@ function calcOSMArea(geometry){// rough footprint SF from OSM geometry lat/lon p
 }
 
 // ── LOT DIMENSION CALIBRATION (used when county ArcGIS is blocked) ──
+// Microsoft Building Footprints (ODbL, 125M US buildings) — Esri-hosted MSBFP2
+// layer, queried through the EXISTING /arcgis proxy (services.arcgis.com is on
+// the proxy allowlist; ArcGIS REST is also CORS-direct, so it works standalone
+// too). Complements OSM Overpass where OSM is sparse. Returns normalized
+// buildings [{geometry:[{lat,lon}], area, source:'MS'}]. Promise.race timeout,
+// never AbortController (rule #1).
+async function fetchMSFootprints(lat,lon){
+  const d=0.0012; // ~130m half-envelope around the site
+  const env=`${lon-d},${lat-d},${lon+d},${lat+d}`;
+  const up=`https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/MSBFP2/FeatureServer/0/query?geometry=${encodeURIComponent(env)}&geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&outFields=*&returnGeometry=true&f=json&inSR=4326&outSR=4326&resultRecordCount=50`;
+  const r=await Promise.race([proxyFetch(`/arcgis?url=${encodeURIComponent(up)}`,up),new Promise((_,rej)=>setTimeout(()=>rej(new Error('ms_timeout')),12000))]);
+  const txt=await r.text();let dd;try{dd=JSON.parse(txt)}catch(_){throw new Error('non-JSON');}
+  if(dd&&dd.error)throw new Error('proxy_'+((dd.error&&dd.error.message)||dd.error));
+  const ftLat=364000,ftLon=364000*Math.cos(lat*Math.PI/180);
+  const out=[];
+  (dd.features||[]).forEach(f=>{const rings=f.geometry&&f.geometry.rings;if(!rings||!rings[0]||rings[0].length<4)return;
+    const ring=rings[0];let a=0;for(let i=0;i<ring.length-1;i++){a+=ring[i][0]*ring[i+1][1]-ring[i+1][0]*ring[i][1];}
+    const areaSF=Math.round(Math.abs(a/2)*ftLat*ftLon);
+    if(areaSF>=120&&areaSF<60000)out.push({geometry:ring.map(p=>({lat:p[1],lon:p[0]})),area:areaSF,source:'MS'});
+  });
+  return out;
+}
+
 // Reads OSM building/parcel shapes near the site, estimates lot width × depth
 // from typical neighborhood proportions. Returns null when data insufficient.
 function calibrateLotFromOSM(lat,lon){
@@ -3855,6 +3896,24 @@ function drawSitePlanSheet(ctx,W,H){
   ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(61,139,255,.8)';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('LEGEND',LX+6,LY+6);
   const legItems=[['#ff6555','Property Line (2" dashed)'],['#22e08a','Setback Envelope (1" dashed)'],['#3d8bff','Proposed Building Footprint'],['#a78bfa','Existing Structures (OSM)'],['#f5c842','Street / Right-of-Way']];
   legItems.forEach(([col,lbl],i)=>{ctx.fillStyle=col;ctx.fillRect(LX+6,LY+22+i*18,10,8);ctx.fillStyle='rgba(200,215,235,.6)';ctx.font='7px JetBrains Mono,monospace';ctx.fillText(lbl,LX+20,LY+22+i*18)});
+  // Existing-structures callout — OSM (Overpass) + Microsoft Building Footprints.
+  // Data-accurate counts/areas; geometry not placed on the schematic lot (the
+  // geocoded point is not georeferenced to it) → "verify locations by survey".
+  const exOSM=(S.osmBuildings||[]).filter(e=>e.tags&&e.tags.building&&e.geometry);
+  const exMS=S.msFootprints||[];const exN=exOSM.length+exMS.length;
+  const EY=LY+128,EH=exN?66:42;
+  ctx.fillStyle='rgba(11,14,21,.9)';ctx.fillRect(LX,EY,162,EH);ctx.strokeStyle='rgba(167,139,250,.45)';ctx.lineWidth=1;ctx.strokeRect(LX,EY,162,EH);
+  ctx.font='600 7px JetBrains Mono,monospace';ctx.fillStyle='rgba(167,139,250,.85)';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('EXISTING STRUCTURES',LX+6,EY+6);
+  ctx.font='6.5px JetBrains Mono,monospace';
+  if(exN){
+    const osmSF=exOSM.reduce((s,b)=>s+Math.round(calcOSMArea(b.geometry)||0),0);
+    const msSF=exMS.reduce((s,b)=>s+(b.area||0),0);
+    const lines=[`${exN} building(s) near site:`];
+    if(exOSM.length)lines.push(`  ${exOSM.length} OSM (~${osmSF.toLocaleString()} SF)`);
+    if(exMS.length)lines.push(`  ${exMS.length} MS Footprints (~${msSF.toLocaleString()} SF)`);
+    lines.push('VERIFY LOCATIONS BY SURVEY');
+    lines.forEach((l,i)=>{ctx.fillStyle=/VERIFY/.test(l)?'rgba(255,101,85,.72)':'rgba(200,215,235,.65)';ctx.fillText(l,LX+6,EY+18+i*9)});
+  }else{ctx.fillStyle='rgba(200,215,235,.6)';ctx.fillText('None mapped (OSM / MS) —',LX+6,EY+18);ctx.fillText('lot may be vacant; per survey.',LX+6,EY+27)}
 }
 
 // ── SHEET: A-2 Floor Plans ──

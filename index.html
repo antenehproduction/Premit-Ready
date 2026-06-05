@@ -3899,8 +3899,12 @@ function drawElevationsSheet(ctx,W,H){
   ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
   ctx.strokeStyle='rgba(61,139,255,.35)';ctx.lineWidth=2;ctx.strokeRect(12,12,W-24,H-24);
   const TH=70;const TY=H-TH-12;drawTitleBlock(ctx,W,H,TH,'A-3','Exterior Elevations','1/4"=1\'‑0"');
-  const bW=z.lotWidth-(z.leftSetback||5)-(z.rightSetback||5);
-  const bD=z.lotDepth-(z.frontSetback||20)-(z.rearSetback||15);
+  // A-3 coordination: use the ACTUAL main-building footprint extent (matches A-1/A-2)
+  let bW=z.lotWidth-(z.leftSetback||5)-(z.rightSetback||5);
+  let bD=z.lotDepth-(z.frontSetback||20)-(z.rearSetback||15);
+  const _f0=pd.floors?.[0]?.rooms||[];const _aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
+  const _mr=_f0.filter(r=>!_aduIds.has(r.unit));
+  if(_mr.length){bW=Math.max(...(_mr.map(r=>r.x+r.w)))-Math.min(...(_mr.map(r=>r.x)));bD=Math.max(...(_mr.map(r=>r.y+r.h)))-Math.min(...(_mr.map(r=>r.y)));}
   const stories=m.stories||2;
   const floorH=9;const grndH=10;const totalH=grndH+(stories-1)*floorH;const roofPitch=4;// 4:12
   const elPad=40;const elW=(W-elPad*2)/2-20;const elH=(TY-elPad)/2-20;
@@ -3970,8 +3974,12 @@ function drawSectionsSheet(ctx,W,H){
   ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
   ctx.strokeStyle='rgba(61,139,255,.35)';ctx.lineWidth=2;ctx.strokeRect(12,12,W-24,H-24);
   const TH=70;const TY=H-TH-12;drawTitleBlock(ctx,W,H,TH,'A-4','Building Sections','1/4"=1\'‑0"');
-  const bW=z.lotWidth-(z.leftSetback||5)-(z.rightSetback||5);
-  const bD=z.lotDepth-(z.frontSetback||20)-(z.rearSetback||15);
+  // A-4 coordination: actual main-building footprint extent (matches A-1/A-2/A-3)
+  let bW=z.lotWidth-(z.leftSetback||5)-(z.rightSetback||5);
+  let bD=z.lotDepth-(z.frontSetback||20)-(z.rearSetback||15);
+  const _f0=pd.floors?.[0]?.rooms||[];const _aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
+  const _mr=_f0.filter(r=>!_aduIds.has(r.unit));
+  if(_mr.length){bW=Math.max(...(_mr.map(r=>r.x+r.w)))-Math.min(...(_mr.map(r=>r.x)));bD=Math.max(...(_mr.map(r=>r.y+r.h)))-Math.min(...(_mr.map(r=>r.y)));}
   const m=pd.meta||{};const stories=m.stories||2;
   // Two sections side by side
   const s1x=30;const s1y=40;const s1w=(W-80)/2;const s1h=TY-50;

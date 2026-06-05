@@ -1058,74 +1058,137 @@ async function fetchOSMBuildings(lat,lon){
   }catch(e){L.warn('OSM fetch failed:',e.message)}
 }
 
-// ═══ LOCAL FLOOR PLAN GENERATOR — Expert Dimensions ═══
+// ═══ LOCAL FLOOR PLAN GENERATOR — typology-driven, modern program (DATA/DRAW rebuild) ═══
+// Rewritten so the plan matches the SELECTED OPTION's unit count + typology and
+// lays out a modern (2025-26) program. 100% LOCAL/deterministic (CLAUDE.md #6).
+// Backward-compatible output shape ({meta,setbacks,floors[].rooms[]}); adds a
+// `unit` id per room + `units[]` registry + `meta.typology`/`planNotes`.
 function localFloorPlan(z, selectedOption){
-  const opt=selectedOption||{units:2,stories:Math.min(z.maxStories||2,3)};
+  const opt=selectedOption||{units:2,_primaryUnits:1,stories:Math.min(z.maxStories||2,3)};
   const bX=z.leftSetback,bY=z.frontSetback;
   const bW=Math.max(14,z.lotWidth-z.leftSetback-z.rightSetback);
   const bD=Math.max(20,z.lotDepth-z.frontSetback-z.rearSetback);
-  const stories=Math.min(opt.stories||Math.min(z.maxStories||2,3),3);
-  const sideUnits=bW>=46?2:1;
-  const unitW=Math.floor(bW/sideUnits);
-  const hasADU=z.aduAllowed!==false&&bD>=65&&(opt.units>sideUnits*stories);
-  const mainD=hasADU?Math.floor(bD*.62):bD;
-  const aduY=bY+mainD+6;const aduD=hasADU?bD-mainD-6:0;
-  const totalUnits=opt.units||(sideUnits*stories+(hasADU?1:0));
+  const maxSt=Math.min(z.maxStories||2,3);
+  const stories=Math.min(opt.stories||maxSt,3);
+  const aduOK=z.aduAllowed!==false;
+  const notes=[];
+  // ── feet-inches formatter (handles 12" rollover) ──
+  const fi=v=>{let f=Math.floor(v),i=Math.round((v-f)*12);if(i===12){f++;i=0}return `${f}'-${i}"`};
+  // ── deterministic guillotine packer: a "node" is a leaf {name,type} or a
+  //    split {dir:'h'|'v', children:[{weight, node?|name,type}]}. splitBand tiles
+  //    [start,start+len] EXACTLY (last child = remainder) → no overlaps, no gaps. ──
+  const splitBand=(start,len,weights)=>{const tot=weights.reduce((a,b)=>a+b,0);let cur=start;const out=[];
+    for(let i=0;i<weights.length;i++){const size=i===weights.length-1?(start+len-cur):len*weights[i]/tot;out.push({off:cur,size});cur+=size}return out};
+  function pack(box,node,out){
+    if(!node.dir){out.push({name:node.name,type:node.type,x:box.x,y:box.y,w:box.w,h:box.h});return}
+    const segs=splitBand(node.dir==='h'?box.y:box.x, node.dir==='h'?box.h:box.w, node.children.map(c=>c.weight));
+    node.children.forEach((c,i)=>{const s=segs[i];
+      const cb=node.dir==='h'?{x:box.x,y:s.off,w:box.w,h:s.size}:{x:s.off,y:box.y,w:s.size,h:box.h};
+      pack(cb, c.node||c, out)});
+  }
+  // ── modern program templates (node trees) ──
+  function tplFlat(uW){ // complete single-level dwelling (flat / SFR-1story / large ADU)
+    const beds=uW>=24?2:uW>=15?1:0;
+    const priv=beds>=2?{dir:'v',children:[
+        {weight:.52,node:{dir:'h',children:[{weight:.62,name:'PRIMARY BED',type:'bedroom'},{weight:.38,node:{dir:'v',children:[{weight:.45,name:'W.I.C.',type:'storage'},{weight:.55,name:'ENSUITE',type:'bath'}]}}]}},
+        {weight:.48,node:{dir:'h',children:[{weight:.62,name:'BED 2',type:'bedroom'},{weight:.38,node:{dir:'v',children:[{weight:.55,name:'BATH',type:'bath'},{weight:.45,name:'LAUNDRY',type:'laundry'}]}}]}}]}
+      :beds===1?{dir:'v',children:[{weight:.66,name:'BEDROOM',type:'bedroom'},{weight:.34,node:{dir:'v',children:[{weight:.6,name:'BATH',type:'bath'},{weight:.4,name:'LAUNDRY',type:'laundry'}]}}]}
+      :{dir:'v',children:[{weight:.7,name:'STUDIO',type:'living'},{weight:.3,name:'BATH',type:'bath'}]};
+    return {dir:'h',children:[
+      {weight:.5,node:{dir:'v',children:[{weight:.6,name:'GREAT ROOM',type:'living'},{weight:.4,name:'KITCHEN',type:'kitchen'}]}},
+      {weight:.13,node:{dir:'v',children:[{weight:.4,name:'ENTRY',type:'entry'},{weight:.32,name:'POWDER',type:'bath'},{weight:.28,name:'MECH',type:'storage'}]}},
+      {weight:.37,node:priv}]};
+  }
+  function tplMain(uW){ // townhouse ground floor (public + service spine)
+    return {dir:'h',children:[
+      {weight:.56,node:{dir:'v',children:[{weight:.58,name:'GREAT ROOM',type:'living'},{weight:.42,name:'KITCHEN',type:'kitchen'}]}},
+      {weight:.44,node:{dir:'v',children:[{weight:.5,name:'DINING',type:'dining'},{weight:.28,node:{dir:'h',children:[{weight:.5,name:'POWDER',type:'bath'},{weight:.5,name:'MUDROOM',type:'entry'}]}},{weight:.22,name:'MECH',type:'storage'}]}}]};
+  }
+  function tplUpper(uW){ // townhouse upper floor (sleeping)
+    const two=uW>=20;
+    return {dir:'h',children:[
+      {weight:.52,node:{dir:'v',children:[{weight:.6,name:'PRIMARY BED',type:'bedroom'},{weight:.4,node:{dir:'h',children:[{weight:.5,name:'W.I.C.',type:'storage'},{weight:.5,name:'ENSUITE',type:'bath'}]}}]}},
+      {weight:.48,node:two?{dir:'v',children:[{weight:.56,name:'BED 2',type:'bedroom'},{weight:.44,node:{dir:'h',children:[{weight:.55,name:'BATH',type:'bath'},{weight:.45,name:'LAUNDRY',type:'laundry'}]}}]}:{dir:'v',children:[{weight:.62,name:'BED 2',type:'bedroom'},{weight:.38,name:'BATH',type:'bath'}]}}]};
+  }
+  // pack a unit footprint for one level, reserving an aligned stair strip for multi-story units
+  function layoutUnit(box,role,unitId,pfx,multi){
+    const out=[];let main=box;
+    if(multi){const sw=Math.min(10,Math.max(7,box.w*0.22));
+      main={x:box.x,y:box.y,w:box.w-sw,h:box.h};
+      const sh=Math.min(box.h,14);
+      out.push({name:'STAIR',type:'stair',x:box.x+box.w-sw,y:box.y,w:sw,h:sh});
+      if(box.h-sh>=4)out.push({name:'HALL',type:'corridor',x:box.x+box.w-sw,y:box.y+sh,w:sw,h:box.h-sh});
+    }
+    const node=role==='main'?tplMain(main.w):role==='upper'?tplUpper(main.w):tplFlat(main.w);
+    pack(main,node,out);
+    return out.map(r=>({name:pfx+r.name,type:r.type,x:r.x,y:r.y,w:r.w,h:r.h,unit:unitId,dimW:fi(r.w),dimH:fi(r.h)}));
+  }
+  // ── typology selection (option → real dwelling typology + counts) ──
+  const wanted=opt._primaryUnits||opt.units||1;
+  const name=(opt.name||'').toLowerCase();
+  const maxCols=Math.max(1,Math.floor(bW/16));   // side-by-side needs ~16ft/unit
+  let kind,primary,cols=1,perFloors=1;
+  if((opt.id===1)||wanted<=1){kind='SFR';primary=1;}
+  else if(/sb9/.test(name)){kind='SB9';primary=4;cols=2;perFloors=2;}
+  else if(opt.id===5){kind='STACKED_TH';cols=Math.min(2,maxCols);perFloors=2;primary=cols*perFloors;}   // WA MFTE fourplex
+  else if(opt.id===3||/side-by-side|townhouse/.test(name)){kind='TOWNHOUSE';primary=Math.min(wanted,maxCols);cols=primary;perFloors=stories;}
+  else if(opt.id===2||/stack/.test(name)){kind='STACKED';primary=Math.min(wanted,Math.max(2,stories));}
+  else if(opt.id===4){ // max density — fit `wanted` units: full townhouses if wide enough, else stack columns × floors
+    if(maxCols>=wanted&&stories>=2){kind='TOWNHOUSE';primary=wanted;cols=wanted;perFloors=stories;}
+    else if(maxCols>=2&&stories>=2){kind='STACKED_TH';cols=Math.min(maxCols,Math.ceil(wanted/stories));perFloors=stories;primary=Math.min(wanted,cols*perFloors);}
+    else{kind='STACKED';primary=Math.min(wanted,Math.max(2,stories));}
+  }
+  else{kind=bW>=40?'TOWNHOUSE':'STACKED';primary=Math.min(wanted,kind==='TOWNHOUSE'?maxCols:Math.max(2,stories));if(kind==='TOWNHOUSE'){cols=primary;perFloors=stories;}}
+  if(primary<wanted)notes.push(`Reduced to ${primary} primary unit(s) — the ${Math.round(bW)}'×${Math.round(bD)}' buildable envelope can't fit ${wanted} of this typology.`);
+
+  // ── ADU count, capped by what the rear yard / lot width can actually site ──
+  const aduReq=aduOK?Math.max(0,(opt.units||primary)-primary):0;
+  const aduCapacity=bD>=58?Math.min(2,Math.max(0,Math.floor(bW/20))):0;
+  const adus=Math.min(aduReq,aduCapacity);
+  if(aduReq>adus)notes.push(`${aduReq-adus} ADU(s) omitted — rear yard / lot width can't site them.`);
+  const wantADU=adus>0;
+  const mainD=wantADU&&bD>=58?Math.round(bD*.64):bD;
+  const aduY=bY+mainD+5,aduD=wantADU?bD-mainD-5:0;
+
+  // ── build placements: (unitId, box, level, role) ──
+  const units=[];const placements=[];let nextU=0;
+  const newUnit=(label,type)=>{const id=nextU++;units.push({id,label,type:type||'primary'});return id};
+  if(kind==='SFR'){const id=newUnit('Unit A — SFR');
+    for(let L=1;L<=stories;L++)placements.push({u:id,box:{x:bX,y:bY,w:bW,h:mainD},level:L,role:L===1?'main':'upper',pfx:'',multi:stories>1});
+  }else if(kind==='TOWNHOUSE'){const cols=splitBand(bX,bW,Array(primary).fill(1));
+    for(let c=0;c<primary;c++){const id=newUnit(`Unit ${String.fromCharCode(65+c)} — Townhouse`);const pfx=`${String.fromCharCode(65+c)} `;
+      for(let L=1;L<=stories;L++)placements.push({u:id,box:{x:cols[c].off,y:bY,w:cols[c].size,h:mainD},level:L,role:L===1?'main':'upper',pfx,multi:stories>1});}
+  }else if(kind==='STACKED'){const n=Math.min(primary,stories);
+    for(let L=1;L<=n;L++){const id=newUnit(`Unit ${String.fromCharCode(65+L-1)} — Flat L${L}`);placements.push({u:id,box:{x:bX,y:bY,w:bW,h:mainD},level:L,role:'flat',pfx:`${String.fromCharCode(65+L-1)} `,multi:false});}
+    if(stories>1){/* shared core */}
+  }else if(kind==='STACKED_TH'){const cs=splitBand(bX,bW,Array(cols).fill(1));let k=0;
+    for(let c=0;c<cols;c++)for(let L=1;L<=perFloors;L++){if(k>=primary)break;const id=newUnit(`Unit ${String.fromCharCode(65+k)} — Flat`);placements.push({u:id,box:{x:cs[c].off,y:bY,w:cs[c].size,h:mainD},level:L,role:'flat',pfx:`${String.fromCharCode(65+k)} `,multi:false});k++;}
+  }else if(kind==='SB9'){const lots=splitBand(bX,bW,[1,1]);let k=0;
+    for(let lot=0;lot<2;lot++)for(let L=1;L<=2;L++){const id=newUnit(`Lot ${lot+1} Unit ${L}`);placements.push({u:id,box:{x:lots[lot].off,y:bY,w:lots[lot].size,h:mainD},level:L,role:'flat',pfx:`${lot+1}.${L} `,multi:false});k++;}
+  }
+  // ADUs (rear, ground level, single-level)
+  if(wantADU&&aduD>=14){const aw=Math.min(bW,Math.max(20,bW/Math.max(1,adus)));const acols=splitBand(bX,Math.min(bW,aw*adus),Array(adus).fill(1));
+    for(let a=0;a<adus;a++){const id=newUnit(`ADU ${a+1}`,'adu');placements.push({u:id,box:{x:acols[a].off,y:aduY,w:acols[a].size,h:aduD},level:1,role:'flat',pfx:`ADU${adus>1?(a+1):''} `,multi:false});}
+  }
+  // ── pack placements into floors ──
+  const floors=[];const storiesUsed=placements.reduce((m,p)=>Math.max(m,p.level),1);
+  for(let L=1;L<=storiesUsed;L++){const rooms=[];
+    placements.filter(p=>p.level===L).forEach(p=>{layoutUnit(p.box,p.role,p.u,p.pfx,p.multi).forEach(r=>rooms.push(r))});
+    floors.push({level:L,label:L===1?'Ground Floor':L===storiesUsed?`Top Floor (Level ${L})`:`Level ${L}`,heightFt:L===1?10:9,
+      rooms:rooms.map(r=>({...r,x:Math.round(r.x*100)/100,y:Math.round(r.y*100)/100,w:Math.round(r.w*100)/100,h:Math.round(r.h*100)/100})).filter(r=>r.w>=2.5&&r.h>=2.5)});
+  }
+  // ── meta ──
+  const totalUnits=units.length;
   const projectType=opt.name||'Residential';
   const streetMatch=(S.addr||'').match(/^(\d+\s+\S+)/);
   const projectName=streetMatch?streetMatch[1]+' '+projectType:projectType;
-
-  // Expert room dimensions (IBC/IRC code minimums + good practice)
-  // Exported as fractional feet for display (e.g., 12.5 = 12'-6")
-  function unitRooms(level,u){
-    const ux=bX+u*unitW;const pfx=sideUnits>1?`U${u+1} `:'';
-    const stairW=stories>1?10:0;const usableW=u===0?unitW-stairW:unitW;const startX=ux;const rooms=[];
-    if(level===1){
-      // Expert dims: Living 14×18 min, Kitchen 10×12, Dining 10×10, Bath 5×9.5, Entry 6×8
-      const livW=Math.max(14,Math.min(Math.round(usableW*.55),20));const kitW=Math.max(10,usableW-livW);
-      const livH=Math.max(16,Math.min(Math.round(mainD*.42),18));const kitH=Math.max(12,Math.min(Math.round(mainD*.35),14));
-      rooms.push({name:`${pfx}LIVING`,x:startX,y:bY,w:livW,h:livH,type:'living',dimW:`${Math.floor(livW)}'-${Math.round((livW%1)*12)}"`,dimH:`${Math.floor(livH)}'-${Math.round((livH%1)*12)}"`});
-      rooms.push({name:`${pfx}KITCHEN`,x:startX+livW,y:bY,w:kitW,h:kitH,type:'kitchen',dimW:`${Math.floor(kitW)}'-0"`,dimH:`${Math.floor(kitH)}'-0"`});
-      rooms.push({name:`${pfx}DINING`,x:startX,y:bY+livH,w:livW,h:Math.max(10,Math.min(10,mainD-livH-9)),type:'dining',dimW:`${Math.floor(livW)}'-0"`,dimH:`10'-0"`});
-      rooms.push({name:`${pfx}BATH`,x:startX+livW,y:bY+kitH,w:Math.max(5,kitW),h:Math.max(9,7),type:'bath',dimW:`5'-0"`,dimH:`9'-6"`});
-      rooms.push({name:`${pfx}ENTRY`,x:startX,y:bY+mainD-9,w:Math.min(10,usableW),h:9,type:'entry',dimW:`6'-0"`,dimH:`8'-0"`});
-    }else{
-      // Expert dims: Master 12.5×14, Secondary 10×12, Bath 5×9.5
-      const bedW=Math.max(12.5,Math.min(Math.round(usableW*.5),14));const bed2W=Math.max(10,usableW-bedW);
-      const bedH=Math.max(13,Math.min(Math.round(mainD*.45),15));
-      rooms.push({name:`${pfx}MASTER BED`,x:startX,y:bY,w:bedW,h:bedH,type:'bedroom',dimW:`12'-6"`,dimH:`14'-0"`});
-      rooms.push({name:`${pfx}BED 2`,x:startX+bedW,y:bY,w:bed2W,h:bedH,type:'bedroom',dimW:`10'-0"`,dimH:`12'-0"`});
-      rooms.push({name:`${pfx}BATH`,x:startX,y:bY+bedH,w:Math.max(5,Math.min(8,usableW)),h:Math.max(9,7),type:'bath',dimW:`5'-0"`,dimH:`9'-6"`});
-      if(usableW>16)rooms.push({name:`${pfx}LAUNDRY`,x:startX+Math.min(8,usableW),y:bY+bedH,w:usableW-Math.min(8,usableW),h:7,type:'laundry',dimW:`8'-0"`,dimH:`7'-0"`});
-    }
-    return rooms;
-  }
-
-  const floors=[];
-  for(let level=1;level<=stories;level++){
-    const rooms=[];
-    for(let u=0;u<sideUnits;u++)rooms.push(...unitRooms(level,u));
-    // Stair: IBC §1009.4 — 3'-8"×14'-0" minimum run
-    if(stories>1)rooms.push({name:'STAIR',x:bX+unitW-10,y:bY,w:10,h:14,type:'stair',dimW:`3'-8"`,dimH:`14'-0"`});
-    // ADU (ground floor only)
-    if(level===1&&hasADU&&aduD>=14){const aduW=Math.min(bW,26);const aLvW=Math.round(aduW*.6);
-      rooms.push({name:'ADU LIVING',x:bX,y:aduY,w:aLvW,h:Math.min(12,aduD-8),type:'living',dimW:`${aLvW}'-0"`,dimH:`12'-0"`});
-      rooms.push({name:'ADU KITCHEN',x:bX+aLvW,y:aduY,w:aduW-aLvW,h:Math.min(10,aduD-8),type:'kitchen',dimW:`${aduW-aLvW}'-0"`,dimH:`10'-0"`});
-      if(aduD>=22){rooms.push({name:'ADU BED',x:bX,y:aduY+Math.min(12,aduD-8),w:aLvW,h:Math.min(11,aduD-20),type:'bedroom',dimW:`${aLvW}'-0"`,dimH:`11'-0"`});rooms.push({name:'ADU BATH',x:bX+aLvW,y:aduY+Math.min(10,aduD-8),w:aduW-aLvW,h:7,type:'bath',dimW:`5'-0"`,dimH:`7'-0"`})}
-    }
-    // Roof deck: passive solar amenity, green roof potential
-    if(level===stories&&stories>1){const rdY=bY+Math.round(mainD*.55)+4;if(rdY+8<=bY+mainD)rooms.push({name:'ROOF DECK',x:bX,y:rdY,w:bW,h:Math.max(8,bY+mainD-rdY),type:'balcony',dimW:`${bW}'-0"`,dimH:'varies'})}
-    floors.push({level,label:level===1?'Ground Floor':level===stories&&stories>1?`Top Floor (Level ${level})`:`Level ${level}`,heightFt:level===1?10:9,rooms:rooms.filter(r=>r.w>=3&&r.h>=3)});
-  }
   const allR=floors.flatMap(f=>f.rooms);const totalSF=Math.round(allR.reduce((s,r)=>s+r.w*r.h,0));
-  const floorSF=floors[0].rooms.reduce((s,r)=>s+r.w*r.h,0);
-  // Structural specifications embedded in meta
-  return{meta:{projectName,projectType,address:S.addr,county:z.county,jurisdiction:z.jurisdiction,zoningDistrict:z.zoningDistrict,lotWidth:z.lotWidth,lotDepth:z.lotDepth,lotArea:z.lotWidth*z.lotDepth,totalSqFt:totalSF,stories,units:totalUnits,commercialSqFt:0,parkingSpaces:Math.ceil(totalUnits*(z.parkingPerUnit||1)),FAR:parseFloat((totalSF/(z.lotWidth*z.lotDepth)).toFixed(2)),lotCoveragePercent:Math.round(floorSF/(z.lotWidth*z.lotDepth)*100),
-    // Structural specs (50yr expert level)
+  const floorSF=floors[0]?floors[0].rooms.reduce((s,r)=>s+r.w*r.h,0):0;
+  if(notes.length)try{L.warn('Floor plan: '+notes.join(' '))}catch(_){}
+  return{meta:{projectName,projectType,address:S.addr,county:z.county,jurisdiction:z.jurisdiction,zoningDistrict:z.zoningDistrict,lotWidth:z.lotWidth,lotDepth:z.lotDepth,lotArea:z.lotWidth*z.lotDepth,totalSqFt:totalSF,stories:storiesUsed,units:totalUnits,primaryUnits:primary,aduUnits:adus,typology:kind,planNotes:notes,commercialSqFt:0,parkingSpaces:Math.ceil(totalUnits*(z.parkingPerUnit||1)),FAR:parseFloat((totalSF/(z.lotWidth*z.lotDepth)).toFixed(2)),lotCoveragePercent:Math.round(floorSF/(z.lotWidth*z.lotDepth)*100),
     structBay:"20'-0\"",framingSystem:'2×6 @ 16" o.c. ext / 2×4 @ 16" o.c. int',foundation:'24"×12" contin. footing, 4" slab + 6×6 WWF',roofSystem:'2×10 rafters @ 16" o.c. + R-38 dense pack',
-    // Green specs
     hvac:'Mitsubishi Hyper Heat ASHP + Zehnder ComfoAir 200 ERV',solar:`SunPower Maxeon 400W, ${Math.ceil(totalSF/1000)*4}kW array`,glazing:'Triple-pane Fibrex, U-0.17 / SHGC 0.25 south, 0.18 other',
-  },setbacks:{front:z.frontSetback,rear:z.rearSetback,left:z.leftSetback,right:z.rightSetback},floors};
+  },units,setbacks:{front:z.frontSetback,rear:z.rearSetback,left:z.leftSetback,right:z.rightSetback},floors};
 }
 
 // Phase 3: structural-grid column label. String.fromCharCode(65+n) produced

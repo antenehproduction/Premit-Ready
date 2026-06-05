@@ -666,6 +666,7 @@ const S={
   view:'map',activeSheet:'A-0',
   apiKey:'',mode:'embedded',apiReady:false,analyzing:false,
   zoom:1,panX:0,panY:0,panning:false,panStart:{x:0,y:0,px:0,py:0},
+  plotMode:false,        // L2: monochrome black-on-white plot preview / PDF
   overlays:{flood:false,hillside:false,historic:false,coastal:false,fire:false,liquefaction:false},
   femaZone:null,lat:null,lon:null,osmBuildings:[],
   selectedOption:null,   // chosen development program
@@ -2415,6 +2416,45 @@ const ARCH_STANDARDS={
   },
 };
 
+// ═══ CAD LAYER + PEN TABLE (AIA / NCS CAD Layer Guidelines) ═══════════════
+// Single source of truth for the DisplayList → consumed by writeDXF (ACI color
+// + lineweight) and paintDL_plot (black-ink monochrome at the same weights), so
+// the DXF and the plotted PDF never drift. Lineweights are real CAD pen weights
+// in mm; `lwDxf` is the AutoCAD LWPOLYLINE/entity lineweight in 1/100 mm. `aci`
+// is the AutoCAD Color Index that the layer's color is set to in the DXF. `ink`
+// is the monochrome plot color (grayscale) — heavy elements pure black, notes/
+// dims a mid-gray, exactly as a pen-plotted permit sheet reads.
+const CAD_LAYERS={
+  // key            aci  lwMm   ink        linetype      note
+  'A-WALL':        {aci:7,  lwMm:0.50, ink:'#000000', lt:'CONTINUOUS'}, // exterior/bearing walls (heavy, poché)
+  'A-WALL-INTR':   {aci:7,  lwMm:0.35, ink:'#1a1a1a', lt:'CONTINUOUS'}, // interior partitions
+  'A-WALL-PRHT':   {aci:1,  lwMm:0.50, ink:'#000000', lt:'CONTINUOUS'}, // party / fire-rated demising (1-HR)
+  'A-DOOR':        {aci:3,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'}, // door leaf + swing
+  'A-GLAZ':        {aci:5,  lwMm:0.18, ink:'#000000', lt:'CONTINUOUS'}, // windows / glazing
+  'A-FLOR-FIXT':   {aci:4,  lwMm:0.18, ink:'#333333', lt:'CONTINUOUS'}, // plumbing/kitchen fixtures
+  'A-FLOR-STRS':   {aci:3,  lwMm:0.25, ink:'#222222', lt:'CONTINUOUS'}, // stairs
+  'A-AREA':        {aci:8,  lwMm:0.13, ink:'#888888', lt:'CONTINUOUS'}, // room/area boundary
+  'A-AREA-IDEN':   {aci:7,  lwMm:0.13, ink:'#000000', lt:'CONTINUOUS'}, // room names + areas (text)
+  'A-DIMS':        {aci:2,  lwMm:0.13, ink:'#555555', lt:'CONTINUOUS'}, // dimension lines + text
+  'A-ANNO':        {aci:7,  lwMm:0.18, ink:'#000000', lt:'CONTINUOUS'}, // general annotation
+  'A-ANNO-SAFE':   {aci:1,  lwMm:0.35, ink:'#000000', lt:'CONTINUOUS'}, // egress arrows / smoke+CO / safety
+  'G-ANNO-TTLB':   {aci:7,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'}, // title block
+  'G-ANNO-NOTE':   {aci:1,  lwMm:0.18, ink:'#000000', lt:'CONTINUOUS'}, // disclosure / general notes
+  // discipline layers (reserved for S-/M-/E-/P-/C- sheets, Sprints 4-5)
+  'S-GRID':        {aci:8,  lwMm:0.13, ink:'#888888', lt:'CENTER'},
+  'S-FNDN':        {aci:7,  lwMm:0.50, ink:'#000000', lt:'CONTINUOUS'},
+  'S-FRAM':        {aci:3,  lwMm:0.35, ink:'#000000', lt:'CONTINUOUS'},
+  'C-TOPO':        {aci:8,  lwMm:0.13, ink:'#999999', lt:'CONTINUOUS'},
+  'M-DUCT':        {aci:4,  lwMm:0.35, ink:'#000000', lt:'CONTINUOUS'},
+  'P-FIXT':        {aci:5,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'},
+  'E-POWR':        {aci:2,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'},
+  '0':             {aci:7,  lwMm:0.25, ink:'#000000', lt:'CONTINUOUS'}, // fallback
+};
+// mm → canvas px at a given scale (pxPerFt). 1 ft = 12 in = 304.8 mm; a 0.5mm
+// pen is hairline-thin in model space, so plot weights are a fixed px ramp
+// (independent of zoom) — matches how a real plotter pens regardless of scale.
+function plotPx(lwMm){return Math.max(0.5, lwMm*2.4);}
+
 // ═══ FIXTURE PRIMITIVES — each takes (ctx, cx, cy, ft, orient?) ═══
 // cx,cy are the center of the fixture footprint in canvas pixel space
 // ft(value_in_feet) converts to pixels at the current sheet scale
@@ -3298,13 +3338,35 @@ function runArchitectAdvisor(){
   if(units>4)sealsRequired.push('MEP PE');
   if(ov.hillside||ov.coastal||units>4)sealsRequired.push('Civil PE');
   if(ov.historic)sealsRequired.push('Historic Preservation Specialist');
+  // exportBlocked is the hard gate honored by assertExportAllowed() for EVERY
+  // file we emit (PDF/PNG/DXF). It is NOT tripped by rdpRequired — an RDP-
+  // required plan still exports as a DRAFT carrying the disclosure (that is the
+  // whole point). It trips only when we could not attach the mandatory
+  // professional disclosure, i.e. the verbatim text is missing or has been
+  // altered. That guarantees no drawing set ever leaves the app undisclosed.
+  const discOK=typeof ADVISOR_DISCLOSURE==='string'&&ADVISOR_DISCLOSURE.length>200&&/NOT FOR CONSTRUCTION/.test(ADVISOR_DISCLOSURE)&&/Registered Design Professional/.test(ADVISOR_DISCLOSURE);
   return{
     disclosure:ADVISOR_DISCLOSURE,shortDisclosure:ADVISOR_SHORT,
     rdpRequired,triggeredBy,sealsRequired:[...new Set(sealsRequired)],
     statuteCitation:state?`Verify with state licensing board (NCARB jurisdiction table — ${state}).`:'Unknown state — user must verify with jurisdiction.',
     jurisdictionNote:z.jurisdiction?`Check ${z.jurisdiction} local amendments for additional requirements.`:'',
-    exportBlocked:false,
+    exportBlocked:!discOK,
+    blockReason:discOK?'':'Mandatory CRITICAL PROFESSIONAL DISCLOSURE text is missing or altered — refusing to emit an undisclosed drawing set. Restore ADVISOR_DISCLOSURE.',
   };
+}
+
+// ═══ EXPORT GATE — every file (PDF / PNG / DXF) passes through here ═══
+// Honors architect-advisor.exportBlocked. Returns true if the export may
+// proceed; alerts + logs and returns false if the advisor blocked it.
+function assertExportAllowed(kind){
+  const adv=S._advisor||runArchitectAdvisor();S._advisor=adv;
+  if(adv.exportBlocked){
+    const why=adv.blockReason||'Export blocked by architect-advisor.';
+    L.error(`${kind} export BLOCKED — ${why}`);
+    try{alert(`⛔ ${kind} export blocked\n\n${why}`);}catch(_){}
+    return false;
+  }
+  return true;
 }
 
 function renderAdvisorBanner(adv){
@@ -4173,6 +4235,7 @@ planCv.addEventListener('mouseleave',()=>{S.panning=false});
 // PNG export
 function exportSheetPNG(){
   if(!S.plan){alert('Run analysis first.');return}
+  if(!assertExportAllowed('PNG'))return;
   const adv=S._advisor||runArchitectAdvisor();S._advisor=adv;
   L.info(`PNG export \u2192 advisor: rdpRequired=${adv.rdpRequired} seals=[${adv.sealsRequired.join(',')}] (draft \u2014 expert sign-off required before submittal)`);
   // UX-4: only export when plan canvas is visible; warn otherwise
@@ -4199,6 +4262,7 @@ function exportSheetPNG(){
 async function exportPermitPDF(){
   if(!S.plan){alert('Run analysis first.');return}
   if(!window.jspdf){alert('jsPDF not loaded — check internet connection.');return}
+  if(!assertExportAllowed('PDF'))return;
   const adv=S._advisor||runArchitectAdvisor();S._advisor=adv;
   L.info(`PDF export \u2192 advisor: rdpRequired=${adv.rdpRequired} seals=[${adv.sealsRequired.join(',')}] triggers=[${adv.triggeredBy.join('; ')}] (draft \u2014 expert sign-off required before submittal)`);
   const {jsPDF}=window.jspdf;

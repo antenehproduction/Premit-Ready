@@ -3674,6 +3674,33 @@ function drawSitePlanSheet(ctx,W,H){
 }
 
 // ── SHEET: A-2 Floor Plans ──
+// L1 Phase C + L5: draw first-class walls[] (ext heavy, party = fire-rated
+// demising) + openings[] (per-unit entry doors w/ swing, egress windows) and
+// the life-safety overlay (smoke/CO alarms, egress-path arrows) on A-2.
+function drawWallsOpeningsSafety(ctx,fl,tx,ty,ft){
+  // ── walls ──
+  (fl.walls||[]).forEach(w=>{const x1=tx(w.x1),y1=ty(w.y1),x2=tx(w.x2),y2=ty(w.y2);
+    if(w.kind==='party'){ctx.strokeStyle='rgba(255,101,85,.7)';ctx.lineWidth=Math.max(2.5,ft(0.5));ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+      ctx.save();ctx.fillStyle='rgba(255,101,85,.6)';ctx.font='5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.translate((x1+x2)/2,(y1+y2)/2);ctx.rotate(Math.abs(x1-x2)<2?-Math.PI/2:0);ctx.fillText('1-HR PARTY WALL',0,-4);ctx.restore();}
+    else{ctx.strokeStyle='rgba(210,225,244,.8)';ctx.lineWidth=Math.max(2,ft(0.5));ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}});
+  // ── openings ──
+  (fl.openings||[]).forEach(o=>{
+    if(o.kind==='door'){const dx=tx(o.x),dy=ty(o.y),dw=ft(o.w);
+      ctx.strokeStyle='#0c1420';ctx.lineWidth=Math.max(2.5,ft(0.5))+1;ctx.beginPath();ctx.moveTo(dx-dw/2,dy);ctx.lineTo(dx+dw/2,dy);ctx.stroke(); // knock out wall
+      ctx.strokeStyle='rgba(34,224,138,.9)';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(dx-dw/2,dy);ctx.lineTo(dx-dw/2,dy+dw);ctx.stroke(); // leaf
+      ctx.strokeStyle='rgba(34,224,138,.45)';ctx.lineWidth=.7;ctx.setLineDash([2,2]);ctx.beginPath();ctx.arc(dx-dw/2,dy,dw,0,Math.PI/2);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='rgba(34,224,138,.75)';ctx.font='500 5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('ENTRY',dx,dy-2);}
+    else if(o.kind==='window'){const wx=tx(o.x),wy=ty(o.y),ww=ft(o.w);ctx.strokeStyle='rgba(100,170,255,.8)';ctx.lineWidth=1.1;ctx.beginPath();
+      if(o.vert){ctx.moveTo(wx,wy-ww/2);ctx.lineTo(wx,wy+ww/2)}else{ctx.moveTo(wx-ww/2,wy);ctx.lineTo(wx+ww/2,wy)}ctx.stroke();}});
+  // ── L5 safety: smoke (SD) / CO alarms in bedrooms + living, egress arrows ──
+  (fl.rooms||[]).forEach(r=>{if(r.type!=='bedroom'&&r.type!=='living')return;
+    const cx=tx(r.x+r.w/2),cy=ty(r.y+r.h*0.32);
+    ctx.strokeStyle='rgba(255,101,85,.85)';ctx.fillStyle='rgba(255,101,85,.18)';ctx.lineWidth=.8;ctx.beginPath();ctx.arc(cx,cy,4.5,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='rgba(255,101,85,.9)';ctx.font='4.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(r.type==='bedroom'?'SD':'SD/CO',cx,cy);});
+  (fl.openings||[]).filter(o=>o.kind==='door').forEach(o=>{const dx=tx(o.x),dy=ty(o.y);
+    ctx.strokeStyle='rgba(34,224,138,.45)';ctx.fillStyle='rgba(34,224,138,.5)';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(dx,dy+ft(9));ctx.lineTo(dx,dy+4);ctx.stroke();ctx.setLineDash([]);
+    ctx.beginPath();ctx.moveTo(dx,dy+2);ctx.lineTo(dx-3,dy+7);ctx.lineTo(dx+3,dy+7);ctx.closePath();ctx.fill();});
+}
 function drawFloorPlanSheet(ctx,W,H,floorIdx){
   ctx.textBaseline='alphabetic'; // DRAW-3: always reset baseline
   const z=S._z||{lotWidth:60,lotDepth:120,frontSetback:20,rearSetback:15,leftSetback:5,rightSetback:5};
@@ -3826,6 +3853,8 @@ function drawFloorPlanSheet(ctx,W,H,floorIdx){
     });
     ctx.restore();
   }
+  // L1 Phase C + L5: demising walls, per-unit entries, egress windows, safety
+  if(fl.walls)drawWallsOpeningsSafety(ctx,fl,tx,ty,ft);
   // Floor label + structural notes
   ctx.fillStyle='rgba(61,139,255,.8)';ctx.font='500 9px JetBrains Mono,monospace';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText(fl.label,ox,oy-30);
   ctx.font='7px JetBrains Mono,monospace';ctx.fillStyle='rgba(122,154,184,.5)';ctx.fillText(`Ceiling: ${fl.heightFt||9}'-0"  ·  ${fl.rooms?.length||0} rooms  ·  Struct. bay: 20'-0"  ·  Frame: 2×6 @ 16" o.c.`,ox,oy-18);
@@ -4358,12 +4387,16 @@ function gen3D(pd){
   if(!pd?.floors)return;
   const stories=pd.meta?.stories||pd.floors.length||1;
   const fh=pd.floors[0]?.heightFt||9;const totalH=stories*fh;
-  // Separate main volume from ADU volume (ADU rooms have names starting with "ADU ")
+  // Separate main volume from ADU volume. L1 Phase C: group by the room's
+  // `unit` id against the units[] registry (was a fragile name-prefix hack that
+  // mis-grouped a second ADU); fall back to the name prefix for old plans.
+  const aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
   const mainRooms=[];const aduRooms=[];const balconyRooms=[];
   pd.floors.forEach((fl,fIdx)=>{(fl.rooms||[]).forEach(r=>{
     if(!r.w||!r.h||r.w<1||r.h<1)return;
+    const isAdu=r.unit!=null?aduIds.has(r.unit):(r.name||'').startsWith('ADU ');
     if(r.type==='balcony'){balconyRooms.push({...r,floor:fIdx,fh:fl.heightFt||9})}
-    else if((r.name||'').startsWith('ADU '))aduRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
+    else if(isAdu)aduRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
     else mainRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
   })});
   const bounds=rs=>{let mnX=Infinity,mxX=-Infinity,mnZ=Infinity,mxZ=-Infinity;

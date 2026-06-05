@@ -3266,6 +3266,8 @@ const SHEETS=[
   {id:'A-3',lbl:'A-3 Elevations'},
   {id:'A-4',lbl:'A-4 Sections'},
   {id:'A-5',lbl:'A-5 Schedules'},
+  {id:'S-1',lbl:'S-1 Foundation'},
+  {id:'S-2',lbl:'S-2 Framing'},
 ];
 
 function buildSheetTabs(){
@@ -3309,6 +3311,8 @@ function renderSheet(sheetId){
     case 'A-3':drawElevationsSheet(ctx,W,H);break;
     case 'A-4':drawSectionsSheet(ctx,W,H);break;
     case 'A-5':drawSchedulesSheet(ctx,W,H);break;
+    case 'S-1':drawFoundationSheet(ctx,W,H);break;
+    case 'S-2':drawFramingSheet(ctx,W,H);break;
     default:drawFloorPlanSheet(ctx,W,H,S.floor);
   }
 }
@@ -4183,6 +4187,121 @@ function drawTitleBlock(ctx,W,H,TH,sheetNum,sheetTitle,scale){
   // Short-form professional disclosure footer — architect-advisor (verbatim)
   ctx.fillStyle='rgba(255,101,85,.75)';ctx.font='500 6.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText(ADVISOR_SHORT,W/2,H-10);
 }
+
+// ═══ SPRINT 4 — STRUCTURAL SCHEMATIC SHEETS (S-1 Foundation, S-2 Framing) ═══
+// Plan-view diagrams derived from the building footprint + the structural spec
+// strings already in meta. RDP-GATED: every sheet carries a prominent banner that
+// it is PRELIMINARY / design-intent only / to be engineered & sealed by a licensed
+// Structural Engineer. We never fabricate engineered member sizes, loads, soil
+// values, or rebar schedules — we show meta spec strings + code-reference notes,
+// all explicitly unverified and deferred to the SE of record.
+
+// Frost depth (in) by state for footing-depth NOTE only — conservative, NOT a
+// design value; the SE verifies against the local frost line.
+function frostDepth(state){const d={MN:60,ND:60,SD:48,WI:48,MI:42,ME:60,NH:60,VT:60,NY:48,MA:48,CT:42,AK:100,MT:60,WY:48,CO:36,ID:36,IL:42,IA:48,MO:36,IN:36,OH:36,PA:36,NJ:36,UT:30,NE:42,KS:30,WA:18,OR:18,CA:12,AZ:12,NV:24,TX:12,FL:0,GA:5,NC:12,SC:8,VA:18,TN:12,KY:24};return (d[state]==null?24:d[state])+'"';}
+
+// Ground-floor footprints: main building + each ADU as its own structure.
+function buildingFootprints(pd){
+  const f0=(pd.floors&&pd.floors[0]&&pd.floors[0].rooms)||[];
+  const aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
+  const bbox=rs=>{if(!rs.length)return null;const x=Math.min(...rs.map(r=>r.x)),y=Math.min(...rs.map(r=>r.y));return {x,y,w:Math.max(...rs.map(r=>r.x+r.w))-x,h:Math.max(...rs.map(r=>r.y+r.h))-y};};
+  return {main:bbox(f0.filter(r=>!aduIds.has(r.unit))),adus:[...aduIds].map(id=>bbox(f0.filter(r=>r.unit===id))).filter(Boolean)};
+}
+
+// Shared plan framing for a structural sheet. Calls body(api)→{notes:[]} and
+// renders the notes + RDP banner in the right-margin column (screen space).
+function structSheet(ctx,W,H,sheetId,title,body){
+  ctx.textBaseline='alphabetic';
+  const z=S._z||{lotWidth:60,lotDepth:120,frontSetback:20,rearSetback:15,leftSetback:5,rightSetback:5};
+  const pd=S.plan;if(!pd||!pd.floors||!pd.floors.length)return;
+  ctx.fillStyle='#0c1420';ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(61,139,255,.35)';ctx.lineWidth=2;ctx.strokeRect(12,12,W-24,H-24);
+  const TH=70;const TY=H-TH-12;drawTitleBlock(ctx,W,H,TH,sheetId,title,`1/4"=1'-0"`);
+  const PAD=60;const PA={x:PAD,y:54,w:W-PAD-210,h:TY-64};
+  const baseScl=Math.min(PA.w/z.lotWidth,PA.h/z.lotDepth)*.9;
+  const baseOx=PA.x+(PA.w-z.lotWidth*baseScl)/2,baseOy=PA.y+(PA.h-z.lotDepth*baseScl)/2;
+  ctx.save();ctx.translate(S.panX,S.panY);ctx.scale(S.zoom,S.zoom);
+  const ox=baseOx,oy=baseOy,tx=x=>ox+x*baseScl,ty=y=>oy+y*baseScl,ft=v=>v*baseScl;
+  // structural grid (20ft bays) with bubble labels
+  const bayFt=20;ctx.save();
+  for(let gx=z.leftSetback;gx<=z.lotWidth-z.rightSetback+0.1;gx+=bayFt){const gxp=tx(gx);
+    ctx.strokeStyle='rgba(245,200,66,.16)';ctx.lineWidth=0.6;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(gxp,oy-16);ctx.lineTo(gxp,oy+ft(z.lotDepth)+8);ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle='rgba(245,200,66,.45)';ctx.beginPath();ctx.arc(gxp,oy-11,5,0,Math.PI*2);ctx.stroke();ctx.fillStyle='rgba(245,200,66,.65)';ctx.font='6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(bayCol((gx-z.leftSetback)/bayFt),gxp,oy-11);}
+  for(let gy=z.frontSetback,n=1;gy<=z.lotDepth-z.rearSetback+0.1;gy+=bayFt,n++){const gyp=ty(gy);
+    ctx.strokeStyle='rgba(245,200,66,.1)';ctx.lineWidth=0.5;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(ox-16,gyp);ctx.lineTo(ox+ft(z.lotWidth)+8,gyp);ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle='rgba(245,200,66,.4)';ctx.beginPath();ctx.arc(ox-11,gyp,5,0,Math.PI*2);ctx.stroke();ctx.fillStyle='rgba(245,200,66,.6)';ctx.font='6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(n),ox-11,gyp);}
+  ctx.restore();
+  // lot boundary (faint context)
+  ctx.strokeStyle='rgba(255,101,85,.28)';ctx.lineWidth=.8;ctx.setLineDash([8,5]);ctx.strokeRect(ox,oy,ft(z.lotWidth),ft(z.lotDepth));ctx.setLineDash([]);
+  const fp=buildingFootprints(pd);
+  let result={};try{result=body({tx,ty,ft,z,pd,fp,fl:pd.floors[0]})||{};}catch(e){try{L.warn(sheetId+' body:',e.message)}catch(_){}}
+  ctx.restore();
+  scaleBar(ctx,PA.x+6,TY-14,baseScl,8);drawNorthArrow(ctx,PA.x+PA.w-22,PA.y+22);
+  // right-margin RDP banner + notes column (screen space)
+  const bx=W-198,bw=184;let by=54;
+  ctx.fillStyle='rgba(255,101,85,.1)';ctx.fillRect(bx,by,bw,44);ctx.strokeStyle='rgba(255,101,85,.55)';ctx.lineWidth=1;ctx.strokeRect(bx,by,bw,44);
+  ctx.fillStyle='rgba(255,101,85,.95)';ctx.font='600 7.5px JetBrains Mono,monospace';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('⚠ PRELIMINARY — NOT ENGINEERED',bx+7,by+6);
+  ctx.fillStyle='rgba(235,220,200,.85)';ctx.font='6px JetBrains Mono,monospace';
+  ['Design intent only. NOT FOR CONSTRUCTION.','To be analyzed, detailed, engineered &','sealed by a licensed Structural Engineer','(SE/PE) of record per IBC §106.1.'].forEach((l,i)=>ctx.fillText(l,bx+7,by+18+i*6.5));
+  by+=52;
+  if(result.notes&&result.notes.length){const lh=8.6,pad=7,bh=result.notes.length*lh+pad*2;
+    ctx.fillStyle='rgba(11,14,21,.9)';ctx.fillRect(bx,by,bw,bh);ctx.strokeStyle='rgba(61,139,255,.25)';ctx.lineWidth=1;ctx.strokeRect(bx,by,bw,bh);
+    ctx.textAlign='left';ctx.textBaseline='top';
+    result.notes.forEach((l,i)=>{const head=/:$/.test(l);ctx.font=(head?'600 ':'')+'6px JetBrains Mono,monospace';ctx.fillStyle=head?'rgba(61,139,255,.85)':l?'rgba(200,215,235,.72)':'rgba(0,0,0,0)';ctx.fillText(l||'.',bx+pad,by+pad+i*lh);});}
+}
+
+// ── SHEET: S-1 Foundation Plan (schematic) ──
+function drawFoundationSheet(ctx,W,H){
+  structSheet(ctx,W,H,'S-1','Foundation Plan',({tx,ty,ft,z,pd,fp,fl})=>{
+    const m=pd.meta||{};
+    const drawFooting=(b,label)=>{if(!b)return;const x=tx(b.x),y=ty(b.y),w=ft(b.w),h=ft(b.h);
+      ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();ctx.strokeStyle='rgba(122,154,184,.16)';ctx.lineWidth=.5;for(let d=-h;d<w+h;d+=7){ctx.beginPath();ctx.moveTo(x+d,y);ctx.lineTo(x+d+h,y+h);ctx.stroke();}ctx.restore();
+      const fo=Math.max(3,ft(0.9));
+      ctx.strokeStyle='rgba(210,225,244,.4)';ctx.lineWidth=1;ctx.setLineDash([5,3]);ctx.strokeRect(x-fo,y-fo,w+2*fo,h+2*fo);ctx.setLineDash([]);
+      ctx.strokeStyle='rgba(210,225,244,.85)';ctx.lineWidth=2;ctx.strokeRect(x,y,w,h);
+      ctx.fillStyle='rgba(160,185,215,.75)';ctx.font='6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,x+w/2,y+h/2);};
+    drawFooting(fp.main,'4\" SLAB-ON-GRADE');
+    fp.adus.forEach((a,i)=>drawFooting(a,'ADU '+(i+1)+' SLAB'));
+    // continuous footing under party/bearing walls
+    (fl.walls||[]).filter(w=>w.kind==='party').forEach(w=>{ctx.strokeStyle='rgba(245,200,66,.6)';ctx.lineWidth=2.5;ctx.setLineDash([3,2]);ctx.beginPath();ctx.moveTo(tx(w.x1),ty(w.y1));ctx.lineTo(tx(w.x2),ty(w.y2));ctx.stroke();ctx.setLineDash([]);});
+    if(fp.main){ctx.fillStyle='rgba(245,200,66,.75)';ctx.font='5.5px JetBrains Mono,monospace';ctx.textAlign='left';ctx.textBaseline='bottom';ctx.fillText('CONT. FOOTING (TYP.) — NOTE 1',tx(fp.main.x),ty(fp.main.y)-3);
+      const padEl=(S.padElevation!=null)?`${S.padElevation.toFixed(2)}' (USGS 3DEP)`:`100.00' ASSUMED — VERIFY SURVEY`;
+      ctx.fillStyle='rgba(34,224,138,.75)';ctx.font='600 6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText('T.O. SLAB EL. '+padEl,tx(fp.main.x+fp.main.w/2),ty(fp.main.y+fp.main.h)+4);}
+    return {notes:['FOUNDATION NOTES:','1. '+String(m.foundation||"cont. ftg + slab").substring(0,30),
+      `2. Ftg bottom min. ${frostDepth(z.state)} below grade`,'3. Rebar #4 cont. top & bot. (typ.)',
+      `4. Anchor bolts 1/2"Ø @ 6'-0" o.c.,`,'   12" max from corners','5. Slab 4" w/ 6x6 WWF o/ vapor barrier',
+      '6. Soil 1500 psf ASSUMED — geotech','   to verify allowable bearing','',
+      'GRID: '+String(m.structBay||"20'-0\"")+' typ.','LEGEND:','  — stem wall / footing','  ·· cont. ftg @ bearing wall']};
+  });
+}
+
+// ── SHEET: S-2 Floor & Roof Framing Plan (schematic) ──
+function drawFramingSheet(ctx,W,H){
+  structSheet(ctx,W,H,'S-2','Floor & Roof Framing',({tx,ty,ft,z,pd,fp,fl})=>{
+    const m=pd.meta||{};
+    const drawFrame=(b,label)=>{if(!b)return;const x=tx(b.x),y=ty(b.y),w=ft(b.w),h=ft(b.h);
+      const spanVert=b.h<=b.w; // joists span the shorter dimension
+      ctx.strokeStyle='rgba(100,170,255,.45)';ctx.lineWidth=.8;const step=Math.max(7,ft(2));
+      if(spanVert){for(let xx=x+step;xx<x+w-2;xx+=step){ctx.beginPath();ctx.moveTo(xx,y+3);ctx.lineTo(xx,y+h-3);ctx.stroke();}}
+      else{for(let yy=y+step;yy<y+h-2;yy+=step){ctx.beginPath();ctx.moveTo(x+3,yy);ctx.lineTo(x+w-3,yy);ctx.stroke();}}
+      ctx.strokeStyle='rgba(210,225,244,.85)';ctx.lineWidth=2.4;ctx.strokeRect(x,y,w,h); // bearing perimeter
+      // span-direction arrow
+      const cx=x+w/2,cy=y+h/2,aL=(spanVert?h:w)*0.5;ctx.strokeStyle='rgba(100,170,255,.95)';ctx.fillStyle='rgba(100,170,255,.95)';ctx.lineWidth=1.4;ctx.beginPath();
+      if(spanVert){ctx.moveTo(cx,cy-aL/2);ctx.lineTo(cx,cy+aL/2);ctx.stroke();ctx.beginPath();ctx.moveTo(cx,cy-aL/2);ctx.lineTo(cx-3,cy-aL/2+5);ctx.lineTo(cx+3,cy-aL/2+5);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(cx,cy+aL/2);ctx.lineTo(cx-3,cy+aL/2-5);ctx.lineTo(cx+3,cy+aL/2-5);ctx.closePath();ctx.fill();}
+      else{ctx.moveTo(cx-aL/2,cy);ctx.lineTo(cx+aL/2,cy);ctx.stroke();ctx.beginPath();ctx.moveTo(cx-aL/2,cy);ctx.lineTo(cx-aL/2+5,cy-3);ctx.lineTo(cx-aL/2+5,cy+3);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(cx+aL/2,cy);ctx.lineTo(cx+aL/2-5,cy-3);ctx.lineTo(cx+aL/2-5,cy+3);ctx.closePath();ctx.fill();}
+      ctx.fillStyle='rgba(200,220,240,.9)';ctx.font='600 6px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(label,cx,y+11);};
+    drawFrame(fp.main,'FLOOR JOISTS @ 16" O.C.');
+    fp.adus.forEach((a,i)=>drawFrame(a,'ADU '+(i+1)));
+    // bearing/party walls heavy
+    (fl.walls||[]).filter(w=>w.kind==='party').forEach(w=>{ctx.strokeStyle='rgba(245,200,66,.65)';ctx.lineWidth=3.2;ctx.beginPath();ctx.moveTo(tx(w.x1),ty(w.y1));ctx.lineTo(tx(w.x2),ty(w.y2));ctx.stroke();});
+    // headers over openings
+    (fl.openings||[]).forEach(o=>{const X=tx(o.x),Y=ty(o.y),ow=ft(o.w);ctx.strokeStyle='rgba(255,101,85,.85)';ctx.lineWidth=2.6;ctx.beginPath();if(o.vert){ctx.moveTo(X,Y-ow/2);ctx.lineTo(X,Y+ow/2);}else{ctx.moveTo(X-ow/2,Y);ctx.lineTo(X+ow/2,Y);}ctx.stroke();ctx.fillStyle='rgba(255,101,85,.75)';ctx.font='4.5px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('HDR',X,Y-2);});
+    return {notes:['FRAMING NOTES:','1. Walls: '+String(m.framingSystem||"2x6 ext / 2x4 int").substring(0,26),
+      '2. Floor joists @ 16" o.c. —','   size & species by SE','3. Roof: '+String(m.roofSystem||"2x10 rafters").substring(0,26),
+      '4. Headers (2)2x10 min. o/ openings','   U.N.O. — verify spans by SE','5. Shear walls + holdowns by SE','6. Conn. hardware (Simpson eq.) by SE','',
+      'LEGEND:','  — bearing wall (heavy)','  | floor joist + span arrow','  — HDR header @ opening (red)']};
+  });
+}
 // L3: lightweight local editor for the title-block project info (no API).
 function editProjectInfo(){
   const pi=S.projectInfo||(S.projectInfo={revisions:[]});
@@ -4309,9 +4428,11 @@ async function exportPermitPDF(){
     doc.addPage([914.4,609.6],'landscape');addSheet(drawElevationsSheet,'A-3 Elevations');
     doc.addPage([914.4,609.6],'landscape');addSheet(drawSectionsSheet,'A-4 Sections');
     doc.addPage([914.4,609.6],'landscape');addSheet(drawSchedulesSheet,'A-5 Schedules');
+    doc.addPage([914.4,609.6],'landscape');addSheet(drawFoundationSheet,'S-1 Foundation');
+    doc.addPage([914.4,609.6],'landscape');addSheet(drawFramingSheet,'S-2 Framing');
     const fname=`${(S.plan.meta.address||S.addr||'permit').replace(/[^a-z0-9]/gi,'_').substring(0,30)}_PermitSet.pdf`;
     doc.save(fname);L.info(`PDF saved: ${fname} (${doc.internal.pages.length} sheets)`);
-    alert(`✓ PDF saved: ${fname}\n\n${doc.internal.pages.length} sheets:\nA-0 Cover · A-1 Site Plan · A-2 Floor Plan(s) · A-3 Elevations · A-4 Sections · A-5 Schedule`);
+    alert(`✓ PDF saved: ${fname}\n\n${doc.internal.pages.length} sheets:\nA-0 · A-1 · A-2 · A-3 · A-4 · A-5 · S-1 · S-2\n\nNote: S-1/S-2 are PRELIMINARY schematic — to be engineered & sealed by a structural engineer.`);
   }catch(e){L.error('PDF export failed:',e.message);alert('PDF export failed: '+e.message)}
 }
 

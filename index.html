@@ -5185,69 +5185,151 @@ function _buildMassWithOpenings(w,h,d,color,stories,opts={}){
   return g;
 }
 
-function gen3D(pd){
-  if(!THREE_INIT||!mg)return;while(mg.children.length){const c=mg.children[0];c.geometry?.dispose();c.material?.dispose();mg.remove(c)}
-  if(!pd?.floors)return;
-  const stories=pd.meta?.stories||pd.floors.length||1;
-  const fh=pd.floors[0]?.heightFt||9;const totalH=stories*fh;
-  // Separate main volume from ADU volume. L1 Phase C: group by the room's
-  // `unit` id against the units[] registry (was a fragile name-prefix hack that
-  // mis-grouped a second ADU); fall back to the name prefix for old plans.
-  const aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
-  const mainRooms=[];const aduRooms=[];const balconyRooms=[];
-  pd.floors.forEach((fl,fIdx)=>{(fl.rooms||[]).forEach(r=>{
-    if(!r.w||!r.h||r.w<1||r.h<1)return;
-    const isAdu=r.unit!=null?aduIds.has(r.unit):(r.name||'').startsWith('ADU ');
-    if(r.type==='balcony'){balconyRooms.push({...r,floor:fIdx,fh:fl.heightFt||9})}
-    else if(isAdu)aduRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
-    else mainRooms.push({...r,floor:fIdx,fh:fl.heightFt||9});
-  })});
+// ═══ L1 3D dollhouse helpers — consume the floor-plan walls[]/openings[]/rooms[] ═══
+// The 3D used to extrude ONE bounding box per mass with decorative windows. These
+// helpers turn the actual drawing data into geometry so the model matches the plan:
+// real party/demising walls, per-unit entries, and egress windows where the plan
+// places them.
+function _wallMesh(x1,z1,x2,z2,baseY,h,t,mat){
+  const dx=x2-x1,dz=z2-z1,len=Math.hypot(dx,dz)||0.01;
+  const mesh=new THREE.Mesh(new THREE.BoxGeometry(len+t,h,t),mat);   // +t so corners overlap cleanly
+  mesh.castShadow=mesh.receiveShadow=true;
+  mesh.position.set((x1+x2)/2,baseY+h/2,(z1+z2)/2);
+  mesh.rotation.y=-Math.atan2(dz,dx);
+  return mesh;
+}
+function _floorTile(r,baseY,mat){
+  const mesh=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.5,r.w-.4),0.22,Math.max(.5,r.h-.4)),mat);
+  mesh.receiveShadow=true;mesh.position.set(r.x+r.w/2,baseY+0.11,r.y+r.h/2);
+  return mesh;
+}
+function _openingMesh(o,baseY,fh,glassMat,doorMat){
+  const isDoor=o.kind==='door',w=Math.max(2,o.w||3);
+  const oh=isDoor?Math.min(6.8,fh-1):Math.min(fh*0.5,4.5);
+  const sill=isDoor?0.0:Math.min(fh*0.34,3.0),thr=0.62;   // poke through the wall both sides
+  const geo=o.vert?new THREE.BoxGeometry(thr,oh,w):new THREE.BoxGeometry(w,oh,thr);
+  const mesh=new THREE.Mesh(geo,isDoor?doorMat:glassMat);
+  mesh.position.set(o.x,baseY+sill+oh/2,o.y);
+  return mesh;
+}
+// Per-unit footprint bbox (over every room on every floor) → drives roof grouping.
+function _unitFootprints(pd){
+  const fp={};
+  pd.floors.forEach(fl=>(fl.rooms||[]).forEach(r=>{
+    if(r.unit==null||r.w<1||r.h<1)return;
+    const f=fp[r.unit]||(fp[r.unit]={x0:Infinity,y0:Infinity,x1:-Infinity,y1:-Infinity});
+    f.x0=Math.min(f.x0,r.x);f.y0=Math.min(f.y0,r.y);f.x1=Math.max(f.x1,r.x+r.w);f.y1=Math.max(f.y1,r.y+r.h);
+  }));
+  return fp;
+}
+function _addRoof(x0,z0,x1,z1,topY,stories,isAdu){
+  const w=x1-x0,d=z1-z0;if(!(w>1&&d>1))return;
+  const cx=(x0+x1)/2,cz=(z0+z1)/2,rH=Math.min(w,d)*(isAdu?0.2:0.28);
+  let roof;
+  if(isAdu)roof=_roofShed(w,d,rH,0x3a4660);
+  else{const form=_pickRoofForm(w,d,stories);
+    roof=form==='gable'?_roofGable(w,d,rH,0x2a3650):form==='flat'?_roofFlat(w,d,0x2a3650):form==='shed'?_roofShed(w,d,rH,0x2a3650):_roofHip(w,d,rH,0x2a3650);}
+  roof.position.set(cx,topY,cz);mg.add(roof);
+}
+// Group primary units that share a footprint (stacked flats) under ONE roof; units
+// that sit side-by-side (townhouse columns) each keep their own ridge → the roofline
+// reads as N units. ADUs each get their own single-storey shed at the rear.
+function _buildRoofs(pd,aduIds,totalH,fh0){
+  const fp=_unitFootprints(pd);
+  const ids=Object.keys(fp).map(Number);
+  const prim=ids.filter(id=>!aduIds.has(id));
+  const par={};prim.forEach(id=>par[id]=id);
+  const find=i=>par[i]===i?i:(par[i]=find(par[i]));
+  const span=(a,b,k0,k1)=>Math.min(a[k1],b[k1])-Math.max(a[k0],b[k0]);
+  for(let i=0;i<prim.length;i++)for(let j=i+1;j<prim.length;j++){
+    const a=fp[prim[i]],b=fp[prim[j]];
+    const xo=span(a,b,'x0','x1'),yo=span(a,b,'y0','y1');
+    const xm=Math.min(a.x1-a.x0,b.x1-b.x0),ym=Math.min(a.y1-a.y0,b.y1-b.y0);
+    if(xo>0.5*xm&&yo>0.5*ym)par[find(prim[i])]=find(prim[j]);   // overlapping footprint → stacked → one roof
+  }
+  const groups={};prim.forEach(id=>{(groups[find(id)]=groups[find(id)]||[]).push(fp[id])});
+  const st=pd.meta?.stories||1;
+  const gv=Object.values(groups);
+  if(gv.length){
+    gv.forEach(g=>{
+      const x0=Math.min(...g.map(f=>f.x0)),y0=Math.min(...g.map(f=>f.y0)),x1=Math.max(...g.map(f=>f.x1)),y1=Math.max(...g.map(f=>f.y1));
+      _addRoof(x0,y0,x1,y1,totalH,st,false);
+    });
+  }else{
+    // Safety: a plan carrying walls but no unit ids (legacy/hand-built) would be
+    // left roofless — cap the whole non-ADU footprint with one roof instead.
+    let x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity,any=false;
+    pd.floors.forEach(fl=>(fl.rooms||[]).forEach(r=>{if(r.w<1||r.h<1||aduIds.has(r.unit))return;any=true;
+      x0=Math.min(x0,r.x);y0=Math.min(y0,r.y);x1=Math.max(x1,r.x+r.w);y1=Math.max(y1,r.y+r.h)}));
+    if(any)_addRoof(x0,y0,x1,y1,totalH,st,false);
+  }
+  ids.filter(id=>aduIds.has(id)).forEach(id=>{const f=fp[id];_addRoof(f.x0,f.y0,f.x1,f.y1,fh0,1,true);});
+}
+// Legacy bounding-box massing — only for plans serialized before the L1 walls[]
+// model existed (current localFloorPlan always emits walls/openings).
+function _genMassFallback(pd,stories,totalH,fh0,aduIds){
   const bounds=rs=>{let mnX=Infinity,mxX=-Infinity,mnZ=Infinity,mxZ=-Infinity;
     rs.forEach(r=>{mnX=Math.min(mnX,r.x);mxX=Math.max(mxX,r.x+r.w);mnZ=Math.min(mnZ,r.y);mxZ=Math.max(mxZ,r.y+r.h)});
-    return {mnX,mxX,mnZ,mxZ,w:mxX-mnX,d:mxZ-mnZ,cx:(mnX+mxX)/2,cz:(mnZ+mxZ)/2};
-  };
-  const mainColor=0x6b7a8c,aduColor=0x7a8a9c;
-  // Main mass
-  if(mainRooms.length){
-    const mb=bounds(mainRooms);
-    const mass=_buildMassWithOpenings(mb.w,totalH,mb.d,mainColor,stories);
-    mass.position.set(mb.cx,0,mb.cz);mg.add(mass);
-    // Roof
-    const roofForm=_pickRoofForm(mb.w,mb.d,stories);
-    let roof;const rH=Math.min(mb.w,mb.d)*.28;
-    if(roofForm==='gable')roof=_roofGable(mb.w,mb.d,rH,0x2a3650);
-    else if(roofForm==='shed')roof=_roofShed(mb.w,mb.d,rH,0x2a3650);
-    else if(roofForm==='flat')roof=_roofFlat(mb.w,mb.d,0x2a3650);
-    else roof=_roofHip(mb.w,mb.d,rH,0x2a3650);
-    roof.position.set(mb.cx,totalH,mb.cz);mg.add(roof);
+    return{w:mxX-mnX,d:mxZ-mnZ,cx:(mnX+mxX)/2,cz:(mnZ+mxZ)/2}};
+  const mainRooms=[],aduRooms=[];
+  pd.floors.forEach(fl=>(fl.rooms||[]).forEach(r=>{if(!r.w||!r.h||r.w<1||r.h<1)return;
+    const isAdu=r.unit!=null?aduIds.has(r.unit):(r.name||'').startsWith('ADU ');
+    (isAdu?aduRooms:mainRooms).push(r)}));
+  if(mainRooms.length){const mb=bounds(mainRooms);
+    const mass=_buildMassWithOpenings(mb.w,totalH,mb.d,0x6b7a8c,stories);mass.position.set(mb.cx,0,mb.cz);mg.add(mass);
+    const form=_pickRoofForm(mb.w,mb.d,stories),rH=Math.min(mb.w,mb.d)*.28;
+    const roof=form==='gable'?_roofGable(mb.w,mb.d,rH,0x2a3650):form==='shed'?_roofShed(mb.w,mb.d,rH,0x2a3650):form==='flat'?_roofFlat(mb.w,mb.d,0x2a3650):_roofHip(mb.w,mb.d,rH,0x2a3650);
+    roof.position.set(mb.cx,totalH,mb.cz);mg.add(roof);}
+  if(aduRooms.length){const ab=bounds(aduRooms),aH=Math.min(fh0,10);
+    const aduMass=_buildMassWithOpenings(ab.w,aH,ab.d,0x7a8a9c,1,{entryX:0});aduMass.position.set(ab.cx,0,ab.cz);mg.add(aduMass);
+    const aduRoof=_roofShed(ab.w,ab.d,Math.min(ab.w,ab.d)*.2,0x3a4660);aduRoof.position.set(ab.cx,aH,ab.cz);mg.add(aduRoof);}
+}
+function gen3D(pd){
+  if(!THREE_INIT||!mg)return;
+  // Recursive dispose — roofs/masses are THREE.Group, so a shallow loop leaked
+  // their child geometry on every regen. traverse() frees nested meshes too.
+  while(mg.children.length){const c=mg.children[0];mg.remove(c);
+    c.traverse(o=>{o.geometry?.dispose?.();const m=o.material;if(m)(Array.isArray(m)?m:[m]).forEach(x=>x.dispose?.())});}
+  if(!pd?.floors)return;
+  const mm=pd.meta||{};
+  const stories=mm.stories||pd.floors.length||1;
+  const lotW=mm.lotWidth||50,lotD=mm.lotDepth||100;
+  const fh0=pd.floors[0]?.heightFt||9;
+  // cumulative floor elevations so upper storeys stack at the right height
+  const baseY=[];let acc=0;pd.floors.forEach((fl,i)=>{baseY[i]=acc;acc+=(fl.heightFt||9)});
+  const totalH=acc;
+  const aduIds=new Set((pd.units||[]).filter(u=>u.type==='adu').map(u=>u.id));
+  const hasWalls=pd.floors.some(f=>Array.isArray(f.walls)&&f.walls.length);
+
+  if(hasWalls){
+    // Shared materials, cached by use so a fourplex is a handful of materials.
+    const extMat=new THREE.MeshLambertMaterial({color:0xc4ccd4});
+    const partyMat=new THREE.MeshLambertMaterial({color:0x9a6650});   // fire/demising wall — warm tone reads from outside
+    const glassMat=new THREE.MeshLambertMaterial({color:0x22384e,transparent:true,opacity:.5});
+    const doorMat=new THREE.MeshLambertMaterial({color:0x6a4528});
+    const tileMats={};const tileMat=t=>tileMats[t]||(tileMats[t]=new THREE.MeshLambertMaterial({color:C3[t]||C3.default}));
+    pd.floors.forEach((fl,fIdx)=>{
+      const by=baseY[fIdx],fh=fl.heightFt||9;
+      (fl.rooms||[]).forEach(r=>{if(r.w>=1&&r.h>=1&&r.type!=='balcony')mg.add(_floorTile(r,by,tileMat(r.type)))});
+      (fl.openings||[]).forEach(o=>mg.add(_openingMesh(o,by,fh,glassMat,doorMat)));
+      (fl.walls||[]).forEach(w=>{const party=w.kind==='party';
+        mg.add(_wallMesh(w.x1,w.y1,w.x2,w.y2,by,fh,Math.max(w.t||0.5,party?0.6:0.5),party?partyMat:extMat))});
+    });
+    // Translucent balcony slabs at their floor's level.
+    pd.floors.forEach((fl,fIdx)=>{const by=baseY[fIdx];(fl.rooms||[]).forEach(r=>{if(r.type!=='balcony')return;
+      const b=new THREE.Mesh(new THREE.BoxGeometry(r.w,.4,r.h),new THREE.MeshLambertMaterial({color:0x289678,transparent:true,opacity:.45}));
+      b.position.set(r.x+r.w/2,by+.2,r.y+r.h/2);mg.add(b)})});
+    _buildRoofs(pd,aduIds,totalH,fh0);
+  }else{
+    _genMassFallback(pd,stories,totalH,fh0,aduIds);
   }
-  // ADU mass (1 story)
-  if(aduRooms.length){
-    const ab=bounds(aduRooms);
-    const aH=Math.min(fh,10);
-    const aduMass=_buildMassWithOpenings(ab.w,aH,ab.d,aduColor,1,{entryX:0});
-    aduMass.position.set(ab.cx,0,ab.cz);mg.add(aduMass);
-    // ADUs usually get a shed or small hip
-    const aduRoofH=Math.min(ab.w,ab.d)*.2;
-    const aduRoof=_roofShed(ab.w,ab.d,aduRoofH,0x3a4660);
-    aduRoof.position.set(ab.cx,aH,ab.cz);mg.add(aduRoof);
-  }
-  // Balconies (translucent)
-  balconyRooms.forEach(r=>{
-    const geo=new THREE.BoxGeometry(r.w,.5,r.h);
-    const m=new THREE.Mesh(geo,new THREE.MeshLambertMaterial({color:0x289678,transparent:true,opacity:.45}));
-    m.position.set(r.x+r.w/2,r.floor*fh+fh-.25,r.y+r.h/2);mg.add(m);
-  });
-  // ── Site accents — driveway + trees ──
-  const mm=pd.meta||{};const lotW=mm.lotWidth||50,lotD=mm.lotDepth||100;
-  // Driveway strip from front curb to main entry
-  if(mainRooms.length){
-    const mb=bounds(mainRooms);
-    const dwGeo=new THREE.PlaneGeometry(10,mb.mnZ-0);
-    const dw=new THREE.Mesh(dwGeo,new THREE.MeshLambertMaterial({color:0x14202c}));
-    dw.rotation.x=-Math.PI/2;dw.position.set(mb.cx,0.05,mb.mnZ/2);mg.add(dw);
-  }
-  // Two trees (front corners of lot)
+
+  // ── Site accents — driveway from front curb to the main entry + two trees ──
+  const main=pd.floors.flatMap(f=>(f.rooms||[]).filter(r=>r.w>1&&r.h>1&&(r.unit==null||!aduIds.has(r.unit))));
+  if(main.length){let mnX=Infinity,mxX=-Infinity,mnZ=Infinity;
+    main.forEach(r=>{mnX=Math.min(mnX,r.x);mxX=Math.max(mxX,r.x+r.w);mnZ=Math.min(mnZ,r.y)});
+    if(mnZ>2){const dw=new THREE.Mesh(new THREE.PlaneGeometry(10,mnZ),new THREE.MeshLambertMaterial({color:0x14202c}));
+      dw.rotation.x=-Math.PI/2;dw.position.set((mnX+mxX)/2,0.05,mnZ/2);mg.add(dw)}}
   [[3,3],[lotW-3,3]].forEach(([tx,tz])=>{
     const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.4,.5,5),new THREE.MeshLambertMaterial({color:0x3a2818}));
     trunk.position.set(tx,2.5,tz);mg.add(trunk);

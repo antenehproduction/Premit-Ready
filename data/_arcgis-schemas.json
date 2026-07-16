@@ -10,7 +10,7 @@
       "kind": "org",
       "orgHost": "https://services6.arcgis.com/z6WYi9VRHfgwgtyW",
       "registryKey": "snohomish_county_unincorp",
-      "serviceCountTotal": 502,
+      "serviceCountTotal": 505,
       "services": [
         {
           "name": "Building_Applications_Under_Review",
@@ -129,11 +129,11 @@
           "type": "FeatureServer"
         },
         {
-          "name": "Agricultural_Land",
+          "name": "Building_Address_Points",
           "type": "FeatureServer"
         },
         {
-          "name": "Building_Address_Points",
+          "name": "Agricultural_Land",
           "type": "FeatureServer"
         },
         {

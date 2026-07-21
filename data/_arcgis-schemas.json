@@ -125,10 +125,6 @@
           "type": "FeatureServer"
         },
         {
-          "name": "Future_Land_Use",
-          "type": "FeatureServer"
-        },
-        {
           "name": "Everett_Land_Use",
           "type": "FeatureServer"
         },
@@ -142,6 +138,10 @@
         },
         {
           "name": "Building_Address_Points",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Future_Land_Use",
           "type": "FeatureServer"
         }
       ]

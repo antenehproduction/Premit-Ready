@@ -10,7 +10,7 @@
       "kind": "org",
       "orgHost": "https://services6.arcgis.com/z6WYi9VRHfgwgtyW",
       "registryKey": "snohomish_county_unincorp",
-      "serviceCountTotal": 515,
+      "serviceCountTotal": 519,
       "services": [
         {
           "name": "Building_Applications_Under_Review",

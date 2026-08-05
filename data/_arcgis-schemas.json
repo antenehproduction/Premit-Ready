@@ -10,7 +10,7 @@
       "kind": "org",
       "orgHost": "https://services6.arcgis.com/z6WYi9VRHfgwgtyW",
       "registryKey": "snohomish_county_unincorp",
-      "serviceCountTotal": 520,
+      "serviceCountTotal": 522,
       "services": [
         {
           "name": "Building_Applications_Under_Review",
@@ -126,6 +126,10 @@
         },
         {
           "name": "Everett_Land_Use",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "MillCreek_LandUse",
           "type": "FeatureServer"
         },
         {

@@ -133,15 +133,15 @@
           "type": "FeatureServer"
         },
         {
+          "name": "Building_Address_Points",
+          "type": "FeatureServer"
+        },
+        {
           "name": "Active_Permits",
           "type": "FeatureServer"
         },
         {
           "name": "Agricultural_Land",
-          "type": "FeatureServer"
-        },
-        {
-          "name": "Building_Address_Points",
           "type": "FeatureServer"
         },
         {

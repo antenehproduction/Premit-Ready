@@ -137,11 +137,11 @@
           "type": "FeatureServer"
         },
         {
-          "name": "Agricultural_Land",
+          "name": "Building_Address_Points",
           "type": "FeatureServer"
         },
         {
-          "name": "Building_Address_Points",
+          "name": "Agricultural_Land",
           "type": "FeatureServer"
         },
         {

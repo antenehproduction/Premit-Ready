@@ -10,7 +10,7 @@
       "kind": "org",
       "orgHost": "https://services6.arcgis.com/z6WYi9VRHfgwgtyW",
       "registryKey": "snohomish_county_unincorp",
-      "serviceCountTotal": 519,
+      "serviceCountTotal": 529,
       "services": [
         {
           "name": "Building_Applications_Under_Review",
@@ -65,6 +65,14 @@
           "type": "FeatureServer"
         },
         {
+          "name": "LandScan_Population_Counts_2021_Day",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "LandScan_Population_Counts_2021_Night",
+          "type": "FeatureServer"
+        },
+        {
           "name": "LDA_and_ROW_Permits_Under_Construction",
           "type": "FeatureServer"
         },
@@ -86,6 +94,14 @@
         },
         {
           "name": "PopIslandsDemos",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Population_Island_Scoping_WFL1",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Population_Island_Webmap_WFL1",
           "type": "FeatureServer"
         },
         {

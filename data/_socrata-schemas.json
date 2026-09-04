@@ -488,7 +488,7 @@
       "name": "Issued Construction Permits",
       "registryKey": "austin",
       "rowsUpdatedAt": 1788437066,
-      "viewLastModified": 1788435357
+      "viewLastModified": 1788521962
     },
     "data.cityofchicago.org:ydr8-5enu": {
       "addressFieldGuess": "location",
@@ -1233,7 +1233,7 @@
       "host": "data.cityofchicago.org",
       "name": "Building Permits",
       "registryKey": "chicago",
-      "rowsUpdatedAt": 1788437730,
+      "rowsUpdatedAt": 1788523850,
       "viewLastModified": 1780080970
     },
     "data.cityofnewyork.us:ipu4-2q9a": {
@@ -1607,8 +1607,8 @@
       "host": "data.cityofnewyork.us",
       "name": "DOB Permit Issuance",
       "registryKey": "nyc",
-      "rowsUpdatedAt": 1788396737,
-      "viewLastModified": 1788388246
+      "rowsUpdatedAt": 1788481364,
+      "viewLastModified": 1788474645
     },
     "data.everettwa.gov:3w3u-656c": {
       "addressFieldGuess": "siteaddress",
@@ -1747,8 +1747,8 @@
       "host": "data.everettwa.gov",
       "name": "Trakit Permits",
       "registryKey": "everett",
-      "rowsUpdatedAt": 1788430568,
-      "viewLastModified": 1788430542
+      "rowsUpdatedAt": 1788516982,
+      "viewLastModified": 1788516965
     },
     "data.sandiegocounty.gov:dyzh-7eat": {
       "addressFieldGuess": "full_address",
@@ -2183,8 +2183,8 @@
       "host": "data.seattle.gov",
       "name": "Building Permits",
       "registryKey": "seattle",
-      "rowsUpdatedAt": 1788355737,
-      "viewLastModified": 1788355667
+      "rowsUpdatedAt": 1788484346,
+      "viewLastModified": 1788484228
     },
     "data.sfgov.org:i98e-djp9": {
       "addressFieldGuess": "location",
@@ -2515,7 +2515,7 @@
       "host": "data.sfgov.org",
       "name": "Building Permits",
       "registryKey": "sf",
-      "rowsUpdatedAt": 1788439348,
+      "rowsUpdatedAt": 1788525853,
       "viewLastModified": 1755626161
     },
     "internal.open.piercecountywa.gov:nhnt-v7ka": {

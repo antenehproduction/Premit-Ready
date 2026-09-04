@@ -149,10 +149,6 @@
           "type": "FeatureServer"
         },
         {
-          "name": "Building_Address_Points",
-          "type": "FeatureServer"
-        },
-        {
           "name": "Conservation_Lands",
           "type": "FeatureServer"
         },
@@ -162,6 +158,10 @@
         },
         {
           "name": "Agricultural_Land",
+          "type": "FeatureServer"
+        },
+        {
+          "name": "Building_Address_Points",
           "type": "FeatureServer"
         },
         {
